@@ -11874,303 +11874,262 @@
               var e = this.getSelectionRange();
               e.start.column == e.end.column &&
                 e.start.row == e.end.row &&
-                ((e.end.column = 0)ction (e) {
-            e.removeWordLeft();
-          },
-          multiSelectAction: "forEach",
-          scrollIntoView: "cursor",
-        },
-        {
-          name: "removewordright",
-          bindKey: o("Ctrl-Delete", "Alt-Delete"),
-          exec: function (e) {
-            e.removeWordRight();
-          },
-          multiSelectAction: "forEach",
-          scrollIntoView: "cursor",
-        },
-        {
-          name: "outdent",
-          bindKey: o("Shift-Tab", "Shift-Tab"),
-          exec: function (e) {
-            e.blockOutdent();
-          },
-          multiSelectAction: "forEach",
-          scrollIntoView: "selectionPart",
-        },
-        {
-          name: "indent",
-          bindKey: o("Tab", "Tab"),
-          exec: function (e) {
-            e.indent();
-          },
-          multiSelectAction: "forEach",
-          scrollIntoView: "selectionPart",
-        },
-        {
-          name: "blockoutdent",
-          bindKey: o("Ctrl-[", "Ctrl-["),
-          exec: function (e) {
-            e.blockOutdent();
-          },
-          multiSelectAction: "forEachLine",
-          scrollIntoView: "selectionPart",
-        },
-        {
-          name: "blockindent",
-          bindKey: o("Ctrl-]", "Ctrl-]"),
-          exec: function (e) {
-            e.blockIndent();
-          },
-          multiSelectAction: "forEachLine",
-          scrollIntoView: "selectionPart",
-        },
-        {
-          name: "insertstring",
-          exec: function (e, t) {
-            e.insert(t);
-          },
-          multiSelectAction: "forEach",
-          scrollIntoView: "cursor",
-        },
-        {
-          name: "inserttext",
-          exec: function (e, t) {
-            e.insert(r.stringRepeat(t.text || "", t.times || 1));
-          },
-          multiSelectAction: "forEach",
-          scrollIntoView: "cursor",
-        },
-        {
-          name: "splitline",
-          bindKey: o(null, "Ctrl-O"),
-          exec: function (e) {
-            e.splitLine();
-          },
-          multiSelectAction: "forEach",
-          scrollIntoView: "cursor",
-        },
-        {
-          name: "transposeletters",
-          bindKey: o("Alt-Shift-X", "Ctrl-T"),
-          exec: function (e) {
-            e.transposeLetters();
-          },
-          multiSelectAction: function (e) {
-            e.transposeSelections(1);
-          },
-          scrollIntoView: "cursor",
-        },
-        {
-          name: "touppercase",
-          bindKey: o("Ctrl-U", "Ctrl-U"),
-          exec: function (e) {
-            e.toUpperCase();
-          },
-          multiSelectAction: "forEach",
-          scrollIntoView: "cursor",
-        },
-        {
-          name: "tolowercase",
-          bindKey: o("Ctrl-Shift-U", "Ctrl-Shift-U"),
-          exec: function (e) {
-            e.toLowerCase();
-          },
-          multiSelectAction: "forEach",
-          scrollIntoView: "cursor",
-        },
-        {
-          name: "expandtoline",
-          bindKey: o("Ctrl-Shift-L", "Command-Shift-L"),
-          exec: function (e) {
-            var t = e.selection.getRange();
-            (t.start.column = t.end.column = 0),
-              t.end.row++,
-              e.selection.setRange(t, !1);
-          },
-          multiSelectAction: "forEach",
-          scrollIntoView: "cursor",
-          readOnly: !0,
-        },
-        {
-          name: "joinlines",
-          bindKey: o(null, null),
-          exec: function (e) {
-            var t = e.selection.isBackwards(),
-              n = t
-                ? e.selection.getSelectionLead()
-                : e.selection.getSelectionAnchor(),
-              i = t
-                ? e.selection.getSelectionAnchor()
-                : e.selection.getSelectionLead(),
-              o = e.session.doc.getLine(n.row).length,
-              u = e.session.doc.getTextRange(e.selection.getRange()),
-              a = u.replace(/\n\s*/, " ").length,
-              f = e.session.doc.getLine(n.row);
-            for (var l = n.row + 1; l <= i.row + 1; l++) {
-              var c = r.stringTrimLeft(
-                r.stringTrimRight(e.session.doc.getLine(l))
-              );
-              c.length !== 0 && (c = " " + c), (f += c);
-            }
-            i.row + 1 < e.session.doc.getLength() - 1 &&
-              (f += e.session.doc.getNewLineCharacter()),
-              e.clearSelection(),
-              e.session.doc.replace(new s(n.row, 0, i.row + 2, 0), f),
-              a > 0
-                ? (e.selection.moveCursorTo(n.row, n.column),
-                  e.selection.selectTo(n.row, n.column + a))
-                : ((o = e.session.doc.getLine(n.row).length > o ? o + 1 : o),
-                  e.selection.moveCursorTo(n.row, o));
-          },
-          multiSelectAction: "forEach",
-          readOnly: !0,
-        },
-        {
-          name: "invertSelection",
-          bindKey: o(null, null),
-          exec: function (e) {
-            var t = e.session.doc.getLength() - 1,
-              n = e.session.doc.getLine(t).length,
-              r = e.selection.rangeList.ranges,
-              i = [];
-            r.length < 1 && (r = [e.selection.getRange()]);
-            for (var o = 0; o < r.length; o++)
-              o == r.length - 1 &&
-                (r[o].end.row !== t || r[o].end.column !== n) &&
-                i.push(new s(r[o].end.row, r[o].end.column, t, n)),
-                o === 0
-                  ? (r[o].start.row !== 0 || r[o].start.column !== 0) &&
-                    i.push(new s(0, 0, r[o].start.row, r[o].start.column))
-                  : i.push(
-                      new s(
-                        r[o - 1].end.row,
-                        r[o - 1].end.column,
-                        r[o].start.row,
-                        r[o].start.column
+                ((e.end.column = 0), e.end.row++),
+                this.session.remove(e),
+                this.clearSelection();
+            }),
+            (this.splitLine = function () {
+              this.selection.isEmpty() ||
+                (this.session.remove(this.getSelectionRange()),
+                this.clearSelection());
+              var e = this.getCursorPosition();
+              this.insert("\n"), this.moveCursorToPosition(e);
+            }),
+            (this.transposeLetters = function () {
+              if (!this.selection.isEmpty()) return;
+              var e = this.getCursorPosition(),
+                t = e.column;
+              if (t === 0) return;
+              var n = this.session.getLine(e.row),
+                r,
+                i;
+              t < n.length
+                ? ((r = n.charAt(t) + n.charAt(t - 1)),
+                  (i = new p(e.row, t - 1, e.row, t + 1)))
+                : ((r = n.charAt(t - 1) + n.charAt(t - 2)),
+                  (i = new p(e.row, t - 2, e.row, t))),
+                this.session.replace(i, r),
+                this.session.selection.moveToPosition(i.end);
+            }),
+            (this.toLowerCase = function () {
+              var e = this.getSelectionRange();
+              this.selection.isEmpty() && this.selection.selectWord();
+              var t = this.getSelectionRange(),
+                n = this.session.getTextRange(t);
+              this.session.replace(t, n.toLowerCase()),
+                this.selection.setSelectionRange(e);
+            }),
+            (this.toUpperCase = function () {
+              var e = this.getSelectionRange();
+              this.selection.isEmpty() && this.selection.selectWord();
+              var t = this.getSelectionRange(),
+                n = this.session.getTextRange(t);
+              this.session.replace(t, n.toUpperCase()),
+                this.selection.setSelectionRange(e);
+            }),
+            (this.indent = function () {
+              var e = this.session,
+                t = this.getSelectionRange();
+              if (t.start.row < t.end.row) {
+                var n = this.$getSelectedRows();
+                e.indentRows(n.first, n.last, "	");
+                return;
+              }
+              if (t.start.column < t.end.column) {
+                var r = e.getTextRange(t);
+                if (!/^\s+$/.test(r)) {
+                  var n = this.$getSelectedRows();
+                  e.indentRows(n.first, n.last, "	");
+                  return;
+                }
+              }
+              var i = e.getLine(t.start.row),
+                o = t.start,
+                u = e.getTabSize(),
+                a = e.documentToScreenColumn(o.row, o.column);
+              if (this.session.getUseSoftTabs())
+                var f = u - (a % u),
+                  l = s.stringRepeat(" ", f);
+              else {
+                var f = a % u;
+                while (i[t.start.column - 1] == " " && f) t.start.column--, f--;
+                this.selection.setSelectionRange(t), (l = "	");
+              }
+              return this.insert(l);
+            }),
+            (this.blockIndent = function () {
+              var e = this.$getSelectedRows();
+              this.session.indentRows(e.first, e.last, "	");
+            }),
+            (this.blockOutdent = function () {
+              var e = this.session.getSelection();
+              this.session.outdentRows(e.getRange());
+            }),
+            (this.sortLines = function () {
+              var e = this.$getSelectedRows(),
+                t = this.session,
+                n = [];
+              for (var r = e.first; r <= e.last; r++) n.push(t.getLine(r));
+              n.sort(function (e, t) {
+                return e.toLowerCase() < t.toLowerCase()
+                  ? -1
+                  : e.toLowerCase() > t.toLowerCase()
+                  ? 1
+                  : 0;
+              });
+              var i = new p(0, 0, 0, 0);
+              for (var r = e.first; r <= e.last; r++) {
+                var s = t.getLine(r);
+                (i.start.row = r),
+                  (i.end.row = r),
+                  (i.end.column = s.length),
+                  t.replace(i, n[r - e.first]);
+              }
+            }),
+            (this.toggleCommentLines = function () {
+              var e = this.session.getState(this.getCursorPosition().row),
+                t = this.$getSelectedRows();
+              this.session
+                .getMode()
+                .toggleCommentLines(e, this.session, t.first, t.last);
+            }),
+            (this.toggleBlockComment = function () {
+              var e = this.getCursorPosition(),
+                t = this.session.getState(e.row),
+                n = this.getSelectionRange();
+              this.session.getMode().toggleBlockComment(t, this.session, n, e);
+            }),
+            (this.getNumberAt = function (e, t) {
+              var n = /[\-]?[0-9]+(?:\.[0-9]+)?/g;
+              n.lastIndex = 0;
+              var r = this.session.getLine(e);
+              while (n.lastIndex < t) {
+                var i = n.exec(r);
+                if (i.index <= t && i.index + i[0].length >= t) {
+                  var s = {
+                    value: i[0],
+                    start: i.index,
+                    end: i.index + i[0].length,
+                  };
+                  return s;
+                }
+              }
+              return null;
+            }),
+            (this.modifyNumber = function (e) {
+              var t = this.selection.getCursor().row,
+                n = this.selection.getCursor().column,
+                r = new p(t, n - 1, t, n),
+                i = this.session.getTextRange(r);
+              if (!isNaN(parseFloat(i)) && isFinite(i)) {
+                var s = this.getNumberAt(t, n);
+                if (s) {
+                  var o =
+                      s.value.indexOf(".") >= 0
+                        ? s.start + s.value.indexOf(".") + 1
+                        : s.end,
+                    u = s.start + s.value.length - o,
+                    a = parseFloat(s.value);
+                  (a *= Math.pow(10, u)),
+                    o !== s.end && n < o
+                      ? (e *= Math.pow(10, s.end - n - 1))
+                      : (e *= Math.pow(10, s.end - n)),
+                    (a += e),
+                    (a /= Math.pow(10, u));
+                  var f = a.toFixed(u),
+                    l = new p(t, s.start, t, s.end);
+                  this.session.replace(l, f),
+                    this.moveCursorTo(
+                      t,
+                      Math.max(s.start + 1, n + f.length - s.value.length)
+                    );
+                }
+              } else this.toggleWord();
+            }),
+            (this.$toggleWordPairs = [
+              ["first", "last"],
+              ["true", "false"],
+              ["yes", "no"],
+              ["width", "height"],
+              ["top", "bottom"],
+              ["right", "left"],
+              ["on", "off"],
+              ["x", "y"],
+              ["get", "set"],
+              ["max", "min"],
+              ["horizontal", "vertical"],
+              ["show", "hide"],
+              ["add", "remove"],
+              ["up", "down"],
+              ["before", "after"],
+              ["even", "odd"],
+              ["inside", "outside"],
+              ["next", "previous"],
+              ["increase", "decrease"],
+              ["attach", "detach"],
+              ["&&", "||"],
+              ["==", "!="],
+            ]),
+            (this.toggleWord = function () {
+              var e = this.selection.getCursor().row,
+                t = this.selection.getCursor().column;
+              this.selection.selectWord();
+              var n = this.getSelectedText(),
+                r = this.selection.getWordRange().start.column,
+                i = n
+                  .replace(/([a-z]+|[A-Z]+)(?=[A-Z_]|$)/g, "$1 ")
+                  .split(/\s/),
+                o = t - r - 1;
+              o < 0 && (o = 0);
+              var u = 0,
+                a = 0,
+                f = this;
+              n.match(/[A-Za-z0-9_]+/) &&
+                i.forEach(function (t, i) {
+                  (a = u + t.length),
+                    o >= u &&
+                      o <= a &&
+                      ((n = t),
+                      f.selection.clearSelection(),
+                      f.moveCursorTo(e, u + r),
+                      f.selection.selectTo(e, a + r)),
+                    (u = a);
+                });
+              var l = this.$toggleWordPairs,
+                c;
+              for (var h = 0; h < l.length; h++) {
+                var p = l[h];
+                for (var d = 0; d <= 1; d++) {
+                  var v = +!d,
+                    m = n.match(
+                      new RegExp(
+                        "^\\s?_?(" + s.escapeRegExp(p[d]) + ")\\s?$",
+                        "i"
                       )
                     );
-            e.exitMultiSelectMode(), e.clearSelection();
-            for (var o = 0; o < i.length; o++) e.selection.addRange(i[o], !1);
-          },
-          readOnly: !0,
-          scrollIntoView: "none",
-        },
-      ];
-    }
-  ),
-  define("ace/clipboard", ["require", "exports", "module"], function (e, t, n) {
-    "use strict";
-    n.exports = { lineMode: !1 };
-  }),
-  define(
-    "ace/editor",
-    [
-      "require",
-      "exports",
-      "module",
-      "ace/lib/fixoldbrowsers",
-      "ace/lib/oop",
-      "ace/lib/dom",
-      "ace/lib/lang",
-      "ace/lib/useragent",
-      "ace/keyboard/textinput",
-      "ace/mouse/mouse_handler",
-      "ace/mouse/fold_handler",
-      "ace/keyboard/keybinding",
-      "ace/edit_session",
-      "ace/search",
-      "ace/range",
-      "ace/lib/event_emitter",
-      "ace/commands/command_manager",
-      "ace/commands/default_commands",
-      "ace/config",
-      "ace/token_iterator",
-      "ace/clipboard",
-    ],
-    function (e, t, n) {
-      "use strict";
-      e("./lib/fixoldbrowsers");
-      var r = e("./lib/oop"),
-        i = e("./lib/dom"),
-        s = e("./lib/lang"),
-        o = e("./lib/useragent"),
-        u = e("./keyboard/textinput").TextInput,
-        a = e("./mouse/mouse_handler").MouseHandler,
-        f = e("./mouse/fold_handler").FoldHandler,
-        l = e("./keyboard/keybinding").KeyBinding,
-        c = e("./edit_session").EditSession,
-        h = e("./search").Search,
-        p = e("./range").Range,
-        d = e("./lib/event_emitter").EventEmitter,
-        v = e("./commands/command_manager").CommandManager,
-        m = e("./commands/default_commands").commands,
-        g = e("./config"),
-        y = e("./token_iterator").TokenIterator,
-        b = e("./clipboard"),
-        w = function (e, t, n) {
-          var r = e.getContainerElement();
-          (this.container = r),
-            (this.renderer = e),
-            (this.id = "editor" + ++w.$uid),
-            (this.commands = new v(o.isMac ? "mac" : "win", m)),
-            typeof document == "object" &&
-              ((this.textInput = new u(e.getTextAreaContainer(), this)),
-              (this.renderer.textarea = this.textInput.getElement()),
-              (this.$mouseHandler = new a(this)),
-              new f(this)),
-            (this.keyBinding = new l(this)),
-            (this.$search = new h().set({ wrap: !0 })),
-            (this.$historyTracker = this.$historyTracker.bind(this)),
-            this.commands.on("exec", this.$historyTracker),
-            this.$initOperationListeners(),
-            (this._$emitInputEvent = s.delayedCall(
-              function () {
-                this._signal("input", {}),
-                  this.session &&
-                    this.session.bgTokenizer &&
-                    this.session.bgTokenizer.scheduleStart();
-              }.bind(this)
-            )),
-            this.on("change", function (e, t) {
-              t._$emitInputEvent.schedule(31);
+                  if (m) {
+                    var g = n.match(
+                      new RegExp(
+                        "([_]|^|\\s)(" + s.escapeRegExp(m[1]) + ")($|\\s)",
+                        "g"
+                      )
+                    );
+                    g &&
+                      ((c = n.replace(
+                        new RegExp(s.escapeRegExp(p[d]), "i"),
+                        function (e) {
+                          var t = p[v];
+                          return (
+                            e.toUpperCase() == e
+                              ? (t = t.toUpperCase())
+                              : e.charAt(0).toUpperCase() == e.charAt(0) &&
+                                (t =
+                                  t.substr(0, 0) +
+                                  p[v].charAt(0).toUpperCase() +
+                                  t.substr(1)),
+                            t
+                          );
+                        }
+                      )),
+                      this.insert(c),
+                      (c = ""));
+                  }
+                }
+              }
             }),
-            this.setSession(t || (n && n.session) || new c("")),
-            g.resetOptions(this),
-            n && this.setOptions(n),
-            g._signal("editor", this);
-        };
-      (w.$uid = 0),
-        function () {
-          r.implement(this, d),
-            (this.$initOperationListeners = function () {
-              this.commands.on("exec", this.startOperation.bind(this), !0),
-                this.commands.on("afterExec", this.endOperation.bind(this), !0),
-                (this.$opResetTimer = s.delayedCall(
-                  this.endOperation.bind(this, !0)
-                )),
-                this.on(
-                  "change",
-                  function () {
-                    this.curOp ||
-                      (this.startOperation(),
-                      (this.curOp.selectionBefore = this.$lastSel)),
-                      (this.curOp.docChanged = !0);
-                  }.bind(this),
-                  !0
-                ),
-                this.on(
-                  "changeSelection",
-                  function () {
-                    this.curOp ||
-                      (this.startOperation(),
-                      (this.curOp.selectionBefore = this.$lastSel)),
-                      (this.curOp.selectionChanged = !0);
-                  }.bind(this),
-                  !0
-                );
-            }),
-            (this.curOion.removeFullLines(e.first, e.last),
+            (this.removeLines = function () {
+              var e = this.$getSelectedRows();
+              this.session.removeFullLines(e.first, e.last),
                 this.clearSelection();
             }),
             (this.duplicateSelection = function () {
