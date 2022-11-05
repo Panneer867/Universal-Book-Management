@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="page-header">
+            <h3 class="page-title">
+               Unit of Measures
+            </h3>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Unit of Measures</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
+               </ol>
+            </nav>
+         </div>
+         <div class="row d-flex justify-content-center pt-5">
+            <div class="col-md-8 grid-margin stretch-card">
+               <div class="card">
+                  <div class="card-body">
+                     <h4 class="card-title text-center">Unit of Measures</h4>
+                     
+                         <!-- Message Alert Field -->
+               
+		               <div class="alert_field">       
+		               <div th:if="${session.message}" th:classappend="${session.message.type }" class="alert" role="alert">
+		                    <p class="text-center" th:text="${session.message.content}"> </p>
+		                    <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		                 </div>
+		              </div>  
+		                
+            <!-- End of Message Alert Field -->
+                     
+                     
+                     <form class="forms-sample" th:action="@{/master/createUnitsMaster}" method="post"  data-toggle="validator">
+                        <div class="form-group">
+                           <label for="exampleSelectGender">Units Type</label>
+                            <input type="text" class="form-control col-sm-6" id="exampleInputMobile" name= "units_type" data-error="Min 2 digits required !" required> 
+                               <div class="help-block with-errors text-danger"></div>
+                        
+                        </div>
+                        <button type="submit" th:action="@{/master/createUnitsMaster}" class="btn btn-primary mr-2">Submit</button>
+                        <a type="button"  th:href="@{/master/UnitData}" class="btn btn-success">View</a>
+                        <button type="reset" class="btn btn-sm-2 btn-secondary">Reset</button>
+                    </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+         
+         <div class="row d-flex justify-content-center pt-1"  th:if="${show != null}">
+            <div class="col-md-8 grid-margin stretch-card">
+               <div class="card">
+                  <div class="card-body">
+                     <h4 class="card-title text-center">Unit of Measures</h4>
+                     
+                     <table class="table">
+						  <thead class="thead-dark">
+						    <tr class= "text-center" >
+						      <th scope="col">Sl No</th>
+						      <th scope="col">Units Type</th>
+						      <th scope="col">Action</th>
+						     
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr th:each="units: ${listOfUnits}" class= "text-center">
+						
+						      <td th:text="${units.unitid}">Mark</td>
+						      <td th:text="${units.units_type}">Otto</td>
+						      <td >
+                              <a th:href="@{/master/view-tracking}" class="btn btn-success btn-sm p-1 mx-2" style= "width: 50px;">Edit</a>
+                            <a href="#" th:href="@{'/master/deleteUnit/'+${units.unitid}}" class="btn btn-danger btn-sm">Delete</a>
+
+                            <!--  <a type="button" data-toggle="modal" data-target="#deleteAlert" class="btn btn-danger btn-sm p-1"> Delete </a>
+                          			<div class="modal fade" id="deleteAlert" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel-3" aria-hidden="true">
+										 <div class="modal-dialog modal-sm" role="document">
+											<div class="modal-content">															
+												<div class="modal-body justify-content-center">
+													<p class="text-center">Once deleted it cannot be reverted.</p>
+													<p class="text-center">Are you sure you want to delete?</p>
+												</div>
+												<div class="modal-footer justify-content-center">
+													<a type="button" th:href="@{'/master/deleteUnit/'+${units.unitid}}" class="btn btn-danger">Delete</a>
+													<button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+										    	</div>
+											</div>
+										</div>
+									</div>    -->
+                      		   </td>
+						    </tr>
+					
+						  </tbody>
+						</table>											
+                  </div>
+               </div>
+            </div>
+           
+         </div>
+         
+      </section>           
+   </body>
+</html>

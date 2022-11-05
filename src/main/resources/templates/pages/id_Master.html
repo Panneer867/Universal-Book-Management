@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+<style>
+
+.hidden {
+  display: none;
+}
+
+.placeholder {
+  font-size: 12px;
+}
+</style>
+
+   <body>
+      <section>
+         <div class="page-header">
+            <h3 class="page-title">
+               ID Master
+            </h3>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">ID Master</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
+               </ol>
+            </nav>
+         </div>
+         <div class="col-10 grid-margin stretch-card mx-auto pt-5 ">
+            <div class="card">
+               <div class="card-body">
+                  <h4 class="card-title text-center">ID Master</h4>
+                  <hr class="pb-3">
+                  
+                    <!-- Message Alert Field -->
+               
+		               <div class="alert_field">       
+		               <div th:if="${session.message}" th:classappend="${session.message.type }" class="alert" role="alert">
+		                    <p class="text-center" th:text="${session.message.content}"> </p>
+		                    <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		                 </div>
+		              </div>  
+		                
+            <!-- End of Message Alert Field -->
+                  <form class="forms-sample" th:action="@{/master/createIdMaster}" method="post"  data-toggle="validator">
+                    
+                     <div class="row">
+                        <div class="col-3">
+                           <div class="form-group">
+                              <label for="exampleSelectGender">Id Type</label>
+                              <select class="form-control" id="id_type" name="id_type" data-error="Select Catagory !" required>
+                               	<option value="0">Select Id Type...</option>
+                                 <option>Barcode ID</option>
+                                 <option>Business ID</option>
+                                 <option>Branch ID</option>
+                                 <option>Brand ID</option>
+                  		         <option>Bundel ID</option>
+                                 <option>Cash Counter</option>
+                                 <option>Category ID</option>
+                                 <option>Customer id</option>
+                                 <option>Department ID</option>
+                                 <option>Employee ID</option>
+                                 <option>HSN Code ID</option>
+                                 <option>Invoice ID</option>
+                                 <option>Item ID</option>
+                                 <option>product ID</option>
+                                 <option>School ID</option>
+                                 <option>Stock ID</option>
+                                 <option>Bundle Sales</option>
+                                 <option>Cash  Sales</option>
+                                 <option>Credit Note</option>
+                                 <option>Credit Sales</option>
+                                 <option>Delivery Challan / Materials Out </option>
+                                 <option>Sales Order </option>
+                                 <option>Business</option>
+                                 <option>Business</option>
+                                 <option>Business</option>
+                                 <option>Business</option>
+                                 <option>Business</option>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Serial Number</label>
+                              <input type="text" class="form-control" id="serial_number" name="serial_number" placeholder="Serial Number" data-error="Min 2 digits required !" required> 
+                               <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Last Number</label>
+                              <input type="text" class="form-control" id="last_number" name="last_number" placeholder="Last Number" data-error="Min 2 digits required !" required> 
+                               <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Description</label>
+                              <input type="text" class="form-control" id="description" name="description" placeholder="Description" data-error="Min 2 digits required !" required> 
+                               <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="text-center">
+                        <button type="submit" th:href="@{/master/createIdMaster}"  class="btn btn-primary mr-2 ">Submit</button>
+                        <a  type="button" th:href="@{/master/showIdData}"  class="btn btn-success">View</a>
+                       <button type="reset" class="btn btn-sm-2 btn-secondary">Reset</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      <div class="row d-flex justify-content-center pt-1"  th:if="${show != null}">
+            <div class="col-md-10 grid-margin stretch-card">
+               <div class="card">
+                  <div class="card-body">
+                     <h4 class="card-title text-center">Id Master</h4>
+                     
+                     <table class="table">
+						  <thead class="thead-dark">
+						    <tr class= "text-center" >
+						       <th>Sl NO</th>
+	                           <th>Id Type</th>
+	                           <th>Serial Number</th>
+	                           <th>Last Number</th>
+	                           <th>Description</th>
+	                           <th>Action</th>
+							     
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr th:each="allId: ${listOfId}" class= "text-center">
+						
+						      <td th:text="${allId.allMasterid}">Mark</td>
+						      <td th:text="${allId.id_type}"></td>
+						       <td th:text="${allId.serial_number}">Otto</td>
+						        <td th:text="${allId.last_number}">Otto</td>
+						         <td th:text="${allId.description}">Otto</td>
+						      <td >
+                              <a th:href="@{/master/view-tracking}" class="btn btn-success btn-sm p-1 mx-2" style= "width: 50px;">Edit</a>
+ 						      <a type="button"data-toggle="modal" data-target="#deleteAlert" class="btn btn-danger btn-sm p-1"> Delete </a>
+                          			<div class="modal fade" id="deleteAlert" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel-3" aria-hidden="true">
+										 <div class="modal-dialog modal-sm" role="document">
+											<div class="modal-content">															
+												<div class="modal-body justify-content-center">
+													<p class="text-center">Once deleted it cannot be reverted.</p>
+													<p class="text-center">Are you sure you want to delete?</p>
+												</div>
+												<div class="modal-footer justify-content-center">
+													<a type="button" th:href="@{'/master/delete/'+${allId.allMasterid}}" class="btn btn-danger">Delete</a>
+													<button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+										    	</div>
+											</div>
+										</div>
+									</div>                               </td>
+						    </tr>
+						    
+						  </tbody>
+						</table>											
+                  </div>
+               </div>
+            </div>
+         </div>
+      
+      
+      </section>
+   </body>
+</html>

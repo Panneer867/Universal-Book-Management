@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="page-header">
+            <h3 class="page-title">
+               Purchase Order
+            </h3>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Purchase Order</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Orders</li>
+               </ol>
+            </nav>
+         </div>
+         <div class="row">
+            <div class="col-9 grid-margin stretch-card">
+               <div class="card">
+                  <div class="card-body">
+                     <h4 class=" text-success card-title text-center">Purchase Order</h4>
+                     <hr class="pb-3">
+                     <form class="forms-sample">
+                        <div class="row">
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Customer</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter Name">
+                              </div>
+                           </div>
+                            <div class="col-3">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Purchase ID</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter Name">
+                              </div>
+                           </div>
+                           <div class="col-2">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Ref</label>
+                                 <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                           <div class="col-3">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Ref Date</label>
+                                 <input type="date" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-3">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Credit Limit</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                           <div class="col-3">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Balance </label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                           <div class="col-3">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">From</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                           <div class="col-3">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">To</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-3">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Billing Address</label>
+                                 <textarea  class="form-control" id="exampleInputEmail3" rows="4"></textarea>
+                              </div>
+                           </div>
+                           <div class="col-3">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Ship to Address </label>
+                                 <textarea  class="form-control" id="exampleInputEmail3" rows="4"></textarea>
+                              </div>
+                           </div>
+                           <div class="col-3">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Salesman</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                           <div class="col-3">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Location</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Contact</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Department</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-8">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Remarks</label>
+                                 <textarea class="form-control" id="exampleInputEmail3"  rows="5"></textarea>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Vehicle No</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Driver Mob.</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Delivery Boy</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Dispatch</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter here">
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <div class="col-3 grid-margin stretch-card">
+               <div class="card">
+                  <div class="row">
+                     <div class="col-9">
+                        <table  class="table table-hover  border-top-10 border-Light">
+                           <thead>
+                              <tr >
+                                 <th>P ID</th>
+                                 <th>Date</th>
+                                 <th>Amount</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>P00001</td>
+                                 <td>14/10/2022</td>
+                                 <td>10000</td>
+                              </tr>
+                              <tr>
+                                 <td>P00002</td>
+                                 <td>14/10/2022</td>
+                                 <td>200000</td>
+                              </tr>
+                              <tr>
+                                 <td>P00003</td>
+                                 <td>14/10/2022</td>
+                                 <td>3000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P00004</td>
+                                 <td>14/10/2022</td>
+                                 <td>40000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P00005</td>
+                                 <td>14/10/2022</td>
+                                 <td>500000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P00006</td>
+                                 <td>14/10/2022</td>
+                                 <td>60000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P00007</td>
+                                 <td>14/10/2022</td>
+                                 <td>60000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P00008</td>
+                                 <td>14/10/2022</td>
+                                 <td>60000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P00009</td>
+                                 <td>14/10/2022</td>
+                                 <td>60000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P000010</td>
+                                 <td>14/10/2022</td>
+                                 <td>60000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P000011</td>
+                                 <td>14/10/2022</td>
+                                 <td>60000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P000012</td>
+                                 <td>14/10/2022</td>
+                                 <td>60000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P000013</td>
+                                 <td>14/10/2022</td>
+                                 <td>60000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P000014</td>
+                                 <td>14/10/2022</td>
+                                 <td>60000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P000015</td>
+                                 <td>14/10/2022</td>
+                                 <td>60000000</td>
+                              </tr>
+                              <tr>
+                                 <td>P000016</td>
+                                 <td>14/10/2022</td>
+                                 <td>60000000</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-9">
+                        <nav>
+                           <ul class="pagination pagination-sm">
+                              <li class="page-item active"><a class="page-link" href="#">Previous</a></li>
+                              <li class="page-item"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                              <li class="page-item"><a class="page-link" href="#">4</a></li>
+                              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                           </ul>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+   </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="page-header">
+            <h3 class="page-title">
+               Item Master
+            </h3>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Item Master</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
+               </ol>
+            </nav>
+         </div>
+         <div class="col-12 grid-margin stretch-card mx-auto pt-5">
+            <div class="card">
+               <div class="card-body">
+                  <h4 class="card-title text-center">Item Master</h4>
+					
+					 <!-- Message Alert Field -->
+               
+		               <div th:if="${session.message}" class="alert_field">       
+		                 <div class="alert text-center" th:classappend="${'alert-'+session.message.type}"  role="alert">
+                            <span th:text="${session.message.content}"></span>
+                         </div>
+                           <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		              </div>  
+		                
+                      <!-- End of Message Alert Field -->
+					
+                  <hr class="pb-3">
+                  <form class="forms-sample" th:action="@{/master/saveItemData}" data-toggle="validator" role="form" th:object="${item}" method="post" enctype="multipart/form-data">
+                     <div class="row">
+                        <div class="col-3">
+                           <div class="form-group">
+                              <label for="itemName">Item Name</label><strong class="text-danger ">*</strong>
+                              <input type="text" name="itemName" class="form-control" id="itemName" data-minlength="2" data-error="Min 2 digits required !" placeholder="Enter Item Name" required>                             
+                            <div class="help-block with-errors text-danger"></div>
+                           </div>
+                           
+                            <div class="form-group">
+                              <label for="categoryName">Category Name</label><strong class="text-danger ">*</strong>
+                               <select class="form-control" id="exampleItemCategory" name="categoryName">
+                                 <option>--select--</option>
+                                 <option>Mobile</option>
+                                 <option>Laptop</option>
+                              </select>               
+                            <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="col-3">
+                           <div class="form-group">
+                              <label for="itemStatus">Item Status</label><strong class="text-danger ">*</strong>
+                              <select class="form-control" id="exampleItemStatus" name="itemStatus">
+                                 <option>Available</option>
+                                 <option>Not Available</option>
+                              </select>
+                            <div class="help-block with-errors text-danger"></div>
+                           </div>
+                           <div class="form-group">
+                              <label for="authorName">Author Name</label>
+                              <input type="text" name="authorName" class="form-control" id="authorName" data-minlength="2" data-error="Min 2 digits required !" placeholder="Enter Author Name" required>                             
+                            <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                         <div class="col-3">
+                           <div class="form-group">
+                              <label for="createDate">Create Date</label><strong class="text-danger ">*</strong>
+                              <input type="date" class="form-control" id="exampleInputDate" name="createDate">
+                            <div class="help-block with-errors text-danger"></div>
+                           </div>
+                           <div class="form-group">
+                              <label for="publisherName">Publisher Name</label>
+                              <input type="text" name="publisherName" class="form-control" id="publisherName" data-minlength="2" data-error="Min 2 digits required !" placeholder="Enter Publisher Name" required>                             
+                            <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        
+                        <div class="col-3">
+                              <div class="form-group text-center">
+                                                <label for="itemImage" class="font-weight-bold">Item Logo<strong class="text-danger ">*</strong></label>
+                                                <input type="file" name="itemImage" id="itemImage" accept="image/*" data-height="80" data-max-file-size="300K" 
+                                                   data-max-width="250" data-max-height="150" class="dropify" data-error="Logo required !" required>
+                                                <small class="text-info">[File: 300KB 250x150]</small>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                        </div>
+                     </div>
+                     
+                     <div class="text-center">
+                        <button type="submit" th:href="@{/master/saveItemData}" class="btn btn-sm btn-primary mr-2">Submit</button>
+                         <a type="button" th:href="@{/master/findItemHistory}" class="btn btn-sm btn-success mr-2">View</a>
+                        <button type="reset" class="btn btn-sm btn-secondary">Reset</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         
+         <div class="col-12 grid-margin stretch-card mx-auto pt-2" th:if="${show != null}">
+            <div class="card">
+               <div class="card-body">
+                  <h4 class="card-title text-center">Item Master History</h4>					             
+                  <table class="table">
+					  <thead class="thead-dark">
+					    <tr>
+					      <th scope="col">ID</th>
+					      <th scope="col">Item Name</th>
+					      <th scope="col">Item Status</th>
+					      <th scope="col">Create Date</th>
+					      <th scope="col">Category Name</th>
+					      <th scope="col">Author Name</th>
+					      <th scope="col">Publisher Name</th>
+					      <th scope="col">Item Image</th>
+					      <th scope="col">Action</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr th:each="item : ${listOfItems}">
+					      <td>IT<span th:text="${item.itemId}"></span></td>
+					      <td th:text="${item.itemName}"></td>
+					      <td th:text="${item.itemStatus}"></td>
+					      <td th:text="${item.createDate}"></td>
+					      <td th:text="${item.categoryName}"></td>
+					      <td th:text="${item.authorName}"></td>
+					      <td th:text="${item.publisherName}"></td>
+					      <td th:text="${item.itemImage}"></td>					     
+					      <td><a href="#" th:href="@{'/master/deleteItemData/'+${item.itemId}}" class="btn btn-danger btn-sm">Delete</a></td>
+					    </tr>					    
+					  </tbody>
+					</table>										
+               </div>
+            </div>
+         </div>
+         
+      </section>
+   </body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="page-header">
+            <h3 class="page-title">
+               Bundle Creation
+            </h3>
+            <nav aria-label="breadcrumb  ">
+               <ol class="breadcrumb border border-dark p-0">
+                  <div class="btn-group" >
+                     <a href="#"  class="btn btn-inverse-primary btn-sm rounded-0">
+                     <i class="glyphicon glyphicon-plus fa-2x"></i>
+                     </a>
+                  </div>
+                  <div class="btn-group">
+                     <a href="#"  class="btn btn-inverse-dark btn-sm rounded-0" >
+                     <i class="glyphicon glyphicon-edit fa-2x"></i>
+                     </a>
+                  </div>
+                  <div class="btn-group">
+                     <a href="#"  class="btn btn-inverse-danger btn-sm rounded-0" disabled="disabled">
+                     <i class="glyphicon glyphicon-trash fa-2x"></i>
+                     </a>
+                  </div>
+                  <div class="btn-group">
+                     <a href="#" class="btn btn-inverse-dark btn-sm rounded-0" disabled="disabled">
+                     <i class="glyphicon glyphicon-floppy-saved fa-2x"></i>
+                     </a>
+                  </div>
+                  <div class="btn-group">
+                     <div class="btn-group"> 
+                        <a href="#" class="btn btn-inverse-success btn-sm rounded-0">
+                        <i class="glyphicon glyphicon-search fa-2x"></i>
+                        </a>
+                     </div>
+                  </div>
+                  <div class="btn-group">
+                     <a href="#" class="btn btn-inverse-info btn-sm rounded-0">
+                     <i class="fa fa-undo fa-2x"></i>
+                     </a>
+                  </div>
+                  <div class="btn-group" >
+                     <a href="#" class="btn btn-inverse-dark btn-sm rounded-0" disabled="disabled">
+                     <i class="fa fa-print fa-2x"></i>
+                     </a>
+                  </div>
+                  <div class="btn-group">
+                     <a href="#" class="btn btn-inverse-warning btn-sm rounded-0" >
+                     <i class="fa fa-times fa-2x"></i>
+                     </a>
+                  </div>
+               </ol>
+            </nav>
+         </div>
+         <div class="row d-flex justify-content-center pt-2">
+            <div class="col-12 ">
+               <div class="card">
+                  <div class="card-body p-0">
+                     <h4 class="text-center header-title pt-2">Bundle Creation</h4>
+                     <hr>
+                     
+                       <!-- Message Alert Field -->
+               
+		               <div class="alert_field">       
+		               <div th:if="${session.message}" th:classappend="${session.message.type }" class="alert" role="alert">
+		                    <p class="text-center" th:text="${session.message.content}"> </p>
+		                    <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		                 </div>
+		              </div>  
+		                
+            <!-- End of Message Alert Field -->
+                     
+                     <form class="forms-sample px-4 pt-2 pb-0" th:action="@{/master/createBundleMaster}" method="post" th:object="${searchItem}" data-toggle="validator">
+                        <div class="row">
+                           <div class="col-2">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Bundle ID</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter Bundle Id" name="createBundleId" data-error="Min 2 digits required !" required> 
+                               <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-6">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Bundle Name</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter Bundle Name" name="bundleName" data-error="Min 2 digits required !" required> 
+                               <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="exampleSelectGender">Board</label>
+                                 
+                                   <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Board" name="bundleBoard" data-error="Min 2 digits required !" required> 
+                               <div class="help-block with-errors text-danger"></div>
+                             	<select class="form-control" id="exampleSelectGender" name="bundleBoard" th:each="school: ${schoolMaster}">
+                                    <option>Select</option>
+                                    <option>State</option>
+                                    <option>CBSE</option>
+                                    <option>ICSC</option>
+                                    <option>Other</option>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                         
+                          <div class="col-8">
+                              <div class="form-group mb-0">
+                                 <label for="exampleInputEmail3">School / Department Name</label>
+                                <select class="form-control" id="exampleSelectGender" name="bundleSchoolName">
+                                    <option th:each="school: ${schoolMaster}"
+                                    th:value="${school.schoolName}" 
+                                    th:text="${school.schoolName} + ','+${school.schoolAddress}"
+                                   >Select School Name</option>
+                                    
+                                 </select>
+                              </div>
+                           </div>
+                        
+                           <div class="col-4">
+                              <div class="form-group mb-0">
+                                 <label for="exampleSelectGender">Standard</label>
+                                 <select class="form-control" id="exampleSelectGender" name="bundleStanded" data-error="Select Catagory !" required>
+                                    <option>Select</option>
+                                    <option>1st Std</option>
+                                    <option>2nd Std</option>
+                                    <option>3rd Std</option>
+                                    <option>4th Std</option>
+                                    <option>5th Std</option>
+                                    <option>6th Std</option>
+                                     <div class="help-block with-errors text-danger"></div>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+                        
+                        <div class="row">
+                           
+                           <div class="col-8">
+                              <div class="form-group mb-0">
+                                 <label for="exampleInputEmail3">Address</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Address" name="bundleAddress" data-error="Min 2 digits required !" required> 
+                               <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           
+                            <div class="col-4">
+                              <div class="form-group mb-0">
+                                 <label for="exampleInputEmail3">Language</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Language" name="bundleLanguage" data-error="Min 2 digits required !" required> 
+                               <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                     
+                        </div>
+                 
+                     
+                     <div class ="forms-sample px-4 pt-2 pb-0" style="margin-top: 10px;background-color:aqua;margin-bottom:10px;height:51px;" >
+                      <div class="form-group row">
+					        <label for="exampleInputEmail3" style="margin-top: 12px;">BookName</label>
+					    <div class="col-4">
+					      <input type="text" class="form-control" id="bundleBookName" placeholder="Subject Tittle" name="bundleBookName" 
+					      data-error="Min 2 digits required !" required onchange="getBookDetails()" > 
+                               <div class="help-block with-errors text-danger"></div>
+					    </div>
+					    <div class="col-2">
+					      <input type="number" class="form-control" id="bundleQty" placeholder="Qty" name="bundleQty" data-error="Min 2 digits required !" required> 
+                               <div class="help-block with-errors text-danger"></div>
+					    </div>
+					     <div class="col-2">
+					      <input type="number" class="form-control" id="bundlePrice" placeholder="Price" 
+					      name="bundlePrice"    data-error="Min 2 digits required !" required> 
+                               <div class="help-block with-errors text-danger"></div>
+					    </div>
+					 
+					     <button type="submit" th:href="@{/master/createBundleMaster}" class="btn btn-sm btn-primary" style="width:80px;">Add</button>
+						 <a  type="button" th:href="@{/master/showBundleMasterData}" style="width:80px;margin-left:5px;" class="btn btn-success">View</a>
+						 <button type="reset" class="btn btn-sm-2 btn-secondary" style="width:80px;margin-left:5px;">Reset</button>
+					  </div>
+                     
+                     </div>
+                    
+                    </form>     
+                     
+                     
+                   
+                  </div>
+               </div>
+            </div>
+         </div>
+              <div class="row d-flex justify-content-center pt-1"  th:if="${show != null}">
+            <div class="col-md-12 grid-margin stretch-card">
+               <div class="card">
+                  <div class="card-body">
+                     <h4 class="card-title text-center">Bundle Master</h4>
+                      <div style-"overflow-y: scroll; height:50px";>
+                     <table class="table">
+						  <thead class="thead-dark">
+						    <tr class= "text-center" >
+                           <th>School Name</th>
+                           <th>Grade</th>
+                           <th>Language</th>
+                           <th>Name of Book</th>
+                           <th>HSN</th>
+                           <th>QTY</th>
+                           <th>Rate</th>
+                           <th>Amount</th>
+                          <th>Actions</th>
+                        </tr>
+                     </thead>
+                   
+                     <tbody>
+                        <tr class="text-center" th:each="BundelMaster: ${bundleMaster}">
+                           <td th:text="${BundelMaster.bundleSchoolName}"></td>
+                           <td th:text="${BundelMaster.bundleStanded}"></td>
+                           <td th:text="${BundelMaster.bundleLanguage}"></td>
+                           <td th:text="${BundelMaster.bundleBookName}"></td>
+                           <td th:text="${BundelMaster.createBundleId}"></td>
+                           <td th:text="${BundelMaster.bundleQty}"></td>
+                           <td th:text="${BundelMaster.bundlePrice}"></td>
+                           <td th:text="${BundelMaster.bundlePrice}"></td>           
+                           <td>
+                              <a th:href="@{/master/view-tracking}" class="btn btn-success btn-sm p-1 mx-2" style="width:50px;">View</a>
+                              <br>
+  							<a type="button"data-toggle="modal" data-target="#deleteAlert" class="btn btn-danger btn-sm p-1"> Delete </a>
+                          			<div class="modal fade" id="deleteAlert" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel-3" aria-hidden="true">
+										 <div class="modal-dialog modal-sm" role="document">
+											<div class="modal-content">															
+												<div class="modal-body justify-content-center">
+													<p class="text-center">Once deleted it cannot be reverted.</p>
+													<p class="text-center">Are you sure you want to delete?</p>
+												</div>
+												<div class="modal-footer justify-content-center">
+													<a type="button" th:href="@{'/master/deleteBundle/'+${BundelMaster.bundleId}}" class="btn btn-danger">Delete</a>
+													<button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+										    	</div>
+											</div>
+										</div>
+									</div>    
+						   </td>
+                        </tr>
+
+                     </tbody>
+                    
+                  </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+ 
+
+      </section>
+   </body>
+</html>

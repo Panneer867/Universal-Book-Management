@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="page-header">
+            <h3 class="page-title">
+               Barcode Generator
+            </h3>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Barcode Generator</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
+               </ol>
+            </nav>
+         </div>
+         <div class="row">
+            <div class="col-8 grid-margin stretch-card">
+               <div class="card">
+                  <div class="card-body">
+                     <h4 class="card-title text-center">Generate Barcode</h4>
+                     <hr class="pb-3">
+                     <form class="forms-sample">
+                        <div class="row">
+                           <div class="col-2">
+                              <div class="form-group">
+                                 <label for="exampleSelectGender">Barcode Type</label>
+                                 <select class="form-control" id="exampleSelectGender">
+                                    <option>QR</option>
+                                    <option>Bar</option>
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Barcode Number</label>
+                                 <input type="text" class="form-control" id="exampleInputEmail3" disabled>
+                              </div>
+                           </div>
+                           <div class="col">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Item Name</label>
+                                 <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter Item Name">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-2">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Quantity</label>
+                                 <input type="number" class="form-control" id="exampleInputEmail3">
+                              </div>
+                           </div>
+                           <div class="col-3">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail3">Price</label>
+                                 <input type="number" class="form-control" id="exampleInputEmail3" placeholder="Enter Price">
+                              </div>
+                           </div>
+                        </div>
+                        <a href="#" class="btn btn-success float-right mt-4 ml-2"><i class="fa fa-print mr-1"></i>Print</a>
+                        <a href="#" class="btn btn-primary float-right mt-4 ml-2"><i class="fa fa-eye mr-1"></i>Preview</a>
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <div class="col-4 grid-margin stretch-card">
+               <div class="card">
+                  <img class="card-img-top" th:src="@{/images/qr.png}" alt="Card image cap">
+                  <a href="#" class="btn btn-success float-right m-2"><i class="fa fa-download mr-1"></i>Download</a>
+               </div>
+            </div>
+         </div>
+      </section>
+   </body>
+</html>

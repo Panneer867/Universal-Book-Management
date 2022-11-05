@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="page-header">
+            <h3 class="page-title">
+               Rate Master
+            </h3>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Rate Master</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
+               </ol>
+            </nav>
+         </div>
+         <div class="col-8 grid-margin stretch-card mx-auto">
+            <div class="card">
+               <div class="card-body">
+                  <h4 class="card-title text-center">Rate Master</h4>
+                  <hr class="pb-3">
+                  <form class="forms-sample">
+                     <div class="row">
+                        <div class="col-8">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Category</label>
+                              <select class="form-control ">
+                                 <option>Select</option>
+                                 <option>Yes</option>
+                                 <option>No</option>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Supplier List</label> 
+                              <select class="form-control ">
+                                 <option>Select Branch</option>
+                                 <option>Yes</option>
+                                 <option>No</option>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-8">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Item Description</label>
+                              <input type="text" class="form-control" id="exampleInputCity1" placeholder="Enter Item Description">
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Main Supplier</label> 
+                              <input type="text" class="form-control" id="exampleInputCity1" placeholder="Enter Main Supplier">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-8">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Basic Price</label>
+                              <input type="text" class="form-control" id="exampleInputCity1" placeholder="Enter Basic Price">
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Bundle Type</label> 
+                              <select class="form-control ">
+                                 <option>Select</option>
+                                 <option>Single</option>
+                                 <option>6 Nos</option>
+                                 <option>12 Nos</option>
+                                 <option>Bundle</option>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-2">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">HSN Code</label>
+                              <input type="text" class="form-control" id="exampleInputCity1">
+                           </div>
+                        </div>
+                        <div class="col-2">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">GST %</label>
+                              <input type="text" class="form-control" id="exampleInputCity1">
+                           </div>
+                        </div>
+                        <div class="col-2">
+                           <div class="form-group">
+                              <label for="exampleSelectGender">Total Price</label>
+                              <input type="text" class="form-control" id="exampleInputCity1">
+                           </div>
+                        </div>
+                        <div class="col-2">
+                           <div class="form-group">
+                              <label for="exampleSelectGender">Discount  Max</label>
+                              <input type="text" class="form-control" id="exampleInputCity1">
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleSelectGender">Date of Purchase</label>
+                              <input type="date" class="form-control" id="exampleInputCity1">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleTextarea1">Barcode Category No</label>
+                              <select class="form-control ">
+                                 <option>Select</option>
+                                 <option>Single</option>
+                                 <option>6 Nos</option>
+                                 <option>12 Nos</option>
+                                 <option>Bundle</option>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Barcode Item No</label>
+                              <input type="number" class="form-control" id="exampleInputCity1" placeholder="Enter Barcode Item No">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="text-center">
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <button class="btn btn-success">View</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </section>
+   </body>
+</html>

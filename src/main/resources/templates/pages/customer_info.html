@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+
+
+   <body>
+   
+ 
+      <section>
+        <form class="forms-sample" th:action="@{/master/saveCustomerData}" method="post">
+          <div class="page-header">
+            <h3 class="page-title">
+               Customer Info
+            </h3>
+            <nav aria-label="breadcrumb  ">
+               <ol class="breadcrumb border border-dark p-0">
+                  <div class="btn-group" >
+                     <a href="#" class="btn btn-inverse-primary btn-sm rounded-0">
+                     <i class="glyphicon glyphicon-plus fa-2x"></i>
+                     </a>
+                  </div>
+                  <div class="btn-group">
+                     <a href="#"  class="btn btn-inverse-dark btn-sm rounded-0" disabled="disabled">
+                     <i class="glyphicon glyphicon-edit fa-2x"></i>
+                     </a>
+                  </div>
+                  <div class="btn-group">
+                     <a href="#"  class="btn btn-inverse-danger btn-sm rounded-0" disabled="disabled">
+                     <i class="glyphicon glyphicon-trash fa-2x"></i>
+                     </a>
+                  </div>
+                  <div class="btn-group">
+                     <a href="#" class="btn btn-inverse-dark btn-sm rounded-0" disabled="disabled">
+                     <i class="glyphicon glyphicon-floppy-saved fa-2x"></i>
+                     </a>
+                  </div>                
+                  <div class="btn-group">
+                     <a href="#" class="btn btn-inverse-info btn-sm rounded-0">
+                     <i class="fa fa-undo fa-2x"></i>
+                     </a>
+                  </div>                
+                  <div class="btn-group">
+                     <a href="#" class="btn btn-inverse-warning btn-sm rounded-0" >
+                     <i class="fa fa-times fa-2x"></i>
+                     </a>
+                  </div>
+               </ol>
+            </nav>
+         </div>
+         <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+               <div class="card border-top-0">
+                  <ul class="nav nav-tabs" role="tablist">
+                     <li class="nav-item">
+                        <a class="nav-link active border-left-0 py-2 px-3 font-weight-bold" id="customer-tab" data-toggle="tab" href="#customer" role="tab" aria-controls="customer" aria-selected="true">Customer Info</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link border-left-0 py-2 px-3 font-weight-bold" id="credit-tab" data-toggle="tab" href="#credit" role="tab" aria-controls="credit" aria-selected="false">Credit Limit</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link border-left-0 py-2 px-3 font-weight-bold" id="purchase-tab" data-toggle="tab" href="#purchase" role="tab" aria-controls="purchase" aria-selected="false">Purchase</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link border-left-0 py-2 px-3 font-weight-bold" id="payments-tab" data-toggle="tab" href="#payments" role="tab" aria-controls="payments" aria-selected="false">Payment</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link border-left-0 py-2 px-3 font-weight-bold" id="bank-tab" data-toggle="tab" href="#bank" role="tab" aria-controls="bank" aria-selected="false">Bank Details</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link border-left-0 py-2 px-3 font-weight-bold" id="school-tab" data-toggle="tab" href="#school" role="tab" aria-controls="school" aria-selected="false">School Details</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link border-left-0 py-2 px-3 font-weight-bold" id="busniess-tab" data-toggle="tab" href="#busniess" role="tab" aria-controls="busniess" aria-selected="false">Busniess Info</a>
+                     </li>
+                     <li style="margin-left:10px;">
+                       <input class="form-control mr-sm-2 border-left-0 py-2 px-3" style="height: 41px;" type="search" placeholder="Search" aria-label="Search">                     
+                     </li>                     
+                  </ul>
+                  <div class="tab-content pb-0">
+                  
+                  <!-- Start Of Customer-info Form-->
+                  
+                     <!--<div class="tab-pane fade show active" id="customer" role="tabpanel" aria-labelledby="customer-tab">-->
+                        <div role="tabpanel" class="tab-pane active" id="customer">
+                           <div class="row">
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="customerName" class="col-sm-4 col-form-label">Name</label>
+                                    <div class="col-sm-8">
+                                       <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Customer Name">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="aliasName" class="col-sm-4 col-form-label">Alias Name</label>
+                                    <div class="col-sm-8">
+                                       <input type="text" class="form-control" id="aliasName" name="aliasName" placeholder="Enter Alias Name">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                  <label for="customerId" class="col-sm-4 col-form-label">Customer Id</label>
+                                    <div class="col-sm-6">
+                                       <input type="text" class="form-control" id="customerId" name="customerId" disabled>
+                                    </div>                                    
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="entryDate" class="col-sm-4 col-form-label">Entry Date</label>
+                                    <div class="col-sm-8">
+                                       <input type="date" class="form-control" id="entryDate" name="entryDate" placeholder="Enter Email">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="category" class="col-sm-4 col-form-label">Category</label>
+                                    <div class="col-sm-8">
+                                       <select class="form-control " name="category">
+                                          <option>Select Branch</option>
+                                          <option>Yes</option>
+                                          <option>No</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="customertype" class="col-sm-4 col-form-label">Customer Type</label>
+                                    <div class="col-sm-8">
+                                       <select class="form-control " name="customertype">
+                                          <option>Select Branch</option>
+                                          <option>Yes</option>
+                                          <option>No</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="custGroup" class="col-sm-4 col-form-label">Customer Group</label>
+                                    <div class="col-sm-8">
+                                       <input type="text" class="form-control" id="custGroup" name="custGroup" placeholder="Enter Customer Group">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="emailId" class="col-sm-4 col-form-label">Email ID</label>
+                                    <div class="col-sm-8">
+                                       <input type="email" class="form-control" name="emailId" id="emailId" placeholder="Enter Email ID">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="customerMobile" class="col-sm-4 col-form-label">Mobile Number</label>
+                                    <div class="col-sm-8">
+                                       <input type="text" class="form-control" id="customerMobile" name="customerMobile" placeholder="Enter Mobile Number">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="state" class="col-sm-4 col-form-label">State</label>
+                                    <div class="col-sm-8">
+                                       <select class="form-control " name="state">
+                                          <option>Select</option>
+                                          <option>Tamil Nadu</option>
+                                          <option>Kerala</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="city" class="col-sm-4 col-form-label">City</label>
+                                    <div class="col-sm-8">
+                                       <select class="form-control " name="city">
+                                          <option>Select</option>
+                                          <option>Bangalore</option>
+                                          <option>Mysore</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="address" class="col-sm-4 col-form-label">Address</label>
+                                    <div class="col-sm-8">
+                                       <textarea class="form-control" id="address" name="address" rows="4" placeholder="Enter Company Address"></textarea>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="pincode" class="col-sm-4 col-form-label">Pin Code</label>
+                                    <div class="col-sm-8">
+                                       <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Enter Pin Code">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="webSite" class="col-sm-4 col-form-label">Website</label>
+                                    <div class="col-sm-8">
+                                       <input type="text" class="form-control" id="webSite" name="webSite" placeholder="Enter Website">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="dateofBirth" class="col-sm-4 col-form-label">Date of Birth</label>
+                                    <div class="col-sm-8">
+                                       <input type="date" class="form-control" id="dateofBirth" name="dateofBirth" placeholder="Enter Date of Birth">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="emdAmount" class="col-sm-4 col-form-label">EMD Amount</label>
+                                    <div class="col-sm-8">
+                                       <input type="number" class="form-control" id="emdAmount" name="emdAmount" placeholder="Enter EMD Amount">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="emdDate" class="col-sm-4 col-form-label">EMD Date</label>
+                                    <div class="col-sm-8">
+                                       <input type="date" class="form-control" name="emdDate" id="emdDate">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="openingBalance" class="col-sm-4 col-form-label">Opening Balance</label>
+                                    <div class="col-sm-8">
+                                       <input type="text" class="form-control" id="openingBalance" name="openingBalance" placeholder="Enter Website">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>                                                     
+                            <div class="row">
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="gstRegdDealer" class="col-sm-4 col-form-label">GST Regd Dealert</label>
+                                    <div class="col-sm-8">
+                                       <input type="number" class="form-control" id="gstRegdDealer" name="gstRegdDealer" placeholder="Enter GST Regd">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="route" class="col-sm-4 col-form-label">Route</label>
+                                    <div class="col-sm-8">
+                                       <input type="text" class="form-control" name="route" id="route" placeholder="Enter Route">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="gstnType" class="col-sm-4 col-form-label">GSTN Type </label>
+                                    <div class="col-sm-8">
+                                       <input type="text" class="form-control" id="gstnType" name="gstnType" placeholder="Enter Generation Type">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div> 
+                           <div class="row">
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="gstnRegNumber" class="col-sm-4 col-form-label">GSTN Reg Number </label>
+                                    <div class="col-sm-8">
+                                       <input type="number" class="form-control" id="gstnRegNumber" name="gstnRegNumber" placeholder="Enter GST Regd">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="marriage" class="col-sm-4 col-form-label">Marriage Anniversary</label>
+                                    <div class="col-sm-8">
+                                       <input type="text" class="form-control" name="marriage" id="marriage" placeholder="Marriage Anniversary">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="remarks" class="col-sm-4 col-form-label">Remarks </label>
+                                    <div class="col-sm-8">
+                                       <input type="text" class="form-control" id="remarks" name="remarks" placeholder="Enter Remarks">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div> 
+                             
+                   <a class="btn btn-primary continue">Continue</a>  
+                     </div>
+                   
+                    
+                   <!-- End Of Customer-info Form-->
+                    
+<!--                    <div class="tab-pane fade" id="credit" role="tabpanel" aria-labelledby="credit-tab">  -->         
+ 						 <div role="tabpanel" class="tab-pane active" id="credit">                 
+							<div class="row">
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Credit Limit</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Credit Limit">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Credit Limit in %</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Credit Limit in %">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Used Credit Limit</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Used Credit Limit">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Used Credit Limit in %</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Used Credit Limit in %">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">No of Credit Days</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter No of Credit Days">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Status</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Status">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Pan Card No</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Pan Card No">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Name on Pan Card</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Name on Pan Card">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Reminders</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" disabled>
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Dispatch Mode</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Dispatch Mode">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Document Through</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Document Through">
+                                 </div>
+                              </div>
+                           </div>    
+                           
+                              <div class="tab-pane" id="tab2">
+						        <a class="btn btn-primary btnNext" >Next</a>
+						        <a class="btn btn-primary btnPrevious" >Previous</a>
+						    </div>
+                                            
+                     </div>
+                     
+                     <div class="tab-pane fade" id="purchase" role="tabpanel" aria-labelledby="purchase-tab">                       
+                           <div class="row">
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Purchase No</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Purchase No">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Invoice Amount</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Invoice Amount">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Purchased Date</label>
+                                    <input type="date" class="form-control" id="exampleInputUsername1">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Payment</label>
+                                    <div class="row pt-2">
+                                       <div class="col">
+                                          <div class="form-check">
+                                             <label class="form-check-label">
+                                             <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" >
+                                             Yes
+                                             </label>
+                                          </div>
+                                       </div>
+                                       <div class="col">
+                                          <div class="form-check">
+                                             <label class="form-check-label">
+                                             <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" checked>
+                                             No
+                                             </label>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Purchase Item</label>
+                                    <input name="tags" id="tags" value="Note Book,Pencil" />
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Puchase Quantity</label>
+                                    <div class="pt-2">
+                                       <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Puchase Quantity">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Amount</label>
+                                    <div class="pt-2">
+                                       <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Amount">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row pt-3">
+                              <div class="col-md-3">
+                                 <div class="form-group text-center">
+                                    <label for="exampleInputUsername1">Total</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" disabled>
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group text-center">
+                                    <label for="exampleInputUsername1">Toral Puchase Quantity</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" disabled>
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group text-center">
+                                    <label for="exampleInputUsername1">Total Amount</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" disabled>
+                                 </div>
+                              </div>
+                           </div>                       
+                     </div>
+                     
+                     <div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="payments-tab">                       
+                           <div class="row px-5">
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Customer Name</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Customer Name">
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Customer Code</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Customer Code">
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Invoice Number</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Invoice Number">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row px-5">
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Invoice Amount</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Invoice Amount">
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Invoice Date</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Invoice Date">
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Payment Status</label>
+                                    <select class="form-control ">
+                                       <option>Select</option>
+                                       <option>Payment Done</option>
+                                       <option>Payment Not Done</option>
+                                    </select>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row px-5">
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Payment Date</label>
+                                    <input type="date" class="form-control" id="exampleInputUsername1">
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Payment</label>
+                                    <div class="row pt-2">
+                                       <div class="col">
+                                          <div class="form-check">
+                                             <label class="form-check-label">
+                                             <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" >
+                                             Cash
+                                             </label>
+                                          </div>
+                                       </div>
+                                       <div class="col">
+                                          <div class="form-check">
+                                             <label class="form-check-label">
+                                             <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" checked>
+                                             Online
+                                             </label>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>                      
+                     </div>
+                     
+                     <div class="tab-pane fade" id="bank" role="tabpanel" aria-labelledby="bank-tab">                       
+                           <div class="row">
+                              <div class="col-md-3">
+                                 <div class="form-group row">
+                                    <label for="exampleInputMobile" class="col-sm-3 col-form-label">Name</label>
+                                    <div class="col-sm-9">
+                                       <input type="email" class="form-control" id="exampleInputMobile" placeholder="Enter Name">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="exampleInputMobile" class="col-sm-4 col-form-label">Bank Name</label>
+                                    <div class="col-sm-8">
+                                       <input type="email" class="form-control" id="exampleInputMobile" placeholder="Enter Bank Name">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-5">
+                                 <div class="form-group row">
+                                    <label for="exampleInputMobile" class="col-sm-4 col-form-label">Account number</label>
+                                    <div class="col-sm-8">
+                                       <input type="email" class="form-control" id="exampleInputMobile" placeholder="Enter Account number">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-4">
+                                 <div class="form-group row">
+                                    <label for="exampleInputMobile" class="col-sm-4 col-form-label">IFSC Code</label>
+                                    <div class="col-sm-8">
+                                       <input type="email" class="form-control" id="exampleInputMobile" placeholder="Enter IFSC Code">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-8">
+                                 <div class="form-group row">
+                                    <label for="exampleInputMobile" class="col-sm-2 col-form-label">Bank Address</label>
+                                    <div class="col-sm-10">
+                                       <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Enter Bank Address"></textarea>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>                     
+                     </div>
+                     
+                     <div class="tab-pane fade" id="school" role="tabpanel" aria-labelledby="school-tab">                       
+                           <div class="row px-5">
+                              <div class="col-md-6">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">School Name</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter School Name">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">School Code</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter School Code">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Payment</label>
+                                    <select class="form-control ">
+                                       <option>Select</option>
+                                       <option>Yes</option>
+                                       <option>No</option>
+                                    </select>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row px-5">
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">School Address</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Enter School Address"></textarea>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Contact Number</label>
+                                    <div class="pt-3">
+                                       <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Contact Number">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Email ID</label>
+                                    <div class="pt-3">
+                                       <input type="email" class="form-control" id="exampleInputUsername1" placeholder="Enter Email ID">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row px-5">
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Contact Person Name</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Contact Person">
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Designation</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Designation">
+                                 </div>
+                              </div>
+                           </div>                      
+                     </div>
+                     <div class="tab-pane fade" id="busniess" role="tabpanel" aria-labelledby="busniess-tab">                       
+                           <div class="row px-5">
+                              <div class="col-md-6">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Busniess Name</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter School Name">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Busniess Code</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter School Code">
+                                 </div>
+                              </div>
+                              <div class="col-md-3">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Payment</label>
+                                    <select class="form-control ">
+                                       <option>Select</option>
+                                       <option>Yes</option>
+                                       <option>No</option>
+                                    </select>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row px-5">
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Busniess Address</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Enter School Address"></textarea>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Contact Number</label>
+                                    <div class="pt-3">
+                                       <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Contact Number">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Email ID</label>
+                                    <div class="pt-3">
+                                       <input type="email" class="form-control" id="exampleInputUsername1" placeholder="Enter Email ID">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row px-5">
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Contact Person Name</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Contact Person">
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="exampleInputUsername1">Designation</label>
+                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Enter Designation">
+                                 </div>
+                              </div>
+                           </div>                      
+                        </div>
+                      </div>
+                      
+                   </div>
+                 </div>
+               </div>
+           </form> 
+      </section>
+      
+      
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <script src="https://kit.fontawesome.com/1b59bc20c8.js"></script>
+   </body>
+</html>
+
+
+  <script>
+					 
+				$('.continue').click(function(){
+  $('.nav-tabs > .active').next('li').find('a').trigger('click');
+});
+$('.back').click(function(){
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+});
+   </script>
+

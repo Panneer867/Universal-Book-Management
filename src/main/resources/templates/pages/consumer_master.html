@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="page-header">
+            <h3 class="page-title">
+               Customer Master
+            </h3>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Customer Master</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
+               </ol>
+            </nav>
+         </div>
+         <div class="col-8 grid-margin stretch-card mx-auto pt-4">
+            <div class="card">
+               <div class="card-body">
+                  <h4 class="card-title text-center">Customer Master</h4>
+                  <hr class="pb-3">
+                  <form class="forms-sample">
+                     <div class="row">
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Customer Name</label>
+                              <input type="text" class="form-control" id="exampleInputCity1" placeholder="Enter customer name">
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Email</label> 
+                              <input type="email" class="form-control" id="exampleInputCity1" placeholder="Enter email address">
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Contact Number</label>
+                              <input type="text" class="form-control" id="exampleInputCity1" placeholder="Enter contact number">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Reference</label>
+                              <input type="text" class="form-control" id="exampleInputCity1" placeholder="Enter reference">
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleSelectGender">Organisation Type</label>
+                              <select class="form-control" id="exampleSelectGender">
+                                 <option>Select</option>
+                                 <option>Available</option>
+                                 <option>Not Available</option>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleSelectGender">Priority</label>
+                              <select class="form-control" id="exampleSelectGender">
+                                 <option>Select</option>
+                                 <option>Urgent</option>
+                                 <option>Not Urgent</option>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Area</label>
+                              <textarea type="text" class="form-control" id="exampleInputCity1" rows="3"></textarea>
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleTextarea1">Address</label>
+                              <textarea type="text" class="form-control" id="exampleTextarea1" rows="3"></textarea>
+                           </div>
+                        </div>
+                        <div class="col-4">
+                           <div class="form-group">
+                              <label for="exampleInputCity1">Pin Code</label>
+                              <div class="pt-2">
+                                 <input type="number" class="form-control" id="exampleInputCity1" placeholder="Enter Pin Code">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="text-center">
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <button class="btn btn-success">View</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </section>
+   </body>
+</html>

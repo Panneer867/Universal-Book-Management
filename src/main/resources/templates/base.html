@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:fragment="layout(content)">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title th:text="${title}"/>
+      <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}">
+      <link rel="stylesheet" th:href="@{/vendors/glyphicons/css/glyphicons.css}">
+      <link rel="stylesheet" th:href="@{/vendors/iconfonts/font-awesome/css/all.min.css}">
+      <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}">
+      <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}">
+      <link rel="stylesheet" th:href="@{/css/style.css}">
+      <link rel="stylesheet" th:href="@{/css/dropdown.css}">
+      <link rel="stylesheet" th:href="@{/css/edit.css}">
+      <link rel="stylesheet" th:href="@{/css/custom.css}">
+      <link rel="stylesheet" th:href="@{/css/dropdown-list.css}">
+      <script th:src="@{https://www.gstatic.com/charts/loader.js}"></script>
+      <script th:src="@{https://unpkg.com/sweetalert/dist/sweetalert.min.js}"></script>
+   </head>
+   <body class="sidebar-dark">
+      <div class="container-scroller">
+         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar navbar-dark">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+               <a class="navbar-brand brand-logo" th:href="@{/master/dashboard}"><img th:src="@{/images/logo.png}" alt="logo" style="width: 110px;height: 45px;"/></a>
+               <a class="navbar-brand brand-logo-mini" th:href="@{/master/dashboard}"><img th:src="@{/images/logo.png}" alt="logo" style="width: 60px;height: 30px;"/></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+               <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+               <span class="fas fa-bars"></span>
+               </button>
+               <ul class="navbar-nav">
+                  <li class="nav-item nav-search d-none d-md-flex">
+                     <div class="nav-link">
+                        <div class="input-group">
+                           <div class="input-group-prepend">
+                              <span class="input-group-text">
+                              <i class="fas fa-search"></i>
+                              </span>
+                           </div>
+                           <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                        </div>
+                     </div>
+                  </li>
+               </ul>
+               <ul class="navbar-nav">
+                  <li class="nav-item nav-search d-none d-md-flex">
+                     <div class="nav-link">
+                        <h3 class="pt-1">UNIVERSAL BOOK MANAGEMENT</h3>
+                     </div>
+                  </li>
+               </ul>
+               <ul class="navbar-nav navbar-nav-right">
+                  <li class="nav-item nav-profile dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                     <img th:src="@{'/Company/'+ ${cne} +'/Owner_Profile/'+ ${pe}}" alt="profile"/>
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-right profile" aria-labelledby="profileDropdown">
+                        <a th:href="@{/company/profile}" th:if="${companyProfile != null}" class="dropdown-item">
+                        <i class="fas fa-user text-primary"></i>
+                        Your Profile
+                        </a>
+                        <a th:href="@{/branch/profile}" th:if="${branchProfile != null}" class="dropdown-item">
+                        <i class="fas fa-user text-primary"></i>
+                        Your Profile
+                        </a>
+                        <a th:href="@{/logout}" class="dropdown-item">
+                        <i class="fas fa-power-off text-primary"></i>
+                        Logout
+                        </a>
+                     </div>
+                  </li>
+               </ul>
+               <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+               <span class="fas fa-bars"></span>
+               </button>
+            </div>
+         </nav>
+         <div class="container-fluid page-body-wrapper  ">
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+               <ul class="nav px-2 pt-2">
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/dashboard}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/dashboard' ? 'active':''}">
+                     <i class="fa fa-home menu-icon"></i>
+                     <span class="menu-title">Dashboard</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/customer-info}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/customer-info' ? 'active':''}">
+                     <i class="fa fa-user-friends menu-icon"></i>
+                     <span class="menu-title">Customer Info</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="collapse" href="#order-details" aria-expanded="false" aria-controls="order-details">
+                     <i class="fa fa-cart-plus menu-icon pl-1"></i>
+                     <span class="menu-title">Orders</span>
+                     <i class="menu-arrow"></i>
+                     </a>
+                     <div class="collapse" id="order-details">
+                        <ul class="nav flex-column sub-menu">
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/sales-order}">Sales Order</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/purchase-order}">Purchase Order</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/order-view}">Order View</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/reject-order}">Reject Order</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/order-tracking}">Order Tracking</a></li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/manual-billing}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/manual-billing' ? 'active':''}">
+                     <i class="fa fa-money-check menu-icon"></i>
+                     <span class="menu-title">Billing</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/invoice}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/invoice' ? 'active':''}">
+                     <i class="fa fa-file-invoice menu-icon pl-2"></i>
+                     <span class="menu-title">Invoice</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="collapse" href="#transaction" aria-expanded="false" aria-controls="transaction">
+                     <i class="fa fa-file-invoice-dollar menu-icon pl-2"></i>
+                     <span class="menu-title">Transaction</span>
+                     <i class="menu-arrow"></i>
+                     </a>
+                     <div class="collapse" id="transaction">
+                        <ul class="nav flex-column sub-menu">
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/sales-return}">Sales / Return</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/purchase-return}">Purchase / Return</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/estimate}">Estimate</a></li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="collapse" href="#delivery" aria-expanded="false" aria-controls="delivery">
+                     <i class="fa fa-rocket menu-icon pl-1"></i>
+                     <span class="menu-title">Delivery Chellan</span>
+                     <i class="menu-arrow"></i>
+                     </a>
+                     <div class="collapse" id="delivery">
+                        <ul class="nav flex-column sub-menu">
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/delivery-chellan}">Purchase/Return</a></li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/debit-note}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/debit-note' ? 'active':''}">
+                     <i class="fa fa-rupee-sign menu-icon pl-2"></i>
+                     <span class="menu-title">Debit note</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/credit-note}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/credit-note' ? 'active':''}">
+                     <i class="fa fa-credit-card menu-icon"></i>
+                     <span class="menu-title">Credit Note</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="collapse" href="#stock" aria-expanded="false" aria-controls="stock">
+                     <i class="fa fa-boxes menu-icon"></i>
+                     <span class="menu-title">Stock</span>
+                     <i class="menu-arrow"></i>
+                     </a>
+                     <div class="collapse" id="stock">
+                        <ul class="nav flex-column sub-menu">
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/opening-balance}">Opening Balance</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/stock_monthwise}">Stock Monthwise</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/stock-rejection-return}">Stock Rejection Return</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/stock-rejection-non-return}">Stock Rejection Non Return</a></li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="collapse" href="#payment" aria-expanded="false" aria-controls="payment">
+                     <i class="fa fa-user-check menu-icon"></i>
+                     <span class="menu-title">Accounts / Payment</span>
+                     <i class="menu-arrow"></i>
+                     </a>
+                     <div class="collapse" id="payment">
+                        <ul class="nav flex-column sub-menu">
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/payment-details}">Payment Details</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/payment-configutration}">Payment Configuration</a></li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="collapse" href="#masters" aria-expanded="false" aria-controls="masters">
+                     <i class="fa fa-align-left menu-icon pl-1"></i>
+                     <span class="menu-title">Masters</span>
+                     <i class="menu-arrow"></i>
+                     </a>
+                     <div class="collapse" id="masters">
+                        <ul class="nav flex-column sub-menu">
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/id-Master}">ALL ID Master</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/barcode-generator}">Barcode Genrate</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/bundle-create}">Bundle Create</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/brand-master}">Brand Master</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/item-master}">Item Master</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/brand-publishers}">Brand Publishers</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/cash-counter}">Cash Counter</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/catalogue-master}">Catalogue master</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/category-master}">Category master</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/consumer-master}">Consumer Master</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/hsn-code}">HSN Code</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/school-master}">School Master</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/item-master}">Item Master</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/rate-master}">Rate Master</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/supplier-master}">Supplier Master</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/tax-master}">Tax Master</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/unit-of-measures}">Units of measures</a></li>
+                        </ul>
+                     </div>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/excel}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/excel' ? 'active':''}">
+                     <i class="fa fa-file-alt menu-icon pl-1"></i>
+                     <span class="menu-title">Excel Import / Export</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/mis-report}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/mis-report' ? 'active':''}">
+                     <i class="fa fa-file-alt menu-icon pl-1"></i>
+                     <span class="menu-title">MIS Report</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/website-management}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/website-management' ? 'active':''}">
+                     <i class="fa fa-receipt menu-icon pl-1"></i>
+                     <span class="menu-title">Website Management</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/employee}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/employee' ? 'active':''}">
+                     <i class="fa fa-user-tie menu-icon pl-1"></i>
+                     <span class="menu-title">Employee Management</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/branch}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/branch' ? 'active':''}">
+                     <i class='fas fa-code-branch menu-icon pl-1'></i>
+                     <span class="menu-title">Branch Management</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/user}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/user' ? 'active':''}">
+                     <i class="fa fa-users-cog menu-icon pl-0"></i>
+                     <span class="menu-title">User Management</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/backup}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/backup' ? 'active':''}">
+                     <i class="glyphicon glyphicon-save menu-icon pl-1"></i>
+                     <span class="menu-title">Backup</span>
+                     </a>
+                  </li>
+               </ul>
+            </nav>
+            <div class="main-panel">
+               <div class="content-wrapper">
+                  <!-- Main Content -->
+                  <div th:replace="${content}"></div>
+                  <!-- End Of Main Content -->
+               </div>
+               <footer class="footer">
+                  <div class="d-sm-flex justify-content-center justify-content-center">
+                     <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2022. All rights reserved.</span>
+                  </div>
+               </footer>
+            </div>
+         </div>
+      </div>
+      <script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
+      <script th:src="@{/vendors/js/vendor.bundle.addons.js}"></script>
+      <script th:src="@{/js/off-canvas.js}"></script>
+      <script th:src="@{/js/hoverable-collapse.js}"></script>
+      <script th:src="@{/js/misc.js}"></script>
+      <script th:src="@{/js/todolist.js}"></script>
+      <script th:src="@{/js/dashboard.js}"></script>
+      <script th:src="@{/js/data-table.js}"></script>
+      <script th:src="@{/js/js-grid.js}"></script>
+      <script th:src="@{/js/db.js}"></script>
+      <script th:src="@{/js/avgrund.js}"></script>
+      <script th:src="@{/js/alerts.js}"></script>
+      <script th:src="@{/js/chart.js}"></script>
+      <script th:src="@{/js/flot-chart.js}"></script>
+      <script th:src="@{/js/c3.js}"></script>
+      <script th:src="@{/js/js-grid.js}"></script>
+      <script th:src="@{/js/purchase-chart.js}"></script>
+      <script th:src="@{/js/table-chart.js}"></script>
+      <script th:src="@{/js/column-chart.js}"></script>
+      <script th:src="@{/js/simple-chart.js}"></script>
+      <script th:src="@{/js/form-addons.js}"></script>
+      <script th:src="@{/js/x-editable.js}"></script>
+      <script th:src="@{/js/dropify.js}"></script>
+      <script th:src="@{/js/dropzone.js}"></script>
+      <script th:src="@{/js/jquery-file-upload.js}"></script>
+      <script th:src="@{/js/formpickers.js}"></script>
+      <script th:src="@{/js/form-repeater.js}"></script>
+      <script th:src="@{/js/validator.js}"></script>
+      <script th:src="@{/js/bootstrap-validator.js}"></script>
+      <script th:src="@{/js/custom.js}"></script>
+      <script th:src="@{/js/wizard.js}"></script>
+      <script th:src="@{/js/select-dropdown.js}"></script>
+      <script th:src="@{/js/input-copy.js}"></script>
+      <script th:src="@{/js/edit-form.js}"></script>
+      <script th:src="@{/js/main.js}"></script>
+      <script th:src="@{/js/jquery.min.js}"></script>
+      <script th:src="@{/js/states-cities.js}"></script>
+      <script th:src="@{/js/sweet-alert.js}"></script>
+      <script th:src="@{/js/delete-alert.js}"></script>
+      <script th:src="@{/js/table-edit.js}"></script>
+   </body>
+</html>

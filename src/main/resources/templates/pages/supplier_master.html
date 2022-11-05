@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="page-header">
+            <h3 class="page-title">
+               Supplier Master
+            </h3>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Supplier Master</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
+               </ol>
+            </nav>
+         </div>
+         <div class="col-md-12 grid-margin stretch-card mx-auto">
+            <div class="card">
+               <div class="card-body">
+                  <h4 class="card-title text-center">Supplier Master</h4>
+                  <hr class="pb-3">
+                  
+                      <!-- Message Alert Field -->
+               
+		               <div class="alert_field">       
+		               <div th:if="${session.message}" th:classappend="${session.message.type }" class="alert" role="alert">
+		                    <p class="text-center" th:text="${session.message.content}"> </p>
+		                    <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		                 </div>
+		              </div>  
+		                
+            		<!-- End of Message Alert Field -->
+                  
+                  <form class="forms-sample" data-toggle="validator" th:action="@{/master/createSupplierMaster}" method="post">
+                     <div class="row">
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputUsername1">Supplier Code</label>
+                              <input type="text" name="supplierCode" class="form-control" id="exampleInputUsername1" placeholder="Enter Supplier ID" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Supplier Name</label>
+                              <input type="text"  name="supplierName" class="form-control" id="exampleInputEmail1" placeholder="Enter Supplier Name" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Company Name</label>
+                              <input type="text"  name="companyName" class="form-control" id="exampleInputEmail1" placeholder="Enter Company Name" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputUsername1">Alias</label>
+                              <input type="text"  name="alias" class="form-control" id="exampleInputUsername1" placeholder="Alias" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Supplier Type</label>
+                              <input type="text"  name="supplierType" class="form-control" id="exampleInputEmail1" placeholder="Enter Supplier Type" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Supplier Reference</label>
+                              <input type="text"  name="supplierReference" class="form-control" id="exampleInputEmail1" placeholder="Enter Supplier Reference" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <div class="row">
+                        <div class="col-6">
+                           <div class="form-group">
+                              <label for="exampleInputUsername1">About Supplier</label>
+                              <input type="text"  name="aboutSupplier" class="form-control" id="exampleInputUsername1" placeholder="About Supplier" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                       
+                        <div class="col-6">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Supplier Reference Contact</label>
+                              <input type="number"  name="supplierReferenceContact" class="form-control" id="exampleInputEmail1" placeholder="Enter Supplier Reference Contact" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <h4 class="card-title text-info text-center p-2" style="background:aqua;">Address</h4>
+                     <div class="row">
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputUsername1">Door No</label>
+                              <input type="text"  name="doorNo" class="form-control" id="exampleInputUsername1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                         <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputUsername1">Cross</label>
+                              <input type="text" name="cross" class="form-control" id="exampleInputUsername1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                         <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputUsername1">Main</label>
+                              <input type="text"  name="main" class="form-control" id="exampleInputUsername1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                         <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputUsername1">Nearby</label>
+                              <input type="text"  name="nearBy" class="form-control" id="exampleInputUsername1"  data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                      </div>
+                     <div class="row">
+                     
+                       <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Area</label>
+                              <input type="text" name="area" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                         <div class="col">
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">City</label>
+                              <input type="text"  name="city" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                            </div>
+                          </div>
+                          
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">State</label>
+                              <input type="text"  name="state" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Pincode</label>
+                              <input type="number"  name="pinCode" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     
+                      <div class="row">
+                         <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Landline Number</label>
+                              <input type="number"  name="landlineNumber" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                         <div class="col">
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Email Id</label>
+                              <input type="email"  name="emailId" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                            </div>
+                          </div>
+                          
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">GSTN Type</label>
+                              <input type="text"  name="gstnType" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">GSTN Number</label>
+                              <input type="number"  name="gstnNumber" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                     
+                     </div>
+                     
+                     
+                   <div class="row">
+                      <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Supplier Status</label>
+                              <input type="text"  name="supplierStatus" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        
+                         <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Mobile Number</label>
+                              <input type="number"  name="mobileNO" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                   
+                         <div class="col">
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Supplier Brand</label>
+                              <input type="text"  name="supplierBrand" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                            </div>
+                          </div>
+                          
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">PAN Number</label>
+                              <input type="text"  name="panNumber" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     
+                    <div class="row">
+                      <div class="col">
+                               <div class="form-group text-center">
+                                                <label for="uploadImage" class="font-weight-bold">Uplord GST Certificate <strong class="text-danger ">*</strong></label>
+                                                <input type="file" name="uploadGstCrft" id="uploadImage" accept="image/*" data-height="50" data-max-file-size="300K" 
+                                              class="dropify" data-error="Logo required !">
+                                                <small class="text-info">[File: 300KB 250x150]</small>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                        </div>
+                        
+                         <div class="col">
+                           <div class="form-group pt-3">
+                              <label for="exampleInputEmail1">Note</label>
+                              <input type="text"  name="note" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                   
+                      
+                    
+                     </div>
+                     
+                     
+                     
+                     
+                     
+                     <h4 class="card-title text-info  text-center p-2" style="background:aqua;">Product</h4>
+                     <div class="row">
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputUsername1">Product Name</label>
+                              <input type="text" name="productName" class="form-control" id="exampleInputUsername1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Category</label>
+                              <input type="text" name="category" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">HSN Code</label>
+                              <input type="number" name="hsnCode" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <h4 class="card-title text-info text-center p-2" style="background:aqua;">Bank Details</h4>
+                     <div class="row">
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputUsername1">Account Number</label>
+                              <input type="text" name="accountNumber" class="form-control" id="exampleInputUsername1"  data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Bank</label>
+                              <input type="text" name="bank" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">IFSC Code</label>
+                              <input type="text" name="ifscCode" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="text-center">
+                        <button type="submit" th:href="@{/master/createSupplierMaster}"  class="btn btn-primary mr-2">Submit</button>
+                        <a type="button" th:href="@{/master/showSupplierData}" class="btn btn-success">View</a>
+                        <button type="reset" class="btn btn-sm-2 btn-secondary">Reset</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         
+         
+         
+            <div class="row d-flex justify-content-center pt-1"  th:if="${show != null}">
+            <div class="col-md-12 grid-margin stretch-card">
+               <div class="card">
+                  <div class="card-body">
+                     <h4 class="card-title text-center">Supplier Master</h4>
+                     
+                     <table class="table">
+						  <thead class="thead-dark">
+						    <tr class= "text-center" >
+						      <th scope="col">Supplier Code</th>
+						      <th scope="col">Supplier Name</th>
+						      <th scope="col">Company Name</th>
+						      <th scope="col">Supplier Type</th>
+						      <th scope="col">Address</th>
+						      <th scope="col">Email / Mobile No</th>
+						      <th scope="col">GSTN Type/Number</th>
+						     <th scope="col">Supplier Brand</th>
+						      <th scope="col">Action</th>
+						     
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr th:each="supplier: ${supplierMaster}" >
+						
+						      <td th:text="${supplier.supplierCode}">Mark</td>
+						      <td th:text="${supplier.supplierName}">Otto</td>
+						      <td th:text="${supplier.companyName}">Otto</td>
+						      <td th:text="${supplier.supplierType}">Otto</td>
+						      <td th:text="${supplier.doorNo} + ', ' + ${supplier.cross} + ', ' + ${supplier.main} + ', ' + ${supplier.area} + ', ' + ${supplier.city} + ', ' + ${supplier.state} + ' :- ' + ${supplier.pinCode}">Otto</td>
+						      <td th:text="${supplier.emailId} + ', ' + ${supplier.mobileNO}">Otto</td>
+						      <td th:text="${supplier.gstnType} + ', ' + ${supplier.gstnNumber}">Otto</td>
+						      <td th:text="${supplier.supplierBrand}">Otto</td>
+						      <td >
+                              <a  class="btn btn-success btn-sm p-1 mx-2" style= "width: 50px;">Edit</a>
+						      <a type="button"data-toggle="modal" data-target="#deleteAlert" class="btn btn-danger btn-sm p-1"> Delete </a>
+                          			<div class="modal fade" id="deleteAlert" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel-3" aria-hidden="true">
+										 <div class="modal-dialog modal-sm" role="document">
+											<div class="modal-content">															
+												<div class="modal-body justify-content-center">
+													<p class="text-center">Once deleted it cannot be reverted.</p>
+													<p class="text-center">Are you sure you want to delete?</p>
+												</div>
+												<div class="modal-footer justify-content-center">
+													<a type="button" th:href="@{'/master/deleteSupplier/'+${supplier.supplierId}}" class="btn btn-danger">Delete</a>
+													<button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+										    	</div>
+											</div>
+										</div>
+									</div>                               </td>
+						    </tr>
+						    
+						  </tbody>
+						</table>											
+                  </div>
+               </div>
+            </div>
+           
+         </div>
+         
+         
+      </section>
+   </body>
+</html>

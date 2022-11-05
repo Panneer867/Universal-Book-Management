@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="page-header">
+            <h3 class="page-title">
+               HSN Code
+            </h3>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">HSN Code</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
+               </ol>
+            </nav>
+         </div>
+         <div class="row d-flex justify-content-center pt-3">
+            <div class="col-7">
+               <div class="card">
+                  <div class="card-body">
+                     <h4 class="card-title text-center">HSN Code</h4>
+                     
+                      <!-- Message Alert Field -->               
+		               <div th:if="${session.message}" class="alert_field">       
+		                 <div class="alert text-center" th:classappend="${'alert-'+session.message.type}"  role="alert">
+                            <span th:text="${session.message.content}"></span>
+                         </div>
+                           <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		              </div>  		                
+                      <!-- End of Message Alert Field -->
+                     
+                     <hr class="pb-3">
+                     <form class="forms-sample" th:action="@{/master/saveHsnData}" method="post"  data-toggle="validator" role="form" th:object="${hsnCode}">
+                        <div class="form-group row">
+                           <label for="itemName" class="col-sm-2 col-form-label">Item Name<strong class="text-danger ">*</strong></label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control col-sm-10" name="itemName" id="itemName" data-minlength="2" data-error="Min 2 digits required !" placeholder="Enter Item Name" required>
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label for="catagoryName" class="col-sm-2 col-form-label">Category<strong class="text-danger ">*</strong></label>
+                           <div class="col-sm-9">
+                              <select class="form-control col-sm-8" name="catagoryName" data-error="Select Catagory !" required>
+                                 <option>Select</option>
+                                 <option>Category-1</option>
+                                 <option>Category-2</option>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </select>               
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label for="hsnCode" class="col-sm-2 col-form-label">HSN Code<strong class="text-danger ">*</strong></label>
+                           <div class="col-sm-9">
+                              <input type="number" class="form-control col-sm-5" name="hsnCode" id="hsnCode" data-minlength="6" data-error="Min 6 Number required !" placeholder="Enter HSN Code" required>
+                              <div class="help-block with-errors text-danger"></div>
+                           </div>
+                        </div>
+                        <div class="text-center">
+                           <button type="submit" th:href="@{/master/saveHsnData}" class="btn btn-primary mr-2">Submit</button>
+                           <a type="button" th:href="@{/master/displayHsnData}" class="btn btn-success">View</a>
+                       </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+         
+          <div class="row d-flex justify-content-center mx-auto pt-2" th:if="${show !=null}">
+            <div class="col-7">
+               <div class="card">
+                  <div class="card-body">
+                  <h4 class="card-title text-center">HSN Code History</h4>
+                     
+                      <table class="table">
+					  <thead class="thead-dark">
+					    <tr>
+					      <th scope="col">ID</th>
+					      <th scope="col">Item Name</th>
+					      <th scope="col">Catagory</th>
+					      <th scope="col">HSN Code</th>
+					      <th scope="col">Actions</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr th:each="hsnCode : ${listOfHsnCodes}">
+					      <td>HC<span th:text="${hsnCode.hsnId}"></span></td>
+					      <td th:text="${hsnCode.itemName}"></td>
+					      <td th:text="${hsnCode.catagoryName}"></td>
+					      <td th:text="${hsnCode.hsnCode}"></td>					     
+					      <td><a href="#" th:href="@{'/master/deleteHsnCodeData/'+${hsnCode.hsnId}}" class="btn btn-danger btn-sm">Delete</a></td>
+					    </tr>					    
+					  </tbody>
+					</table>		
+                  
+                  </div>
+               </div>
+            </div>
+          </div>
+      </section>
+   </body>
+</html>

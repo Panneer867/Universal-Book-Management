@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title th:text="${title}"/>
+      <link rel="stylesheet" th:href="@{/vendors/iconfonts/font-awesome/css/all.min.css}">
+      <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}">
+      <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}">
+      <link rel="stylesheet" th:href="@{/css/style.css}">
+      <link rel="stylesheet" th:href="@{/css/toggle.css}">
+   </head>
+   <body>
+      <div class="container-scroller">
+         <div class="container-fluid page-body-wrapper">
+            <div class="main-panel w-100">
+               <div class="content-wrapper mx-auto p-0">
+                  <nav class="navbar navbar-expand-md  bg-primary py-1">
+                     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                     </div>
+                     <div class="mx-auto order-0">
+                        <a class="navbar-brand mx-auto text-white" th:href="@{/company/register}">
+                           <h4 class="m-0">COMPANY CREATION</h4>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                     </div>
+                     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                        <ul class="navbar-nav ml-auto">
+                           <li class="nav-item">
+                              <a class="nav-link text-white btn btn-sm btn-info" th:href="@{/login}">Login</a>
+                           </li>
+                        </ul>
+                     </div>
+                  </nav>
+                  <div class="row justify-content-center pt-3">
+                     <div class="col-10 grid-margin">
+                        <div class="card">
+                           <div class="card-body pb-3">
+                              <div class="alert alert-success text-center" role="alert" th:if="${param.success}">
+                                 Your Company has been successfully created! The Company ID is <strong>[[${companyNo}]]</strong>, Please login with your company username and password!
+                              </div>
+                              <form id="example-form" class="forms-sample" data-toggle="validator" th:action="@{/company/register}" role="form" th:object="${company}" method="post" enctype="multipart/form-data">
+                                 <div>
+                                    <h3>COMPANY OVERVIEW</h3>
+                                    <section class="w-100">
+                                       <div class="row">
+                                          <div class="col-10">
+                                             <div class="row justify-content-center">
+                                                <div class="col-7">
+                                                   <div class="form-group row">
+                                                      <label for="companyName" class="col-sm-3 col-form-label">Company Name<strong class="text-danger ">*</strong></label>
+                                                      <div class="col-sm-9">
+                                                         <input type="text" class="form-control" th:field="*{companyName}" id="companyName" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter company name" required>
+                                                         <div class="help-block with-errors text-danger"></div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row">
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="businessType">Business Type<strong class="text-danger ">*</strong></label>
+                                                      <select class="form-control" th:field="*{businessType}" id="businessType" data-error="Select business type !" required>
+                                                         <option value="" selected>select</option>
+                                                         <option value="Partnerships">Partnerships</option>
+                                                         <option value="Corporations">Corporations</option>
+                                                         <option value="Sole Proprietorships">Sole Proprietorships</option>
+                                                      </select>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="dateOfEstablished">Date of Established<strong class="text-danger ">*</strong></label>
+                                                      <input type="date" class="form-control form-control-sm" th:field="*{dateOfEstablished}" id="dateOfEstablished" data-error="Select date of establised !" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="serviceType">Service Type<strong class="text-danger ">*</strong></label>
+                                                      <select class="form-control" th:field="*{serviceType}" id="serviceType" data-error="Select service type !" required>
+                                                         <option value="" selected>select</option>
+                                                         <option value="Stationery">Stationery</option>
+                                                         <option value="Electronics and accessories">Electronics and accessories</option>
+                                                         <option value="Smartphone accessories">Smartphone accessories</option>
+                                                         <option value="Homeware">Homeware</option>
+                                                         <option value="Clothing">Clothing</option>
+                                                         <option value="Workout and exercise">Workout and exercise</option>
+                                                         <option value="Medical supplies">Medical supplies</option>
+                                                         <option value="Kitchen and cooking">Kitchen and cooking</option>
+                                                         <option value="Jewelry and fashion">Jewelry and fashion</option>
+                                                      </select>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="yearsPreviouslyRegistered">Years Previously Registered<strong class="text-danger ">*</strong></label>
+                                                      <input type="date" class="form-control form-control-sm" th:field="*{yearsPreviouslyRegistered}" id="yearsPreviouslyRegistered" data-error="Select Registered on !" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row">
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="telephone">Telephone</label>
+                                                      <input type="number" class="form-control form-control-sm" th:field="*{telephone}" id="telephone" data-minlength="6" data-error="Provide a valid phone number !" placeholder="Enter telephone no">
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="email">Email<strong class="text-danger ">*</strong></label>
+                                                      <input type="email" class="form-control form-control-sm" th:field="*{email}" id="email" data-error="Provide a valid email !" placeholder="Enter Email Id" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="fax">Fax</label>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{fax}" id="fax" placeholder="Enter fax no">
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="gstin">GSTIN/UIN<strong class="text-danger ">*</strong></label>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{gstin}" id="gstin" data-error="Provide a GSTIN/UIN !" placeholder="Enter GSTIN/UIN" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row">
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="companyAddress">Address<strong class="text-danger ">*</strong></label>
+                                                      <textarea type="text" class="form-control" th:field="*{companyAddress}" rows="3" id="companyAddress" data-error="Provide a address !" placeholder="Enter company address" required></textarea>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="cstates">State<strong class="text-danger ">*</strong></label>
+                                                      <select class="form-control" th:field="*{companyState}" id="cstates" data-error="Select state !" required>
+                                                         <option value="" selected>Select</option>
+                                                         <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                                      </select>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-2">
+                                                   <div class="form-group">
+                                                      <label for="ccities">City<strong class="text-danger ">*</strong></label>
+                                                      <select class="form-control" th:field="*{companyCity}" id="ccities" data-error="Select city !" required>
+                                                         <option value="" selected>Select</option>
+                                                      </select>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-2">
+                                                   <div class="form-group">
+                                                      <label for="companyPinCode">Pincode<strong class="text-danger ">*</strong></label>
+                                                      <input type="number" class="form-control form-control-sm" th:field="*{companyPinCode}" data-minlength="6" id="companyPinCode" data-error="Provide a pincode !" placeholder="Enter pincode" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-2">
+                                                   <div class="form-group">
+                                                      <label for="website">Website</label>
+                                                      <input type="url" class="form-control form-control-sm" th:field="*{website}" id="website" data-error="Ex: http://yahoo.com" placeholder="Enter Website">
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-2 pt-4 ">
+                                             <div class="form-group text-center">
+                                                <label for="companyLogo" class="font-weight-bold">Company Logo<strong class="text-danger ">*</strong></label>
+                                                <input type="file" name="companyLogo" id="companyLogo" accept="image/png" data-height="70" data-max-file-size="20K" 
+                                                   data-max-width="226" data-max-height="90" class="dropify" data-error="Logo required !" required>
+                                                <small class="text-info">[File: 20KB PNG 225x90]</small>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                             <div class="col text-center">
+                                                <div class="form-group">
+                                                   <label for="exampleInputUsername1" class="font-weight-bold">Company Directory</label>
+                                                   <div class="row text-info"><small>C:\Company\</small> 
+                                                      <small id ="match"></small>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col pt-2">
+                                                <div class="form-group">
+                                                   <label for="noOfBranch">No of Branch</label>
+                                                   <select class="form-control" th:field="*{noOfBranch}" id="noOfBranch">
+                                                      <option value="" selected>select</option>
+                                                      <option value="1">1</option>
+                                                      <option value="2">2</option>
+                                                      <option value="3">3</option>
+                                                      <option value="4">4</option>
+                                                      <option value="5">5</option>
+                                                      <option value="6">6</option>
+                                                      <option value="7">7</option>
+                                                      <option value="8">8</option>
+                                                   </select>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </section>
+                                    <h3>OWNER PROFILE</h3>
+                                    <section class="w-100">
+                                       <div class="row">
+                                          <div class="col-10">
+                                             <div class="row">
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="firstName">First Name<strong class="text-danger ">*</strong></label>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{firstName}" id="firstName" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter first name" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="lastName">Last Name<strong class="text-danger ">*</strong></label>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{lastName}" id="lastName" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter last name" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="fatherName">Father Name<strong class="text-danger ">*</strong></label>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{fatherName}" id="fatherName" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter father name" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="dateOfBirth">Date of Birth<strong class="text-danger ">*</strong></label>
+                                                      <input type="date" class="form-control form-control-sm" th:field="*{dateOfBirth}" id="dateOfBirth" data-error="Select date of birth !" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row">
+                                                <div class="col-2">
+                                                   <div class="form-group">
+                                                      <label for="bloodGroup">Blood Group<strong class="text-danger">*</strong></label>
+                                                      <select class="form-control" th:field="*{bloodGroup}" id="bloodGroup" data-error="Select blood group !" required>
+                                                         <option value="" selected>select</option>
+                                                         <option value="(A+)">(A+)</option>
+                                                         <option value="(A-)">(A-)</option>
+                                                         <option value="(B+)">(B+)</option>
+                                                         <option value="(B-)">(B-)</option>
+                                                         <option value="(O+)">(O+)</option>
+                                                         <option value="(O-)">(O-)</option>
+                                                         <option value="(AB+)">(AB+)</option>
+                                                         <option value="(AB-)">(AB-)</option>
+                                                      </select>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-2">
+                                                   <div class="form-group">
+                                                      <label for="gender">Gender<strong class="text-danger ">*</strong></label>
+                                                      <select class="form-control" th:field="*{gender}" id="gender" data-error="Select gender !" required>
+                                                         <option value="" selected>select</option>
+                                                         <option value="Male">Male</option>
+                                                         <option value="Female">Female</option>
+                                                         <option value="Other">Other</option>
+                                                      </select>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-2">
+                                                   <div class="form-group">
+                                                      <label for="qualification">Qualification<strong class="text-danger ">*</strong></label>
+                                                      <select class="form-control" th:field="*{qualification}" id="qualification" data-error="Select qualification !" required>
+                                                         <option value="" selected>select</option>
+                                                         <option value="PUC">PUC</option>
+                                                         <option value="UG">UG</option>
+                                                         <option value="PG">PG</option>
+                                                      </select>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="ownerEmail">Personal Email<strong class="text-danger ">*</strong></label>
+                                                      <input type="email" class="form-control" th:field="*{ownerEmail}" id="ownerEmail" data-error="Provide a valid email !" placeholder="Enter Email ID" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="mobile">Mobile No<strong class="text-danger ">*</strong></label>
+                                                      <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control" th:field="*{mobile}" id="mobile" data-minlength="10" data-error="Provide a valid mobile number" placeholder="Enter mobile no" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row">
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="alternateMobile">Alternate Mobile No</label>
+                                                      <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" th:field="*{alternateMobile}" id="alternateMobile" data-minlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no">
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="aadhaar">Aadhaar No<strong class="text-danger ">*</strong></label>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{aadhaar}" id="aadhaar" data-error="Provide a valid aadhaar !" pattern="[0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{4}" placeholder="Enter aadhaar no" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="pan">PAN<strong class="text-danger ">*</strong></label>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{pan}" id="pan" data-error="Provide a PAN !" placeholder="Enter Pan ID" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="drivingLicense">Driving License no</label>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{drivingLicense}" id="city" placeholder="Enter driving license no">
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row">
+                                                <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="ownerAddress">Address<strong class="text-danger ">*</strong></label>
+                                                      <textarea type="text" class="form-control" th:field="*{ownerAddress}" rows="3" id="ownerAddress" data-error="Provide a address !" placeholder="Enter owner address" required></textarea>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                               <div class="col-3">
+                                                   <div class="form-group">
+                                                      <label for="ostates">State<strong class="text-danger ">*</strong></label>
+                                                      <select class="form-control" th:field="*{ownerState}" id="ostates" data-error="Select state !" required>
+                                                         <option value="" selected>Select</option>
+                                                         <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                                      </select>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-2">
+                                                   <div class="form-group">
+                                                      <label for="ocities">City<strong class="text-danger ">*</strong></label>
+                                                      <select class="form-control" th:field="*{ownerCity}" id="ocities" data-error="Select city !" required>
+                                                         <option value="" selected>Select</option>
+                                                      </select>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col">
+                                                   <div class="form-group">
+                                                      <label for="ownerPinCode">Pincode<strong class="text-danger ">*</strong></label>
+                                                      <input type="number" class="form-control form-control-sm" th:field="*{ownerPinCode}" id="ownerPinCode" data-minlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-2">
+                                                   <div class="form-group">
+                                                      <label for="placeOfBirth">Place of Birth</label>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{placeOfBirth}" id="placeOfBirth" placeholder="Enter place of birth">
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-2">
+                                             <div class="form-group text-center">
+                                                <label for="profile" class="font-weight-bold">Profile<strong class="text-danger ">*</strong></label>
+                                                <input type="file" name="profile" id="profile" accept="image/*" data-max-file-size="200K" data-error="Profile required !"
+                                                   data-max-width="800" data-max-height="900" class="dropify" required>
+                                                <small class="text-info">[File: 200KB S: 800x900]</small>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </section>
+                                    <h3>BANK INFORMATION</h3>
+                                    <section class="w-100">
+                                       <div class="row">
+                                          <div class="col-4">
+                                             <div class="form-group">
+                                                <label for="bankName">Bank Name<strong class="text-danger ">*</strong></label>
+                                                <select class="form-control" th:field="*{bankName}" id="bankName" data-error="Select Bank Name !" required>
+                                                   <option value="" selected>select</option>
+                                                  <option th:each="banks : ${bankList}" th:value="${banks.name}" th:utext="${banks.name}"/>
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                          <div class="col-4">
+                                             <div class="form-group">
+                                                <label for="beneficiaryName">Beneficiary Name<strong class="text-danger ">*</strong></label>
+                                                <input type="text" class="form-control form-control-sm" th:field="*{beneficiaryName}" id="beneficiaryName" data-error="Min 3 characters required !" placeholder="Enter beneficiary name" required>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                          <div class="col-4">
+                                             <div class="form-group">
+                                                <label for="accountType">Account Type<strong class="text-danger ">*</strong></label>
+                                                <select class="form-control" th:field="*{accountType}" id="accountType" data-error="Select account type !" required>
+                                                   <option value="" selected>select</option>
+                                                   <option value="Current account">Current account</option>
+                                                   <option value="Savings account">Savings account</option>
+                                                   <option value="Salary account">Salary account</option>
+                                                   <option value="Fixed deposit account">Fixed deposit account</option>
+                                                   <option value="NRI accounts">NRI accounts</option>
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-4">
+                                             <div class="form-group">
+                                                <label for="initAccountNumber">Account Number<strong class="text-danger ">*</strong></label>
+                                                <input type="number" class="form-control form-control-sm" id="initAccountNumber" data-minlength="8" data-error="Provide a account number !" required>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                          <div class="col-4">
+                                             <div class="form-group">
+                                                <label for="accountNumber">Confirm Account Number<strong class="text-danger ">*</strong></label>
+                                                <input type="password" class="form-control form-control-sm" th:field="*{accountNumber}" id="accountNumber" data-minlength="8" data-match="#initAccountNumber" data-match-error="Whoops, these don't match" placeholder="Enter confirm account no" required>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                          <div class="col-4">
+                                             <div class="form-group">
+                                                <label for="ifscCode">IFSC Code<strong class="text-danger ">*</strong></label>
+                                                <input type="text" class="form-control form-control-sm" th:field="*{ifscCode}" id="ifscCode" data-error="Provide IFSC Code !" placeholder="Enter ifsc code" required>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-4">
+                                             <div class="form-group">
+                                                <label for="bankAddress">Address<strong class="text-danger ">*</strong></label>
+                                                <textarea type="text" class="form-control" th:field="*{bankAddress}" rows="5" id="bankAddress" data-error="Provide a address !" placeholder="Enter bank address" required></textarea>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                          <div class="col-3 pt-4">
+                                                   <div class="form-group">
+                                                      <label for="bstates">State<strong class="text-danger ">*</strong></label>
+                                                      <select class="form-control" th:field="*{bankState}" id="bstates" data-error="Select state !" required>
+                                                         <option value="" selected>Select</option>
+                                                         <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                                      </select>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-2 pt-4">
+                                                   <div class="form-group">
+                                                      <label for="bcities">City<strong class="text-danger ">*</strong></label>
+                                                      <select class="form-control" th:field="*{bankCity}" id="bcities" data-error="Select city !" required>
+                                                         <option value="" selected>Select</option>
+                                                      </select>
+                                                      <div class="help-block with-errors text-danger"></div>
+                                                   </div>
+                                                </div>
+                                          <div class="col-2 pt-4">
+                                             <div class="form-group">
+                                                <label for="bankPinCode">Pincode<strong class="text-danger ">*</strong></label>
+                                                <input type="number" class="form-control form-control-sm" th:field="*{bankPinCode}" id="bankPinCode" data-minlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </section>
+                                    <h3>FINISH</h3>
+                                    <section class="w-100">
+                                       <h4 class="text-center pb-4">Login Credentials</h4>
+                                       <div class="row">
+                                          <div class="col-3">
+                                             <div class="form-group">
+                                                <label for="username">Username<strong class="text-danger ">*</strong></label>
+                                                <input type="text" class="form-control form-control-sm" th:field="*{username}" id="username" data-minlength="5" data-error="Min 5 characters required !" placeholder="Enter username" required>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                          <div class="col-3">
+                                             <div class="form-group">
+                                                <label for="inputPassword">Password<strong class="text-danger ">*</strong></label>
+                                                <input type="password" data-minlength="6" class="form-control form-control-sm" id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" 
+                                                   data-error="Password must be alphanumeric !" placeholder="Enter password" required>
+                                                <small class="text-info">
+                                                Min 6 characters required
+                                                </small>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                          <div class="col-3">
+                                             <div class="form-group">
+                                                <label for="password">Confirm Password<strong class="text-danger ">*</strong></label>
+                                                <input type="password" class="form-control form-control-sm" th:field="*{password}" id="password" data-match="#inputPassword" data-match-error="Whoops, these don't match" data-error="Provide confirm password !" placeholder="Enter confirm password" required>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                          <div class="col-3">
+                                             <div class="row">
+                                                <div class="col pr-0">
+                                                   <div class="button b2 m-0" id="button-18">
+                                                      <input type="checkbox" name="enableWeb" class="checkbox" th:checked="${enableWeb}" />
+                                                      <div class="knobs">
+                                                         <span></span>
+                                                      </div>
+                                                      <div class="layer"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col pl-0">
+                                                   <small>Enable Website</small>
+                                                </div>
+                                             </div>
+                                             <div class="row pt-3">
+                                                <div class="col pr-0">
+                                                   <div class="button b2 m-0" id="button-18">
+                                                      <input type="checkbox" name="enableApp" class="checkbox" th:checked="${enableApp}" />
+                                                      <div class="knobs">
+                                                         <span></span>
+                                                      </div>
+                                                      <div class="layer"></div>
+                                                   </div>
+                                                </div>
+                                                <div class="col pl-0">
+                                                   <small>Enable App</small>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row pl-4 pt-2">
+                                          <div class="col">
+                                             <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="information" data-error="Please check !" required>
+                                                <label class="form-check-label m-0" for="information">I hereby affirm that all information supplied is true and accurate to the best of my knowledge and belief, and I understand that this information will be considered material in the evaluation of quotations, bids, and proposals. 
+                                                </label>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row pl-4 pt-2">
+                                          <div class="col">
+                                             <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="terms" data-error="Please check !" required>
+                                                <label class="form-check-label m-0" for="terms">
+                                                   <p>I agree to all<a href="#" data-toggle="modal" data-target="#exampleModalLong"> Terms & Conditions</a></p>
+                                                </label>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row pt-3">
+                                          <div class="col-3">
+                                             <div class="form-group">
+                                                <label for="signature">Signature<strong class="text-danger ">*</strong></label>
+                                                <input type="text" class="form-control form-control-sm" th:field="*{signature}" id="signature" data-minlength="5" data-error="Min 5 characters required !" placeholder="Enter signature" required>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                          <div class="col-6">
+                                          </div>
+                                          <div class="col-3">
+                                             <div class="form-group">
+                                                <label for="entryDate">Date<strong class="text-danger ">*</strong></label>
+                                                <input type="date" class="form-control form-control-sm" th:field="*{entryDate}" id="entryDate" data-error="Select date !" required>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </section>
+                                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                       <div class="modal-dialog modal-lg mt-5" role="document">
+                                          <div class="modal-content">
+                                             <div class="modal-header p-3">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">TERMS & CONDITIONS</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                             </div>
+                                             <div class="modal-body">
+                                                <strong>Welcome to our Application</strong>
+                                                <p>These terms and conditions outline the rules and regulations for the use of our company.</p>
+                                                <strong>License</strong>
+                                                <p>Unless otherwise stated, LOPYI and its licensors own the intellectual property rights for all material on our website. All intellectual property rights are reserved. You may access this from our website for your own personal use subjected to restrictions set in these terms and conditions.</p>
+                                                <strong>You must not:</strong>
+                                                <ul>
+                                                   <li>Republish material from our website</li>
+                                                   <li>Sell, rent or sub-license material from our website</li>
+                                                   <li>Reproduce, duplicate or copy material from our website</li>
+                                                </ul>
+                                                <br>
+                                                <strong>Disclaimer</strong>
+                                                <p>To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our website and the use of this website. Nothing in this disclaimer will:</p>
+                                                <ul>
+                                                   <li>limit or exclude our or your liability for death or personal injury;</li>
+                                                   <li>limit or exclude our or your liability for fraud or fraudulent misrepresentation;</li>
+                                                </ul>
+                                             </div>
+                                             <div class="modal-footer">
+                                                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <footer class="footer py-2 bg-primary ">
+                  <div class="d-sm-flex justify-content-center ">
+                     <span class="text-white text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018 <a href="https://www.ingroinfo.com/" target="_blank">IngrOInfo</a>. All rights reserved.</span>
+                  </div>
+               </footer>
+            </div>
+         </div>
+      </div>
+      <script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
+      <script th:src="@{/vendors/js/vendor.bundle.addons.js}"></script>
+      <script th:src="@{/js/wizard.js}"></script>
+      <script th:src="@{/js/validator.js}"></script>
+      <script th:src="@{/js/bootstrap-validator.js}"></script>
+      <script th:src="@{/js/custom.js}"></script>
+      <script th:src="@{/js/dropify.js}"></script>
+      <script th:src="@{/js/states-cities.js}"></script>
+   </body>
+</html>

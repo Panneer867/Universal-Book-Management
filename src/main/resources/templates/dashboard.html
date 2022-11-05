@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="row mb-2">
+            <div class="col-12">
+               <div class="card card-statistics">
+                  <div class="card-body pb-2 pt-3 px-4">
+                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                        <div class="statistics-item">
+                           <p class="mb-2">
+                              <i class="icon-sm fa fa-user mr-2"></i>
+                              Total Credit Limit
+                           </p>
+                           <h3><i class="fa fa-inr" aria-hidden="true"></i> 54000</h3>
+                           <div class="pl-3">
+                              <label class="badge badge-outline-success badge-pill ">2.7% increase</label>
+                           </div>
+                        </div>
+                        <div class="statistics-item">
+                           <p class="mb-2">
+                              <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
+                              Total Outstanding
+                           </p>
+                           <h3><i class="fa fa-inr" aria-hidden="true"></i> 3500</h3>
+                           <div class="pl-3">
+                              <label class="badge badge-outline-success badge-pill">12% increase</label>
+                           </div>
+                        </div>
+                        <div class="statistics-item">
+                           <p class="mb-2">
+                              <i class="icon-sm fas fa-hourglass-half mr-2"></i>
+                              Overdue
+                           </p>
+                           <h3><i class="fa fa-inr" aria-hidden="true"></i> 123.50</h3>
+                           <div class="pl-3">
+                              <label class="badge badge-outline-danger badge-pill">30% decrease</label>
+                           </div>
+                        </div>
+                        <div class="statistics-item">
+                           <p class="mb-2">
+                              <i class="icon-sm fas fa-chart-line mr-2"></i>
+                              Available Credit Limit
+                           </p>
+                           <h3><i class="fa fa-inr" aria-hidden="true"></i> 9000</h3>
+                           <div class="pl-3">
+                              <label class="badge badge-outline-success badge-pill">10% increase</label>
+                           </div>
+                        </div>
+                        <div class="statistics-item">
+                           <p class="mb-2">
+                              <i class="icon-sm fas fa-circle-notch mr-2"></i>
+                              Sales
+                           </p>
+                           <h3><i class="fa fa-inr" aria-hidden="true"></i> 7500</h3>
+                           <div class="pl-1">
+                              <label class="badge badge-outline-danger badge-pill">16% decrease</label>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-2 pt-4">
+               <ul class="nav nav-pills nav-pills-vertical nav-pills-info" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <li class="nav-item shift-btn bg-color-7">
+                     <a class="nav-link text-center"  id="v-pills-orders-tab" data-toggle="pill" href="#v-pills-orders" role="tab" aria-controls="v-pills-orders" aria-selected="true">
+                     Orders
+                     </a>                          
+                  </li>
+                  <li class="nav-item shift-btn bg-color-8">
+                     <a class="nav-link text-center" id="v-pills-sales-tab" data-toggle="pill" href="#v-pills-sales" role="tab" aria-controls="v-pills-sales" aria-selected="true">
+                     Sales
+                     </a>                          
+                  </li>
+                  <li class="nav-item shift-btn bg-color-4">
+                     <a class="nav-link text-center" id="v-pills-purchase-tab" data-toggle="pill" href="#v-pills-purchase" role="tab" aria-controls="v-pills-purchase" aria-selected="false">
+                     Purchase
+                     </a>                          
+                  </li>
+                  <li class="nav-item shift-btn bg-color-2">
+                     <a class="nav-link text-center" id="v-pills-income-tab" data-toggle="pill" href="#v-pills-income" role="tab" aria-controls="v-pills-income" aria-selected="false">
+                     Income
+                     </a>                          
+                  </li>
+                  <li class="nav-item shift-btn bg-color-5">
+                     <a class="nav-link text-center" id="v-pills-expense-tab" data-toggle="pill" href="#v-pills-expense" role="tab" aria-controls="v-pills-expense" aria-selected="false">
+                     Expense
+                     </a>                          
+                  </li>
+               </ul>
+            </div>
+            <div class="col-8">
+               <div class="tab-content tab-content-vertical p-0" id="v-pills-tabContent">
+                  <div class="tab-pane fade show active" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">
+                     <div class="card">
+                        <div class="card-body pb-2">
+                           <h4 class="card-title text-center p-0 m-0">
+                              <i class="fas fa-gift"></i>
+                              Orders
+                           </h4>
+                           <canvas id="orders-chart"></canvas>
+                           <div id="orders-chart-legend" class="orders-chart-legend"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-sales" role="tabpanel" aria-labelledby="v-pills-sales-tab">
+                     <div class="card">
+                        <div class="card-body pb-2">
+                           <h4 class="card-title text-center ">
+                              <i class="fas fa-gift"></i>
+                              Sales
+                           </h4>
+                           <canvas id="barChart"></canvas>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-purchase" role="tabpanel" aria-labelledby="v-pills-purchase-tab">
+                     <div class="card">
+                        <div class="card-body p-0">
+                           <h4 class="card-title text-center pt-3 mb-0">
+                              <i class="fas fa-gift"></i>
+                              Purchase
+                           </h4>
+                           <div id="purchase_chart"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-income" role="tabpanel" aria-labelledby="v-pills-income-tab">
+                     <div class="card">
+                        <div class="card-body">
+                           <h4 class="card-title text-center ">
+                              <i class="fas fa-gift"></i>
+                              Income
+                           </h4>
+                           <canvas id="areaChart"></canvas>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-expense" role="tabpanel" aria-labelledby="v-pills-expense-tab">
+                     <div class="card">
+                        <div class="card-body pb-2">
+                           <h4 class="card-title text-center">
+                              <i class="fas fa-gift"></i>
+                              Expense
+                           </h4>
+                           <div id="table_div"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-d-sales" role="tabpanel" aria-labelledby="v-pills-d-sales-tab">
+                     <div class="card">
+                        <div class="card-body pr-1 pt-3">
+                           <h4 class="card-title text-center m-0 pb-1">
+                              <i class="fas fa-gift"></i>
+                              Daily Sales
+                           </h4>
+                           <div class="flot-chart-container">
+                              <div id="column-chart" class="flot-chart"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-d-purchase" role="tabpanel" aria-labelledby="v-pills-d-purchase-tab">
+                     <div class="card">
+                        <div class="card-body pt-3 pb-2">
+                           <h4 class="card-title text-center">
+                              <i class="fas fa-gift"></i>
+                              Daily Purchase
+                           </h4>
+                           <div id="column_chart"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-d-orders" role="tabpanel" aria-labelledby="v-pills-d-orders-tab">
+                     <div class="card">
+                        <div class="card-body pb-2">
+                           <h4 class="card-title text-center">
+                              <i class="fas fa-gift"></i>
+                              Daily Orders
+                           </h4>
+                           <div id="orders-div"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-m-sales" role="tabpanel" aria-labelledby="v-pills-m-sales-tab">
+                     <div class="card">
+                        <div class="card-body p-0">
+                           <h4 class="card-title text-center pt-2 pb-2 bg-info m-0">
+                              <i class="fas fa-gift"></i>
+                              Month Wise Sales
+                           </h4>
+                           <div class="row pt-2">
+                              <div class="table-sorter-wrapper col-lg-12 table-responsive">
+                                 <table id="sortable-table-2" class="table table-striped">
+                                    <thead class="bg-warning text-white">
+                                       <tr>
+                                          <th class="sortStyle">Month</th>
+                                          <th class="sortStyle">Qunatity</th>
+                                          <th class="sortStyle">Amount</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr>
+                                          <td>JAN</td>
+                                          <td>1</td>
+                                          <td>$456.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td>FEB</td>
+                                          <td>1</td>
+                                          <td>$756.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td>MAR</td>
+                                          <td>1</td>
+                                          <td>$356.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td>APR</td>
+                                          <td>1</td>
+                                          <td>$756.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td>MAY</td>
+                                          <td>1</td>
+                                          <td>$426.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td>JUN</td>
+                                          <td>1</td>
+                                          <td>$426.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td>JUL</td>
+                                          <td>1</td>
+                                          <td>$426.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td>AUG</td>
+                                          <td>1</td>
+                                          <td>$426.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td>SEP</td>
+                                          <td>1</td>
+                                          <td>$426.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td>OCT</td>
+                                          <td>1</td>
+                                          <td>$426.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td>NOV</td>
+                                          <td>1</td>
+                                          <td>$426.00</td>
+                                       </tr>
+                                       <tr>
+                                          <td>DEC</td>
+                                          <td>1</td>
+                                          <td>$426.00</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-b-sales" role="tabpanel" aria-labelledby="v-pills-b-sales-tab">
+                     <div class="card">
+                        <div class="card-body p-0">
+                           <h4 class="card-title text-center text-white pt-2 pb-2 bg-dark m-0">
+                              <i class="fas fa-gift"></i>
+                              Branch Wise Sales
+                           </h4>
+                           <div id="js-grid-static"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-2 pt-4">
+               <ul class="nav nav-pills nav-pills-vertical nav-pills-info" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <li class="nav-item shift-btn bg-color-10">
+                     <a class="nav-link text-center" id="v-pills-d-sales-tab" data-toggle="pill" href="#v-pills-d-sales" role="tab" aria-controls="v-pills-d-sales" aria-selected="false">
+                     Daily Sales
+                     </a>                          
+                  </li>
+                  <li class="nav-item shift-btn bg-color-3">
+                     <a class="nav-link text-center" id="v-pills-d-purchase-tab" data-toggle="pill" href="#v-pills-d-purchase" role="tab" aria-controls="v-pills-d-purchase" aria-selected="false">
+                     Daily Purchase
+                     </a>                          
+                  </li>
+                  <li class="nav-item shift-btn bg-warning">
+                     <a class="nav-link text-center" id="v-pills-d-orders-tab" data-toggle="pill" href="#v-pills-d-orders" role="tab" aria-controls="v-pills-d-orders" aria-selected="false">
+                     Daily Orders
+                     </a>                          
+                  </li>
+                  <li class="nav-item shift-btn bg-color-11">
+                     <a class="nav-link text-center" id="v-pills-m-sales-tab" data-toggle="pill" href="#v-pills-m-sales" role="tab" aria-controls="v-pills-m-sales" aria-selected="false">
+                     Month Wise Sales
+                     </a>                          
+                  </li>
+                  <li class="nav-item shift-btn bg-color-12">
+                     <a class="nav-link text-center" id="v-pills-b-sales-tab" data-toggle="pill" href="#v-pills-b-sales" role="tab" aria-controls="v-pills-b-sales" aria-selected="false">
+                     Branch Wise Sales
+                     </a>                          
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </section>
+   </body>
+</html>
