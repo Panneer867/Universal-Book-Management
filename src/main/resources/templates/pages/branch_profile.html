@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="page-header">
+            <h3 class="page-title">
+               Branch Profile
+            </h3>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Profile</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Branch</li>
+               </ol>
+            </nav>
+         </div>
+         
+         <div class="row justify-content-center">
+            <div class="col-10 grid-margin stretch-card">
+               <div class="card">
+                  <div class="card-body pt-0 px-0 pb-0">
+                     <div class="row bg-primary py-2">
+                        <div class="col-11">
+                           <h3 class="card-title text-center mb-0 text-white font-weight-bold">PROFILE OVERVIEW</h3>
+                        </div>
+                        <div class="col-1">
+                            <a class="text-white" href="#" id="clickEditBranchProfile" data-toggle="modal" data-target="#editBranchProfile">
+                     		<i class="fas fa-pencil-alt btn-icon-append float-right"></i></a>
+                        </div>
+                     </div>
+                   <div class="row">
+                        <div class="col-md-12">
+                           <ul class="nav nav-pills nav-pills-custom justify-content-center pt-3" id="pills-tab-custom" role="tablist">
+                              <li class="nav-item ">
+                                 <a class="nav-link profile-tab active" id="pills-branch-tab-custom" data-toggle="pill" href="#pills-branch" role="tab" aria-controls="pills-company" aria-selected="true">
+                                 Branch Details
+                                 </a>
+                              </li>
+                             
+                              <li class="nav-item">
+                                 <a class="nav-link profile-tab " id="pills-password-tab-custom" data-toggle="pill" href="#pills-password" role="tab" aria-controls="pills-security" aria-selected="false">
+                                 Password
+                                 </a>
+                              </li>
+                           </ul>
+                           <div class="tab-content tab-content-custom-pill pt-3 px-3 pb-1" id="pills-tabContent-custom">
+                              <div class="tab-pane fade show active" id="pills-branch" role="tabpanel" aria-labelledby="pills-branch-tab-custom">
+                                 <form class="is-readonly">
+                                    <div class="row">
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Company Name:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="companyName"  disabled/>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Email:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="email"  disabled>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Telephone:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="telephone" disabled>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">GSTIN/UIN:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="gstin" disabled>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Fax No:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="fax" disabled>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Website:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="website" disabled>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Service Type:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="serviceType" disabled>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">No of Branch:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="noOfBranch" disabled>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Address:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="companyAddress" disabled>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">State:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="companyState" disabled>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">City:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="companyCity" disabled>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-6 px-3">
+                                          <div class="form-group row mb-1">
+                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Pincode:</label>
+                                             <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="companyPinCode" disabled>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </form>
+                              </div>
+                             
+                              
+                              <div class="tab-pane fade" id="pills-password" role="tabpanel" aria-labelledby="pills-password-tab-custom">
+                                 <div class="template-demo">
+                                    <form id="editable-form" class="editable-form" data-toggle="validator" th:action="@{/branch/change-password}" method="post">
+                                       <div class="row">
+                                          <div class="col-md-9">
+                                             <div class="form-group row mb-1">
+                                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Current
+                                                Password:</label>
+                                                <div class="col-sm-8">
+                                                   <input name="oldPassword" type="password" class="form-control" data-error="Provide current password !" placeholder="Enter current Password" required>
+                                                   <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-md-9">
+                                             <div class="form-group row mb-1">
+                                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">New
+                                                Password:</label>
+                                                <div class="col-sm-8">
+                                                   <input type="password" data-minlength="6" class="form-control form-control-sm" id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" 
+                                                      data-error="Password must be alphanumeric !" placeholder="Enter password" required>
+                                                   <small class="text-info">
+                                                   Min 6 characters required
+                                                   </small>
+                                                   <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-md-9">
+                                             <div class="form-group row mb-1">
+                                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Confirm
+                                                Password:</label>
+                                                <div class="col-sm-8">
+                                                   <input type="password" class="form-control form-control-sm" name="newPassword" id="password" data-match="#inputPassword" data-match-error="Whoops, these don't match" data-error="Provide confirm password !" placeholder="Enter confirm password" required>
+                                                   <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="text-center">
+                                          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal fade" id="editBranchProfile" tabindex="-1" role="dialog" aria-labelledby="editBranchProfile" aria-hidden="true">
+                        <div class="modal-dialog" role="document" style="max-width: 60%;">
+                           <div class="modal-content">
+                              <form data-toggle="validator" th:action="@{/master/branch/profile}" role="form"  method="post">
+                                 <div class="modal-header py-2">
+                                    <h5 class="modal-title" id="editModal">Edit Profile</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                 </div>
+                                  <div class="modal-body">
+                                   
+                              <div class="row">
+                                
+                                 <div class="col-4">
+                                    <div class="form-group">
+                                     <label for="branchName">Branch Name<strong class="text-danger ">*</strong></label>
+                                      
+                                       <input type="text" class="form-control" id="branchName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter branch name" required>
+                                       <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                                  <div class="col-4">
+                                    <div class="form-group">
+                                       <label for="firstName">Admin Name<strong class="text-danger ">*</strong></label>
+                                       <input type="text" class="form-control" id="firstName" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Admin name" required>
+                                       <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                                  <div class="col-4">
+                                    <div class="form-group">
+                                       <label for="username">Username<strong class="text-danger ">*</strong></label>
+                                       <input type="text" class="form-control" id="username" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter username" required>
+                                       <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="col-4">
+                                    <div class="form-group">
+                                       <label for="branchName">Branch E-Mail ID<strong class="text-danger ">*</strong></label>
+                                       <input type="email" class="form-control" id="email" data-error="Provide a valid email !" placeholder="Enter Email" required>
+                                       <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                                 <div class="col-4">
+                                    <div class="form-group">
+                                       <label for="mobile">Mobile Number<strong class="text-danger ">*</strong></label>
+                                       <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" id="mobile" data-minlength="10" data-error="Enter a valid phone number" placeholder="Enter phone no" required>
+                                       <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                                  <div class="col-4">
+                                    <div class="form-group">
+                                       <label for="cstates">State<strong class="text-danger ">*</strong></label>
+                                       <select class="form-control" id="cstates" data-error="Select a state !" required>
+                                          <option value="" selected>select</option>
+                                          <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                       </select>
+                                       <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              
+                              <div class="row">
+                                 <div class="col-4">
+                                    <div class="form-group">
+                                       <label for="address">Address<strong class="text-danger ">*</strong></label>
+                                       <textarea type="text" class="form-control" rows="3" id="address" data-error="Provide a address !" placeholder="Enter branch address" required></textarea>
+                                       <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                                 <div class="col-4">
+                                    <div class="form-group">
+                                       <label for="ccities">City<strong class="text-danger">*</strong></label>
+                                       <select class="form-control" id="ccities" data-error="Provide a city !" required>
+                                          <option value="" selected>select</option>
+                                       </select>
+                                       <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                 </div>
+                                  <div class="col-4">
+                                 <div class="form-group">
+                                       <label for="pinCode">Pincode<strong class="text-danger ">*</strong></label>
+                                       <input type="number" class="form-control" id="pinCode" data-error="Provide a pincode !" data-minlength="6" placeholder="Enter a pincode" required>
+                                       <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                              </div>
+                              </div>
+                             
+                           </div>
+                          
+                       
+                                 <div class="modal-footer justify-content-center py-2">
+                                    <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                                    <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+      </section>
+   </body>
+</html>

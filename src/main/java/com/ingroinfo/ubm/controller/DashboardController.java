@@ -39,6 +39,11 @@ public class DashboardController {
 			model.addAttribute("cne", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 		} else if (branch != null) {
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("pe", cmpy.getProfile());
+			model.addAttribute("cne", cmpy.getCompanyName());
+			
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 

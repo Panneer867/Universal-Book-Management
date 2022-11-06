@@ -45,7 +45,7 @@ public class WebSecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable().authorizeRequests()
-			.antMatchers("/master/**").hasRole("OWNER")
+			.antMatchers("/master/**").hasAnyRole("OWNER","MANAGER")
 			.antMatchers("/login", "/company/register","/getCities", "/access-denied/", "/server-error","/product/**").permitAll()
 			.anyRequest().authenticated()
 			.and().formLogin()

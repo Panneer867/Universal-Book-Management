@@ -3,6 +3,8 @@ package com.ingroinfo.ubm.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +23,7 @@ import com.ingroinfo.ubm.configuration.ModelMapperConfig;
 import com.ingroinfo.ubm.dao.CompanyRepository;
 import com.ingroinfo.ubm.dao.UserRepository;
 import com.ingroinfo.ubm.dto.CompanyDto;
+import com.ingroinfo.ubm.dto.UserDto;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.User;
 import com.ingroinfo.ubm.service.CompanyService;
@@ -95,8 +98,7 @@ public class CompanyController {
 	@GetMapping("/profile")
 	public String showProfile(Model model, Principal principal) {
 
-		User user = userRepository.findByUsername(principal.getName());
-		Company company = companyService.findByUser(user);
+		Company company = companyService.findByUser(userRepository.findByUsername(principal.getName()));
 
 		model.addAttribute("pe", company.getProfile());
 		model.addAttribute("cne", company.getCompanyName());
@@ -105,8 +107,13 @@ public class CompanyController {
 		model.addAttribute("stateList", userService.getAllStates());
 		model.addAttribute("bankList", userService.getAllBanks());
 		model.addAttribute("update", new CompanyDto());
+		model.addAttribute("user", new UserDto());
+		model.addAttribute("companyProfile", "enableCompany");
+		model.addAttribute("usernameExists", "You have entered an username that already exists!");
+		model.addAttribute("emailExists", "You have entered an email that already exists!");
+		model.addAttribute("mobileExists", "You have entered an mobile that already exists!");
 		model.addAttribute("profile", "Profile has been sucessfully updated !");
-		model.addAttribute("changed", "Password has been sucessfully updated !");
+		model.addAttribute("changed", "Login Credentials has been sucessfully updated !");
 		model.addAttribute("wrong", "You have entered wrong password!!");
 
 		return "/pages/company_details";
@@ -128,8 +135,6 @@ public class CompanyController {
 		mapper.modelMapper().map(companyDto, company);
 		mapper.modelMapper().map(companyDto, user);
 
-		boolean usernameChanged = userService.usernameChanged(user);
-
 		String folder = "C:/Company/" + company.getCompanyName() + "/";
 
 		if (!oldfolder.equalsIgnoreCase(folder)) {
@@ -138,12 +143,17 @@ public class CompanyController {
 			company.setCompanyPath(folder);
 		}
 
-		userService.editUser(user);
-		companyService.editCompany(company);
-
-		if (usernameChanged) {
-			return "redirect:/login?usernameChanged";
+		if (userService.emailCheck(user)) {
+			return "redirect:/company/profile?emailAlreadyExists";
 		}
+
+		if (userService.mobileCheck(user)) {
+			return "redirect:/company/profile?mobileAlreadyExists";
+		}
+
+		userService.editUser(user);
+
+		companyService.editCompany(company);
 
 		return "redirect:/company/profile?profileUpdated";
 	}
@@ -153,8 +163,7 @@ public class CompanyController {
 			@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult, Principal principal,
 			Model model) throws IOException {
 
-		User user = userRepository.findByUsername(principal.getName());
-		Company company = companyService.findByUser(user);
+		Company company = companyService.findByUser(userRepository.findByUsername(principal.getName()));
 
 		companyService.saveOldData(company);
 
@@ -169,19 +178,35 @@ public class CompanyController {
 		return "redirect:/company/profile?profileUpdated";
 	}
 
-	@PostMapping("/change-password")
-	public String changePassword(@RequestParam("oldPassword") String oldPassword,
-			@RequestParam("newPassword") String newPassword, Principal principal, Model model) {
+	@PostMapping("/userDetails")
+	public String userDetails(@ModelAttribute("user") UserDto userDto, Principal principal, Model model) {
 
-		String userName = principal.getName();
-		User currentUser = this.userRepository.findByUsername(userName);
+		User user = userRepository.findByUsername(principal.getName());
 
-		if (this.passwordEncoder.matches(oldPassword, currentUser.getPassword())) {
+		if (this.passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
 
-			currentUser.setPassword(this.passwordEncoder.encode(newPassword));
-			this.userRepository.save(currentUser);
+			List<User> userList = userRepository.findAll();
 
-			return "redirect:/company/profile?passwordChanged";
+			List<User> filteredList = userList.stream().filter(x -> !user.getEmail().equals(x.getEmail()))
+					.collect(Collectors.toList());
+
+			boolean isExists = filteredList.stream().filter(o -> o.getUsername().equals(userDto.getUsername()))
+					.findFirst().isPresent();
+
+			if (isExists) {
+				return "redirect:/company/profile?usernameExists";
+			}
+
+			user.setUsername(userDto.getUsername());
+
+			if (userDto.getNewPassword().equalsIgnoreCase("")) {
+				userRepository.save(user);
+			} else {
+				user.setPassword(this.passwordEncoder.encode(userDto.getNewPassword()));
+				userRepository.save(user);
+			}
+
+			return "redirect:/login?userDetailsChanged";
 
 		} else {
 

@@ -20,7 +20,7 @@ import lombok.Setter;
 public class CatalogueMaster {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long catalogueId;
 	private String supplierName;
 	private String categoryName;

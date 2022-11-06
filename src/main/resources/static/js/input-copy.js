@@ -19,7 +19,6 @@ $(document).ready(function() {
 
 	$('#clickEditOwner').on('click', function(event) {
 
-		document.getElementById('userNameCopy').value = document.getElementById('userName').value;
 		document.getElementById('firstNameCopy').value = document.getElementById('firstName').value;
 		document.getElementById('lastNameCopy').value = document.getElementById('lastName').value;
 		document.getElementById('drivingLicenseCopy').value = document.getElementById('drivingLicense').value;

@@ -15,6 +15,7 @@ public class UserDto {
 	private String firstName;
 	private String username;
 	private String password;
+	private String newPassword;
 	private String email;
 	private String mobile;
 	private String branch;

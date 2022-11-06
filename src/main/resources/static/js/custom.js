@@ -4,17 +4,10 @@ $(document).ready(function() {
 		setTimeout(function() { window.location = "http://localhost:8080/login"; }, 3000);
 	}
 	
-	if (window.location.href === 'http://localhost:8080/company/profile?passwordChanged') {
-		setTimeout(function() { window.location = "http://localhost:8080/logout"; }, 3000);
+	if (window.location.href === 'http://localhost:8080/login?userDetailsChanged') {
+		setTimeout(function() { window.location = "http://localhost:8080/logout"; }, 1000);
 	}
 	
-	if (window.location.href === 'http://localhost:8080/company/profile?usernameChanged') {
-		setTimeout(function() { window.location = "http://localhost:8080/login?usernameChanged"; }, 3000);
-	}
-	
-	if (window.location.href === 'http://localhost:8080/login?usernameChanged') {
-		setTimeout(function() { window.location = "http://localhost:8080/logout"; }, 2000);
-	}
 });
 
 $(document).ready(function() {
@@ -23,17 +16,10 @@ $(document).ready(function() {
 		setTimeout(function() { window.location = "http://192.168.0.203:9292/login"; }, 3000);
 	}
 	
-	if (window.location.href === 'http://192.168.0.203:9292/company/profile?passwordChanged') {
+	if (window.location.href === 'http://192.168.0.203:9292/login?userDetailsChanged') {
 		setTimeout(function() { window.location = "http://192.168.0.203:9292/logout"; }, 3000);
 	}
 	
-	if (window.location.href === 'http://192.168.0.203:9292/company/profile?usernameChanged') {
-		setTimeout(function() { window.location = "http://192.168.0.203:9292/login?usernameChanged"; }, 3000);
-	}
-	
-	if (window.location.href === 'http://192.168.0.203:9292/login?usernameChanged') {
-		setTimeout(function() { window.location = "http://192.168.0.203:9292/logout"; }, 2000);
-	}
 });
 
 // caching the elements

@@ -13,9 +13,12 @@
                </ol>
             </nav>
          </div>
+         <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.emailAlreadyExists}">[[${emailExists}]]</div>
+         <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.mobileAlreadyExists}">[[${mobileExists}]]</div>
+         <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.usernameExists}">[[${usernameExists}]]</div>
          <div class="alert alert-success text-center mb-1 py-2" role="alert" th:if="${param.usernameChanged}">[[${profile}]]</div>
          <div class="alert alert-success text-center mb-1 py-2" role="alert" th:if="${param.profileUpdated}">[[${profile}]]</div>
-         <div class="alert alert-success text-center mb-1 py-2" role="alert" th:if="${param.passwordChanged}">[[${changed}]]</div>
+         <div class="alert alert-success text-center mb-1 py-2" role="alert" th:if="${param.userDetailsChanged}">[[${changed}]]</div>
          <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.wrongPassword}">[[${wrong}]]</div>
          <div class="row">
             <div class="col-3 grid-margin stretch-card">
@@ -253,13 +256,6 @@
                                     <div class="row">
                                        <div class="col-4">
                                           <div class="form-group">
-                                             <label for="userNameCopy">User Name<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control" name="username" id="userNameCopy" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter username" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
                                              <label for="firstNameCopy">First Name<strong class="text-danger ">*</strong></label>
                                              <input type="text" class="form-control" name="firstName" id="firstNameCopy" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter first name" required>
                                              <div class="help-block with-errors text-danger"></div>
@@ -272,15 +268,15 @@
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
-                                    </div>
-                                    <div class="row">
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="drivingLicense">Driving License no</label>
-                                             <input type="text" class="form-control form-control-sm" name="drivingLicense" id="drivingLicenseCopy" placeholder="Enter drivingLicense">
+                                             <input type="text" class="form-control form-control-sm" name="drivingLicense" id="drivingLicenseCopy" placeholder="Enter driving License">
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
+                                    </div>
+                                    <div class="row">
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="ownerEmail">Email<strong class="text-danger ">*</strong></label>
@@ -295,15 +291,15 @@
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
-                                    </div>
-                                    <div class="row">
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="alternateMobile">Alternate Mobile No</label>
-                                             <input type="number" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="alternateMobile" id="alternateMobileCopy" data-minlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no" required>
+                                             <input type="number" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="alternateMobile" id="alternateMobileCopy" data-minlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no">
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
+                                    </div>
+                                    <div class="row">
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="ownerAddress">Address<strong class="text-danger ">*</strong></label>
@@ -321,8 +317,6 @@
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
-                                    </div>
-                                    <div class="row">
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="ownerCity">City<strong class="text-danger ">*</strong></label>
@@ -330,6 +324,8 @@
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
+                                    </div>
+                                    <div class="row">
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="ownerPinCode">Pincode<strong class="text-danger ">*</strong></label>
@@ -808,49 +804,41 @@
                               </div>
                               <div class="tab-pane fade" id="pills-security" role="tabpanel" aria-labelledby="pills-security-tab-custom">
                                  <div class="template-demo">
-                                    <form id="editable-form" class="editable-form" data-toggle="validator" th:action="@{/company/change-password}" method="post">
-                                       <div class="row">
-                                          <div class="col-md-9">
-                                             <div class="form-group row mb-1">
-                                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Current
-                                                Password:</label>
-                                                <div class="col-sm-8">
-                                                   <input name="oldPassword" type="password" class="form-control" data-error="Provide current password !" placeholder="Enter current Password" required>
-                                                   <div class="help-block with-errors text-danger"></div>
-                                                </div>
+                                    <form id="editable-form" class="editable-form" data-toggle="validator" th:action="@{/company/userDetails}" th:object="${user}" method="post">
+                                       <div class="row mb-3">
+                                          <div class="col-6 border border-primary">
+                                             <div class="form-group pt-5">
+                                                <label for="username">User Name<strong class="text-danger ">*</strong></label>
+                                                <input type="text" class="form-control form-control-sm" name="username" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter username" required>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                             <div class="form-group mt-5">
+                                                <label for="password">Current Password<strong class="text-danger ">*</strong></label>
+                                                <input name="password" type="password" class="form-control form-control-sm" id="password" data-error="Provide current password !" placeholder="Enter current Password" required>
+                                                <div class="help-block with-errors text-danger"></div>
                                              </div>
                                           </div>
-                                       </div>
-                                       <div class="row">
-                                          <div class="col-md-9">
-                                             <div class="form-group row mb-1">
-                                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">New
-                                                Password:</label>
-                                                <div class="col-sm-8">
-                                                   <input type="password" data-minlength="6" class="form-control form-control-sm" id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" 
-                                                      data-error="Password must be alphanumeric !" placeholder="Enter password" required>
-                                                   <small class="text-info">
-                                                   Min 6 characters required
-                                                   </small>
-                                                   <div class="help-block with-errors text-danger"></div>
-                                                </div>
+                                          <div class="col-6 border-right border-top border-bottom border-primary">
+                                             <small class="text-warning">Note: Leave this fields blank if you are not going to change your password.</small>
+                                             <div class="form-group pt-3">
+                                                <label for="userNameCopy">New Password</label>
+                                                <input type="password" data-minlength="6" class="form-control form-control-sm" id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" 
+                                                   data-error="Password must be alphanumeric !" placeholder="Enter password" >
+                                                <small class="text-info">
+                                                Min 6 characters required
+                                                </small>
+                                                <div class="help-block with-errors text-danger"></div>
                                              </div>
-                                          </div>
-                                       </div>
-                                       <div class="row">
-                                          <div class="col-md-9">
-                                             <div class="form-group row mb-1">
-                                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Confirm
-                                                Password:</label>
-                                                <div class="col-sm-8">
-                                                   <input type="password" class="form-control form-control-sm" name="newPassword" id="password" data-match="#inputPassword" data-match-error="Whoops, these don't match" data-error="Provide confirm password !" placeholder="Enter confirm password" required>
-                                                   <div class="help-block with-errors text-danger"></div>
-                                                </div>
+                                             <div class="form-group">
+                                                <label for="userNameCopy">Confirm Password</label>
+                                                <input type="password" class="form-control form-control-sm" name="newPassword" id="password" data-match="#inputPassword" data-match-error="Whoops, these don't match" data-error="Provide confirm password !" placeholder="Enter confirm password">
+                                                <div class="help-block with-errors text-danger"></div>
                                              </div>
                                           </div>
                                        </div>
                                        <div class="text-center">
-                                          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                          <button type="submit" class="btn btn-sm btn-primary my-2">Submit</button>
+                                          <button type="reset" class="btn btn-sm btn-danger my-2">Reset</button>
                                        </div>
                                     </form>
                                  </div>

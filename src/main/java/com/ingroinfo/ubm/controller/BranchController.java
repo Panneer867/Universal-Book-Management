@@ -43,36 +43,32 @@ public class BranchController {
 	@GetMapping
 	public String branch(Model model, Principal principal) {
 
-		model.addAttribute("title", "Branches ");
-		model.addAttribute("emailExists", "You have entered an email address that already exists! ");
-		model.addAttribute("mobileExists", "You have entered an mobile number that already exists! ");
-		model.addAttribute("usernameExists", "You have entered an username that already exists! ");
+		Company company = companyService.findByUser(userService.getUserId(principal.getName()));
+		Branch branch = branchService.findByUserId(userService.getUserId(principal.getName()));
 
+		model.addAttribute("title", "Branch Management");
+		model.addAttribute("emailExists", "You have entered an email address that already exists!");
+		model.addAttribute("mobileExists", "You have entered an mobile number that already exists!");
+		model.addAttribute("usernameExists", "You have entered an username that already exists!");
 		model.addAttribute("branch", new BranchDto());
 		model.addAttribute("stateList", userService.getAllStates());
 
-		Company company = companyService.findByUser(userService.getUserId(principal.getName()));
+		if (company != null) {
 
-		if (company == null) {
-			Branch branch = branchService.findByUserId(userService.getUserId(principal.getName()));
-			Company cmpy = branch.getCompany();
-			model.addAttribute("branchProfile", "enableBranch");
-			model.addAttribute("companyId", cmpy.getCompanyId());
-			model.addAttribute("companyName", cmpy.getCompanyName());
-		} else {
 			model.addAttribute("companyId", company.getCompanyId());
 			model.addAttribute("companyName", company.getCompanyName());
 			model.addAttribute("branchCount", company.getNoOfBranch());
 			model.addAttribute("pe", company.getProfile());
 			model.addAttribute("cne", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
-		}
 
-		Branch branch = branchService.findByBranchId();
+		} else if (branch != null) {
 
-		if (branch != null) {
-
-			model.addAttribute("branchId", branch.getBranchId());
+			Company cmpy = branch.getCompany();
+			model.addAttribute("branchProfile", "enableBranch");
+			model.addAttribute("companyId", cmpy.getCompanyId());
+			model.addAttribute("companyName", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
 		}
 
 		return "/pages/branch_creation";
@@ -102,7 +98,6 @@ public class BranchController {
 		branch.setCompany(company);
 
 		if (branchService.branchAllowed(company)) {
-
 			branchService.userDetails(branchDto);
 			branchService.saveBranch(branch);
 			userService.saveBranchId(branch);
@@ -123,7 +118,7 @@ public class BranchController {
 			model.addAttribute("companyName", company.getCompanyName());
 			model.addAttribute("pe", company.getProfile());
 			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("company", "enableCompany");
+			model.addAttribute("companyProfile", "enableCompany");
 		}
 
 		List<BranchDto> branches = branchService.getAllBranch();
@@ -144,6 +139,22 @@ public class BranchController {
 
 		return "redirect:/master/branch/management?branchDeleted";
 
+	}
+
+	@GetMapping("/profile")
+	public String branchProfile(Model model, Principal principal) {
+
+		model.addAttribute("title", "Branch Profile");
+
+		Branch branch = branchService.findByUserId(userService.getUserId(principal.getName()));
+		Company company = branch.getCompany();
+
+		model.addAttribute("branchProfile", "enableBranch");
+		model.addAttribute("companyId", company.getCompanyId());
+		model.addAttribute("companyName", company.getCompanyName());
+		model.addAttribute("usernameofbranch", branch.getFirstName());
+
+		return "/pages/branch_profile";
 	}
 
 }

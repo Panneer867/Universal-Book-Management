@@ -52,14 +52,15 @@
                <ul class="navbar-nav navbar-nav-right">
                   <li class="nav-item nav-profile dropdown">
                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                     <img th:src="@{'/Company/'+ ${cne} +'/Owner_Profile/'+ ${pe}}" alt="profile"/>
+                     <img th:if="${companyProfile != null}" th:src="@{'/Company/'+ ${cne} +'/Owner_Profile/'+ ${pe}}" alt="profile"/>
+                     <strong th:if="${branchProfile != null}">[[${usernameofbranch}]]</strong>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right profile" aria-labelledby="profileDropdown">
                         <a th:href="@{/company/profile}" th:if="${companyProfile != null}" class="dropdown-item">
                         <i class="fas fa-user text-primary"></i>
                         Your Profile
                         </a>
-                        <a th:href="@{/branch/profile}" th:if="${branchProfile != null}" class="dropdown-item">
+                        <a th:href="@{/master/branch/profile}" th:if="${branchProfile != null}" class="dropdown-item">
                         <i class="fas fa-user text-primary"></i>
                         Your Profile
                         </a>

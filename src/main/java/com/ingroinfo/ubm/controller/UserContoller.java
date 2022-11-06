@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ingroinfo.ubm.dto.UserDto;
 import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Company;
-import com.ingroinfo.ubm.entity.User;
 import com.ingroinfo.ubm.service.BranchService;
 import com.ingroinfo.ubm.service.CompanyService;
 import com.ingroinfo.ubm.service.EmployeeService;
@@ -46,20 +45,19 @@ public class UserContoller {
 		model.addAttribute("usernameExists", "You have entered an username that already exists! ");
 
 		model.addAttribute("user", new UserDto());
-		String userName = principal.getName();
+		Company company = companyService.findByUser(userService.getUserId(principal.getName()));
+		Branch branch = branchService.findByUserId(userService.getUserId(principal.getName()));
 
-		User user = userService.getUserId(userName);
-		Company company = companyService.findByUser(user);
-		if (company == null) {
-			Branch branch = branchService.findByUserId(user);
+		if (branch != null) {
 			Company cmpy = branch.getCompany();
 			model.addAttribute("companyId", cmpy.getCompanyId());
 			model.addAttribute("companyName", cmpy.getCompanyName());
-		} else {
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+		} else if (company != null) {
+			model.addAttribute("companyProfile", "enableCompany");
 			model.addAttribute("companyId", company.getCompanyId());
 			model.addAttribute("companyName", company.getCompanyName());
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+
 		}
 
 		List<Branch> branches = branchService.getAllBranches();
@@ -95,11 +93,18 @@ public class UserContoller {
 		Company company = companyService.findByUser(userService.getUserId(principal.getName()));
 
 		if (company != null) {
-
 			model.addAttribute("companyId", company.getCompanyId());
 			model.addAttribute("companyName", company.getCompanyName());
 			model.addAttribute("pe", company.getProfile());
 			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+		} else {
+			Branch branch = branchService.findByUserId(userService.getUserId(principal.getName()));
+			Company cmpy = branch.getCompany();
+			model.addAttribute("branchProfile", "enableBranch");
+			model.addAttribute("companyId", cmpy.getCompanyId());
+			model.addAttribute("companyName", cmpy.getCompanyName());
+
 		}
 
 		List<UserDto> users = userService.getAllUsers();

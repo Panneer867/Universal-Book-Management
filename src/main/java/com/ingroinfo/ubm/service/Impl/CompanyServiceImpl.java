@@ -92,8 +92,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public void editCompany(Company company) {
-
-		companyRepository.save(company);
+				
+				companyRepository.save(company);
+		
 	}
 
 	@Override

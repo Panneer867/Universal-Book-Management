@@ -206,38 +206,21 @@ public class UserServiceImpl implements UserService {
 
 		User userDetail = userDetails.get();
 
-		boolean name = userDetail.getFirstName().equalsIgnoreCase(user.getFirstName());
-		boolean username = userDetail.getUsername().equalsIgnoreCase(user.getUsername());
 		boolean email = userDetail.getEmail().equalsIgnoreCase(user.getEmail());
 		boolean mobile = userDetail.getMobile().equalsIgnoreCase(user.getMobile());
 
-		if (!name || !email || !username || !mobile) {
+		if (!email || !mobile) {
 
 			userRepository.save(user);
+
 		}
+
 	}
 
 	@Override
 	public void deleteByUserId(Long id) {
 
 		userRepository.deleteById(id);
-	}
-
-	@Override
-	public boolean usernameChanged(User user) {
-
-		boolean changed = false;
-		Optional<User> userDetails = userRepository.findById(user.getId());
-
-		User userDetail = userDetails.get();
-
-		boolean username = userDetail.getUsername().equalsIgnoreCase(user.getUsername());
-
-		if (!username) {
-			changed = true;
-		}
-
-		return changed;
 	}
 
 	@Override
@@ -265,6 +248,30 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return userDto;
+	}
+
+	@Override
+	public boolean emailCheck(User user) {
+		List<User> userList = userRepository.findAll();
+
+		List<User> filteredList = userList.stream().filter(x -> !user.getUsername().equals(x.getUsername()))
+				.collect(Collectors.toList());
+
+		boolean isExists = filteredList.stream().filter(o -> o.getEmail().equals(user.getEmail())).findFirst()
+				.isPresent();
+		return isExists;
+	}
+
+	@Override
+	public boolean mobileCheck(User user) {
+		List<User> userList = userRepository.findAll();
+
+		List<User> filteredList = userList.stream().filter(x -> !user.getUsername().equals(x.getUsername()))
+				.collect(Collectors.toList());
+
+		boolean isExists = filteredList.stream().filter(o -> o.getMobile().equals(user.getMobile())).findFirst()
+				.isPresent();
+		return isExists;
 	}
 
 }

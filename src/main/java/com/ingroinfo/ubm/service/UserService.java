@@ -45,7 +45,9 @@ public interface UserService {
 
 	void deleteByUserId(Long id);
 
-	boolean usernameChanged(User user);
-
 	List<UserDto> getAllUsers();
+
+	boolean emailCheck(User user);
+
+	boolean mobileCheck(User user);
 }

@@ -21,8 +21,7 @@ public class HsnCodeMaster {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long hsnId;
-	private String itemName;
+	private Long id;
 	private String catagoryName;
 	private String hsnCode;
 }
