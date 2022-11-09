@@ -31,13 +31,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 		Privilege branchPrivilege = createPrivilegeIfNotFound("BRANCH_PRIVILEGE");
 		Privilege userPrivilege = createPrivilegeIfNotFound("USER_PRIVILEGE");
-		Privilege employeePrivilege = createPrivilegeIfNotFound("EMPLOYEE_PRIVILEGE");
 
-		List<Privilege> ownerPrivileges = Arrays.asList(branchPrivilege, userPrivilege, employeePrivilege);
-		createRoleIfNotFound("ROLE_OWNER", ownerPrivileges);
-		createRoleIfNotFound("ROLE_MANAGER", Arrays.asList(branchPrivilege));
+		List<Privilege> ownerPrivileges = Arrays.asList(branchPrivilege, userPrivilege);
+		createRoleIfNotFound("ROLE_ADMIN", ownerPrivileges);
+		createRoleIfNotFound("ROLE_BRANCH", Arrays.asList(branchPrivilege));
 		createRoleIfNotFound("ROLE_USER", Arrays.asList(userPrivilege));
-		createRoleIfNotFound("ROLE_EMPLOYEE", Arrays.asList(employeePrivilege));
 
 		alreadySetup = true;
 	}

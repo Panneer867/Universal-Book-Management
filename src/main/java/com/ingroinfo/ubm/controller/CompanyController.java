@@ -5,12 +5,10 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,20 +18,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.ubm.configuration.ModelMapperConfig;
+import com.ingroinfo.ubm.dao.BranchRepository;
 import com.ingroinfo.ubm.dao.CompanyRepository;
+import com.ingroinfo.ubm.dao.EmployeeRepository;
 import com.ingroinfo.ubm.dao.UserRepository;
 import com.ingroinfo.ubm.dto.CompanyDto;
 import com.ingroinfo.ubm.dto.UserDto;
+import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.User;
+import com.ingroinfo.ubm.service.BranchService;
 import com.ingroinfo.ubm.service.CompanyService;
 import com.ingroinfo.ubm.service.UserService;
 
 @Controller
-@RequestMapping("/company")
+@RequestMapping("/master/company")
 public class CompanyController {
-
-	private static final ModelMapper modelMapper = new ModelMapper();
 
 	@Autowired
 	public ModelMapperConfig mapper;
@@ -45,60 +45,35 @@ public class CompanyController {
 	public UserService userService;
 
 	@Autowired
+	public BranchService branchService;
+
+	@Autowired
+	public BranchRepository branchRepository;
+
+	@Autowired
+	public EmployeeRepository employeeRepository;
+
+	@Autowired
+	public CompanyRepository companyRepository;
+
+	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
-	private CompanyRepository companyRepository;
-
-	@Autowired
 	private PasswordEncoder passwordEncoder;
-
-	@GetMapping("/register")
-	public String company(Model model) {
-
-		model.addAttribute("title", "Company Creation");
-		model.addAttribute("stateList", userService.getAllStates());
-		model.addAttribute("bankList", userService.getAllBanks());
-		model.addAttribute("company", new CompanyDto());
-
-		Company company = companyRepository.findTopByOrderByCompanyIdDesc();
-
-		if (company != null) {
-			model.addAttribute("companyNo", company.getCompanyId());
-		}
-		return "/company_creation";
-	}
-
-	@PostMapping("/register")
-	public String createCompany(@RequestParam("companyLogo") MultipartFile file1,
-			@RequestParam("profile") MultipartFile file2, @ModelAttribute("company") CompanyDto companyDto,
-			BindingResult bindingResult) throws IOException {
-
-		Company company = modelMapper.map(companyDto, Company.class);
-
-		String companyLogo = StringUtils.cleanPath(file1.getOriginalFilename());
-		// String profile = StringUtils.cleanPath(file2.getOriginalFilename());
-		String profile = company.getFirstName() + ".jpg";
-		String uploadDir = "C:/Company/" + company.getCompanyName() + "/Logo";
-		String uploadDir1 = "C:/Company/" + company.getCompanyName() + "/Owner_Profile";
-
-		company.setCompanyPath("C:/Company/" + company.getCompanyName() + "/");
-		company.setCompanyLogo(companyLogo);
-		company.setProfile(profile);
-
-		companyService.saveFile(uploadDir, companyLogo, file1);
-		companyService.saveFile(uploadDir1, profile, file2);
-
-		companyService.userDetails(companyDto);
-		companyService.saveCompany(company);
-
-		return "redirect:/company/register?success";
-	}
 
 	@GetMapping("/profile")
 	public String showProfile(Model model, Principal principal) {
 
 		Company company = companyService.findByUser(userRepository.findByUsername(principal.getName()));
+
+		model.addAttribute("companyProfile", "enableCompany");
+		model.addAttribute("usernameExists", "You have entered an username that already exists!");
+		model.addAttribute("emailExists", "You have entered an email that already exists!");
+		model.addAttribute("mobileExists", "You have entered an mobile that already exists!");
+		model.addAttribute("profile", "Profile has been sucessfully updated !");
+		model.addAttribute("changed", "Login Credentials has been sucessfully updated !");
+		model.addAttribute("wrong", "You have entered wrong password!!");
 
 		model.addAttribute("pe", company.getProfile());
 		model.addAttribute("cne", company.getCompanyName());
@@ -108,15 +83,8 @@ public class CompanyController {
 		model.addAttribute("bankList", userService.getAllBanks());
 		model.addAttribute("update", new CompanyDto());
 		model.addAttribute("user", new UserDto());
-		model.addAttribute("companyProfile", "enableCompany");
-		model.addAttribute("usernameExists", "You have entered an username that already exists!");
-		model.addAttribute("emailExists", "You have entered an email that already exists!");
-		model.addAttribute("mobileExists", "You have entered an mobile that already exists!");
-		model.addAttribute("profile", "Profile has been sucessfully updated !");
-		model.addAttribute("changed", "Login Credentials has been sucessfully updated !");
-		model.addAttribute("wrong", "You have entered wrong password!!");
 
-		return "/pages/company_details";
+		return "/pages/company_profile";
 
 	}
 
@@ -144,18 +112,18 @@ public class CompanyController {
 		}
 
 		if (userService.emailCheck(user)) {
-			return "redirect:/company/profile?emailAlreadyExists";
+			return "redirect:/master/company/profile?emailAlreadyExists";
 		}
 
 		if (userService.mobileCheck(user)) {
-			return "redirect:/company/profile?mobileAlreadyExists";
+			return "redirect:/master/company/profile?mobileAlreadyExists";
 		}
 
 		userService.editUser(user);
 
 		companyService.editCompany(company);
 
-		return "redirect:/company/profile?profileUpdated";
+		return "redirect:/master/company/profile?profileUpdated";
 	}
 
 	@PostMapping("/profile/picture")
@@ -175,7 +143,7 @@ public class CompanyController {
 
 		companyService.editCompany(company);
 
-		return "redirect:/company/profile?profileUpdated";
+		return "redirect:/master/company/profile?profileUpdated";
 	}
 
 	@PostMapping("/userDetails")
@@ -194,7 +162,7 @@ public class CompanyController {
 					.findFirst().isPresent();
 
 			if (isExists) {
-				return "redirect:/company/profile?usernameExists";
+				return "redirect:/master/company/profile?usernameExists";
 			}
 
 			user.setUsername(userDto.getUsername());
@@ -210,19 +178,30 @@ public class CompanyController {
 
 		} else {
 
-			return "redirect:/company/profile?wrongPassword";
+			return "redirect:/master/company/profile?wrongPassword";
 		}
 
 	}
 
-	@GetMapping("/deleteCompany/{cid}")
+	@GetMapping("/delete/{cid}")
 	public String deleteCompany(@PathVariable("cid") Long companyId) {
 
 		Company company = companyService.findByCompanyId(companyId);
-		User user = company.getUser();
 
-		companyService.deleteCompany(company.getCompanyId());
-		userService.deleteByUserId(user.getId());
+		List<Branch> branch = branchRepository.findAll();
+
+		List<Branch> filteredList = branch.stream().filter(b -> b.getCompany().equals(company))
+				.collect(Collectors.toList());
+
+		filteredList.forEach(d -> branchService.deleteByBranchId(d.getBranchId()));
+
+		filteredList.forEach(d -> userRepository.deleteByBranchAssociatedUsers(d.getBranchId()));
+
+		companyRepository.deleteByCompanyId(companyId);
+
+		userRepository.deleteById(company.getUser().getUserId());
+
+		employeeRepository.deleteByCompanyId(companyId);
 
 		return "redirect:/login?companyDeleted";
 

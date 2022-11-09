@@ -9,7 +9,7 @@ function deleteCompany(cid) {
 		.then((willDelete) => {
 			if (willDelete) {
 
-				window.location = "/company/deleteCompany/" + cid;
+				window.location = "/master/company/delete/" + cid;
 
 			} else {
 				swal("Your profile details  is safe!");

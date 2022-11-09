@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EmployeeDto {
 
+	private Long employeeId;
 	private String firstName;
 	private String lastName;
 	private String profile;
@@ -24,11 +25,14 @@ public class EmployeeDto {
 	private String email;
 	private String maritalStatus;
 	private String qualification;
-	private String aadhaar;
-	private String drivingLicense;
 	private String address;
 	private String state;
-	private String city;
 	private String pinCode;
+	private String aadhaar;
+	private String city;
+	private String drivingLicense;
+	private Long companyId;
+	private String dateCreated;
+	private String lastUpdated;
 
 }

@@ -16,7 +16,6 @@
          <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.emailAlreadyExists}">[[${emailExists}]]</div>
          <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.mobileAlreadyExists}">[[${mobileExists}]]</div>
          <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.usernameExists}">[[${usernameExists}]]</div>
-         <div class="alert alert-success text-center mb-1 py-2" role="alert" th:if="${param.usernameChanged}">[[${profile}]]</div>
          <div class="alert alert-success text-center mb-1 py-2" role="alert" th:if="${param.profileUpdated}">[[${profile}]]</div>
          <div class="alert alert-success text-center mb-1 py-2" role="alert" th:if="${param.userDetailsChanged}">[[${changed}]]</div>
          <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.wrongPassword}">[[${wrong}]]</div>
@@ -80,7 +79,7 @@
                      <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfile" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                            <div class="modal-content">
-                              <form data-toggle="validator" th:action="@{/company/profile/picture}" role="form" th:object="${update}" method="post" enctype="multipart/form-data">
+                              <form data-toggle="validator" th:action="@{/master/company/profile/picture}" role="form" th:object="${update}" method="post" enctype="multipart/form-data">
                                  <div class="modal-header py-2">
                                     <h5 class="modal-title" id="editModal">Edit Profile</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -111,7 +110,7 @@
                      <div class="modal fade" id="editCompany" tabindex="-1" role="dialog" aria-labelledby="editCompany" aria-hidden="true">
                         <div class="modal-dialog" role="document" style="max-width: 60%;">
                            <div class="modal-content">
-                              <form data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
+                              <form data-toggle="validator" th:action="@{/master/company/profile}" role="form" th:object="${update}" method="post">
                                  <div class="modal-header py-2">
                                     <h5 class="modal-title" id="editModal">Edit Company Details</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -137,7 +136,7 @@
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="telephone">Telephone</label>
-                                             <input type="number" class="form-control form-control-sm" name="telephone" id="telephoneCopy"  data-minlength="6" data-maxlength="10"  data-error="Provide a valid phone number !" placeholder="Enter telephone no" required>
+                                             <input type="text" class="form-control form-control-sm" name="telephone" id="telephoneCopy" pattern="[7-9]{1}[0-9]{9}" maxlength="10"  data-error="Provide a valid phone number !" placeholder="Enter telephone no" required>
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
@@ -146,7 +145,7 @@
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="gstin">GSTIN/UIN<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control form-control-sm" name="gstin" id="gstinCopy" data-error="Provide a GSTIN/UIN !" placeholder="Enter GSTIN/UIN" required>
+                                             <input type="text" class="form-control form-control-sm" name="gstin" id="gstinCopy" oninput="this.value = this.value.toUpperCase()" data-minlength="15" maxlength="15" data-error="Provide a GSTIN/UIN !" placeholder="Enter GSTIN/UIN" required>
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
@@ -228,7 +227,7 @@
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="companyPinCode">Pincode<strong class="text-danger ">*</strong></label>
-                                             <input type="number" class="form-control form-control-sm" name="companyPinCode" id="companyPinCodeCopy" data-minlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required> 
+                                             <input type="text" class="form-control form-control-sm" name="companyPinCode" id="companyPinCodeCopy" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required> 
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
@@ -245,7 +244,7 @@
                      <div class="modal fade" id="editOwner" tabindex="-1" role="dialog" aria-labelledby="editOwner" aria-hidden="true">
                         <div class="modal-dialog" role="document" style="max-width: 60%;">
                            <div class="modal-content">
-                              <form  data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
+                              <form  data-toggle="validator" th:action="@{/master/company/profile}" role="form" th:object="${update}" method="post">
                                  <div class="modal-header py-2">
                                     <h5 class="modal-title" id="editModal">Edit Owner Details</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -287,14 +286,14 @@
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="mobile">Mobile No</label>
-                                             <input type="number" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="mobile" id="mobileNoCopy"  data-minlength="10" data-error="Provide a valid mobile number" placeholder="Enter mobile no" required>
+                                             <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="mobile" id="mobileNoCopy" maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter mobile no" required>
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="alternateMobile">Alternate Mobile No</label>
-                                             <input type="number" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="alternateMobile" id="alternateMobileCopy" data-minlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no">
+                                             <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="alternateMobile" id="alternateMobileCopy" maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no">
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
@@ -329,7 +328,7 @@
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="ownerPinCode">Pincode<strong class="text-danger ">*</strong></label>
-                                             <input type="number" class="form-control form-control-sm " name="ownerPinCode" id="ownerPinCodeCopy" data-minlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
+                                             <input type="text" class="form-control form-control-sm " name="ownerPinCode" id="ownerPinCodeCopy" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
@@ -346,7 +345,7 @@
                      <div class="modal fade" id="editBank" tabindex="-1" role="dialog" aria-labelledby="editBank" aria-hidden="true">
                         <div class="modal-dialog" role="document" style="max-width: 60%;">
                            <div class="modal-content">
-                              <form  data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
+                              <form  data-toggle="validator" th:action="@{/master/company/profile}" role="form" th:object="${update}" method="post">
                                  <div class="modal-header py-2">
                                     <h5 class="modal-title" id="editModal">Edit Bank Details</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -431,7 +430,7 @@
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="bankPinCode">Bank PinCode<strong class="text-danger ">*</strong></label>
-                                             <input type="number" class="form-control form-control-sm" name="bankPinCode" id="bankPinCodeCopy" data-minlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
+                                             <input type="text" class="form-control form-control-sm" name="bankPinCode" id="bankPinCodeCopy" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
@@ -804,15 +803,18 @@
                               </div>
                               <div class="tab-pane fade" id="pills-security" role="tabpanel" aria-labelledby="pills-security-tab-custom">
                                  <div class="template-demo">
-                                    <form id="editable-form" class="editable-form" data-toggle="validator" th:action="@{/company/userDetails}" th:object="${user}" method="post">
+                                    <form id="editable-form" class="editable-form" data-toggle="validator" th:action="@{/master/company/userDetails}" th:object="${user}" method="post">
                                        <div class="row mb-3">
                                           <div class="col-6 border border-primary">
-                                             <div class="form-group pt-5">
+                                             <div style="padding-left: 135px;padding-top: 12px;">
+                                                <strong class="text-warning">CHANGE USERNAME</strong>
+                                             </div>
+                                             <div class="form-group pt-4">
                                                 <label for="username">User Name<strong class="text-danger ">*</strong></label>
                                                 <input type="text" class="form-control form-control-sm" name="username" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter username" required>
                                                 <div class="help-block with-errors text-danger"></div>
                                              </div>
-                                             <div class="form-group mt-5">
+                                             <div class="form-group pt-1">
                                                 <label for="password">Current Password<strong class="text-danger ">*</strong></label>
                                                 <input name="password" type="password" class="form-control form-control-sm" id="password" data-error="Provide current password !" placeholder="Enter current Password" required>
                                                 <div class="help-block with-errors text-danger"></div>
@@ -820,7 +822,7 @@
                                           </div>
                                           <div class="col-6 border-right border-top border-bottom border-primary">
                                              <small class="text-warning">Note: Leave this fields blank if you are not going to change your password.</small>
-                                             <div class="form-group pt-3">
+                                             <div class="form-group pt-3 mb-2">
                                                 <label for="userNameCopy">New Password</label>
                                                 <input type="password" data-minlength="6" class="form-control form-control-sm" id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" 
                                                    data-error="Password must be alphanumeric !" placeholder="Enter password" >

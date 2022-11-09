@@ -23,6 +23,7 @@ public class BranchDto {
 	private String city;
 	private String username;
 	private String password;
+	private String newPassword;
 	private String dateCreated;
 	private String lastUpdated;
 

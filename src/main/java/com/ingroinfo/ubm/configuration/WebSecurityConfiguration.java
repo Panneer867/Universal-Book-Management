@@ -45,12 +45,13 @@ public class WebSecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable().authorizeRequests()
-			.antMatchers("/master/**").hasAnyRole("OWNER","MANAGER")
-			.antMatchers("/login", "/company/register","/getCities", "/access-denied/", "/server-error","/product/**").permitAll()
-			.anyRequest().authenticated()
+		 	.antMatchers("/master/**").hasAnyAuthority("USER_PRIVILEGE","BRANCH_PRIVILEGE")
+		 	.antMatchers("/master/branch/**").hasAuthority("BRANCH_PRIVILEGE")
+			.antMatchers("/login", "/company/register","/getCities","/get/**","/access-denied/", "/server-error","/product/**").permitAll()
+			.anyRequest().hasAnyAuthority("USER_PRIVILEGE","BRANCH_PRIVILEGE")
 			.and().formLogin()
 			.loginPage("/login")
-			.defaultSuccessUrl("/master/dashboard", true)
+			.defaultSuccessUrl("/dashboard", true)
 			.failureUrl("/login?error=true")
 			.and().logout()
 			.logoutUrl("/logout")
@@ -71,7 +72,7 @@ public class WebSecurityConfiguration {
 	@Bean
 	public RoleHierarchy roleHierarchy() {
 		RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-		String hierarchy = "ROLE_OWNER > ROLE_MANAGER \n ROLE_MANAGER > ROLE_USER \n ROLE_USER > ROLE_EMPLOYEE";
+		String hierarchy = "ROLE_ADMIN > ROLE_BRANCH \n ROLE_BRANCH > ROLE_USER";
 		roleHierarchy.setHierarchy(hierarchy);
 		return roleHierarchy;
 	}

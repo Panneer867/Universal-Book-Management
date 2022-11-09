@@ -3,7 +3,6 @@ package com.ingroinfo.ubm.service;
 import java.util.List;
 import com.ingroinfo.ubm.dto.UserDto;
 import com.ingroinfo.ubm.entity.Bank;
-import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.State;
 import com.ingroinfo.ubm.entity.User;
 
@@ -21,8 +20,6 @@ public interface UserService {
 
 	void registerUser(User user);
 
-	void registerEmployee(User user);
-
 	boolean userNameExists(String username);
 
 	User getUserId(String username);
@@ -30,8 +27,6 @@ public interface UserService {
 	State findById(String name);
 
 	String dateFormat(String date);
-
-	void saveBranchId(Branch branch);
 
 	boolean emailExists(UserDto userDto);
 
@@ -50,4 +45,5 @@ public interface UserService {
 	boolean emailCheck(User user);
 
 	boolean mobileCheck(User user);
+
 }

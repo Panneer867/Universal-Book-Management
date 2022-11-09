@@ -9,6 +9,7 @@
       <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}">
       <link rel="stylesheet" th:href="@{/css/style.css}">
       <link rel="stylesheet" th:href="@{/css/toggle.css}">
+      <link rel="stylesheet" th:href="@{/css/custom.css}">
    </head>
    <body>
       <div class="container-scroller">
@@ -108,7 +109,7 @@
                                                 <div class="col-3">
                                                    <div class="form-group">
                                                       <label for="telephone">Telephone</label>
-                                                      <input type="number" class="form-control form-control-sm" th:field="*{telephone}" id="telephone" data-minlength="6" data-error="Provide a valid phone number !" placeholder="Enter telephone no">
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{telephone}" pattern="[7-9]{1}[0-9]{9}" maxlength="10" id="telephone" data-error="Provide a valid phone number !" placeholder="Enter telephone no">
                                                       <div class="help-block with-errors text-danger"></div>
                                                    </div>
                                                 </div>
@@ -128,7 +129,7 @@
                                                 <div class="col-3">
                                                    <div class="form-group">
                                                       <label for="gstin">GSTIN/UIN<strong class="text-danger ">*</strong></label>
-                                                      <input type="text" class="form-control form-control-sm" th:field="*{gstin}" id="gstin" data-error="Provide a GSTIN/UIN !" placeholder="Enter GSTIN/UIN" required>
+                                                         <input type="text" class="form-control form-control-sm" th:field="*{gstin}" oninput="this.value = this.value.toUpperCase()" id="gstin" data-minlength="15" maxlength="15" data-error="Provide a GSTIN/UIN !" placeholder="Enter GSTIN/UIN" required>
                                                       <div class="help-block with-errors text-danger"></div>
                                                    </div>
                                                 </div>
@@ -163,7 +164,7 @@
                                                 <div class="col-2">
                                                    <div class="form-group">
                                                       <label for="companyPinCode">Pincode<strong class="text-danger ">*</strong></label>
-                                                      <input type="number" class="form-control form-control-sm" th:field="*{companyPinCode}" data-minlength="6" id="companyPinCode" data-error="Provide a pincode !" placeholder="Enter pincode" required>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{companyPinCode}" pattern="[0-9]{6}" maxlength="6" id="companyPinCode" data-error="Provide a pincode !" placeholder="Enter pincode" required>
                                                       <div class="help-block with-errors text-danger"></div>
                                                    </div>
                                                 </div>
@@ -297,7 +298,7 @@
                                                 <div class="col-3">
                                                    <div class="form-group">
                                                       <label for="mobile">Mobile No<strong class="text-danger ">*</strong></label>
-                                                      <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control" th:field="*{mobile}" id="mobile" data-minlength="10" data-error="Provide a valid mobile number" placeholder="Enter mobile no" required>
+                                                      <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control" th:field="*{mobile}" id="mobile" maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter mobile no" required>
                                                       <div class="help-block with-errors text-danger"></div>
                                                    </div>
                                                 </div>
@@ -306,14 +307,14 @@
                                                 <div class="col-3">
                                                    <div class="form-group">
                                                       <label for="alternateMobile">Alternate Mobile No</label>
-                                                      <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" th:field="*{alternateMobile}" id="alternateMobile" data-minlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no">
+                                                      <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" th:field="*{alternateMobile}" id="alternateMobile" maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no">
                                                       <div class="help-block with-errors text-danger"></div>
                                                    </div>
                                                 </div>
                                                 <div class="col-3">
                                                    <div class="form-group">
                                                       <label for="aadhaar">Aadhaar No<strong class="text-danger ">*</strong></label>
-                                                      <input type="text" class="form-control form-control-sm" th:field="*{aadhaar}" id="aadhaar" data-error="Provide a valid aadhaar !" pattern="[0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{4}" placeholder="Enter aadhaar no" required>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{aadhaar}" id="aadhaar" data-error="Provide a valid aadhaar !" pattern="[0-9]{12}" maxlength="12" placeholder="Enter aadhaar no" required>
                                                       <div class="help-block with-errors text-danger"></div>
                                                    </div>
                                                 </div>
@@ -339,7 +340,7 @@
                                                       <div class="help-block with-errors text-danger"></div>
                                                    </div>
                                                 </div>
-                                               <div class="col-3">
+                                                <div class="col-3">
                                                    <div class="form-group">
                                                       <label for="ostates">State<strong class="text-danger ">*</strong></label>
                                                       <select class="form-control" th:field="*{ownerState}" id="ostates" data-error="Select state !" required>
@@ -361,7 +362,7 @@
                                                 <div class="col">
                                                    <div class="form-group">
                                                       <label for="ownerPinCode">Pincode<strong class="text-danger ">*</strong></label>
-                                                      <input type="number" class="form-control form-control-sm" th:field="*{ownerPinCode}" id="ownerPinCode" data-minlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{ownerPinCode}" id="ownerPinCode" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
                                                       <div class="help-block with-errors text-danger"></div>
                                                    </div>
                                                 </div>
@@ -393,7 +394,7 @@
                                                 <label for="bankName">Bank Name<strong class="text-danger ">*</strong></label>
                                                 <select class="form-control" th:field="*{bankName}" id="bankName" data-error="Select Bank Name !" required>
                                                    <option value="" selected>select</option>
-                                                  <option th:each="banks : ${bankList}" th:value="${banks.name}" th:utext="${banks.name}"/>
+                                                   <option th:each="banks : ${bankList}" th:value="${banks.name}" th:utext="${banks.name}"/>
                                                 </select>
                                                 <div class="help-block with-errors text-danger"></div>
                                              </div>
@@ -452,28 +453,28 @@
                                              </div>
                                           </div>
                                           <div class="col-3 pt-4">
-                                                   <div class="form-group">
-                                                      <label for="bstates">State<strong class="text-danger ">*</strong></label>
-                                                      <select class="form-control" th:field="*{bankState}" id="bstates" data-error="Select state !" required>
-                                                         <option value="" selected>Select</option>
-                                                         <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
-                                                      </select>
-                                                      <div class="help-block with-errors text-danger"></div>
-                                                   </div>
-                                                </div>
-                                                <div class="col-2 pt-4">
-                                                   <div class="form-group">
-                                                      <label for="bcities">City<strong class="text-danger ">*</strong></label>
-                                                      <select class="form-control" th:field="*{bankCity}" id="bcities" data-error="Select city !" required>
-                                                         <option value="" selected>Select</option>
-                                                      </select>
-                                                      <div class="help-block with-errors text-danger"></div>
-                                                   </div>
-                                                </div>
+                                             <div class="form-group">
+                                                <label for="bstates">State<strong class="text-danger ">*</strong></label>
+                                                <select class="form-control" th:field="*{bankState}" id="bstates" data-error="Select state !" required>
+                                                   <option value="" selected>Select</option>
+                                                   <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
+                                          <div class="col-2 pt-4">
+                                             <div class="form-group">
+                                                <label for="bcities">City<strong class="text-danger ">*</strong></label>
+                                                <select class="form-control" th:field="*{bankCity}" id="bcities" data-error="Select city !" required>
+                                                   <option value="" selected>Select</option>
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                             </div>
+                                          </div>
                                           <div class="col-2 pt-4">
                                              <div class="form-group">
                                                 <label for="bankPinCode">Pincode<strong class="text-danger ">*</strong></label>
-                                                <input type="number" class="form-control form-control-sm" th:field="*{bankPinCode}" id="bankPinCode" data-minlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
+                                                <input type="text" class="form-control form-control-sm" th:field="*{bankPinCode}" id="bankPinCode" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
                                                 <div class="help-block with-errors text-danger"></div>
                                              </div>
                                           </div>

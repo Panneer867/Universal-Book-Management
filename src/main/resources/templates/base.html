@@ -54,9 +54,10 @@
                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                      <img th:if="${companyProfile != null}" th:src="@{'/Company/'+ ${cne} +'/Owner_Profile/'+ ${pe}}" alt="profile"/>
                      <strong th:if="${branchProfile != null}">[[${usernameofbranch}]]</strong>
+                     <strong th:if="${userProfile != null}">[[${usernameofuser}]]</strong>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right profile" aria-labelledby="profileDropdown">
-                        <a th:href="@{/company/profile}" th:if="${companyProfile != null}" class="dropdown-item">
+                        <a th:href="@{/master/company/profile}" th:if="${companyProfile != null}" class="dropdown-item">
                         <i class="fas fa-user text-primary"></i>
                         Your Profile
                         </a>
@@ -80,7 +81,7 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                <ul class="nav px-2 pt-2">
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/dashboard}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/dashboard' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/dashboard}" th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}">
                      <i class="fa fa-home menu-icon"></i>
                      <span class="menu-title">Dashboard</span>
                      </a>

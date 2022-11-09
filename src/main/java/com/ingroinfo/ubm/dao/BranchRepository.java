@@ -19,4 +19,6 @@ public interface BranchRepository extends JpaRepository<Branch, Long> {
 
 	Branch findByUser(User user);
 
+	Branch findByEmail(String email);
+
 }

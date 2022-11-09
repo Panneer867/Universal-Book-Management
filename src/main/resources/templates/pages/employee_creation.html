@@ -4,21 +4,25 @@
       <section>
          <div class="page-header">
             <h3 class="page-title">
-               Employee Management
+               Employee Creation
             </h3>
             <nav aria-label="breadcrumb">
-             <a th:href="@{/master/employee-management/attendance}" class="btn btn-primary btn-icon-text">
+               <a th:href="@{/employee/attendance}" class="btn btn-primary btn-icon-text">
                <i class="fa fa-money-check-alt"></i>
                Attendance
                </a>
-               <a th:href="@{/master/employee-management/salary}" class="btn btn-primary btn-icon-text">
+               <a th:href="@{/employee/salary}" class="btn btn-primary btn-icon-text">
                <i class="fa fa-money-check-alt"></i>
                Salary
                </a>
-               <a th:href="@{/master/employee-management/leave}" class="btn btn-info btn-icon-text">
+               <a th:href="@{/employee/leave}" class="btn btn-info btn-icon-text">
                <i class="fab fa-buromobelexperte"></i>
                Leave
-               </a> 
+               </a>
+                <a th:href="@{/master/employee/management}" class="btn btn-success btn-icon-text">
+              <i class="fas fa-users"></i>
+               Employee Management
+               </a>  
             </nav>
          </div>
          <div class="row border border-dark bg-dark text-white">
@@ -42,14 +46,12 @@
                <div class="card-body pt-3">
                   <h4 class="card-title text-center mb-3">Employee Registration</h4>
                   <div class="alert alert-success text-center" role="alert" th:if="${param.success}">
-                     Employee has been successfully added, The Employee ID is <strong>[[${employeeId}]]</strong>
+                     Employee has been successfully added !
                   </div>
-                 <div class="alert alert-danger text-center" role="alert" th:if="${param.emailAlreadyExists}">[[${exists}]]</div>
                   <hr class="mt-0">
-                 <form class="forms-sample" data-toggle="validator" th:action="@{/master/employee}" role="form" th:object="${employee}" method="post" enctype="multipart/form-data">
-     				 <div class="row">
+                  <form class="forms-sample" data-toggle="validator" th:action="@{/master/employee}" role="form" th:object="${employee}" method="post" enctype="multipart/form-data">
+                     <div class="row">
                         <div class="col-10">
-                          
                            <div class="row">
                               <div class="col-4">
                                  <div class="form-group">
@@ -59,7 +61,7 @@
                                  </div>
                               </div>
                               <div class="col-3">
-                                <div class="form-group">
+                                 <div class="form-group">
                                     <label for="lastName">Last Name<strong class="text-danger ">*</strong></label>
                                     <input type="text" class="form-control" th:field="*{lastName}" id="lastName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter last name" required>
                                     <div class="help-block with-errors text-danger"></div>
@@ -94,19 +96,19 @@
                               <div class="col-4">
                                  <div class="form-group">
                                     <label for="branchName">Mobile No<strong class="text-danger ">*</strong></label>
-                                    <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control" th:field="*{mobileNo}" id="mobileNo" data-minlength="10" data-error="Enter a valid mobile number" placeholder="Enter mobile no" required>
+                                    <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control" th:field="*{mobileNo}" id="mobileNo" maxlength="10" data-error="Enter a valid mobile number" placeholder="Enter mobile no" required>
                                     <div class="help-block with-errors text-danger"></div>
                                  </div>
                               </div>
                               <div class="col-3">
-                               <div class="form-group">
+                                 <div class="form-group">
                                     <label for="alternateMobile">Alternate Mobile No</label>
-                                    <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" th:field="*{alternateMobile}" id="alternateMobile" data-minlength="10" data-error="Enter a valid mobile number" placeholder="Enter alternate mobile no">
+                                    <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" th:field="*{alternateMobile}" id="alternateMobile" maxlength="10" data-error="Enter a valid mobile number" placeholder="Enter alternate mobile no">
                                     <div class="help-block with-errors text-danger"></div>
                                  </div>
                               </div>
                               <div class="col-3">
-                                  <div class="form-group">
+                                 <div class="form-group">
                                     <label for="dateOfBirth">Date of birth<strong class="text-danger ">*</strong></label>
                                     <input type="date" class="form-control" th:field="*{dateOfBirth}"  id="dateOfBirth" data-error="Select date of birth !" required>
                                     <div class="help-block with-errors text-danger"></div>
@@ -152,7 +154,7 @@
                                  </div>
                               </div>
                               <div class="col-2">
-                              <div class="form-group">
+                                 <div class="form-group">
                                     <label for="qualification">Qualification<strong class="text-danger ">*</strong></label>
                                     <select class="form-control" th:field="*{qualification}" id="qualification" data-error="Select qualification !" required>
                                        <option value="" selected>select</option>
@@ -162,7 +164,6 @@
                                     </select>
                                     <div class="help-block with-errors text-danger"></div>
                                  </div>
-                                  
                               </div>
                            </div>
                            <div class="row">
@@ -175,45 +176,40 @@
                               </div>
                               <div class="col-3">
                                  <div class="form-group">
-                                    <label for="state">State<strong class="text-danger ">*</strong></label>
-                                    <select class="form-control" th:field="*{state}" id="state" data-error="Select a state !" required>
-                                       <option value="" selected>select</option>
-                                       <option value="Karnataka">Karnataka</option>
-                                       <option value="Tamil nadu">Tamil Nadu</option>
-                                       <option value="Kerala">Kerala</option>
+                                    <label for="estates">State<strong class="text-danger ">*</strong></label>
+                                    <select class="form-control" th:field="*{state}" id="estates" data-error="Select a state !" required>
+                                       <option value="" selected>Select</option>
+                                       <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
                                     </select>
                                     <div class="help-block with-errors text-danger"></div>
                                  </div>
                                  <div class="form-group">
                                     <label for="aadhaar">Aadhaar No<strong class="text-danger ">*</strong></label>
-                                    <input type="text" class="form-control" th:field="*{aadhaar}" id="aadhaar" data-error="Provide valid aadhaar !" pattern="[0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{4}" placeholder="Enter aadhaar no" required>
+                                    <input type="text" class="form-control" th:field="*{aadhaar}" id="aadhaar" data-error="Provide valid aadhaar !" pattern="[0-9]{12}" maxlength="12" placeholder="Enter aadhaar no" required>
                                     <div class="help-block with-errors text-danger"></div>
                                  </div>
-                                
                               </div>
                               <div class="col-3">
-                                  
                                  <div class="form-group">
                                     <label for="city">City<strong class="text-danger ">*</strong></label>
-                                    <input type="text" class="form-control" th:field="*{city}" id="city" data-error="Provide a city !" placeholder="Enter a city" required>
+                                    <select class="form-control" th:field="*{city}" id="ecities" data-error="Select city !" required>
+                                       <option value="" selected>Select</option>
+                                    </select>
                                     <div class="help-block with-errors text-danger"></div>
                                  </div>
-                                  <div class="form-group">
+                                 <div class="form-group">
                                     <label for="drivingLicense">Driving License no</label>
                                     <input type="text" class="form-control" th:field="*{drivingLicense}" id="city" placeholder="Enter driving license no">
                                  </div>
-                                
                               </div>
-                               <div class="col-2">
-                               <div class="form-group">
+                              <div class="col-2">
+                                 <div class="form-group">
                                     <label for="pinCode">Pincode<strong class="text-danger ">*</strong></label>
-                                    <input type="number" class="form-control" th:field="*{pinCode}" id="pinCode" data-error="Provide a pincode !" data-minlength="6" placeholder="Enter a pincode" required>
+                                    <input type="text" class="form-control" th:field="*{pinCode}" id="pinCode" data-error="Provide a pincode !" pattern="[0-9]{6}" maxlength="6" placeholder="Enter a pincode" required>
                                     <div class="help-block with-errors text-danger"></div>
                                  </div>
-                                 
                               </div>
                            </div>
-                          
                            <div class="text-center">
                               <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
                               <button type="reset" class="btn btn-sm btn-danger">Reset</button>

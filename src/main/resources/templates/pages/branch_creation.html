@@ -31,7 +31,7 @@
          </div>
          <div class="row justify-content-center">
             <div class="col-11 pt-3">
-               <div class="alert alert-success text-center mb-1" role="alert" th:if="${param.success}"> Your Branch has been successfully created! The Branch ID is <strong>[[${branchId}]]</strong></div>
+               <div class="alert alert-success text-center mb-1" role="alert" th:if="${param.success}"> Your Branch has been successfully created!</div>
                <div class="alert alert-danger text-center mb-1" role="alert" th:if="${param.notAllowed}"> Only <strong>[[${branchCount}]]</strong> Branches are Allowed</div>
                <div class="alert alert-danger text-center mb-1" role="alert" th:if="${param.emailExists}"><strong>[[${emailExists}]]</strong></div>
                <div class="alert alert-danger text-center mb-1" role="alert" th:if="${param.mobileExists}"><strong>[[${mobileExists}]]</strong></div>
@@ -84,7 +84,7 @@
                                  <div class="col-6">
                                     <div class="form-group">
                                        <label for="mobile">Mobile Number<strong class="text-danger ">*</strong></label>
-                                       <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" th:field="*{mobile}" id="mobile" data-minlength="10" data-error="Enter a valid phone number" placeholder="Enter phone no" required>
+                                       <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" th:field="*{mobile}" id="mobile" maxlength="10" data-error="Enter a valid phone number" placeholder="Enter phone no" required>
                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                  </div>
@@ -121,7 +121,7 @@
                                  <div class="col-4">
                                     <div class="form-group">
                                        <label for="pinCode">Pincode<strong class="text-danger ">*</strong></label>
-                                       <input type="number" class="form-control" th:field="*{pinCode}" id="pinCode" data-error="Provide a pincode !" data-minlength="6" placeholder="Enter a pincode" required>
+                                       <input type="text" class="form-control" th:field="*{pinCode}" id="pinCode" data-error="Provide a pincode !" pattern="[0-9]{6}" maxlength="6" placeholder="Enter a pincode" required>
                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                  </div>

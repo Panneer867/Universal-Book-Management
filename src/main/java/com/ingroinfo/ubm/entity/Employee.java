@@ -84,8 +84,8 @@ public class Employee {
 	@Column(name = "driving_license")
 	private String drivingLicense;
 
-	@Column(name = "employee_type")
-	private String employeeType;
+	@Column(name = "company_id")
+	private Long companyId;
 
 	@Column(name = "date_created")
 	@CreationTimestamp

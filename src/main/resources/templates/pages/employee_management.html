@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+   <body>
+      <section>
+         <div class="page-header">
+            <div class="pl-2">
+               <button type="button" class="btn btn-dark btn-rounded btn-icon" onclick="window.location.href='/master/employee'">
+               <i class="fa fa-arrow-left"></i>
+               </button>
+            </div>
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Employee Management</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Employee</li>
+               </ol>
+            </nav>
+         </div>
+         <div class="row border border-dark bg-dark text-white mb-2">
+            <div class="col-4">
+               <div class="form-group mb-0 mt-2">
+                  <label for="exampleInputCity1" class="pt-2 pr-3 font-weight-bold">Company Name</label>
+                  <label class="badge badge-warning">[[${companyName}]]</label>
+               </div>
+            </div>
+            <div class="col-6">
+            </div>
+            <div class="col-2">
+               <div class="form-group mb-0 mt-2">
+                  <label for="exampleInputCity1" class="pt-2 pr-3 font-weight-bold">Company ID</label>
+                  <label class="badge badge-danger">[[${companyId}]]</label>
+               </div>
+            </div>
+         </div>
+         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.emailAlreadyExists}">[[${emailExists}]]</div>
+         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.mobileAlreadyExists}">[[${mobileExists}]]</div>
+         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.usernameAlreadyExists}">[[${usernameExists}]]</div>
+         <div class="alert alert-success text-center mb-1 py-1" role="alert" th:if="${param.employeeDeleted}">Employee has been deleted successfully!</div>
+         <div class="alert alert-success text-center mb-1 py-1" role="alert" th:if="${param.employeeUpdated}">Employee has been updated successfully!</div>
+         <div class="col-lg-12 grid-margin stretch-card mx-auto">
+            <div class="card">
+               <div class="card-body p-1">
+                  <h4 class="card-title text-center mb-0 text-black py-2 font-weight-bold bg-success">Employee Management</h4>
+                  <div class="table-responsive">
+                     <table class="table table-striped">
+                        <thead>
+                           <tr>
+                              <th>
+                                 ID
+                              </th>
+                              <th class="text-center">
+                                 Profile
+                              </th>
+                              <th>
+                                 Name
+                              </th>
+                              <th>
+                                 Email
+                              </th>
+                              <th>
+                                 Mobile
+                              </th>
+                              <th class="text-center">
+                                 Company ID
+                              </th>
+                              <th class="text-center">
+                                 Date Created
+                              </th>
+                              <th class="text-center">
+                                 Last Modified
+                              </th>
+                              <th class="text-center">
+                                 Actions
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr th:each="employee: ${employees}">
+                              <td th:text = "${employee.employeeId}"></td>
+                              <td class="py-1">
+                                 <img th:src="@{'/Company/'+ ${companyName} +'/Employees/'+ ${employee.profile}}" style="width:70px;height:70px" alt="image"/>
+                              </td>
+                              <td th:text = "${employee.firstName}"></td>
+                              <td th:text = "${employee.email}"></td>
+                              <td th:text = "${employee.mobileNo}"></td>
+                              <td th:text = "${employee.companyId}" class="text-center"></td>
+                              <td th:text = "${employee.dateCreated}" class="text-center"></td>
+                              <td th:text = "${employee.lastUpdated}" class="text-center"></td>
+                              <td class="text-center">
+                                 <a th:href="@{/get/employee/(id=${employee.employeeId})}" class="btn btn-info p-1 mx-2 edit-employee" data-toggle="modal" data-target="#editEmployee">Edit</a>
+                                 <a th:href="@{/master/employee/delete(employeeId=${employee.employeeId})}" class="btn btn-danger p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal fade" id="editEmployee" tabindex="-1" role="dialog" aria-labelledby="editEmployee" aria-hidden="true">
+            <div class="modal-dialog mt-5" role="document" style="max-width: 60%;">
+               <div class="modal-content">
+                  <form data-toggle="validator" th:action="@{/master/employee/update}" role="form" th:object="${update}" method="post">
+                     <div class="modal-header pt-2 pb-1">
+                        <h5 class="modal-title" id="editModal">Edit Employee Details</h5>
+                        <div style="margin-left: 450px;">
+                           <label for="exampleInputCity1" class="font-weight-bold pr-1">Employee ID</label>
+                           <input type="text" class="bg-warning border-warning text-white text-center" id="employeeIdShow" style="width: 38px;" disabled/>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <div class="row">
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="efirstNameCopy">First Name<strong class="text-danger ">*</strong></label>   
+                                 <input type="hidden" class="bg-danger border-danger text-white" id="employeeIdCopy" name="branchId"/>                             
+                                 <input type="text" class="form-control" id="efirstNameCopy" name="firstName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter branch name" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="elastNameCopy">Last Name<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="elastNameCopy" name="lastName" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Admin name" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="eemailCopy">E-Mail ID<strong class="text-danger ">*</strong></label>
+                                 <input type="email" class="form-control" id="eemailCopy" name="email" data-error="Provide a valid email !" placeholder="Enter Email" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="emobileNoCopy">Mobile Number<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" name="mobileNo" id="emobileNoCopy" maxlength="10" data-error="Enter a valid phone number" placeholder="Enter phone no" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="ealternateMobileCopy">Alternate Mobile</label>
+                                 <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" name="alternateMobile" id="ealternateMobileCopy" maxlength="10" data-error="Enter a valid mobile number" placeholder="Enter alternate mobile no">
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="eaddressCopy">Address<strong class="text-danger ">*</strong></label>
+                                 <textarea type="text" class="form-control" rows="3" id="eaddressCopy" name="address" data-error="Provide a address !" placeholder="Enter branch address" required></textarea>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="estateCopy">State<strong class="text-danger ">*</strong></label>
+                                 <select class="form-control" id="estateCopy" name="state" data-error="Select a state !" required>
+                                    <option value="" selected>select</option>
+                                    <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                 </select>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="ecityCopy">City<strong class="text-danger">*</strong></label>
+                                 <input type="text" class="form-control" id="ecityCopy" name="city" data-error="Provide a city !" placeholder="Enter city name" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="epinCodeCopy">Pincode<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="epinCodeCopy" name="pinCode" data-error="Provide a pincode !" pattern="[0-9]{6}" maxlength="6" placeholder="Enter a pincode" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="eaadhaarCopy">Aadhaar No<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" name="aadhaar" id="eaadhaarCopy" data-error="Provide valid aadhaar !" pattern="[0-9]{12}" maxlength="12" placeholder="Enter aadhaar no" readonly>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="edrivingLicenseCopy">Driving License</label>
+                                 <input type="text" class="form-control" name="drivingLicense" id="edrivingLicenseCopy" placeholder="Enter driving license no">
+                              </div>
+                           </div>
+                           <div class="col-4">
+                              <div class="form-group">
+                                 <label for="emaritalStatusCopy">Marital status<strong class="text-danger ">*</strong></label>
+                                 <select class="form-control" name="maritalStatus" id="emaritalStatusCopy" data-error="Select Marital Status !" required>
+                                    <option value="" selected>select</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Divorced">Divorced</option>
+                                 </select>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="modal-footer justify-content-center py-2">
+                        <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel-2">Delete Branch</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <p>Are you sure, you want to delete this branch?</p>
+                  </div>
+                  <div class="modal-footer">
+                     <a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Delete</a>
+                     <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+   </body>
+</html>

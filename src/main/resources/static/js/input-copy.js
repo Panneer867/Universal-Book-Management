@@ -46,4 +46,19 @@ $(document).ready(function() {
 		document.getElementById('bankPinCodeCopy').value = document.getElementById('bankPinCode').value;
 	});
 
+	$('#clickEditBranch').on('click', function(event) {
+
+		document.getElementById('bbranchNameCopy').value = document.getElementById('bbranchName').value;
+		document.getElementById('bfirstNameCopy').value = document.getElementById('bfirstName').value;
+		document.getElementById('bemailCopy').value = document.getElementById('bemail').value;
+		document.getElementById('bmobileCopy').value = document.getElementById('bmobile').value;
+		document.getElementById('baddressCopy').value = document.getElementById('baddress').value;
+		document.getElementById('bstateCopy').value = document.getElementById('bstate').value;
+		document.getElementById('bcityCopy').value = document.getElementById('bcity').value;
+		document.getElementById('bpinCodeCopy').value = document.getElementById('bpinCode').value;
+		document.getElementById('busernameCopy').value = document.getElementById('buserName').value;
+
+	});
+
+
 });

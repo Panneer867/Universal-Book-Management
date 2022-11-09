@@ -31,7 +31,11 @@
                </div>
             </div>
          </div>
-         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.branchDeleted}">Branch has been deleted successfully!</div>
+         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.emailAlreadyExists}">[[${emailExists}]]</div>
+         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.mobileAlreadyExists}">[[${mobileExists}]]</div>
+         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.usernameAlreadyExists}">[[${usernameExists}]]</div>
+         <div class="alert alert-success text-center mb-1 py-1" role="alert" th:if="${param.branchDeleted}">Branch has been deleted successfully!</div>
+         <div class="alert alert-success text-center mb-1 py-1" role="alert" th:if="${param.branchUpdated}">Branch has been updated successfully!</div>
          <div class="col-lg-12 grid-margin stretch-card mx-auto">
             <div class="card bg-warning">
                <div class="card-body p-1">
@@ -76,8 +80,8 @@
                               <td th:text = "${branch.dateCreated}"></td>
                               <td th:text = "${branch.lastUpdated}"></td>
                               <td class="text-center">
-                                 <a th:href="@{/master/branch/get/(branchId=${branch.branchId})}" class="btn btn-success btn-sm p-1 mx-2 edit-branch" data-toggle="modal" data-target="#editBranch">Edit</a>
-                                 <a th:href="@{/master/branch/deleteBranch(branchId=${branch.branchId})}" class="btn btn-danger btn-sm p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                 <a th:href="@{/get/(id=${branch.branchId})}" class="btn btn-success btn-sm p-1 mx-2 edit-branch" data-toggle="modal" data-target="#editBranch">Edit</a>
+                                 <a th:href="@{/master/branch/delete(branchId=${branch.branchId})}" class="btn btn-danger btn-sm p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
                               </td>
                            </tr>
                         </tbody>
@@ -86,34 +90,36 @@
                </div>
             </div>
          </div>
-          <div class="modal fade" id="editBranch" tabindex="-1" role="dialog" aria-labelledby="editBranch" aria-hidden="true">
-                        <div class="modal-dialog mt-5" role="document" style="max-width: 60%;">
-                           <div class="modal-content">
-                              <form data-toggle="validator" th:action="@{/branch/edit}" role="form" method="post">
-                                 <div class="modal-header py-2">
-                                    <h5 class="modal-title" id="editModal">Edit Branch Details</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                 </div>
-                                 <div class="modal-body">
-                                   <div class="row">
+         <div class="modal fade" id="editBranch" tabindex="-1" role="dialog" aria-labelledby="editBranch" aria-hidden="true">
+            <div class="modal-dialog mt-5" role="document" style="max-width: 60%;">
+               <div class="modal-content">
+                  <form data-toggle="validator" th:action="@{/master/branch/update}" role="form" th:object="${update}" method="post">
+                     <div class="modal-header pt-2 pb-1">
+                        <h5 class="modal-title" id="editModal">Edit Branch Details</h5>
+                        <div style="margin-left: 490px;">
+                           <label for="exampleInputCity1" class="font-weight-bold pr-1">Branch ID</label>
+                           <input type="text" class="bg-danger border-danger text-white" id="branchIdShow" style="width: 38px;" disabled/>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <div class="row">
                            <div class="col-8 border-right border-primary">
-                            
                               <div class="row">
-                                
                                  <div class="col-6">
                                     <div class="form-group">
-                                     <label for="branchName">Branch Name<strong class="text-danger ">*</strong></label>
-                                      
-                                       <input type="text" class="form-control" id="branchName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter branch name" required>
+                                       <label for="branchNameCopy">Branch Name<strong class="text-danger ">*</strong></label>   
+                                       <input type="hidden" class="bg-danger border-danger text-white" id="branchIdCopy" name="branchId"/>                             
+                                       <input type="text" class="form-control" id="branchNameCopy" name="branchName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter branch name" required>
                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                  </div>
-                                  <div class="col-6">
+                                 <div class="col-6">
                                     <div class="form-group">
-                                       <label for="firstName">Admin Name<strong class="text-danger ">*</strong></label>
-                                       <input type="text" class="form-control" id="firstName" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Admin name" required>
+                                       <label for="firstNameCopy">Admin Name<strong class="text-danger ">*</strong></label>
+                                       <input type="text" class="form-control" id="firstNameCopy" name="firstName" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Admin name" required>
                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                  </div>
@@ -121,15 +127,15 @@
                               <div class="row">
                                  <div class="col-6">
                                     <div class="form-group">
-                                       <label for="branchName">Branch E-Mail ID<strong class="text-danger ">*</strong></label>
-                                       <input type="email" class="form-control" id="email" data-error="Provide a valid email !" placeholder="Enter Email" required>
+                                       <label for="emailCopy">Branch E-Mail ID<strong class="text-danger ">*</strong></label>
+                                       <input type="email" class="form-control" id="emailCopy" name="email" data-error="Provide a valid email !" placeholder="Enter Email" required>
                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                  </div>
                                  <div class="col-6">
                                     <div class="form-group">
-                                       <label for="mobile">Mobile Number<strong class="text-danger ">*</strong></label>
-                                       <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" id="mobile" data-minlength="10" data-error="Enter a valid phone number" placeholder="Enter phone no" required>
+                                       <label for="mobileCopy">Mobile Number<strong class="text-danger ">*</strong></label>
+                                       <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" name="mobile" id="mobileCopy" maxlength="10" data-error="Enter a valid phone number" placeholder="Enter phone no" required>
                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                  </div>
@@ -137,15 +143,15 @@
                               <div class="row">
                                  <div class="col-6">
                                     <div class="form-group">
-                                       <label for="address">Address<strong class="text-danger ">*</strong></label>
-                                       <textarea type="text" class="form-control" rows="3" id="address" data-error="Provide a address !" placeholder="Enter branch address" required></textarea>
+                                       <label for="addressCopy">Address<strong class="text-danger ">*</strong></label>
+                                       <textarea type="text" class="form-control" rows="3" id="addressCopy" name="address" data-error="Provide a address !" placeholder="Enter branch address" required></textarea>
                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                  </div>
                                  <div class="col-6">
                                     <div class="form-group">
-                                       <label for="cstates">State<strong class="text-danger ">*</strong></label>
-                                       <select class="form-control" id="cstates" data-error="Select a state !" required>
+                                       <label for="stateCopy">State<strong class="text-danger ">*</strong></label>
+                                       <select class="form-control" id="stateCopy" name="state" data-error="Select a state !" required>
                                           <option value="" selected>select</option>
                                           <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
                                        </select>
@@ -156,54 +162,52 @@
                               <div class="row">
                                  <div class="col-6">
                                     <div class="form-group">
-                                       <label for="ccities">City<strong class="text-danger">*</strong></label>
-                                       <select class="form-control" id="ccities" data-error="Provide a city !" required>
-                                          <option value="" selected>select</option>
-                                       </select>
+                                       <label for="cityCopy">City<strong class="text-danger">*</strong></label>
+                                       <input type="text" class="form-control" id="cityCopy" name="city" data-error="Provide a city !" placeholder="Enter city name" required>
                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                  </div>
                                  <div class="col-4">
                                     <div class="form-group">
-                                       <label for="pinCode">Pincode<strong class="text-danger ">*</strong></label>
-                                       <input type="number" class="form-control" id="pinCode" data-error="Provide a pincode !" data-minlength="6" placeholder="Enter a pincode" required>
+                                       <label for="pinCodeCopy">Pincode<strong class="text-danger ">*</strong></label>
+                                       <input type="text" class="form-control" id="pinCodeCopy" name="pinCode" data-error="Provide a pincode !" pattern="[0-9]{6}" maxlength="6" placeholder="Enter a pincode" required>
                                        <div class="help-block with-errors text-danger"></div>
                                     </div>
                                  </div>
                               </div>
                            </div>
                            <div class="col-4">
-                           
                               <div class="form-group">
-                                 <label for="username">Username<strong class="text-danger ">*</strong></label>
-                                 <input type="text" class="form-control" id="username" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Username" required>
+                                 <label for="usernameCopy">Username<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="usernameCopy" name="username" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Username" required>
                                  <div class="help-block with-errors text-danger"></div>
                               </div>
-                              <div class="form-group">
+                              <small class="text-warning">Note: Leave this fields blank if you are not going to change your password.</small>
+                              <div class="form-group mt-3">
                                  <label for="inputPassword">Password<strong class="text-danger ">*</strong></label>
-                                 <input type="password" data-minlength="6" class="form-control" id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" 
-                                    data-error="Password must be alphanumeric !" placeholder="Password" required>
+                                 <input type="password" data-minlength="6" class="form-control form-control-sm" id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" 
+                                    data-error="Password must be alphanumeric !" placeholder="Enter password" >
                                  <small class="text-info">
-                                 Minimum 6 characters required
+                                 Min 6 characters required
                                  </small>
                                  <div class="help-block with-errors text-danger"></div>
                               </div>
                               <div class="form-group">
                                  <label for="password">Confirm Password<strong class="text-danger ">*</strong></label>
-                                 <input type="password" class="form-control"  id="password" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm Password" data-error="Provide confirm password !" required>
+                                 <input type="password" class="form-control form-control-sm" name="password" id="password" data-match="#inputPassword" data-match-error="Whoops, these don't match" data-error="Provide confirm password !" placeholder="Enter confirm password">
                                  <div class="help-block with-errors text-danger"></div>
                               </div>
                            </div>
                         </div>
-                                 </div>
-                                 <div class="modal-footer justify-content-center py-2">
-                                    <button type="submit" class="btn btn-sm btn-success">Submit</button>
-                                    <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-                                 </div>
-                              </form>
-                           </div>
-                        </div>
                      </div>
+                     <div class="modal-footer justify-content-center py-2">
+                        <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
          <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
             <div class="modal-dialog" role="document">
                <div class="modal-content">

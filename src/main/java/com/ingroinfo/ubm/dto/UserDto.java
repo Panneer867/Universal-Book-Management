@@ -11,7 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDto {
 
-	private Long id;
+	private Long userId;
+	private Long branchId;
 	private String firstName;
 	private String username;
 	private String password;
@@ -23,6 +24,5 @@ public class UserDto {
 	private String userType;
 	private String dateCreated;
 	private String lastUpdated;
-	private Long branchId;
 
 }

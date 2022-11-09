@@ -31,7 +31,11 @@
                </div>
             </div>
          </div>
-         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.userDeleted}">User has been deleted successfully!</div>
+         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.emailAlreadyExists}">[[${emailExists}]]</div>
+         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.mobileAlreadyExists}">[[${mobileExists}]]</div>
+         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.usernameAlreadyExists}">[[${usernameExists}]]</div>
+         <div class="alert alert-success text-center mb-1 py-1" role="alert" th:if="${param.userUpdated}">User has been updated successfully!</div>
+         <div class="alert alert-success text-center mb-1 py-1" role="alert" th:if="${param.userDeleted}">User has been deleted successfully!</div>
          <div class="row">
             <div class="col-lg-12">
                <div class="card">
@@ -50,9 +54,6 @@
                                        Name
                                     </th>
                                     <th>
-                                       User Type
-                                    </th>
-                                    <th>
                                        Username
                                     </th>
                                     <th>
@@ -62,7 +63,13 @@
                                        Mobile Number
                                     </th>
                                     <th>
+                                       User Type
+                                    </th>
+                                    <th>
                                        Date Created
+                                    </th>
+                                    <th>
+                                       Last Modified
                                     </th>
                                     <th class="text-center">
                                        Actions
@@ -73,14 +80,15 @@
                                  <tr th:each="user: ${users}">
                                     <td th:text = "${user.branchId}"></td>
                                     <td th:text = "${user.firstName}"></td>
-                                    <td th:text = "${user.userType}"></td>
                                     <td th:text = "${user.username}"></td>
                                     <td th:text = "${user.email}"></td>
                                     <td th:text = "${user.mobile}"></td>
+                                    <td th:text = "${user.userType}"></td>
                                     <td th:text = "${user.dateCreated}"></td>
+                                    <td th:text = "${user.lastUpdated}"></td>
                                     <td class="text-center">
-                                       <a href="#" class="btn btn-success btn-sm p-1 mx-2">Edit</a>
-                                       <a th:href="@{/master/user/deleteUser(userId=${user.id})}" class="btn btn-danger btn-sm p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                       <a th:href="@{/get/user/(id=${user.userId})}" class="btn btn-success btn-sm p-1 mx-2 edit-userDetails" data-toggle="modal" data-target="#editUserDetails">Edit</a>
+                                       <a th:href="@{/master/user/delete(userId=${user.userId})}" class="btn btn-danger btn-sm p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
                                     </td>
                                  </tr>
                               </tbody>
@@ -88,6 +96,76 @@
                         </div>
                      </div>
                   </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal fade" id="editUserDetails" tabindex="-1" role="dialog" aria-labelledby="editUserDetails" aria-hidden="true">
+            <div class="modal-dialog mt-5" role="document" style="max-width: 50%;">
+               <div class="modal-content">
+                  <form data-toggle="validator" th:action="@{/master/user/update}" role="form" th:object="${updateUser}" method="post">
+                     <div class="modal-header pt-2 pb-1">
+                        <h5 class="modal-title" id="editModal">Edit User Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <div class="row">
+                           <div class="col-7 border-right border-primary">
+                              <div class="form-group">
+                                 <label for="branchCopy">Select Branch<strong class="text-danger ">*</strong></label>
+                                 <input type="hidden" name="userId" id="userIdCopy">
+                                 <select class="form-control" id="branchCopy" name="branchId" data-error="Select Branch Name !" required>
+                                    <option value="" selected>select</option>
+                                    <option th:each="branchs : ${branches}" th:value="${branchs.branchId}" th:utext="${branchs.branchName}"/>
+                                 </select>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="firstNameCopy">Name<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" name="firstName" id="firstNameCopy" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Name" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="emailCopy">Email<strong class="text-danger ">*</strong></label>
+                                 <input type="email" class="form-control" name="email" id="emailCopy" data-error="Provide a valid email !" placeholder="Enter Email ID" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="mobileCopy">Mobile No<strong class="text-danger ">*</strong></label>
+                                 <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control" name="mobile" id="mobileCopy" maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter mobile no" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                           <div class="col-5">
+                              <div class="form-group">
+                                 <label for="usernameCopy">Username<strong class="text-danger ">*</strong></label>
+                                 <input type="text" class="form-control" id="usernameCopy" name="username" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Username" required>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                              <small class="text-warning">Note: Leave this fields blank if you are not going to change the password.</small>
+                              <div class="form-group mt-3">
+                                 <label for="inputPassword">Password<strong class="text-danger ">*</strong></label>
+                                 <input type="password" data-minlength="6" class="form-control form-control-sm" id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" 
+                                    data-error="Password must be alphanumeric !" placeholder="Enter password" >
+                                 <small class="text-info">
+                                 Min 6 characters required
+                                 </small>
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="password">Confirm Password<strong class="text-danger ">*</strong></label>
+                                 <input type="password" class="form-control form-control-sm" name="password" id="password" data-match="#inputPassword" data-match-error="Whoops, these don't match" data-error="Provide confirm password !" placeholder="Enter confirm password">
+                                 <div class="help-block with-errors text-danger"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="modal-footer justify-content-center py-2">
+                        <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                     </div>
+                  </form>
                </div>
             </div>
          </div>

@@ -79,7 +79,7 @@ public class CompanyServiceImpl implements CompanyService {
 		user.setMobile(companyDto.getMobile());
 		user.setUsername(companyDto.getUsername());
 		user.setPassword(companyDto.getPassword());
-		user.setUserType("Company Owner");
+		user.setUserType("COMPANY OWNER");
 
 		userService.registerCompany(user);
 	}
@@ -101,13 +101,6 @@ public class CompanyServiceImpl implements CompanyService {
 	public Company findByCompanyId(Long id) {
 
 		return companyRepository.findByCompanyId(id);
-	}
-
-	@Override
-	public void deleteCompany(Long companyId) {
-
-		companyRepository.deleteById(companyId);
-
 	}
 
 	@Override
@@ -153,7 +146,7 @@ public class CompanyServiceImpl implements CompanyService {
 		data.setServiceType(company.getServiceType());
 		data.setYearsPreviouslyRegistered(company.getYearsPreviouslyRegistered());
 		data.setWebsite(company.getWebsite());
-		data.setUser(company.getUser().getId());
+		data.setUser(company.getUser().getUserId());
 		data.setTelephone(company.getTelephone());
 		data.setSignature(company.getSignature());
 		data.setQualification(company.getQualification());

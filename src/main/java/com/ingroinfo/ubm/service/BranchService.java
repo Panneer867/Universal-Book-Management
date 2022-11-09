@@ -1,6 +1,7 @@
 package com.ingroinfo.ubm.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.ingroinfo.ubm.dto.BranchDto;
 import com.ingroinfo.ubm.entity.Branch;
@@ -13,20 +14,20 @@ public interface BranchService {
 
 	List<Branch> getAllBranches();
 
-	Branch findByCompanyId(Company company);
+	Branch findByCompany(Company company);
 
 	Branch findByBranchId();
 
 	boolean branchAllowed(Company company);
 
-	void userDetails(BranchDto branchDto);
+	void userDetails(User user);
 
 	boolean emailExists(BranchDto branchDto);
 
 	boolean mobileExists(BranchDto branchDto);
 
 	boolean usernameExists(BranchDto branchDto);
-	
+
 	List<BranchDto> getAllBranch();
 
 	Branch findByBranchId(Long branchId);
@@ -34,4 +35,11 @@ public interface BranchService {
 	void deleteByBranchId(Long branchId);
 
 	Branch findByUserId(User user);
+
+	void updateBranch(Branch branch);
+
+	Optional<Branch> getBranchById(Long id);
+
+	void editBranch(Branch branch);
+
 }

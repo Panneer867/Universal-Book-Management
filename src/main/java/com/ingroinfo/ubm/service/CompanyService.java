@@ -22,8 +22,6 @@ public interface CompanyService {
 
 	Company findByCompanyId(Long companyId);
 
-	void deleteCompany(Long companyId);
-
 	void saveOldData(Company company);
 
 }

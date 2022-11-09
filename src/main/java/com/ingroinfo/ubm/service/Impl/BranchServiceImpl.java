@@ -1,6 +1,7 @@
 package com.ingroinfo.ubm.service.Impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,6 @@ public class BranchServiceImpl implements BranchService {
 	@Override
 	public void saveBranch(Branch branch) {
 
-		User user = userRepository.findByEmail(branch.getEmail());
-
-		if (branch.getEmail().equals(user.getEmail())) {
-			branch.setUser(user);
-		}
-
 		branchRepository.save(branch);
 	}
 
@@ -44,7 +39,7 @@ public class BranchServiceImpl implements BranchService {
 	}
 
 	@Override
-	public Branch findByCompanyId(Company company) {
+	public Branch findByCompany(Company company) {
 
 		return branchRepository.findByCompany(company);
 	}
@@ -72,17 +67,15 @@ public class BranchServiceImpl implements BranchService {
 	}
 
 	@Override
-	public void userDetails(BranchDto branchDto) {
+	public void userDetails(User user) {
 
-		User user = new User();
-		user.setFirstName(branchDto.getFirstName());
-		user.setEmail(branchDto.getEmail());
-		user.setMobile(branchDto.getMobile());
-		user.setUsername(branchDto.getUsername());
-		user.setPassword(branchDto.getPassword());
-		user.setUserType("Branch Admin");
+		user.setUserType("BRANCH ADMIN");
+
+		Branch branch = branchRepository.findByEmail(user.getEmail());
+		user.setBranchId(branch.getBranchId());
 
 		userService.registerBranch(user);
+		saveId(user);
 	}
 
 	@Override
@@ -130,20 +123,49 @@ public class BranchServiceImpl implements BranchService {
 
 	@Override
 	public Branch findByBranchId(Long branchId) {
-		
+
 		return branchRepository.findByBranchId(branchId);
 	}
 
 	@Override
 	public void deleteByBranchId(Long branchId) {
-		
+
 		branchRepository.deleteById(branchId);
-		
+
 	}
 
 	@Override
 	public Branch findByUserId(User user) {
-		
+
 		return branchRepository.findByUser(user);
 	}
+
+	@Override
+	public void updateBranch(Branch branch) {
+
+		branchRepository.save(branch);
+
+	}
+
+	@Override
+	public Optional<Branch> getBranchById(Long id) {
+
+		return branchRepository.findById(id);
+	}
+
+	public void saveId(User user) {
+
+		User userId = userRepository.findByEmail(user.getEmail());
+		Branch branch = branchRepository.findByEmail(user.getEmail());
+		branch.setUser(userId);
+		branchRepository.save(branch);
+
+	}
+
+	@Override
+	public void editBranch(Branch branch) {
+		
+		branchRepository.save(branch);
+	}
+
 }

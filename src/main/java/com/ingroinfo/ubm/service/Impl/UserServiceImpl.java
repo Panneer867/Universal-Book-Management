@@ -58,14 +58,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void registerCompany(User user) {
 
-		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_OWNER")));
+		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
 		register(user);
 	}
 
 	@Override
 	public void registerBranch(User user) {
 
-		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_MANAGER")));
+		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_BRANCH")));
 		register(user);
 	}
 
@@ -73,13 +73,6 @@ public class UserServiceImpl implements UserService {
 	public void registerUser(User user) {
 
 		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
-		register(user);
-	}
-
-	@Override
-	public void registerEmployee(User user) {
-
-		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_EMPLOYEE")));
 		register(user);
 	}
 
@@ -118,17 +111,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void saveBranchId(Branch branch) {
-
-		User user = userRepository.findByEmail(branch.getEmail());
-		if (user != null) {
-
-			user.setBranchId(branch.getBranchId());
-			userRepository.save(user);
-		}
-	}
-
-	@Override
 	public void saveUser(UserDto userDto) {
 
 		userDto.getRole();
@@ -145,14 +127,14 @@ public class UserServiceImpl implements UserService {
 
 		if (userDto.getRole().equalsIgnoreCase("ROLE_USER")) {
 
-			user.setUserType("Normal User");
+			user.setUserType("NORMAL USER");
 			user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
 			register(user);
 
-		} else if (userDto.getRole().equalsIgnoreCase("ROLE_MANAGER")) {
+		} else if (userDto.getRole().equalsIgnoreCase("ROLE_BRANCH")) {
 
-			user.setUserType("Branch User");
-			user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_MANAGER")));
+			user.setUserType("BRANCH USER");
+			user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_BRANCH")));
 			register(user);
 		}
 
@@ -202,14 +184,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void editUser(User user) {
 
-		Optional<User> userDetails = userRepository.findById(user.getId());
-
+		Optional<User> userDetails = userRepository.findById(user.getUserId());
 		User userDetail = userDetails.get();
 
+		boolean name = userDetail.getFirstName().equalsIgnoreCase(user.getFirstName());
 		boolean email = userDetail.getEmail().equalsIgnoreCase(user.getEmail());
 		boolean mobile = userDetail.getMobile().equalsIgnoreCase(user.getMobile());
 
-		if (!email || !mobile) {
+		if (!name || !email || !mobile) {
 
 			userRepository.save(user);
 
@@ -238,12 +220,12 @@ public class UserServiceImpl implements UserService {
 			newUser.setUsername(user.getUsername());
 			newUser.setUserType(user.getUserType());
 			newUser.setBranchId(user.getBranchId());
-			newUser.setId(user.getId());
+			newUser.setUserId(user.getUserId());
 			return newUser;
 		}).collect(Collectors.toList());
 
 		for (Iterator<UserDto> it = userDto.iterator(); it.hasNext();) {
-			if (it.next().getUserType().equalsIgnoreCase("Company Owner"))
+			if (it.next().getUserType().equalsIgnoreCase("COMPANY OWNER"))
 				it.remove();
 		}
 
@@ -273,5 +255,4 @@ public class UserServiceImpl implements UserService {
 				.isPresent();
 		return isExists;
 	}
-
 }

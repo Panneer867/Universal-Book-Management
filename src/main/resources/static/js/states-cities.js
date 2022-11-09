@@ -72,4 +72,29 @@ $(document).ready(function() {
 	});
 	
 	
+	$("#estates").change(function() {
+		var stateName = $(this).val().trim();
+	
+		var s = '<option value="">Select</option>';
+		if (stateName != null) {
+			$.ajax({
+				type: 'GET',
+				url: '/getCities',
+				data: { "stateName": stateName },
+				success: function(result) {
+					var result = JSON.parse(result);
+					for (var i = 0; i < result.length; i++) {
+						s += '<option value="' + result[i][1] + '">' + result[i][1] + '</option>';
+
+					}
+					$('#ecities').html(s);
+				}
+			});
+		}
+
+		//reset data
+		$('#ecities').html(s);
+	});
+	
+	
 });

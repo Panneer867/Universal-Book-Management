@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Company;
+import com.ingroinfo.ubm.entity.User;
 import com.ingroinfo.ubm.service.BranchService;
 import com.ingroinfo.ubm.service.CompanyService;
 import com.ingroinfo.ubm.service.UserService;
 
 @Controller
-@RequestMapping("/master/dashboard")
+@RequestMapping("/dashboard")
 public class DashboardController {
 
 	@Autowired
@@ -31,8 +32,9 @@ public class DashboardController {
 	public String dashboard(Model model, Principal principal) {
 		model.addAttribute("title", "Welcome to Universal Book Management");
 
-		Company company = companyService.findByUser(userService.getUserId(principal.getName()));
-		Branch branch = branchService.findByUserId(userService.getUserId(principal.getName()));
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
 
 		if (company != null) {
 			model.addAttribute("pe", company.getProfile());
@@ -43,8 +45,10 @@ public class DashboardController {
 			model.addAttribute("usernameofbranch", branch.getFirstName());
 			model.addAttribute("pe", cmpy.getProfile());
 			model.addAttribute("cne", cmpy.getCompanyName());
-			
 			model.addAttribute("branchProfile", "enableBranch");
+		} else {
+			model.addAttribute("usernameofuser", user.getFirstName());
+			model.addAttribute("userProfile", "enableUser");
 		}
 
 		return "dashboard";
