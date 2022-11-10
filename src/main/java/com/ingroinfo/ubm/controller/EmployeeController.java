@@ -55,6 +55,8 @@ public class EmployeeController {
 		model.addAttribute("title", "Branches ");
 		model.addAttribute("employee", new EmployeeDto());
 		model.addAttribute("stateList", userService.getAllStates());
+		model.addAttribute("emailExists", "You have entered an email address that already exists!");
+		model.addAttribute("mobileExists", "You have entered an mobile number that already exists!");
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
@@ -89,8 +91,16 @@ public class EmployeeController {
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
-
+		
 		Employee employee = modelMapper.map(employeeDto, Employee.class);
+		
+		if (employeeService.emailCheck(employee)) {
+			return "redirect:/master/employee/management?emailAlreadyExists";
+		}
+
+		if (employeeService.mobileCheck(employee)) {
+			return "redirect:/master/employee/management?mobileAlreadyExists";
+		}
 
 		if (company != null) {
 
@@ -122,6 +132,8 @@ public class EmployeeController {
 		model.addAttribute("update", new EmployeeDto());
 		model.addAttribute("stateList", userService.getAllStates());
 		model.addAttribute("employees", employeeService.getAllEmployees());
+		model.addAttribute("emailExists", "You have entered an email address that already exists!");
+		model.addAttribute("mobileExists", "You have entered an mobile number that already exists!");
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
@@ -151,17 +163,9 @@ public class EmployeeController {
 	@PostMapping("/update")
 	public String update(@ModelAttribute("update") EmployeeDto employeeDto, Principal principal, Model model) {
 
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-		Employee employee = null;
-
-		if (company != null) {
-			employee = employeeService.findByCompanyId(company.getCompanyId());
-		} else if (branch != null) {
-
-			employee = employeeService.findByCompanyId(branch.getCompany().getCompanyId());
-		}
+		Employee employee = employeeRepository.findByEmployeeId(employeeDto.getEmployeeId());
+		
+		
 		mapper.modelMapper().map(employeeDto, employee);
 
 		if (employeeService.emailCheck(employee)) {

@@ -33,7 +33,6 @@
          </div>
          <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.emailAlreadyExists}">[[${emailExists}]]</div>
          <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.mobileAlreadyExists}">[[${mobileExists}]]</div>
-         <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.usernameAlreadyExists}">[[${usernameExists}]]</div>
          <div class="alert alert-success text-center mb-1 py-1" role="alert" th:if="${param.employeeDeleted}">Employee has been deleted successfully!</div>
          <div class="alert alert-success text-center mb-1 py-1" role="alert" th:if="${param.employeeUpdated}">Employee has been updated successfully!</div>
          <div class="col-lg-12 grid-margin stretch-card mx-auto">
@@ -115,7 +114,7 @@
                            <div class="col-4">
                               <div class="form-group">
                                  <label for="efirstNameCopy">First Name<strong class="text-danger ">*</strong></label>   
-                                 <input type="hidden" class="bg-danger border-danger text-white" id="employeeIdCopy" name="branchId"/>                             
+                                 <input type="hidden" class="bg-danger border-danger text-white" id="employeeIdCopy" name="employeeId"/>                             
                                  <input type="text" class="form-control" id="efirstNameCopy" name="firstName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter branch name" required>
                                  <div class="help-block with-errors text-danger"></div>
                               </div>

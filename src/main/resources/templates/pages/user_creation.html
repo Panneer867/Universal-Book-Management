@@ -62,7 +62,7 @@
                               <select class="form-control" th:field="*{role}" id="branch" data-error="Select User role !" required>
                                  <option value="" selected>select</option>
                                  <option value="ROLE_USER" selected>NORMAL USER</option>
-                                 <option value="ROLE_BRANCH" selected>BRANCH USER</option>
+                                 <option th:if="${enable != null}" value="ROLE_BRANCH" selected>BRANCH USER</option>
                               </select>
                               <div class="help-block with-errors text-danger"></div>
                            </div>

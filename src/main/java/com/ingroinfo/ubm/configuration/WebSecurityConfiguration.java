@@ -45,10 +45,10 @@ public class WebSecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable().authorizeRequests()
-		 	.antMatchers("/master/**").hasAnyAuthority("USER_PRIVILEGE","BRANCH_PRIVILEGE")
-		 	.antMatchers("/master/branch/**").hasAuthority("BRANCH_PRIVILEGE")
+		 	.antMatchers("/master/company/**","/master/branch","/master/branch/management","/master/employee/**").hasRole("ADMIN")
+		 	.antMatchers("/master/user/**","/master/branch/profile","/master/branch/userDetails").hasAnyAuthority("BRANCH_PRIVILEGE")
 			.antMatchers("/login", "/company/register","/getCities","/get/**","/access-denied/", "/server-error","/product/**").permitAll()
-			.anyRequest().hasAnyAuthority("USER_PRIVILEGE","BRANCH_PRIVILEGE")
+			.anyRequest().authenticated()
 			.and().formLogin()
 			.loginPage("/login")
 			.defaultSuccessUrl("/dashboard", true)

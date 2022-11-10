@@ -48,6 +48,8 @@
                   <div class="alert alert-success text-center" role="alert" th:if="${param.success}">
                      Employee has been successfully added !
                   </div>
+                   <div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.emailAlreadyExists}">[[${emailExists}]]</div>
+         			<div class="alert alert-danger text-center mb-1 py-1" role="alert" th:if="${param.mobileAlreadyExists}">[[${mobileExists}]]</div>
                   <hr class="mt-0">
                   <form class="forms-sample" data-toggle="validator" th:action="@{/master/employee}" role="form" th:object="${employee}" method="post" enctype="multipart/form-data">
                      <div class="row">

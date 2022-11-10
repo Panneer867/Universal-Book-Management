@@ -64,25 +64,45 @@ public class UserContoller {
 		model.addAttribute("usernameExists", "You have entered an username that already exists! ");
 
 		model.addAttribute("user", new UserDto());
-		Company company = companyService.findByUser(userService.getUserId(principal.getName()));
-		Branch branch = branchService.findByUserId(userService.getUserId(principal.getName()));
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
 
-		if (branch != null) {
-			Company cmpy = branch.getCompany();
-			model.addAttribute("companyId", cmpy.getCompanyId());
-			model.addAttribute("companyName", cmpy.getCompanyName());
-			model.addAttribute("usernameofbranch", branch.getFirstName());
+		List<Branch> branches = branchService.getAllBranches();
 
-		} else if (company != null) {
+		if (company != null) {
 			model.addAttribute("companyProfile", "enableCompany");
 			model.addAttribute("companyId", company.getCompanyId());
 			model.addAttribute("companyName", company.getCompanyName());
 			model.addAttribute("pe", company.getProfile());
 			model.addAttribute("cne", company.getCompanyName());
-		}
+			model.addAttribute("enable", "userRole");
 
-		List<Branch> branches = branchService.getAllBranches();
-		model.addAttribute("branches", branches);
+			model.addAttribute("branches", branches);
+		} else if (branch != null) {
+			Company cmpy = branch.getCompany();
+			model.addAttribute("enable", "userRole");
+			model.addAttribute("branchProfile", "enableBranch");
+			model.addAttribute("companyId", cmpy.getCompanyId());
+			model.addAttribute("companyName", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+
+			List<Branch> filteredList = branches.stream().filter(x -> branch.getBranchId().equals(x.getBranchId()))
+					.collect(Collectors.toList());
+			model.addAttribute("branches", filteredList);
+		} else {
+
+			Branch branch1 = branchService.findByBranchId(user.getBranchId());
+			Company cpy = branch1.getCompany();
+			List<Branch> filteredList = branches.stream().filter(x -> branch1.getBranchId().equals(x.getBranchId()))
+					.collect(Collectors.toList());
+			model.addAttribute("enable", null);
+			model.addAttribute("branches", filteredList);
+			model.addAttribute("companyId", cpy.getCompanyId());
+			model.addAttribute("companyName", cpy.getCompanyName());
+			model.addAttribute("userProfile", "enableBranch");
+			model.addAttribute("usernameofuser", user.getFirstName());
+		}
 
 		return "/pages/user_creation";
 	}
@@ -112,38 +132,68 @@ public class UserContoller {
 
 		model.addAttribute("title", "User Management");
 		model.addAttribute("updateUser", new UserDto());
+		List<UserDto> users = userService.getAllUsers();
 		model.addAttribute("emailExists", "You have entered an email address that already exists! ");
 		model.addAttribute("mobileExists", "You have entered an mobile number that already exists! ");
 		model.addAttribute("usernameExists", "You have entered an username that already exists! ");
 
-		Company company = companyService.findByUser(userService.getUserId(principal.getName()));
+		User user = userService.getUserId(principal.getName());
+		List<Branch> branches = branchService.getAllBranches();
+
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
 
 		if (company != null) {
+			model.addAttribute("companyProfile", "enableCompany");
 			model.addAttribute("companyId", company.getCompanyId());
 			model.addAttribute("companyName", company.getCompanyName());
 			model.addAttribute("pe", company.getProfile());
 			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-		} else {
-			Branch branch = branchService.findByUserId(userService.getUserId(principal.getName()));
+			model.addAttribute("branches", branches);
+		} else if (branch != null) {
 			Company cmpy = branch.getCompany();
+			model.addAttribute("branches", branches);
 			model.addAttribute("branchProfile", "enableBranch");
 			model.addAttribute("companyId", cmpy.getCompanyId());
 			model.addAttribute("companyName", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
 
+			List<Branch> filteredList = branches.stream().filter(x -> branch.getBranchId().equals(x.getBranchId()))
+					.collect(Collectors.toList());
+
+			model.addAttribute("branches", filteredList);
+
+			for (Iterator<UserDto> it = users.iterator(); it.hasNext();) {
+				if (it.next().getUserType().equalsIgnoreCase("BRANCH ADMIN"))
+					it.remove();
+			}
+
+			model.addAttribute("users", users);
+
+		} else {
+
+			Branch branch1 = branchService.findByBranchId(user.getBranchId());
+			Company cpy = branch1.getCompany();
+			List<Branch> filteredList = branches.stream().filter(x -> branch1.getBranchId().equals(x.getBranchId()))
+					.collect(Collectors.toList());
+			model.addAttribute("branches", filteredList);
+			model.addAttribute("companyId", cpy.getCompanyId());
+			model.addAttribute("companyName", cpy.getCompanyName());
+			model.addAttribute("userProfile", "enableBranch");
+			model.addAttribute("usernameofuser", user.getFirstName());
+
+			for (Iterator<UserDto> it = users.iterator(); it.hasNext();) {
+				if (it.next().getUserType().equalsIgnoreCase("BRANCH ADMIN"))
+					it.remove();
+			}
+
+			for (Iterator<UserDto> it = users.iterator(); it.hasNext();) {
+				if (it.next().getUserType().equalsIgnoreCase("BRANCH USER"))
+					it.remove();
+			}
+
+			model.addAttribute("users", users);
 		}
-
-		List<UserDto> users = userService.getAllUsers();
-
-		for (Iterator<UserDto> it = users.iterator(); it.hasNext();) {
-			if (it.next().getUserType().equalsIgnoreCase("BRANCH ADMIN"))
-				it.remove();
-		}
-
-		model.addAttribute("users", users);
-
-		List<Branch> branches = branchService.getAllBranches();
-		model.addAttribute("branches", branches);
 
 		return "/pages/user_management";
 	}
@@ -184,7 +234,7 @@ public class UserContoller {
 
 		userRepository.save(user);
 
-		return "redirect:/master/user/management?detailsUpdated";
+		return "redirect:/master/user/management?userUpdated";
 
 	}
 

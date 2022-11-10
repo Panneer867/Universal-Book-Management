@@ -232,19 +232,19 @@
                      <span class="menu-title">Website Management</span>
                      </a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                      <a class="nav-link" th:href="@{/master/employee}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/employee' ? 'active':''}">
                      <i class="fa fa-user-tie menu-icon pl-1"></i>
                      <span class="menu-title">Employee Management</span>
                      </a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                      <a class="nav-link" th:href="@{/master/branch}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/branch' ? 'active':''}">
                      <i class='fas fa-code-branch menu-icon pl-1'></i>
                      <span class="menu-title">Branch Management</span>
                      </a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" sec:authorize="hasAuthority('BRANCH_PRIVILEGE')">
                      <a class="nav-link" th:href="@{/master/user}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/user' ? 'active':''}">
                      <i class="fa fa-users-cog menu-icon pl-0"></i>
                      <span class="menu-title">User Management</span>

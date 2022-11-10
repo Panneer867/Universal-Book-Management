@@ -298,13 +298,9 @@ public class BranchController {
 	@GetMapping("/delete")
 	public String deleteBranch(@RequestParam Long branchId) {
 
-		Branch branch = branchService.findByBranchId(branchId);
-		User user = branch.getUser();
-
 		branchService.deleteByBranchId(branchId);
-		userService.deleteByUserId(user.getUserId());
 		userRepository.deleteByBranchAssociatedUsers(branchId);
-		
+
 		return "redirect:/master/branch/management?branchDeleted";
 
 	}

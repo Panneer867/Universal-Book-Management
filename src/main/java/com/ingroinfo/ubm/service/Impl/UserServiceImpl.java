@@ -232,6 +232,7 @@ public class UserServiceImpl implements UserService {
 		return userDto;
 	}
 
+	
 	@Override
 	public boolean emailCheck(User user) {
 		List<User> userList = userRepository.findAll();
