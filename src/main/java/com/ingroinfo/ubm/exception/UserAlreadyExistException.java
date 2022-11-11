@@ -1,13 +1,23 @@
 package com.ingroinfo.ubm.exception;
 
-import org.springframework.security.core.AuthenticationException;
+public final class UserAlreadyExistException extends RuntimeException {
 
-public class UserAlreadyExistException extends AuthenticationException {
+    private static final long serialVersionUID = 5861310537366287163L;
 
-	private static final long serialVersionUID = 1L;
+    public UserAlreadyExistException() {
+        super();
+    }
 
-	public UserAlreadyExistException(final String msg) {
-		super(msg);
-	}
+    public UserAlreadyExistException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
+
+    public UserAlreadyExistException(final String message) {
+        super(message);
+    }
+
+    public UserAlreadyExistException(final Throwable cause) {
+        super(cause);
+    }
 
 }

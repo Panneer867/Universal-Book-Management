@@ -1,6 +1,8 @@
 package com.ingroinfo.ubm.service;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.ingroinfo.ubm.dto.UserDto;
 import com.ingroinfo.ubm.entity.Bank;
 import com.ingroinfo.ubm.entity.State;
@@ -46,4 +48,13 @@ public interface UserService {
 
 	boolean mobileCheck(User user);
 
+	User findUserByEmail(String userEmail);
+
+	String validatePasswordResetToken(String token);
+
+	void createPasswordResetTokenForUser(User user, String token);
+
+	Optional<User> getUserByPasswordResetToken(String token);
+
+	void changeUserPassword(User user, String newPassword);
 }

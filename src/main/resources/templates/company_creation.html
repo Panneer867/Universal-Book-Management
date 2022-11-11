@@ -129,7 +129,7 @@
                                                 <div class="col-3">
                                                    <div class="form-group">
                                                       <label for="gstin">GSTIN/UIN<strong class="text-danger ">*</strong></label>
-                                                         <input type="text" class="form-control form-control-sm" th:field="*{gstin}" oninput="this.value = this.value.toUpperCase()" id="gstin" data-minlength="15" maxlength="15" data-error="Provide a GSTIN/UIN !" placeholder="Enter GSTIN/UIN" required>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{gstin}" oninput="this.value = this.value.toUpperCase()" id="gstin" data-minlength="15" maxlength="15" data-error="Provide a GSTIN/UIN !" placeholder="Enter GSTIN/UIN" required>
                                                       <div class="help-block with-errors text-danger"></div>
                                                    </div>
                                                 </div>
@@ -298,7 +298,7 @@
                                                 <div class="col-3">
                                                    <div class="form-group">
                                                       <label for="mobile">Mobile No<strong class="text-danger ">*</strong></label>
-                                                      <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control" th:field="*{mobile}" id="mobile" maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter mobile no" required>
+                                                      <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control" th:field="*{mobile}" onkeyup='check();' id="mobile" maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter mobile no" required>
                                                       <div class="help-block with-errors text-danger"></div>
                                                    </div>
                                                 </div>
@@ -307,8 +307,9 @@
                                                 <div class="col-3">
                                                    <div class="form-group">
                                                       <label for="alternateMobile">Alternate Mobile No</label>
-                                                      <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" th:field="*{alternateMobile}" id="alternateMobile" maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no">
+                                                      <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" th:field="*{alternateMobile}" onkeyup='check();' id="alternateMobile" maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no">
                                                       <div class="help-block with-errors text-danger"></div>
+                                                      <small id="message"></small>                                                  
                                                    </div>
                                                 </div>
                                                 <div class="col-3">
@@ -637,5 +638,6 @@
       <script th:src="@{/js/custom.js}"></script>
       <script th:src="@{/js/dropify.js}"></script>
       <script th:src="@{/js/states-cities.js}"></script>
+   	 <script th:src="@{/js/number-match.js}"></script>
    </body>
 </html>

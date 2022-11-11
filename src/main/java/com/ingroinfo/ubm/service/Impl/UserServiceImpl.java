@@ -5,10 +5,12 @@ import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,15 +18,18 @@ import com.ingroinfo.ubm.dao.UserRepository;
 import com.ingroinfo.ubm.dto.UserDto;
 import com.ingroinfo.ubm.dao.BankRepository;
 import com.ingroinfo.ubm.dao.BranchRepository;
+import com.ingroinfo.ubm.dao.PasswordResetTokenRepository;
 import com.ingroinfo.ubm.dao.RoleRepository;
 import com.ingroinfo.ubm.dao.StateRepository;
 import com.ingroinfo.ubm.entity.Bank;
 import com.ingroinfo.ubm.entity.Branch;
+import com.ingroinfo.ubm.entity.PasswordResetToken;
 import com.ingroinfo.ubm.entity.State;
 import com.ingroinfo.ubm.entity.User;
 import com.ingroinfo.ubm.service.UserService;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -44,6 +49,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private BankRepository bankRepository;
+
+	@Autowired
+	private PasswordResetTokenRepository passwordTokenRepository;
 
 	public String getEncodedPassword(String password) {
 		return passwordEncoder.encode(password);
@@ -232,7 +240,6 @@ public class UserServiceImpl implements UserService {
 		return userDto;
 	}
 
-	
 	@Override
 	public boolean emailCheck(User user) {
 		List<User> userList = userRepository.findAll();
@@ -255,5 +262,45 @@ public class UserServiceImpl implements UserService {
 		boolean isExists = filteredList.stream().filter(o -> o.getMobile().equals(user.getMobile())).findFirst()
 				.isPresent();
 		return isExists;
+	}
+
+	@Override
+	public User findUserByEmail(String userEmail) {
+
+		return userRepository.findByEmail(userEmail);
+	}
+
+	@Override
+	public void createPasswordResetTokenForUser(User user, String token) {
+		PasswordResetToken myToken = new PasswordResetToken(token, user);
+		passwordTokenRepository.save(myToken);
+
+	}
+
+	@Override
+	public String validatePasswordResetToken(String token) {
+		final PasswordResetToken passToken = passwordTokenRepository.findByToken(token);
+
+		return !isTokenFound(passToken) ? "invalidToken" : isTokenExpired(passToken) ? "expired" : null;
+	}
+
+	private boolean isTokenFound(PasswordResetToken passToken) {
+		return passToken != null;
+	}
+
+	private boolean isTokenExpired(PasswordResetToken passToken) {
+		final Calendar cal = Calendar.getInstance();
+		return passToken.getExpiryDate().before(cal.getTime());
+	}
+
+	@Override
+	public Optional<User> getUserByPasswordResetToken(final String token) {
+		return Optional.ofNullable(passwordTokenRepository.findByToken(token).getUser());
+	}
+
+	@Override
+	public void changeUserPassword(User user, String password) {
+		user.setPassword(passwordEncoder.encode(password));
+		userRepository.save(user);
 	}
 }
