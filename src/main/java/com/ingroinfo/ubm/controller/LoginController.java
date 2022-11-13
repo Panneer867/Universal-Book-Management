@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -77,6 +78,7 @@ public class LoginController {
 		} else {
 			model.addAttribute("enable", "enable");
 		}
+
 		return "login";
 	}
 
@@ -200,21 +202,24 @@ public class LoginController {
 	}
 
 	@PostMapping("/reset/password")
-	public String sendToken(@RequestParam String email) throws MailException, MessagingException {
+	public String sendToken(@RequestParam String email, HttpServletRequest request)
+			throws MailException, MessagingException {
 
 		User user = userService.findUserByEmail(email);
 
 		if (user != null) {
 			String token = UUID.randomUUID().toString();
 			userService.createPasswordResetTokenForUser(user, token);
-			mailSender.send(constructResetTokenEmail(token, user));
+			mailSender.send(constructResetTokenEmail(token, user, request));
 			return "redirect:/login?checkEmailConfirm";
 		}
 		return "redirect:/reset/password?wrongEmail";
 	}
 
-	private MimeMessage constructResetTokenEmail(String token, User user) throws MessagingException {
-		String url = "http://localhost:8080/reset/changePassword?token=" + token;
+	private MimeMessage constructResetTokenEmail(String token, User user, HttpServletRequest request)
+			throws MessagingException {
+		String url = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()
+				+ "/reset/changePassword?token=" + token;
 		return constructEmail(url, user);
 	}
 

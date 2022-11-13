@@ -73,5 +73,10 @@
       <script th:src="@{/js/todolist.js}"></script>
       <script th:src="@{/js/custom.js}"></script>
       <script th:src="@{/js/validator.js}"></script>
+      <script>
+	      $('.login-btn').on('click', function(){
+			$(this).html('<div class="loader"></div> Loading...');
+		  });
+     </script>
    </body>
 </html>

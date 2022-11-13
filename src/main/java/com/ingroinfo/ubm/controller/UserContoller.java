@@ -150,6 +150,13 @@ public class UserContoller {
 			model.addAttribute("pe", company.getProfile());
 			model.addAttribute("cne", company.getCompanyName());
 			model.addAttribute("branches", branches);
+			
+			for (Iterator<UserDto> it = users.iterator(); it.hasNext();) {
+				if (it.next().getUserType().equalsIgnoreCase("BRANCH ADMIN"))
+					it.remove();
+			}
+
+			model.addAttribute("users", users);
 		} else if (branch != null) {
 			Company cmpy = branch.getCompany();
 			model.addAttribute("branches", branches);
@@ -168,7 +175,10 @@ public class UserContoller {
 					it.remove();
 			}
 
-			model.addAttribute("users", users);
+			List<UserDto> userList = users.stream().filter(x -> branch.getBranchId().equals(x.getBranchId()))
+					.collect(Collectors.toList());
+
+			model.addAttribute("users", userList);
 
 		} else {
 
@@ -192,7 +202,10 @@ public class UserContoller {
 					it.remove();
 			}
 
-			model.addAttribute("users", users);
+			List<UserDto> userList = users.stream().filter(x -> branch1.getBranchId().equals(x.getBranchId()))
+					.collect(Collectors.toList());
+
+			model.addAttribute("users", userList);
 		}
 
 		return "/pages/user_management";

@@ -43,6 +43,8 @@ function display(source, destination) {
 input.onkeyup = function() { display(this.value, match); };
 
 $('[href="#finish"]').click(function() {
+	$(this).html('<div class="loader"></div> Loading...');
 	$('#example-form').submit();
 })
 
+  

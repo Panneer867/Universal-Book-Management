@@ -322,7 +322,7 @@
                                                 <div class="col-3">
                                                    <div class="form-group">
                                                       <label for="pan">PAN<strong class="text-danger ">*</strong></label>
-                                                      <input type="text" class="form-control form-control-sm" th:field="*{pan}" id="pan" data-error="Provide a PAN !" placeholder="Enter Pan ID" required>
+                                                      <input type="text" class="form-control form-control-sm" th:field="*{pan}" id="pan" oninput="this.value = this.value.toUpperCase()" data-error="Provide a PAN !" placeholder="Enter Pan ID" required>
                                                       <div class="help-block with-errors text-danger"></div>
                                                    </div>
                                                 </div>
@@ -440,7 +440,7 @@
                                           <div class="col-4">
                                              <div class="form-group">
                                                 <label for="ifscCode">IFSC Code<strong class="text-danger ">*</strong></label>
-                                                <input type="text" class="form-control form-control-sm" th:field="*{ifscCode}" id="ifscCode" data-error="Provide IFSC Code !" placeholder="Enter ifsc code" required>
+                                                <input type="text" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()" th:field="*{ifscCode}" id="ifscCode" data-error="Provide IFSC Code !" placeholder="Enter ifsc code" required>
                                                 <div class="help-block with-errors text-danger"></div>
                                              </div>
                                           </div>
