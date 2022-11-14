@@ -18,7 +18,7 @@ public class EmployeeDto {
 	private String fatherName;
 	private String dateOfBirth;
 	private String bloodGroup;
-	private String mobileNo;
+	private String mobile;
 	private String alternateMobile;
 	private String placeOfBirth;
 	private String gender;

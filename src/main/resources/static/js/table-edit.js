@@ -57,7 +57,7 @@ $(document).ready(function() {
 			$('#employeeIdCopy').val(employee.employeeId);
 			$('#efirstNameCopy').val(employee.firstName);
 			$('#elastNameCopy').val(employee.lastName);
-			$('#emobileNoCopy').val(employee.mobileNo);
+			$('#emobileCopy').val(employee.mobile);
 			$('#ealternateMobileCopy').val(employee.alternateMobile);
 			$('#eemailCopy').val(employee.email);
 			$('#eaddressCopy').val(employee.address);

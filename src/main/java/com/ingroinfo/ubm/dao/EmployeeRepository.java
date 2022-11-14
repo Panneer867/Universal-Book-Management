@@ -15,6 +15,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 	Employee findByCompanyId(Long id);
 
+	Employee findByMobile(String mobile);
+
+	Employee findByEmail(String email);
+
 	@Transactional
 	@Modifying
 	@Query("delete from Employee e where e.companyId=:id")

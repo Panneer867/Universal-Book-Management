@@ -46,7 +46,7 @@ public class Employee {
 	private String bloodGroup;
 
 	@Column(name = "mobile_no")
-	private String mobileNo;
+	private String mobile;
 
 	@Column(name = "alternate_mobile")
 	private String alternateMobile;

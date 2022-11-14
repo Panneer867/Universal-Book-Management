@@ -49,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			newEmployee.setFirstName(employee.getFirstName());
 			newEmployee.setProfile(employee.getProfile());
 			newEmployee.setEmail(employee.getEmail());
-			newEmployee.setMobileNo(employee.getMobileNo());
+			newEmployee.setMobile(employee.getMobile());
 			newEmployee.setDateCreated(userService.dateFormat(employee.getDateCreated().toString()));
 			newEmployee.setLastUpdated(userService.dateFormat(employee.getLastUpdated().toString()));
 			return newEmployee;
@@ -79,9 +79,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 		List<Employee> filteredList = employeeList.stream()
 				.filter(x -> !employee.getEmployeeId().equals(x.getEmployeeId())).collect(Collectors.toList());
 
-		boolean isExists = filteredList.stream().filter(o -> o.getMobileNo().equals(employee.getMobileNo())).findFirst()
+		boolean isExists = filteredList.stream().filter(o -> o.getMobile().equals(employee.getMobile())).findFirst()
 				.isPresent();
 		return isExists;
+	}
+
+	@Override
+	public boolean emailExists(EmployeeDto employeeDto) {
+
+		return employeeRepository.findByEmail(employeeDto.getEmail()) != null;
+	}
+
+	@Override
+	public boolean mobileExists(EmployeeDto employeeDto) {
+
+		return employeeRepository.findByMobile(employeeDto.getMobile()) != null;
 	}
 
 }

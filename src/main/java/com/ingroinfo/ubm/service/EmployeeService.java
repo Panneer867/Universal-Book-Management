@@ -16,6 +16,10 @@ public interface EmployeeService {
 	boolean emailCheck(Employee employee);
 
 	boolean mobileCheck(Employee employee);
+	
+	boolean emailExists(EmployeeDto employeeDto);
+
+	boolean mobileExists(EmployeeDto employeeDto);
 
 	List<EmployeeDto> getAllEmployees();
 }

@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.ubm.configuration.ModelMapperConfig;
 import com.ingroinfo.ubm.dao.EmployeeRepository;
 import com.ingroinfo.ubm.dto.EmployeeDto;
-import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.Employee;
 import com.ingroinfo.ubm.entity.User;
@@ -60,7 +59,7 @@ public class EmployeeController {
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
+//		Branch branch = branchService.findByUserId(user);
 
 		if (company != null) {
 
@@ -71,14 +70,14 @@ public class EmployeeController {
 			model.addAttribute("cne", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("companyId", cmpy.getCompanyId());
-			model.addAttribute("companyName", cmpy.getCompanyName());
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("branchProfile", "enableBranch");
 		}
+//			else if (branch != null) {
+//			Company cmpy = branch.getCompany();
+//			model.addAttribute("companyId", cmpy.getCompanyId());
+//			model.addAttribute("companyName", cmpy.getCompanyName());
+//			model.addAttribute("usernameofbranch", branch.getFirstName());
+//			model.addAttribute("branchProfile", "enableBranch");
+//		}
 
 		return "/pages/employee_creation";
 	}
@@ -90,17 +89,17 @@ public class EmployeeController {
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-		
-		Employee employee = modelMapper.map(employeeDto, Employee.class);
-		
-		if (employeeService.emailCheck(employee)) {
+//		Branch branch = branchService.findByUserId(user);
+
+		if (employeeService.emailExists(employeeDto)) {
 			return "redirect:/master/employee/management?emailAlreadyExists";
 		}
 
-		if (employeeService.mobileCheck(employee)) {
+		if (employeeService.mobileExists(employeeDto)) {
 			return "redirect:/master/employee/management?mobileAlreadyExists";
 		}
+
+		Employee employee = modelMapper.map(employeeDto, Employee.class);
 
 		if (company != null) {
 
@@ -110,15 +109,14 @@ public class EmployeeController {
 			employee.setCompanyId(company.getCompanyId());
 			companyService.saveFile(uploadDir, fileName, file);
 		}
-		if (branch != null) {
-
-			Company cpy = branch.getCompany();
-			String fileName = employee.getFirstName() + ".jpg";
-			String uploadDir = "C:/Company/" + cpy.getCompanyName() + "/Employees/";
-			employee.setProfile(fileName);
-			employee.setCompanyId(cpy.getCompanyId());
-			companyService.saveFile(uploadDir, fileName, file);
-		}
+//		else if (branch != null) {
+//			Company cpy = branch.getCompany();
+//			String fileName = employee.getFirstName() + ".jpg";
+//			String uploadDir = "C:/Company/" + cpy.getCompanyName() + "/Employees/";
+//			employee.setProfile(fileName);
+//			employee.setCompanyId(cpy.getCompanyId());
+//			companyService.saveFile(uploadDir, fileName, file);
+//		}
 
 		employeeService.saveEmployee(employee);
 
@@ -137,7 +135,7 @@ public class EmployeeController {
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
+//		Branch branch = branchService.findByUserId(user);
 
 		if (company != null) {
 
@@ -148,14 +146,16 @@ public class EmployeeController {
 			model.addAttribute("cne", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("companyId", cmpy.getCompanyId());
-			model.addAttribute("companyName", cmpy.getCompanyName());
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("branchProfile", "enableBranch");
 		}
+
+//		else if (branch != null) {
+//
+//			Company cmpy = branch.getCompany();
+//			model.addAttribute("companyId", cmpy.getCompanyId());
+//			model.addAttribute("companyName", cmpy.getCompanyName());
+//			model.addAttribute("usernameofbranch", branch.getFirstName());
+//			model.addAttribute("branchProfile", "enableBranch");
+//		}
 
 		return "/pages/employee_management";
 	}
@@ -164,8 +164,7 @@ public class EmployeeController {
 	public String update(@ModelAttribute("update") EmployeeDto employeeDto, Principal principal, Model model) {
 
 		Employee employee = employeeRepository.findByEmployeeId(employeeDto.getEmployeeId());
-		
-		
+
 		mapper.modelMapper().map(employeeDto, employee);
 
 		if (employeeService.emailCheck(employee)) {
