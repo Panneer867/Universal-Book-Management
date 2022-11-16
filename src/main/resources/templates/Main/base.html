@@ -186,6 +186,24 @@
                         </ul>
                      </div>
                   </li>
+                   <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/bundle-creation}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/bundle-creation' ? 'active':''}">
+                     <i class="fa fa-file-alt menu-icon pl-1"></i>
+                     <span class="menu-title">Bundle Creation</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/cash-counter}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/cash-counter' ? 'active':''}">
+                     <i class="fa fa-file-alt menu-icon pl-1"></i>
+                     <span class="menu-title">Cash Counter</span>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" th:href="@{/master/barcode-generator}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/barcode-generator' ? 'active':''}">
+                     <i class="fa fa-file-alt menu-icon pl-1"></i>
+                     <span class="menu-title">Barcode Genrate</span>
+                     </a>
+                  </li>
                   <li class="nav-item">
                      <a class="nav-link" data-toggle="collapse" href="#masters" aria-expanded="false" aria-controls="masters">
                      <i class="fa fa-align-left menu-icon pl-1"></i>
@@ -194,26 +212,15 @@
                      </a>
                      <div class="collapse" id="masters">
                         <ul class="nav flex-column sub-menu">
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/id-Master}">ALL ID Master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/barcode-generator}">Barcode Genrate</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/bundle-create}">Bundle Create</a></li>
+                        <li class="nav-item"> <a class="nav-link" th:href="@{/master/category-master}">Category master</a></li>
+                        <li class="nav-item"> <a class="nav-link" th:href="@{/master/supplier-master}">Supplier Master</a></li>
                            <li class="nav-item"> <a class="nav-link" th:href="@{/master/brand-master}">Brand Master</a></li>
                            <li class="nav-item"> <a class="nav-link" th:href="@{/master/item-master}">Item Master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/brand-publishers}">Brand Publishers</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/cash-counter}">Cash Counter</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/catalogue-master}">Catalogue master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/category-master}">Category master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/consumer-master}">Consumer Master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/hsn-code}">HSN Code</a></li>
                            <li class="nav-item"> <a class="nav-link" th:href="@{/master/school-master}">School Master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/item-master}">Item Master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/rate-master}">Rate Master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/supplier-master}">Supplier Master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/tax-master}">Tax Master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/unit-of-measures}">Units of measures</a></li>
                         </ul>
                      </div>
                   </li>
+                 
                   <li class="nav-item">
                      <a class="nav-link" th:href="@{/master/excel}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/excel' ? 'active':''}">
                      <i class="fa fa-file-alt menu-icon pl-1"></i>

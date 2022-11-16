@@ -286,15 +286,16 @@
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="mobile">Mobile No</label>
-                                             <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="mobile" id="mobileNoCopy" maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter mobile no" required>
+                                             <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="mobile" id="mobileNoCopy" onkeyup='checkMobileOwner();' maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter mobile no" required>
                                              <div class="help-block with-errors text-danger"></div>
                                           </div>
                                        </div>
                                        <div class="col-4">
                                           <div class="form-group">
                                              <label for="alternateMobile">Alternate Mobile No</label>
-                                             <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="alternateMobile" id="alternateMobileCopy" maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no">
+                                             <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="alternateMobile" id="alternateMobileCopy" onkeyup='checkMobileOwner();' maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no">
                                              <div class="help-block with-errors text-danger"></div>
+                                             <small id="message"></small>
                                           </div>
                                        </div>
                                     </div>
