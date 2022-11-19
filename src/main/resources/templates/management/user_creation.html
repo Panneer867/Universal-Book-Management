@@ -7,7 +7,7 @@
                User Creation
             </h3>
             <nav aria-label="breadcrumb">
-               <a th:href="@{/master/user/management}" class="btn btn-primary btn-icon-text">
+               <a th:href="@{/user/management}" class="btn btn-primary btn-icon-text">
                <i class="fa fa-users"></i>
                User Management
                </a>
@@ -42,7 +42,7 @@
                   <div class="alert alert-danger text-center" role="alert" th:if="${param.mobileExists}"><strong>[[${mobileExists}]]</strong></div>
                   <div class="alert alert-danger text-center" role="alert" th:if="${param.usernameExists}"><strong>[[${usernameExists}]]</strong></div>
                   <hr class="mt-0">
-                  <form class="forms-sample" data-toggle="validator" th:action="@{/master/user}" role="form" th:object="${user}" method="post">
+                  <form class="forms-sample" data-toggle="validator" th:action="@{/user}" role="form" th:object="${user}" method="post">
                      <div class="row">
                         <div class="col-4">
                            <div class="form-group">

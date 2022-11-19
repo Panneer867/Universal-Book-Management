@@ -45,9 +45,9 @@ public class WebSecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable().authorizeRequests()
-		 	.antMatchers("/master/company/**","/master/branch","/master/branch/management","/master/employee/**").hasRole("ADMIN")
-		 	.antMatchers("/master/user/**","/master/branch/profile","/master/branch/userDetails").hasAnyAuthority("BRANCH_PRIVILEGE")
-			.antMatchers("/login", "/company/register","/getCities","/get/**","/access-denied/","/reset/**", "/server-error","/product/**").permitAll()
+		 	//.antMatchers("/master/company/**","/master/branch","/master/branch/management","/master/employee/**").hasRole("ADMIN")
+		 	//.antMatchers("/master/user/**","/master/branch/profile","/master/branch/userDetails").hasAnyAuthority("BRANCH_PRIVILEGE")
+			.antMatchers("/login", "/company/register","/getCities","/get/**","/denied/","/reset/**", "/error").permitAll()
 			.anyRequest().authenticated()
 			.and().formLogin()
 			.loginPage("/login")

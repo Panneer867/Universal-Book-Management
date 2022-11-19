@@ -4,7 +4,7 @@
       <section>
          <div class="page-header">
             <div class="pl-2">
-               <button type="button" class="btn btn-dark btn-rounded btn-icon" onclick="window.location.href='/master/branch'">
+               <button type="button" class="btn btn-dark btn-rounded btn-icon" onclick="window.location.href='/branch'">
                <i class="fa fa-arrow-left"></i>
                </button>
             </div>
@@ -81,7 +81,7 @@
                               <td th:text = "${branch.lastUpdated}"></td>
                               <td class="text-center">
                                  <a th:href="@{/get/(id=${branch.branchId})}" class="btn btn-success btn-sm p-1 mx-2 edit-branch" data-toggle="modal" data-target="#editBranch">Edit</a>
-                                 <a th:href="@{/master/branch/delete(branchId=${branch.branchId})}" class="btn btn-danger btn-sm p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                 <a th:href="@{/branch/delete(branchId=${branch.branchId})}" class="btn btn-danger btn-sm p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
                               </td>
                            </tr>
                         </tbody>
@@ -93,7 +93,7 @@
          <div class="modal fade" id="editBranch" tabindex="-1" role="dialog" aria-labelledby="editBranch" aria-hidden="true">
             <div class="modal-dialog mt-5" role="document" style="max-width: 60%;">
                <div class="modal-content">
-                  <form data-toggle="validator" th:action="@{/master/branch/update}" role="form" th:object="${update}" method="post">
+                  <form data-toggle="validator" th:action="@{/branch/update}" role="form" th:object="${update}" method="post">
                      <div class="modal-header pt-2 pb-1">
                         <h5 class="modal-title" id="editModal">Edit Branch Details</h5>
                         <div style="margin-left: 490px;">

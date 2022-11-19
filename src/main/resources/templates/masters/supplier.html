@@ -19,16 +19,7 @@
                   <h4 class="card-title text-center">Supplier Master</h4>
                   <hr class="pb-3">
                   
-                      <!-- Message Alert Field -->
-               
-		               <div class="alert_field">       
-		               <div th:if="${session.message}" th:classappend="${session.message.type }" class="alert" role="alert">
-		                    <p class="text-center" th:text="${session.message.content}"> </p>
-		                    <th:block th:text="${#session.removeAttribute('message')}"></th:block>
-		                 </div>
-		              </div>  
-		                
-            		<!-- End of Message Alert Field -->
+                   
                   
                   <form class="forms-sample" data-toggle="validator" th:action="@{/master/createSupplierMaster}" method="post">
                      <div class="row">
@@ -317,69 +308,6 @@
                </div>
             </div>
          </div>
-         
-         
-         
-            <div class="row d-flex justify-content-center pt-1"  th:if="${show != null}">
-            <div class="col-md-12 grid-margin stretch-card">
-               <div class="card">
-                  <div class="card-body">
-                     <h4 class="card-title text-center">Supplier Master</h4>
-                     
-                     <table class="table">
-						  <thead class="thead-dark">
-						    <tr class= "text-center" >
-						      <th scope="col">Supplier Code</th>
-						      <th scope="col">Supplier Name</th>
-						      <th scope="col">Company Name</th>
-						      <th scope="col">Supplier Type</th>
-						      <th scope="col">Address</th>
-						      <th scope="col">Email / Mobile No</th>
-						      <th scope="col">GSTN Type/Number</th>
-						     <th scope="col">Supplier Brand</th>
-						      <th scope="col">Action</th>
-						     
-						    </tr>
-						  </thead>
-						  <tbody>
-						    <tr th:each="supplier: ${supplierMaster}" >
-						
-						      <td th:text="${supplier.supplierCode}">Mark</td>
-						      <td th:text="${supplier.supplierName}">Otto</td>
-						      <td th:text="${supplier.companyName}">Otto</td>
-						      <td th:text="${supplier.supplierType}">Otto</td>
-						      <td th:text="${supplier.doorNo} + ', ' + ${supplier.cross} + ', ' + ${supplier.main} + ', ' + ${supplier.area} + ', ' + ${supplier.city} + ', ' + ${supplier.state} + ' :- ' + ${supplier.pinCode}">Otto</td>
-						      <td th:text="${supplier.emailId} + ', ' + ${supplier.mobileNO}">Otto</td>
-						      <td th:text="${supplier.gstnType} + ', ' + ${supplier.gstnNumber}">Otto</td>
-						      <td th:text="${supplier.supplierBrand}">Otto</td>
-						      <td >
-                              <a  class="btn btn-success btn-sm p-1 mx-2" style= "width: 50px;">Edit</a>
-						      <a type="button"data-toggle="modal" data-target="#deleteAlert" class="btn btn-danger btn-sm p-1"> Delete </a>
-                          			<div class="modal fade" id="deleteAlert" tabindex="-1"
-										role="dialog" aria-labelledby="exampleModalLabel-3" aria-hidden="true">
-										 <div class="modal-dialog modal-sm" role="document">
-											<div class="modal-content">															
-												<div class="modal-body justify-content-center">
-													<p class="text-center">Once deleted it cannot be reverted.</p>
-													<p class="text-center">Are you sure you want to delete?</p>
-												</div>
-												<div class="modal-footer justify-content-center">
-													<a type="button" th:href="@{'/master/deleteSupplier/'+${supplier.supplierId}}" class="btn btn-danger">Delete</a>
-													<button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-										    	</div>
-											</div>
-										</div>
-									</div>                               </td>
-						    </tr>
-						    
-						  </tbody>
-						</table>											
-                  </div>
-               </div>
-            </div>
-           
-         </div>
-         
          
       </section>
    </body>

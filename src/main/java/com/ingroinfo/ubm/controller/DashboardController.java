@@ -51,7 +51,7 @@ public class DashboardController {
 			model.addAttribute("userProfile", "enableUser");
 		}
 
-		return "dashboard";
+		return "/main/dashboard";
 	}
 
 }

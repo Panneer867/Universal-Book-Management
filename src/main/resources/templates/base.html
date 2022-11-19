@@ -14,15 +14,16 @@
       <link rel="stylesheet" th:href="@{/css/edit.css}">
       <link rel="stylesheet" th:href="@{/css/custom.css}">
       <link rel="stylesheet" th:href="@{/css/dropdown-list.css}">
+      
       <script th:src="@{https://www.gstatic.com/charts/loader.js}"></script>
-      <script th:src="@{https://unpkg.com/sweetalert/dist/sweetalert.min.js}"></script>
+      <script th:src="@{https://unpkg.com/sweetalert/dist/sweetalert.min.js}"></script>   
    </head>
    <body class="sidebar-dark">
       <div class="container-scroller">
          <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar navbar-dark">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-               <a class="navbar-brand brand-logo" th:href="@{/master/dashboard}"><img th:src="@{/images/logo.png}" alt="logo" style="width: 110px;height: 45px;"/></a>
-               <a class="navbar-brand brand-logo-mini" th:href="@{/master/dashboard}"><img th:src="@{/images/logo.png}" alt="logo" style="width: 60px;height: 30px;"/></a>
+               <a class="navbar-brand brand-logo" th:href="@{/dashboard}"><img th:src="@{/images/logo.png}" alt="logo" style="width: 110px;height: 45px;"/></a>
+               <a class="navbar-brand brand-logo-mini" th:href="@{/dashboard}"><img th:src="@{/images/logo.png}" alt="logo" style="width: 60px;height: 30px;"/></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -57,11 +58,11 @@
                      <strong th:if="${userProfile != null}">[[${usernameofuser}]]</strong>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right profile" aria-labelledby="profileDropdown">
-                        <a th:href="@{/master/company/profile}" th:if="${companyProfile != null}" class="dropdown-item">
+                        <a th:href="@{/company/profile}" th:if="${companyProfile != null}" class="dropdown-item">
                         <i class="fas fa-user text-primary"></i>
                         Your Profile
                         </a>
-                        <a th:href="@{/master/branch/profile}" th:if="${branchProfile != null}" class="dropdown-item">
+                        <a th:href="@{/branch/profile}" th:if="${branchProfile != null}" class="dropdown-item">
                         <i class="fas fa-user text-primary"></i>
                         Your Profile
                         </a>
@@ -87,7 +88,7 @@
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/customer-info}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/customer-info' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/customer-info}" th:classappend="${#httpServletRequest.getRequestURI() == '/customer-info' ? 'active':''}">
                      <i class="fa fa-user-friends menu-icon"></i>
                      <span class="menu-title">Customer Info</span>
                      </a>
@@ -100,22 +101,22 @@
                      </a>
                      <div class="collapse" id="order-details">
                         <ul class="nav flex-column sub-menu">
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/sales-order}">Sales Order</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/purchase-order}">Purchase Order</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/order-view}">Order View</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/reject-order}">Reject Order</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/order-tracking}">Order Tracking</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/sales-order}">Sales Order</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/purchase-order}">Purchase Order</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/order-view}">Order View</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/reject-order}">Reject Order</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/order-tracking}">Order Tracking</a></li>
                         </ul>
                      </div>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/manual-billing}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/manual-billing' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/manual-billing}" th:classappend="${#httpServletRequest.getRequestURI() == '/manual-billing' ? 'active':''}">
                      <i class="fa fa-money-check menu-icon"></i>
                      <span class="menu-title">Billing</span>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/invoice}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/invoice' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/invoice}" th:classappend="${#httpServletRequest.getRequestURI() == '/invoice' ? 'active':''}">
                      <i class="fa fa-file-invoice menu-icon pl-2"></i>
                      <span class="menu-title">Invoice</span>
                      </a>
@@ -128,9 +129,9 @@
                      </a>
                      <div class="collapse" id="transaction">
                         <ul class="nav flex-column sub-menu">
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/sales-return}">Sales / Return</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/purchase-return}">Purchase / Return</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/estimate}">Estimate</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/sales-return}">Sales / Return</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/purchase-return}">Purchase / Return</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/estimate}">Estimate</a></li>
                         </ul>
                      </div>
                   </li>
@@ -142,18 +143,18 @@
                      </a>
                      <div class="collapse" id="delivery">
                         <ul class="nav flex-column sub-menu">
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/delivery-chellan}">Purchase/Return</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/delivery-chellan}">Purchase/Return</a></li>
                         </ul>
                      </div>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/debit-note}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/debit-note' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/debit-note}" th:classappend="${#httpServletRequest.getRequestURI() == '/debit-note' ? 'active':''}">
                      <i class="fa fa-rupee-sign menu-icon pl-2"></i>
                      <span class="menu-title">Debit note</span>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/credit-note}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/credit-note' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/credit-note}" th:classappend="${#httpServletRequest.getRequestURI() == '/credit-note' ? 'active':''}">
                      <i class="fa fa-credit-card menu-icon"></i>
                      <span class="menu-title">Credit Note</span>
                      </a>
@@ -166,10 +167,10 @@
                      </a>
                      <div class="collapse" id="stock">
                         <ul class="nav flex-column sub-menu">
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/opening-balance}">Opening Balance</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/stock_monthwise}">Stock Monthwise</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/stock-rejection-return}">Stock Rejection Return</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/stock-rejection-non-return}">Stock Rejection Non Return</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/opening-balance}">Opening Balance</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/stock_monthwise}">Stock Monthwise</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/stock-rejection-return}">Stock Rejection Return</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/stock-rejection-non-return}">Stock Rejection Non Return</a></li>
                         </ul>
                      </div>
                   </li>
@@ -181,25 +182,25 @@
                      </a>
                      <div class="collapse" id="payment">
                         <ul class="nav flex-column sub-menu">
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/payment-details}">Payment Details</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/payment-configutration}">Payment Configuration</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/payment-details}">Payment Details</a></li>
+                           <li class="nav-item"> <a class="nav-link" th:href="@{/payment-configutration}">Payment Configuration</a></li>
                         </ul>
                      </div>
                   </li>
                    <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/bundle-creation}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/bundle-creation' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/bundle-creation}" th:classappend="${#httpServletRequest.getRequestURI() == '/bundle-creation' ? 'active':''}">
                      <i class="fa fa-file-alt menu-icon pl-1"></i>
                      <span class="menu-title">Bundle Creation</span>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/cash-counter}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/cash-counter' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/cash-counter}" th:classappend="${#httpServletRequest.getRequestURI() == '/cash-counter' ? 'active':''}">
                      <i class="fa fa-file-alt menu-icon pl-1"></i>
                      <span class="menu-title">Cash Counter</span>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/barcode-generator}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/barcode-generator' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/barcode-generator}" th:classappend="${#httpServletRequest.getRequestURI() == '/barcode-generator' ? 'active':''}">
                      <i class="fa fa-file-alt menu-icon pl-1"></i>
                      <span class="menu-title">Barcode Genrate</span>
                      </a>
@@ -211,54 +212,62 @@
                      <i class="menu-arrow"></i>
                      </a>
                      <div class="collapse" id="masters">
-                        <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" th:href="@{/master/category-master}">Category master</a></li>
-                        <li class="nav-item"> <a class="nav-link" th:href="@{/master/supplier-master}">Supplier Master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/brand-master}">Brand Master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/item-master}">Item Master</a></li>
-                           <li class="nav-item"> <a class="nav-link" th:href="@{/master/school-master}">School Master</a></li>
+	                   <ul class="nav flex-column sub-menu">
+	                   <li class="nav-item"> <a class="nav-link" th:href="@{/master/barcode}">Barcode Generate</a></li>
+	                   <li class="nav-item"> <a class="nav-link" th:href="@{/master/brand}">Brand Master</a></li>
+	                   <li class="nav-item"> <a class="nav-link" th:href="@{/master/publisher}">Brand Publisher</a></li>
+	                   <li class="nav-item"> <a class="nav-link" th:href="@{/master/cash-counter}">Cash Counter</a></li>
+	                   <li class="nav-item"> <a class="nav-link" th:href="@{/master/catalogue}">Catalogue Master</a></li>
+		                   <li class="nav-item"> <a class="nav-link" th:href="@{/master/category}">Category Master</a></li>
+		                   <li class="nav-item"> <a class="nav-link" th:href="@{/master/bundle}">Create Bundle</a></li>
+		                   <li class="nav-item"> <a class="nav-link" th:href="@{/master/supplier}">HSN Code Master</a></li>
+		                   <li class="nav-item"> <a class="nav-link" th:href="@{/master/item}">Item Master</a></li>
+	                       <li class="nav-item"> <a class="nav-link" th:href="@{/master/school}">School Master</a></li>
+		                   <li class="nav-item"> <a class="nav-link" th:href="@{/master/supplier}">Supplier Master</a></li>
+	                        <li class="nav-item"> <a class="nav-link" th:href="@{/master/tax}">Tax Master</a></li>
+	                       <li class="nav-item"> <a class="nav-link" th:href="@{/master/measures}">Unit of Measures</a></li>
                         </ul>
                      </div>
                   </li>
                  
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/excel}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/excel' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/excel}" th:classappend="${#httpServletRequest.getRequestURI() == '/excel' ? 'active':''}">
                      <i class="fa fa-file-alt menu-icon pl-1"></i>
                      <span class="menu-title">Excel Import / Export</span>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/mis-report}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/mis-report' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/mis-report}" th:classappend="${#httpServletRequest.getRequestURI() == '/mis-report' ? 'active':''}">
                      <i class="fa fa-file-alt menu-icon pl-1"></i>
                      <span class="menu-title">MIS Report</span>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/website-management}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/website-management' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/website-management}" th:classappend="${#httpServletRequest.getRequestURI() == '/website-management' ? 'active':''}">
                      <i class="fa fa-receipt menu-icon pl-1"></i>
                      <span class="menu-title">Website Management</span>
                      </a>
                   </li>
                   <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                     <a class="nav-link" th:href="@{/master/employee}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/employee' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/employee}" th:classappend="${#httpServletRequest.getRequestURI() == '/employee' ? 'active':''}">
                      <i class="fa fa-user-tie menu-icon pl-1"></i>
                      <span class="menu-title">Employee Management</span>
                      </a>
                   </li>
                   <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                     <a class="nav-link" th:href="@{/master/branch}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/branch' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/branch}" th:classappend="${#httpServletRequest.getRequestURI() == '/branch' ? 'active':''}">
                      <i class='fas fa-code-branch menu-icon pl-1'></i>
                      <span class="menu-title">Branch Management</span>
                      </a>
                   </li>
                   <li class="nav-item" sec:authorize="hasAuthority('BRANCH_PRIVILEGE')">
-                     <a class="nav-link" th:href="@{/master/user}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/user' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/user}" th:classappend="${#httpServletRequest.getRequestURI() == '/user' ? 'active':''}">
                      <i class="fa fa-users-cog menu-icon pl-0"></i>
                      <span class="menu-title">User Management</span>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" th:href="@{/master/backup}" th:classappend="${#httpServletRequest.getRequestURI() == '/master/backup' ? 'active':''}">
+                     <a class="nav-link" th:href="@{/backup}" th:classappend="${#httpServletRequest.getRequestURI() == '/backup' ? 'active':''}">
                      <i class="glyphicon glyphicon-save menu-icon pl-1"></i>
                      <span class="menu-title">Backup</span>
                      </a>
@@ -320,5 +329,6 @@
       <script th:src="@{/js/delete-alert.js}"></script>
       <script th:src="@{/js/table-edit.js}"></script>
       <script th:src="@{/js/number-match.js}"></script>
+      <script th:src="@{/js/select-disable.js}"></script>
    </body>
 </html>

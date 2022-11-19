@@ -25,7 +25,7 @@ import com.ingroinfo.ubm.service.EmployeeService;
 import com.ingroinfo.ubm.service.UserService;
 
 @Controller
-@RequestMapping("/master/employee")
+@RequestMapping("/employee")
 public class EmployeeController {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
@@ -59,27 +59,17 @@ public class EmployeeController {
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
-//		Branch branch = branchService.findByUserId(user);
 
 		if (company != null) {
-
 			model.addAttribute("companyId", company.getCompanyId());
 			model.addAttribute("companyName", company.getCompanyName());
 			model.addAttribute("branchCount", company.getNoOfBranch());
 			model.addAttribute("pe", company.getProfile());
 			model.addAttribute("cne", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
-
 		}
-//			else if (branch != null) {
-//			Company cmpy = branch.getCompany();
-//			model.addAttribute("companyId", cmpy.getCompanyId());
-//			model.addAttribute("companyName", cmpy.getCompanyName());
-//			model.addAttribute("usernameofbranch", branch.getFirstName());
-//			model.addAttribute("branchProfile", "enableBranch");
-//		}
 
-		return "/pages/employee_creation";
+		return "/management/employee_creation";
 	}
 
 	@PostMapping
@@ -89,14 +79,13 @@ public class EmployeeController {
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
-//		Branch branch = branchService.findByUserId(user);
 
 		if (employeeService.emailExists(employeeDto)) {
-			return "redirect:/master/employee/management?emailAlreadyExists";
+			return "redirect:/employee/management?emailAlreadyExists";
 		}
 
 		if (employeeService.mobileExists(employeeDto)) {
-			return "redirect:/master/employee/management?mobileAlreadyExists";
+			return "redirect:/employee/management?mobileAlreadyExists";
 		}
 
 		Employee employee = modelMapper.map(employeeDto, Employee.class);
@@ -109,18 +98,9 @@ public class EmployeeController {
 			employee.setCompanyId(company.getCompanyId());
 			companyService.saveFile(uploadDir, fileName, file);
 		}
-//		else if (branch != null) {
-//			Company cpy = branch.getCompany();
-//			String fileName = employee.getFirstName() + ".jpg";
-//			String uploadDir = "C:/Company/" + cpy.getCompanyName() + "/Employees/";
-//			employee.setProfile(fileName);
-//			employee.setCompanyId(cpy.getCompanyId());
-//			companyService.saveFile(uploadDir, fileName, file);
-//		}
-
 		employeeService.saveEmployee(employee);
 
-		return "redirect:/master/employee?success";
+		return "redirect:/employee?success";
 	}
 
 	@GetMapping("/management")
@@ -135,7 +115,6 @@ public class EmployeeController {
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
-//		Branch branch = branchService.findByUserId(user);
 
 		if (company != null) {
 
@@ -148,16 +127,7 @@ public class EmployeeController {
 
 		}
 
-//		else if (branch != null) {
-//
-//			Company cmpy = branch.getCompany();
-//			model.addAttribute("companyId", cmpy.getCompanyId());
-//			model.addAttribute("companyName", cmpy.getCompanyName());
-//			model.addAttribute("usernameofbranch", branch.getFirstName());
-//			model.addAttribute("branchProfile", "enableBranch");
-//		}
-
-		return "/pages/employee_management";
+		return "/management/employee_management";
 	}
 
 	@PostMapping("/update")
@@ -168,16 +138,16 @@ public class EmployeeController {
 		mapper.modelMapper().map(employeeDto, employee);
 
 		if (employeeService.emailCheck(employee)) {
-			return "redirect:/master/employee/management?emailAlreadyExists";
+			return "redirect:/employee/management?emailAlreadyExists";
 		}
 
 		if (employeeService.mobileCheck(employee)) {
-			return "redirect:/master/employee/management?mobileAlreadyExists";
+			return "redirect:/employee/management?mobileAlreadyExists";
 		}
 
 		employeeService.saveEmployee(employee);
 
-		return "redirect:/master/employee/management?employeeUpdated";
+		return "redirect:/employee/management?employeeUpdated";
 	}
 
 	@GetMapping("/delete")
@@ -185,7 +155,7 @@ public class EmployeeController {
 
 		employeeService.deleteByEmployeeId(employeeId);
 
-		return "redirect:/master/employee/management?employeeDeleted";
+		return "redirect:/employee/management?employeeDeleted";
 
 	}
 }

@@ -4,7 +4,7 @@
       <section>
          <div class="page-header">
             <div class="pl-2">
-               <button type="button" class="btn btn-dark btn-rounded btn-icon" onclick="window.location.href='/master/user'">
+               <button type="button" class="btn btn-dark btn-rounded btn-icon" onclick="window.location.href='/user'">
                <i class="fa fa-arrow-left"></i>
                </button>
             </div>
@@ -88,7 +88,7 @@
                                     <td th:text = "${user.lastUpdated}"></td>
                                     <td class="text-center">
                                        <a th:href="@{/get/user/(id=${user.userId})}" class="btn btn-success btn-sm p-1 mx-2 edit-userDetails" data-toggle="modal" data-target="#editUserDetails">Edit</a>
-                                       <a th:href="@{/master/user/delete(userId=${user.userId})}" class="btn btn-danger btn-sm p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                       <a th:href="@{/user/delete(userId=${user.userId})}" class="btn btn-danger btn-sm p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
                                     </td>
                                  </tr>
                               </tbody>
@@ -102,7 +102,7 @@
          <div class="modal fade" id="editUserDetails" tabindex="-1" role="dialog" aria-labelledby="editUserDetails" aria-hidden="true">
             <div class="modal-dialog mt-5" role="document" style="max-width: 50%;">
                <div class="modal-content">
-                  <form data-toggle="validator" th:action="@{/master/user/update}" role="form" th:object="${updateUser}" method="post">
+                  <form data-toggle="validator" th:action="@{/user/update}" role="form" th:object="${updateUser}" method="post">
                      <div class="modal-header pt-2 pb-1">
                         <h5 class="modal-title" id="editModal">Edit User Details</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

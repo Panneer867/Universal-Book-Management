@@ -32,7 +32,7 @@ import com.ingroinfo.ubm.service.CompanyService;
 import com.ingroinfo.ubm.service.UserService;
 
 @Controller
-@RequestMapping("/master/company")
+@RequestMapping("/company")
 public class CompanyController {
 
 	@Autowired
@@ -74,7 +74,6 @@ public class CompanyController {
 		model.addAttribute("profile", "Profile has been sucessfully updated !");
 		model.addAttribute("changed", "Login Credentials has been sucessfully updated !");
 		model.addAttribute("wrong", "You have entered wrong password!!");
-
 		model.addAttribute("pe", company.getProfile());
 		model.addAttribute("cne", company.getCompanyName());
 		model.addAttribute("details", company);
@@ -84,7 +83,7 @@ public class CompanyController {
 		model.addAttribute("update", new CompanyDto());
 		model.addAttribute("user", new UserDto());
 
-		return "/pages/company_profile";
+		return "/management/company_profile";
 
 	}
 
@@ -112,18 +111,18 @@ public class CompanyController {
 		}
 
 		if (userService.emailCheck(user)) {
-			return "redirect:/master/company/profile?emailAlreadyExists";
+			return "redirect:/company/profile?emailAlreadyExists";
 		}
 
 		if (userService.mobileCheck(user)) {
-			return "redirect:/master/company/profile?mobileAlreadyExists";
+			return "redirect:/company/profile?mobileAlreadyExists";
 		}
 
 		userService.editUser(user);
 
 		companyService.editCompany(company);
 
-		return "redirect:/master/company/profile?profileUpdated";
+		return "redirect:/company/profile?profileUpdated";
 	}
 
 	@PostMapping("/profile/picture")
@@ -143,7 +142,7 @@ public class CompanyController {
 
 		companyService.editCompany(company);
 
-		return "redirect:/master/company/profile?profileUpdated";
+		return "redirect:/company/profile?profileUpdated";
 	}
 
 	@PostMapping("/userDetails")
@@ -162,7 +161,7 @@ public class CompanyController {
 					.findFirst().isPresent();
 
 			if (isExists) {
-				return "redirect:/master/company/profile?usernameExists";
+				return "redirect:/company/profile?usernameExists";
 			}
 
 			user.setUsername(userDto.getUsername());
@@ -178,7 +177,7 @@ public class CompanyController {
 
 		} else {
 
-			return "redirect:/master/company/profile?wrongPassword";
+			return "redirect:/company/profile?wrongPassword";
 		}
 
 	}

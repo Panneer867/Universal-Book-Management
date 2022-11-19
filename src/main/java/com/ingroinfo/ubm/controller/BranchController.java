@@ -27,7 +27,7 @@ import com.ingroinfo.ubm.service.EmployeeService;
 import com.ingroinfo.ubm.service.UserService;
 
 @Controller
-@RequestMapping("/master/branch")
+@RequestMapping("/branch")
 public class BranchController {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
@@ -85,7 +85,7 @@ public class BranchController {
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
-		return "/pages/branch_creation";
+		return "/management/branch_creation";
 	}
 
 	@PostMapping
@@ -93,15 +93,15 @@ public class BranchController {
 			Principal principal, Model model) throws IOException {
 
 		if (branchService.emailExists(branchDto)) {
-			return "redirect:/master/branch?emailExists";
+			return "redirect:/branch?emailExists";
 		}
 
 		if (branchService.mobileExists(branchDto)) {
-			return "redirect:/master/branch?mobileExists";
+			return "redirect:/branch?mobileExists";
 		}
 
 		if (branchService.usernameExists(branchDto)) {
-			return "redirect:/master/branch?usernameExists";
+			return "redirect:/branch?usernameExists";
 		}
 
 		Branch branch = modelMapper.map(branchDto, Branch.class);
@@ -114,10 +114,10 @@ public class BranchController {
 			branchService.saveBranch(branch);
 			branchService.userDetails(user);
 		} else {
-			return "redirect:/master/branch?notAllowed";
+			return "redirect:/branch?notAllowed";
 		}
 
-		return "redirect:/master/branch?success";
+		return "redirect:/branch?success";
 	}
 
 	@GetMapping("/management")
@@ -143,7 +143,7 @@ public class BranchController {
 			model.addAttribute("companyProfile", "enableCompany");
 		}
 
-		return "/pages/branch_management";
+		return "/management/branch_management";
 	}
 
 	@PostMapping("/update")
@@ -161,11 +161,11 @@ public class BranchController {
 		user.setUserId(userId);
 
 		if (userService.emailCheck(user)) {
-			return "redirect:/master/branch/management?emailAlreadyExists";
+			return "redirect:/branch/management?emailAlreadyExists";
 		}
 
 		if (userService.mobileCheck(user)) {
-			return "redirect:/master/branch/management?mobileAlreadyExists";
+			return "redirect:/branch/management?mobileAlreadyExists";
 		}
 
 		List<User> userList = userRepository.findAll();
@@ -178,7 +178,7 @@ public class BranchController {
 
 		if (isExists) {
 
-			return "redirect:/master/branch/management?usernameAlreadyExists";
+			return "redirect:/branch/management?usernameAlreadyExists";
 		}
 
 		if (branchDto.getPassword().equalsIgnoreCase("")) {
@@ -192,7 +192,7 @@ public class BranchController {
 		userService.editUser(user);
 		branchService.updateBranch(branch);
 
-		return "redirect:/master/branch/management?branchUpdated";
+		return "redirect:/branch/management?branchUpdated";
 	}
 
 	@GetMapping("/profile")
@@ -218,7 +218,7 @@ public class BranchController {
 		model.addAttribute("companyName", company.getCompanyName());
 		model.addAttribute("usernameofbranch", branch.getFirstName());
 
-		return "/pages/branch_profile";
+		return "/management/branch_profile";
 	}
 
 	@PostMapping("/profile")
@@ -232,11 +232,11 @@ public class BranchController {
 		mapper.modelMapper().map(branchDto, user);
 
 		if (userService.emailCheck(user)) {
-			return "redirect:/master/branch/profile?emailAlreadyExists";
+			return "redirect:/branch/profile?emailAlreadyExists";
 		}
 
 		if (userService.mobileCheck(user)) {
-			return "redirect:/master/branch/profile?mobileAlreadyExists";
+			return "redirect:/branch/profile?mobileAlreadyExists";
 		}
 
 		List<User> userList = userRepository.findAll();
@@ -248,13 +248,13 @@ public class BranchController {
 				.findFirst().isPresent();
 
 		if (isExists) {
-			return "redirect:/master/branch/profile?usernameExists";
+			return "redirect:/branch/profile?usernameExists";
 		}
 
 		userService.editUser(user);
 		branchService.editBranch(branch);
 
-		return "redirect:/master/branch/profile?profileUpdated";
+		return "redirect:/branch/profile?profileUpdated";
 
 	}
 
@@ -274,7 +274,7 @@ public class BranchController {
 					.findFirst().isPresent();
 
 			if (isExists) {
-				return "redirect:/master/branch/profile?usernameExists";
+				return "redirect:/branch/profile?usernameExists";
 			}
 
 			user.setUsername(branchDto.getUsername());
@@ -286,11 +286,11 @@ public class BranchController {
 				userRepository.save(user);
 			}
 
-			return "redirect:/login?userDetailsChanged";
+			return "redirect:?userDetailsChanged";
 
 		} else {
 
-			return "redirect:/master/branch/profile?wrongPassword";
+			return "redirect:/branch/profile?wrongPassword";
 		}
 
 	}
@@ -301,7 +301,7 @@ public class BranchController {
 		branchService.deleteByBranchId(branchId);
 		userRepository.deleteByBranchAssociatedUsers(branchId);
 
-		return "redirect:/master/branch/management?branchDeleted";
+		return "redirect:/branch/management?branchDeleted";
 
 	}
 

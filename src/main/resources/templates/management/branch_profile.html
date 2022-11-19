@@ -149,7 +149,7 @@
                               </div>
                               <div class="tab-pane fade" id="pills-password" role="tabpanel" aria-labelledby="pills-password-tab-custom">
                                  <div class="template-demo">
-                                    <form id="editable-form" class="editable-form" data-toggle="validator" th:action="@{/master/branch/userDetails}" th:object="${update}" role="form" method="post">
+                                    <form id="editable-form" class="editable-form" data-toggle="validator" th:action="@{/branch/userDetails}" th:object="${update}" role="form" method="post">
                                        <div class="row mb-3">
                                           <div class="col-6 border border-primary">
                                              <div style="padding-left: 135px;padding-top: 12px;">
@@ -201,7 +201,7 @@
          <div class="modal fade" id="clickEditBranchProfile" tabindex="-1" role="dialog" aria-labelledby="clickEditBranchProfile" aria-hidden="true">
             <div class="modal-dialog" role="document" style="max-width: 60%;">
                <div class="modal-content">
-                  <form data-toggle="validator" th:action="@{/master/branch/profile}" th:object="${update}" role="form"  method="post">
+                  <form data-toggle="validator" th:action="@{/branch/profile}" th:object="${update}" role="form"  method="post">
                      <div class="modal-header py-2">
                         <h5 class="modal-title" id="editModal">Edit Profile</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

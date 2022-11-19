@@ -28,6 +28,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingroinfo.ubm.dao.CompanyRepository;
 import com.ingroinfo.ubm.dao.EmployeeRepository;
+import com.ingroinfo.ubm.dao.UnitsRepository;
 import com.ingroinfo.ubm.dao.UserRepository;
 import com.ingroinfo.ubm.dto.BranchDto;
 import com.ingroinfo.ubm.dto.CompanyDto;
@@ -36,6 +37,7 @@ import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.Employee;
 import com.ingroinfo.ubm.entity.State;
+import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.entity.User;
 import com.ingroinfo.ubm.service.BranchService;
 import com.ingroinfo.ubm.service.CompanyService;
@@ -65,6 +67,9 @@ public class LoginController {
 	private CompanyRepository companyRepository;
 
 	@Autowired
+	private UnitsRepository unitsRepository;
+
+	@Autowired
 	private JavaMailSender mailSender;
 
 	@Autowired
@@ -79,126 +84,31 @@ public class LoginController {
 			model.addAttribute("enable", "enable");
 		}
 
-		return "login";
+		return "/main/login";
 	}
 
 	@GetMapping("/logout")
 	public String logout() {
 
-		return "login";
+		return "/main/login";
 	}
 
-	@GetMapping("/access-denied")
+	@GetMapping("/denied")
 	public String error() {
 
-		return "access_denied";
+		return "/main/access_denied";
 	}
 
-	@GetMapping("/server-error")
+	@GetMapping("/error")
 	public String serverError() {
 
-		return "server_error";
-	}
-
-	@GetMapping("/company/register")
-	public String company(Model model) {
-
-		model.addAttribute("title", "Company Creation");
-		model.addAttribute("stateList", userService.getAllStates());
-		model.addAttribute("bankList", userService.getAllBanks());
-		model.addAttribute("company", new CompanyDto());
-
-		Company company = companyRepository.findTopByOrderByCompanyIdDesc();
-
-		if (company != null) {
-			model.addAttribute("companyNo", company.getCompanyId());
-		}
-		return "/company_creation";
-	}
-
-	@PostMapping("/company/register")
-	public String createCompany(@RequestParam("companyLogo") MultipartFile file1,
-			@RequestParam("profile") MultipartFile file2, @ModelAttribute("company") CompanyDto companyDto,
-			BindingResult bindingResult) throws IOException {
-
-		Company company = modelMapper.map(companyDto, Company.class);
-
-		String companyLogo = StringUtils.cleanPath(file1.getOriginalFilename());
-		// String profile = StringUtils.cleanPath(file2.getOriginalFilename());
-		String profile = company.getFirstName() + ".jpg";
-		String uploadDir = "C:/Company/" + company.getCompanyName() + "/Logo";
-		String uploadDir1 = "C:/Company/" + company.getCompanyName() + "/Owner_Profile";
-
-		company.setCompanyPath("C:/Company/" + company.getCompanyName() + "/");
-		company.setCompanyLogo(companyLogo);
-		company.setProfile(profile);
-
-		companyService.saveFile(uploadDir, companyLogo, file1);
-		companyService.saveFile(uploadDir1, profile, file2);
-
-		companyService.userDetails(companyDto);
-		companyService.saveCompany(company);
-
-		return "redirect:/company/register?success";
-	}
-
-	@GetMapping("/getCities")
-	public @ResponseBody String getCities(@RequestParam String stateName) {
-
-		State state = userService.findById(stateName);
-		Integer stateId = state.getId();
-
-		String json = null;
-		List<Object[]> list = userService.getCitiesByState(stateId);
-		try {
-			json = new ObjectMapper().writeValueAsString(list);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return json;
-	}
-
-	@ResponseBody
-	@RequestMapping("/get")
-	public BranchDto getBranch(@RequestParam Long id) {
-
-		Optional<Branch> branch = branchService.getBranchById(id);
-
-		BranchDto branchDto = modelMapper.map(branch, BranchDto.class);
-
-		branchDto.setUsername(branch.get().getUser().getUsername());
-
-		return branchDto;
-	}
-
-	@ResponseBody
-	@RequestMapping("/get/user")
-	public UserDto getUser(@RequestParam Long id) {
-
-		User user = userRepository.findByUserId(id);
-
-		String type = user.getUserType();
-
-		if (type.equalsIgnoreCase("NORMAL USER")) {
-			user.setUserType("ROLE_USER");
-		} else if (type.equalsIgnoreCase("BRANCH USER")) {
-			user.setUserType("ROLE_BRANCH");
-		}
-
-		return modelMapper.map(user, UserDto.class);
-	}
-
-	@ResponseBody
-	@RequestMapping("/get/employee")
-	public Employee getEmployee(@RequestParam Long id) {
-
-		return employeeRepository.findByEmployeeId(id);
+		return "/main/server_error";
 	}
 
 	@GetMapping("/reset/password")
 	public String forgotPassword() {
 
-		return "reset_password";
+		return "/main/reset_password";
 	}
 
 	@PostMapping("/reset/password")
@@ -269,7 +179,7 @@ public class LoginController {
 
 		model.addAttribute("token", token);
 
-		return "change_password";
+		return "/main/change_password";
 	}
 
 	@PostMapping("/reset/updatePassword")
@@ -285,5 +195,111 @@ public class LoginController {
 			userService.changeUserPassword(user.get(), newPassword);
 		}
 		return "redirect:/login?passwordChanged";
+	}
+
+	@GetMapping("/company/register")
+	public String company(Model model) {
+
+		model.addAttribute("title", "Company Creation");
+		model.addAttribute("stateList", userService.getAllStates());
+		model.addAttribute("bankList", userService.getAllBanks());
+		model.addAttribute("company", new CompanyDto());
+
+		Company company = companyRepository.findTopByOrderByCompanyIdDesc();
+
+		if (company != null) {
+			model.addAttribute("companyNo", company.getCompanyId());
+		}
+		return "/main/company_creation";
+	}
+
+	@PostMapping("/company/register")
+	public String createCompany(@RequestParam("companyLogo") MultipartFile file1,
+			@RequestParam("profile") MultipartFile file2, @ModelAttribute("company") CompanyDto companyDto,
+			BindingResult bindingResult) throws IOException {
+
+		Company company = modelMapper.map(companyDto, Company.class);
+
+		String companyLogo = StringUtils.cleanPath(file1.getOriginalFilename());
+		// String profile = StringUtils.cleanPath(file2.getOriginalFilename());
+		String profile = company.getFirstName() + ".jpg";
+		String uploadDir = "C:/Company/" + company.getCompanyName() + "/Logo";
+		String uploadDir1 = "C:/Company/" + company.getCompanyName() + "/Owner_Profile";
+
+		company.setCompanyPath("C:/Company/" + company.getCompanyName() + "/");
+		company.setCompanyLogo(companyLogo);
+		company.setProfile(profile);
+
+		companyService.saveFile(uploadDir, companyLogo, file1);
+		companyService.saveFile(uploadDir1, profile, file2);
+
+		companyService.userDetails(companyDto);
+		companyService.saveCompany(company);
+
+		return "redirect:/company/register?success";
+	}
+
+	/*=================================================================================== */
+	/*================================ JSON Responses ================================= */	
+	/*==================================================================================== */
+	
+	@GetMapping("/getCities")
+	public @ResponseBody String getCities(@RequestParam String stateName) {
+
+		State state = userService.findById(stateName);
+		Integer stateId = state.getId();
+
+		String json = null;
+		List<Object[]> list = userService.getCitiesByState(stateId);
+		try {
+			json = new ObjectMapper().writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+
+	@ResponseBody
+	@RequestMapping("/get")
+	public BranchDto getBranch(@RequestParam Long id) {
+
+		Optional<Branch> branch = branchService.getBranchById(id);
+
+		BranchDto branchDto = modelMapper.map(branch, BranchDto.class);
+
+		branchDto.setUsername(branch.get().getUser().getUsername());
+
+		return branchDto;
+	}
+
+	@ResponseBody
+	@RequestMapping("/get/user")
+	public UserDto getUser(@RequestParam Long id) {
+
+		User user = userRepository.findByUserId(id);
+
+		String type = user.getUserType();
+
+		if (type.equalsIgnoreCase("NORMAL USER")) {
+			user.setUserType("ROLE_USER");
+		} else if (type.equalsIgnoreCase("BRANCH USER")) {
+			user.setUserType("ROLE_BRANCH");
+		}
+
+		return modelMapper.map(user, UserDto.class);
+	}
+
+	@ResponseBody
+	@RequestMapping("/get/employee")
+	public Employee getEmployee(@RequestParam Long id) {
+
+		return employeeRepository.findByEmployeeId(id);
+	}
+
+	@ResponseBody
+	@RequestMapping("/get/unit")
+	public UnitOfMeasures getUnit(@RequestParam Long id) {
+
+		return unitsRepository.findByUnitId(id);
 	}
 }

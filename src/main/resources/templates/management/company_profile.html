@@ -79,7 +79,7 @@
                      <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfile" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                            <div class="modal-content">
-                              <form data-toggle="validator" th:action="@{/master/company/profile/picture}" role="form" th:object="${update}" method="post" enctype="multipart/form-data">
+                              <form data-toggle="validator" th:action="@{/company/profile/picture}" role="form" th:object="${update}" method="post" enctype="multipart/form-data">
                                  <div class="modal-header py-2">
                                     <h5 class="modal-title" id="editModal">Edit Profile</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -110,7 +110,7 @@
                      <div class="modal fade" id="editCompany" tabindex="-1" role="dialog" aria-labelledby="editCompany" aria-hidden="true">
                         <div class="modal-dialog" role="document" style="max-width: 60%;">
                            <div class="modal-content">
-                              <form data-toggle="validator" th:action="@{/master/company/profile}" role="form" th:object="${update}" method="post">
+                              <form data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
                                  <div class="modal-header py-2">
                                     <h5 class="modal-title" id="editModal">Edit Company Details</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -244,7 +244,7 @@
                      <div class="modal fade" id="editOwner" tabindex="-1" role="dialog" aria-labelledby="editOwner" aria-hidden="true">
                         <div class="modal-dialog" role="document" style="max-width: 60%;">
                            <div class="modal-content">
-                              <form  data-toggle="validator" th:action="@{/master/company/profile}" role="form" th:object="${update}" method="post">
+                              <form  data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
                                  <div class="modal-header py-2">
                                     <h5 class="modal-title" id="editModal">Edit Owner Details</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -346,7 +346,7 @@
                      <div class="modal fade" id="editBank" tabindex="-1" role="dialog" aria-labelledby="editBank" aria-hidden="true">
                         <div class="modal-dialog" role="document" style="max-width: 60%;">
                            <div class="modal-content">
-                              <form  data-toggle="validator" th:action="@{/master/company/profile}" role="form" th:object="${update}" method="post">
+                              <form  data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
                                  <div class="modal-header py-2">
                                     <h5 class="modal-title" id="editModal">Edit Bank Details</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -804,7 +804,7 @@
                               </div>
                               <div class="tab-pane fade" id="pills-security" role="tabpanel" aria-labelledby="pills-security-tab-custom">
                                  <div class="template-demo">
-                                    <form id="editable-form" class="editable-form" data-toggle="validator" th:action="@{/master/company/userDetails}" th:object="${user}" method="post">
+                                    <form id="editable-form" class="editable-form" data-toggle="validator" th:action="@{/company/userDetails}" th:object="${user}" method="post">
                                        <div class="row mb-3">
                                           <div class="col-6 border border-primary">
                                              <div style="padding-left: 135px;padding-top: 12px;">

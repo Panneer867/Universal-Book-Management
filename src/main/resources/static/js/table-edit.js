@@ -44,8 +44,8 @@ $(document).ready(function() {
 		$('edit-userDetails').modal();
 
 	});
-	
-	
+
+
 	$('.table .edit-employee').on('click', function(event) {
 		event.preventDefault();
 
@@ -73,4 +73,16 @@ $(document).ready(function() {
 
 	});
 
+});
+
+$(document).ready(function() {
+	$('.table .edit-unit').on('click', function(event) {
+		event.preventDefault();
+		var href = $(this).attr('href');
+		$.get(href, function(unit) {
+			$('#unitIdCopy').val(unit.unitId);
+			$('#unitOfMeasureCopy').val(unit.unitOfMeasure);
+		});
+		$('editUnit').modal();
+	});
 });

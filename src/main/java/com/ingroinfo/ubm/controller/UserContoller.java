@@ -28,7 +28,7 @@ import com.ingroinfo.ubm.service.EmployeeService;
 import com.ingroinfo.ubm.service.UserService;
 
 @Controller
-@RequestMapping("/master/user")
+@RequestMapping("/user")
 public class UserContoller {
 
 	@Autowired
@@ -104,7 +104,7 @@ public class UserContoller {
 			model.addAttribute("usernameofuser", user.getFirstName());
 		}
 
-		return "/pages/user_creation";
+		return "/management/user_creation";
 	}
 
 	@PostMapping
@@ -112,19 +112,19 @@ public class UserContoller {
 			throws IOException {
 
 		if (userService.emailExists(userDto)) {
-			return "redirect:/master/user?emailExists";
+			return "redirect:/user?emailExists";
 		}
 
 		if (userService.mobileExists(userDto)) {
-			return "redirect:/master/user?mobileExists";
+			return "redirect:/user?mobileExists";
 		}
 
 		if (userService.usernameExists(userDto)) {
-			return "redirect:/master/user?usernameExists";
+			return "redirect:/user?usernameExists";
 		}
 
 		userService.saveUser(userDto);
-		return "redirect:/master/user?success";
+		return "redirect:/user?success";
 	}
 
 	@GetMapping("/management")
@@ -150,7 +150,7 @@ public class UserContoller {
 			model.addAttribute("pe", company.getProfile());
 			model.addAttribute("cne", company.getCompanyName());
 			model.addAttribute("branches", branches);
-			
+
 			for (Iterator<UserDto> it = users.iterator(); it.hasNext();) {
 				if (it.next().getUserType().equalsIgnoreCase("BRANCH ADMIN"))
 					it.remove();
@@ -208,7 +208,7 @@ public class UserContoller {
 			model.addAttribute("users", userList);
 		}
 
-		return "/pages/user_management";
+		return "/management/user_management";
 	}
 
 	@PostMapping("/update")
@@ -219,11 +219,11 @@ public class UserContoller {
 		mapper.modelMapper().map(userDto, user);
 
 		if (userService.emailCheck(user)) {
-			return "redirect:/master/user/management?emailAlreadyExists";
+			return "redirect:/user/management?emailAlreadyExists";
 		}
 
 		if (userService.mobileCheck(user)) {
-			return "redirect:/master/user/management?mobileAlreadyExists";
+			return "redirect:/user/management?mobileAlreadyExists";
 		}
 
 		List<User> userList = userRepository.findAll();
@@ -236,7 +236,7 @@ public class UserContoller {
 
 		if (isExists) {
 
-			return "redirect:/master/user/management?usernameAlreadyExists";
+			return "redirect:/user/management?usernameAlreadyExists";
 		}
 
 		if (userDto.getPassword().equalsIgnoreCase("")) {
@@ -246,17 +246,14 @@ public class UserContoller {
 		}
 
 		userRepository.save(user);
-
-		return "redirect:/master/user/management?userUpdated";
-
+		return "redirect:/user/management?userUpdated";
 	}
 
 	@GetMapping("/delete")
 	public String deleteUsers(@RequestParam Long userId) {
 
 		userService.deleteByUserId(userId);
-
-		return "redirect:/master/user/management?userDeleted";
+		return "redirect:/user/management?userDeleted";
 
 	}
 }
