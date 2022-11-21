@@ -172,7 +172,7 @@ public class MasterController {
 	public String deleteBrand(@RequestParam Long brandId) {
 
 		masterService.deleteByBrandId(brandId);
-		return "redirect:/master/brand?unitDeleted";
+		return "redirect:/master/brand?brandDeleted";
 	}
 
 	@GetMapping("/bundle")
@@ -474,7 +474,7 @@ public class MasterController {
 		Company company = companyService.findByUser(user);
 
 		if (masterService.unitExists(unitOfMeasure)) {
-			return "redirect:/master/brand?brandAlreadyExists";
+			return "redirect:/master/measures?unitAlreadyExists";
 		}
 
 		if (company != null) {

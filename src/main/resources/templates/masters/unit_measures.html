@@ -22,6 +22,9 @@
             <div class="alert alert-success text-center p-2 font-weight-bold" role="alert" th:if="${param.unitUpdated}">
                 Unit of Measure has been updated successfully!
             </div>
+             <div class="alert alert-danger text-center p-2 font-weight-bold" role="alert" th:if="${param.unitAlreadyExists}">
+                Unit of Measure already Exists!
+            </div>
             <div class="row pt-3">
                 <div class="col-5">
                     <div class="card">
