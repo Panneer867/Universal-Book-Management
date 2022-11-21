@@ -2,7 +2,6 @@ package com.ingroinfo.ubm.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import com.ingroinfo.ubm.dto.UserDto;
 import com.ingroinfo.ubm.entity.Bank;
 import com.ingroinfo.ubm.entity.State;

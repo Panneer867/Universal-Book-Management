@@ -86,3 +86,15 @@ $(document).ready(function() {
 		$('editUnit').modal();
 	});
 });
+
+$(document).ready(function() {
+	$('.table .edit-brand').on('click', function(event) {
+		event.preventDefault();
+		var href = $(this).attr('href');
+		$.get(href, function(unit) {
+			$('#brandIdCopy').val(unit.brandId);
+			$('#brandNameCopy').val(unit.brandName);
+		});
+		$('editBrand').modal();
+	});
+});

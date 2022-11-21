@@ -1,5 +1,7 @@
 package com.ingroinfo.ubm.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.ubm.entity.Branch;
+import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.entity.User;
@@ -39,10 +43,6 @@ public class MasterController {
 
 		return "/masters/test_page";
 	}
-	
-	/*==================================================================================== */
-	/*==================================== Barcode ======================================= */	
-	/*==================================================================================== */
 
 	@GetMapping("/barcode")
 	public String barcode(Model model, Principal principal) {
@@ -69,10 +69,6 @@ public class MasterController {
 
 		return "/masters/barcode";
 	}
-	
-	/*==================================================================================== */
-	/*================================ Brand Master ====================================== */	
-	/*==================================================================================== */
 
 	@GetMapping("/brand")
 	public String brand(Model model, Principal principal) {
@@ -97,12 +93,87 @@ public class MasterController {
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
+		List<Brand> brandList = masterService.getBrands();
+		if (brandList.size() == 0) {
+			model.addAttribute("emptyList", "No Records");
+		}
+
+		model.addAttribute("brands", brandList);
+
 		return "/masters/brand";
 	}
-	
-	/*==================================================================================== */
-	/*================================ Bundle Creation =================================== */	
-	/*==================================================================================== */
+
+	@PostMapping("/brand/add")
+	public String brandAdd(@RequestParam("brandName") String brandName, @RequestParam("brandLogo") MultipartFile file,
+			Model model, Principal principal) throws IOException {
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+
+		Brand brand = new Brand();
+
+		if (masterService.brandExists(brandName)) {
+			return "redirect:/master/brand?brandAlreadyExists";
+		}
+
+		if (company != null) {
+
+			String fileName = brandName + ".png";
+			String uploadDir = "C:/Company/" + company.getCompanyName() + "/Brands";
+			brand.setBrandLogo(fileName);
+			brand.setBrandName(brandName);
+			companyService.saveFile(uploadDir, fileName, file);
+			masterService.saveBrand(brand);
+		}
+
+		return "redirect:/master/brand?brandAdded";
+	}
+
+	@PostMapping("/brand/update")
+	public String brandUpdate(@RequestParam String brandId, @RequestParam String brandName,
+			@RequestParam("brandLogo") MultipartFile file, Principal principal) throws IOException {
+
+		Brand brand = masterService.findByBrandId(Long.parseLong(brandId));
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		String companyName = company.getCompanyName();
+
+		if (masterService.brandNameCheck(Long.parseLong(brandId), brandName)) {
+			return "redirect:/master/brand?brandAlreadyExists";
+		}
+
+		if (file.getOriginalFilename().equals("")) {
+
+			masterService.fileRename(brandName, companyName, brand);
+
+			String fileName = brandName + ".png";
+			brand.setBrandLogo(fileName);
+			brand.setBrandName(brandName);
+
+		} else {
+
+			File folder = new File("C:\\Company\\" + companyName + "\\Brands\\" + brand.getBrandLogo());
+
+			if (folder.delete()) {
+
+				String fileName = brandName + ".png";
+				String uploadDir = "C:/Company/" + companyName + "/Brands";
+				brand.setBrandLogo(fileName);
+				brand.setBrandName(brandName);
+				companyService.saveFile(uploadDir, fileName, file);
+			}
+		}
+
+		masterService.updateBrand(brand);
+		return "redirect:/master/brand?brandUpdated";
+	}
+
+	@GetMapping("/brand/delete")
+	public String deleteBrand(@RequestParam Long brandId) {
+
+		masterService.deleteByBrandId(brandId);
+		return "redirect:/master/brand?unitDeleted";
+	}
 
 	@GetMapping("/bundle")
 	public String bundle(Model model, Principal principal) {
@@ -129,10 +200,6 @@ public class MasterController {
 
 		return "/masters/bundle";
 	}
-	
-	/*==================================================================================== */
-	/*================================ Cash Counter ====================================== */	
-	/*==================================================================================== */
 
 	@GetMapping("/cash-counter")
 	public String cashCounter(Model model, Principal principal) {
@@ -159,10 +226,6 @@ public class MasterController {
 
 		return "/masters/cash_counter";
 	}
-	
-	/*==================================================================================== */
-	/*================================ Catalogue Master ================================== */	
-	/*==================================================================================== */
 
 	@GetMapping("/catalogue")
 	public String catalogue(Model model, Principal principal) {
@@ -189,10 +252,6 @@ public class MasterController {
 
 		return "/masters/catalouge";
 	}
-	
-	/*==================================================================================== */
-	/*================================ Category Master =================================== */	
-	/*==================================================================================== */
 
 	@GetMapping("/category")
 	public String category(Model model, Principal principal) {
@@ -219,10 +278,6 @@ public class MasterController {
 
 		return "/masters/category";
 	}
-	
-	/*==================================================================================== */
-	/*================================ HSN Code ========================================== */	
-	/*==================================================================================== */
 
 	@GetMapping("/hsn")
 	public String hsn(Model model, Principal principal) {
@@ -249,10 +304,6 @@ public class MasterController {
 
 		return "/masters/hsn";
 	}
-	
-	/*==================================================================================== */
-	/*================================ Item Master ======================================= */	
-	/*==================================================================================== */
 
 	@GetMapping("/item")
 	public String item(Model model, Principal principal) {
@@ -279,10 +330,6 @@ public class MasterController {
 
 		return "/masters/item";
 	}
-	
-	/*==================================================================================== */
-	/*================================ Brand Publisher =================================== */	
-	/*==================================================================================== */
 
 	@GetMapping("/publisher")
 	public String publishers(Model model, Principal principal) {
@@ -309,10 +356,6 @@ public class MasterController {
 
 		return "/masters/publishers";
 	}
-	
-	/*==================================================================================== */
-	/*================================ School Master ===================================== */	
-	/*==================================================================================== */
 
 	@GetMapping("/school")
 	public String school(Model model, Principal principal) {
@@ -339,10 +382,6 @@ public class MasterController {
 
 		return "/masters/school";
 	}
-	
-	/*==================================================================================== */
-	/*================================ Supplier Master =================================== */	
-	/*==================================================================================== */
 
 	@GetMapping("/supplier")
 	public String supplier(Model model, Principal principal) {
@@ -369,10 +408,6 @@ public class MasterController {
 
 		return "/masters/supplier";
 	}
-	
-	/*==================================================================================== */
-	/*================================ Tax Master ======================================== */	
-	/*==================================================================================== */
 
 	@GetMapping("/tax")
 	public String tax(Model model, Principal principal) {
@@ -400,10 +435,6 @@ public class MasterController {
 		return "/masters/tax";
 	}
 
-	/*=================================================================================== */
-	/*================================ Unit of Measures ================================= */	
-	/*==================================================================================== */
-	
 	@GetMapping("/measures")
 	public String unitOfMeasures(Model model, Principal principal) {
 		model.addAttribute("title", "Unit of Measures");
@@ -432,14 +463,23 @@ public class MasterController {
 			model.addAttribute("emptyList", "No Records");
 		}
 
-		model.addAttribute("unit", unitList);
+		model.addAttribute("units", unitList);
 		return "/masters/unit_measures";
 	}
 
-	@PostMapping("/measures")
-	public String unitOfMeasuresAdd(@RequestParam String unitOfMeasure) {
+	@PostMapping("/measures/add")
+	public String unitOfMeasuresAdd(@RequestParam String unitOfMeasure, Principal principal) {
 
-		masterService.saveUnitOfMeasure(unitOfMeasure);
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+
+		if (masterService.unitExists(unitOfMeasure)) {
+			return "redirect:/master/brand?brandAlreadyExists";
+		}
+
+		if (company != null) {
+			masterService.saveUnitOfMeasure(unitOfMeasure);
+		}
 		return "redirect:/master/measures?unitAdded";
 	}
 
@@ -447,8 +487,14 @@ public class MasterController {
 	public String unitUpdate(@RequestParam String unitId, @RequestParam String unitOfMeasure) {
 
 		UnitOfMeasures unit = masterService.findByUnitId(Long.parseLong(unitId));
+
+		if (masterService.unitOfMeasureCheck(Long.parseLong(unitId), unitOfMeasure)) {
+			return "redirect:/master/measures?unitAlreadyExists";
+		}
+
 		unit.setUnitOfMeasure(unitOfMeasure);
 		masterService.updateUnitOfMeasure(unit);
+
 		return "redirect:/master/measures?unitUpdated";
 	}
 

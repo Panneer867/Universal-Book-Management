@@ -1,63 +1,172 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
-
-   <body>
-      <section>
-         <div class="page-header">
-            <h3 class="page-title">
-               Brand Master
-            </h3>
-            <nav aria-label="breadcrumb">
-               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Brand Master</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
-               </ol>
-            </nav>
-         </div>
-         <div class="col-8 grid-margin stretch-card mx-auto pt-5">
-            <div class="card">
-               <div class="card-body">
-                  <h4 class="card-title text-center">Brand Master</h4>
-                  
-                  <hr class="pb-3">
-                  <form class="forms-sample" th:action="@{/master/createBrandMaster}" data-toggle="validator" role="form" th:object="${brand}" method="post" enctype="multipart/form-data">
-                     <div class="row">
-                        <div class="col-3 pt-4">
-                           <div class="form-group">
-                              <label for="brandId">Brand ID</label><strong class="text-danger ">*</strong>
-                              <input type="number" class="form-control" id="brandId" data-minlength="2" data-error="Min 2 digits required !" placeholder="Enter Id" required>                             
-                            <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        <div class="col-5 pt-4">
-                           <div class="form-group">
-                              <label for="brandName">Brand Name</label><strong class="text-danger ">*</strong>
-                              <input type="text"  class="form-control" data-minlength="3" data-error="Min 3 characters required !" id="brandName" placeholder="Enter Name" required>
-                            <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        <div class="col-3">
-                              <div class="form-group text-center">
-                                                <label for="brandLogo" class="font-weight-bold">Brand Logo<strong class="text-danger ">*</strong></label>
-                                                <input type="file" name="brandLogo" id="brandLogo" accept="image/*" data-height="80" data-max-file-size="300K" 
-                                                   data-max-width="250" data-max-height="150" class="dropify" data-error="Logo required !" required>
-                                                <small class="text-info">[File: 300KB 250x150]</small>
-                                                <div class="help-block with-errors text-danger"></div>
-                                             </div>
-                        </div>
-                     </div>
-                     <div class="text-center">
-                        <button type="submit" th:href="@{/master/createBrandMaster}" class="btn btn-sm btn-primary mr-2">Submit</button>
-                         <a type="button" th:href="@{/master/findBrandHistory}" class="btn btn-sm btn-success mr-2">View</a>
-                        <button type="reset" class="btn btn-sm btn-secondary">Reset</button>
-                     </div>
-                  </form>
-               </div>
+    <body>
+        <section>
+            <div class="page-header">
+                <h3 class="page-title">
+                    Brand Master
+                </h3>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Brand Master</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Masters</li>
+                    </ol>
+                </nav>
             </div>
-         </div>
-         
-      </section>
-   </body>
-</html>
+            <div class="alert alert-success text-center p-2" role="alert" th:if="${param.brandAdded}">
+                Brand has been added successfully!
+            </div>
+            <div class="alert alert-danger text-center p-2 font-weight-bold" role="alert" th:if="${param.brandDeleted}">
+                Brand has been deleted !
+            </div>
+            <div class="alert alert-success text-center p-2 font-weight-bold" role="alert" th:if="${param.brandUpdated}">
+                Brand has been updated successfully!
+            </div>
 
-       
+            <div class="alert alert-danger text-center p-2 font-weight-bold" role="alert" th:if="${param.brandAlreadyExists}">
+                Brand Name already Exists!
+            </div>
+            <div class="row pt-3">
+                <div class="col-6 mx-auto">
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <h5 class="p-2 mb-0 text-center">Brand Master</h5>
+                            <hr class="mb-4 mt-0" />
+                            <form class="forms-sample" data-toggle="validator" th:action="@{/master/brand/add}" role="form" method="post" enctype="multipart/form-data">
+                                <div class="row justify-content-center">
+                                    <div class="col-5 pt-5">
+                                        <div class="form-group">
+                                            <label for="brandName">Brand Name<strong class="text-danger">*</strong></label>
+                                            <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />
+                                            <small class="text-info">Example: Classmate</small>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group text-center">
+                                            <label for="brandLogo" class="font-weight-bold">Brand Logo<strong class="text-danger">*</strong></label>
+                                            <input type="file" name="brandLogo" id="brandLogo" accept="image/png" data-height="100" data-max-file-size="200K" class="dropify" data-error="Logo required !" required />
+                                            <small class="text-info">[File: 200KB MAX]</small>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mb-3">
+                                    <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 grid-margin stretch-card mx-auto mt-4">
+                <div class="card">
+                    <div class="card-body p-1">
+                        <h4 class="card-title text-center mb-0 text-black py-2 font-weight-bold bg-info">Added Brands</h4>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-dark">
+                                <thead class="bg-warning">
+                                    <tr>
+                                        <th>
+                                            ID
+                                        </th>
+                                        <th class="text-center">
+                                            Brand Logo
+                                        </th>
+                                        <th class="text-center">
+                                            Brand Name
+                                        </th>
+                                        <th class="text-center">
+                                            Date Created
+                                        </th>
+                                        <th class="text-center">
+                                            Last Updated
+                                        </th>
+                                        <th class="text-center">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="brand: ${brands}">
+                                        <td th:text="${brand.brandId}"></td>
+                                        <td class="py-1 text-center">
+                                            <img th:src="@{'/Company/'+ ${cne} +'/Brands/'+ ${brand.brandLogo}}" style="width: 70px; height: 70px; border: 1px solid rgb(0, 128, 192);" alt="image" />
+                                        </td>
+                                        <td class="text-center" th:text="${brand.brandName}"></td>
+                                        <td class="text-center" th:text="${#dates.format(brand.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
+                                        <td class="text-center" th:text="${#dates.format(brand.lastUpdated, 'dd/MM/yyyy hh:mm a')}"></td>
+                                        <td class="text-center">
+                                            <a th:href="@{/get/brand/(id=${brand.brandId})}" class="btn btn-info p-1 mx-2 edit-brand" data-toggle="modal" data-target="#editBrand">Edit</a>
+                                            <a th:href="@{/master/brand/delete(brandId=${brand.brandId})}" class="btn btn-danger p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="alert alert-warning text-center my-2 py-1" role="alert" th:if="${emptyList != null}">[[${emptyList}]]</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="editBrand" tabindex="-1" role="dialog" aria-labelledby="editBrand" aria-hidden="true">
+                <div class="modal-dialog" role="document" style="max-width: 40%; margin-top: 170px;">
+                    <div class="modal-content">
+                        <form data-toggle="validator" th:action="@{/master/brand/update}" role="form" method="post" enctype="multipart/form-data">
+                            <div class="modal-header pt-2 pb-1">
+                                <h5 class="modal-title" id="editModal">Edit Brand</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body py-0">
+                                <div class="row justify-content-center">
+                                    <div class="col-5 pt-5">
+                                        <div class="form-group">
+                                            <label for="brandNameCopy">Brand Name<strong class="text-danger">*</strong></label>
+                                            <input type="hidden" class="bg-danger border-danger text-white" id="brandIdCopy" name="brandId" />
+                                            <input type="text" class="form-control" id="brandNameCopy" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />
+                                            <small class="text-info">Example: Classmate</small>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group text-center">
+                                            <label for="brandLogo" class="font-weight-bold">Brand Logo<strong class="text-danger">*</strong></label>
+                                            <input type="file" name="brandLogo" id="brandLogo" accept="image/png" data-height="100" data-max-file-size="200K" class="dropify" data-error="Logo required !" />
+                                            <small class="text-info">[File: 200KB MAX]</small>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-center py-2">
+                                <button type="submit" class="btn btn-sm btn-success">Update</button>
+                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+                <div class="modal-dialog" role="document" style="margin-top: 180px;">
+                    <div class="modal-content">
+                        <div class="modal-header p-2">
+                            <h5 class="modal-title" id="exampleModalLabel-2">Delete Unit</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure, you want to delete this Brand?
+                        </div>
+                        <div class="modal-footer p-2">
+                            <a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Delete</a>
+                            <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

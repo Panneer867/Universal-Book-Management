@@ -135,7 +135,7 @@ public class CompanyController {
 		companyService.saveOldData(company);
 
 		String profile = company.getFirstName() + ".jpg";
-		String uploadDir = "C:/Company/" + company.getCompanyName() + "/Owner_Profile";
+		String uploadDir = "C:/Company/" + company.getCompanyName() + "/Profile";
 
 		company.setProfile(profile);
 		companyService.saveFile(uploadDir, profile, file);

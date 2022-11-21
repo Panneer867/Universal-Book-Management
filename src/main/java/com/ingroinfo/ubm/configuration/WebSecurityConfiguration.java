@@ -45,22 +45,15 @@ public class WebSecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable().authorizeRequests()
-		 	//.antMatchers("/master/company/**","/master/branch","/master/branch/management","/master/employee/**").hasRole("ADMIN")
-		 	//.antMatchers("/master/user/**","/master/branch/profile","/master/branch/userDetails").hasAnyAuthority("BRANCH_PRIVILEGE")
-			.antMatchers("/login", "/company/register","/getCities","/get/**","/denied/","/reset/**", "/error").permitAll()
-			.anyRequest().authenticated()
-			.and().formLogin()
-			.loginPage("/login")
-			.defaultSuccessUrl("/dashboard", true)
-			.failureUrl("/login?error=true")
-			.and().logout()
-			.logoutUrl("/logout")
-			.deleteCookies("JSESSIONID")
-			.and()
-			.exceptionHandling()
-			.accessDeniedPage("/access-denied");
+				// .antMatchers("/master/company/**","/master/branch","/master/branch/management","/master/employee/**").hasRole("ADMIN")
+				// .antMatchers("/master/user/**","/master/branch/profile","/master/branch/userDetails").hasAnyAuthority("BRANCH_PRIVILEGE")
+				.antMatchers("/login", "/company/register", "/getCities", "/get/**", "/denied/", "/reset/**", "/error")
+				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
+				.defaultSuccessUrl("/dashboard", true).failureUrl("/login?error=true").and().logout()
+				.logoutUrl("/logout").deleteCookies("JSESSIONID").and().exceptionHandling()
+				.accessDeniedPage("/access-denied");
 		http.headers().frameOptions().sameOrigin();
-		
+
 		return http.build();
 	}
 

@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ingroinfo.ubm.dao.BrandRepository;
 import com.ingroinfo.ubm.dao.CompanyRepository;
 import com.ingroinfo.ubm.dao.EmployeeRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
@@ -34,6 +35,7 @@ import com.ingroinfo.ubm.dto.BranchDto;
 import com.ingroinfo.ubm.dto.CompanyDto;
 import com.ingroinfo.ubm.dto.UserDto;
 import com.ingroinfo.ubm.entity.Branch;
+import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.Employee;
 import com.ingroinfo.ubm.entity.State;
@@ -65,6 +67,9 @@ public class LoginController {
 
 	@Autowired
 	private CompanyRepository companyRepository;
+
+	@Autowired
+	private BrandRepository brandRepository;
 
 	@Autowired
 	private UnitsRepository unitsRepository;
@@ -239,10 +244,19 @@ public class LoginController {
 		return "redirect:/company/register?success";
 	}
 
-	/*=================================================================================== */
-	/*================================ JSON Responses ================================= */	
-	/*==================================================================================== */
-	
+	/*
+	 * =============================================================================
+	 * ======
+	 */
+	/*
+	 * ================================ JSON Responses
+	 * =================================
+	 */
+	/*
+	 * =============================================================================
+	 * =======
+	 */
+
 	@GetMapping("/getCities")
 	public @ResponseBody String getCities(@RequestParam String stateName) {
 
@@ -301,5 +315,12 @@ public class LoginController {
 	public UnitOfMeasures getUnit(@RequestParam Long id) {
 
 		return unitsRepository.findByUnitId(id);
+	}
+
+	@ResponseBody
+	@RequestMapping("/get/brand")
+	public Brand getBrand(@RequestParam Long id) {
+
+		return brandRepository.findByBrandId(id);
 	}
 }

@@ -75,6 +75,15 @@
 		    <artifactId>jasperreports</artifactId>
 		    <version>6.20.0</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>31.1-jre</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-java8time</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

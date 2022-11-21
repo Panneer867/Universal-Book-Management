@@ -164,7 +164,7 @@ public class BranchServiceImpl implements BranchService {
 
 	@Override
 	public void editBranch(Branch branch) {
-		
+
 		branchRepository.save(branch);
 	}
 

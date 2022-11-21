@@ -9,7 +9,6 @@ import java.nio.file.StandardCopyOption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.ingroinfo.ubm.dao.CompanyOldRepository;
 import com.ingroinfo.ubm.dao.CompanyRepository;
 import com.ingroinfo.ubm.dao.UserRepository;
@@ -49,7 +48,6 @@ public class CompanyServiceImpl implements CompanyService {
 		} catch (IOException ioe) {
 			throw new IOException("Could not save image file: " + fileName, ioe);
 		}
-
 	}
 
 	@Override
@@ -92,9 +90,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public void editCompany(Company company) {
-				
-				companyRepository.save(company);
-		
+
+		companyRepository.save(company);
+
 	}
 
 	@Override
