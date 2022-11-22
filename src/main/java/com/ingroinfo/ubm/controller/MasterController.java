@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
+import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.entity.User;
@@ -42,32 +43,6 @@ public class MasterController {
 	public String test(Model model, Principal principal) {
 
 		return "/masters/test_page";
-	}
-
-	@GetMapping("/barcode")
-	public String barcode(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/barcode";
 	}
 
 	@GetMapping("/brand")
@@ -110,11 +85,11 @@ public class MasterController {
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 
-		Brand brand = new Brand();
-
 		if (masterService.brandExists(brandName)) {
 			return "redirect:/master/brand?brandAlreadyExists";
 		}
+
+		Brand brand = new Brand();
 
 		if (company != null) {
 
@@ -173,266 +148,6 @@ public class MasterController {
 
 		masterService.deleteByBrandId(brandId);
 		return "redirect:/master/brand?brandDeleted";
-	}
-
-	@GetMapping("/bundle")
-	public String bundle(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/bundle";
-	}
-
-	@GetMapping("/cash-counter")
-	public String cashCounter(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/cash_counter";
-	}
-
-	@GetMapping("/catalogue")
-	public String catalogue(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/catalouge";
-	}
-
-	@GetMapping("/category")
-	public String category(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/category";
-	}
-
-	@GetMapping("/hsn")
-	public String hsn(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/hsn";
-	}
-
-	@GetMapping("/item")
-	public String item(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/item";
-	}
-
-	@GetMapping("/publisher")
-	public String publishers(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/publishers";
-	}
-
-	@GetMapping("/school")
-	public String school(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/school";
-	}
-
-	@GetMapping("/supplier")
-	public String supplier(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/supplier";
-	}
-
-	@GetMapping("/tax")
-	public String tax(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/tax";
 	}
 
 	@GetMapping("/measures")
@@ -504,4 +219,79 @@ public class MasterController {
 		masterService.deleteByUnitId(unitId);
 		return "redirect:/master/measures?unitDeleted";
 	}
+
+	@GetMapping("/category")
+	public String category(Model model, Principal principal) {
+		model.addAttribute("title", "Category Master");
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("pe", company.getProfile());
+			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("pe", cmpy.getProfile());
+			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		List<Category> categoryList = masterService.getCategories();
+
+		if (categoryList.size() == 0) {
+			model.addAttribute("emptyList", "No Records");
+		}
+
+		model.addAttribute("categories", categoryList);
+
+		return "/masters/category";
+	}
+
+	@PostMapping("/category/add")
+	public String categoryAdd(@RequestParam String categoryName, @RequestParam String categoryStatus) {
+
+		if (masterService.categoryExists(categoryName)) {
+			return "redirect:/master/category?categoryAlreadyExists";
+		}
+
+		Category category = new Category();
+		category.setCategoryName(categoryName);
+		category.setCategoryStatus(categoryStatus);
+
+		masterService.saveCategory(category);
+
+		return "redirect:/master/category?categoryAdded";
+	}
+
+	@PostMapping("/category/update")
+	public String categoryUpdate(@RequestParam String categoryId, @RequestParam String categoryName,
+			@RequestParam String categoryStatus, Principal principal) throws IOException {
+
+		Category category = masterService.findByCategoryId(Long.parseLong(categoryId));
+
+		if (masterService.categoryNameCheck(Long.parseLong(categoryId), categoryName)) {
+			return "redirect:/master/category?categoryAlreadyExists";
+		}
+
+		category.setCategoryName(categoryName);
+		category.setCategoryStatus(categoryStatus);
+
+		masterService.updateCategory(category);
+		return "redirect:/master/category?categoryUpdated";
+	}
+
+	@GetMapping("/category/delete")
+	public String deleteCategory(@RequestParam Long categoryId) {
+
+		masterService.deleteByCategoryId(categoryId);
+		return "redirect:/master/category?categoryDeleted";
+	}
+
 }

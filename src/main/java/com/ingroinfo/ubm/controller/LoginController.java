@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingroinfo.ubm.dao.BrandRepository;
+import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.CompanyRepository;
 import com.ingroinfo.ubm.dao.EmployeeRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
@@ -36,6 +37,7 @@ import com.ingroinfo.ubm.dto.CompanyDto;
 import com.ingroinfo.ubm.dto.UserDto;
 import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
+import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.Employee;
 import com.ingroinfo.ubm.entity.State;
@@ -73,6 +75,9 @@ public class LoginController {
 
 	@Autowired
 	private UnitsRepository unitsRepository;
+
+	@Autowired
+	public CategoryRepository categoryRepository;
 
 	@Autowired
 	private JavaMailSender mailSender;
@@ -244,19 +249,6 @@ public class LoginController {
 		return "redirect:/company/register?success";
 	}
 
-	/*
-	 * =============================================================================
-	 * ======
-	 */
-	/*
-	 * ================================ JSON Responses
-	 * =================================
-	 */
-	/*
-	 * =============================================================================
-	 * =======
-	 */
-
 	@GetMapping("/getCities")
 	public @ResponseBody String getCities(@RequestParam String stateName) {
 
@@ -322,5 +314,12 @@ public class LoginController {
 	public Brand getBrand(@RequestParam Long id) {
 
 		return brandRepository.findByBrandId(id);
+	}
+
+	@ResponseBody
+	@RequestMapping("/get/category")
+	public Category getCategory(@RequestParam Long id) {
+
+		return categoryRepository.findByCategoryId(id);
 	}
 }

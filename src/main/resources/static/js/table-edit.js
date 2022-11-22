@@ -98,3 +98,16 @@ $(document).ready(function() {
 		$('editBrand').modal();
 	});
 });
+
+$(document).ready(function() {
+	$('.table .edit-category').on('click', function(event) {
+		event.preventDefault();
+		var href = $(this).attr('href');
+		$.get(href, function(unit) {
+			$('#categoryIdCopy').val(unit.categoryId);
+			$('#categoryNameCopy').val(unit.categoryName);
+			$('#categoryStatusCopy').val(unit.categoryStatus);
+		});
+		$('editCategory').modal();
+	});
+});

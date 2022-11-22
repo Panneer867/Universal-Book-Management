@@ -2,6 +2,7 @@ package com.ingroinfo.ubm.service;
 
 import java.util.List;
 import com.ingroinfo.ubm.entity.Brand;
+import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 
 public interface MasterService {
@@ -35,5 +36,19 @@ public interface MasterService {
 	void deleteByBrandId(Long brandId);
 
 	boolean brandNameCheck(Long brandId, String brandName);
+
+	boolean categoryExists(String categoryName);
+
+	void saveCategory(Category category);
+
+	List<Category> getCategories();
+
+	Category findByCategoryId(Long categoryId);
+
+	boolean categoryNameCheck(Long categoryId, String categoryName);
+
+	void updateCategory(Category category);
+
+	void deleteByCategoryId(Long brandId);
 
 }

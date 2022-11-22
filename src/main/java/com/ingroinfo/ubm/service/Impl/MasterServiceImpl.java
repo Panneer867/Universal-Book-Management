@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ingroinfo.ubm.dao.BrandRepository;
+import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
 import com.ingroinfo.ubm.entity.Brand;
+import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.service.MasterService;
 
@@ -19,6 +21,9 @@ public class MasterServiceImpl implements MasterService {
 
 	@Autowired
 	private BrandRepository brandRepository;
+
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public List<UnitOfMeasures> getUnits() {
@@ -71,9 +76,6 @@ public class MasterServiceImpl implements MasterService {
 
 		unitsRepository.deleteById(unitId);
 	}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	@Override
 	public boolean brandExists(String brandName) {
@@ -133,6 +135,57 @@ public class MasterServiceImpl implements MasterService {
 	public void deleteByBrandId(Long brandId) {
 
 		brandRepository.deleteById(brandId);
+
+	}
+
+	@Override
+	public boolean categoryExists(String categoryName) {
+
+		return categoryRepository.findByCategoryName(categoryName) != null;
+	}
+
+	@Override
+	public void saveCategory(Category category) {
+
+		categoryRepository.save(category);
+	}
+
+	@Override
+	public List<Category> getCategories() {
+
+		return categoryRepository.findAll();
+	}
+
+	@Override
+	public Category findByCategoryId(Long categoryId) {
+
+		return categoryRepository.findByCategoryId(categoryId);
+	}
+
+	@Override
+	public boolean categoryNameCheck(Long categoryId, String categoryName) {
+
+		List<Category> categoryList = categoryRepository.findAll();
+
+		List<Category> filteredList = categoryList.stream().filter(x -> !categoryId.equals(x.getCategoryId()))
+				.collect(Collectors.toList());
+
+		boolean isExists = filteredList.stream().filter(o -> o.getCategoryName().equals(categoryName)).findFirst()
+				.isPresent();
+
+		return isExists;
+	}
+
+	@Override
+	public void updateCategory(Category category) {
+
+		categoryRepository.save(category);
+	}
+
+	@Override
+	public void deleteByCategoryId(Long brandId) {
+
+		categoryRepository.deleteById(brandId);
 
 	}
 
