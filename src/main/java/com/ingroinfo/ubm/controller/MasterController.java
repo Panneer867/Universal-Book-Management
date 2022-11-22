@@ -39,12 +39,6 @@ public class MasterController {
 	@Autowired
 	public MasterService masterService;
 
-	@GetMapping("/test")
-	public String test(Model model, Principal principal) {
-
-		return "/masters/test_page";
-	}
-
 	@GetMapping("/brand")
 	public String brand(Model model, Principal principal) {
 		model.addAttribute("title", "Category Master");

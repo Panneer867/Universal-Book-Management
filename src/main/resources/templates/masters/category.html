@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
     <body>
         <section>
-            <div class="page-header">
+            <div class="row">
+                <div class="col-10">
+                    <div class="page-header">
                 <h3 class="page-title">
                     Category Master
                 </h3>
@@ -26,12 +28,12 @@
             <div class="alert alert-danger text-center p-2 font-weight-bold" role="alert" th:if="${param.categoryAlreadyExists}">
                 Category Name already Exists!
             </div>
-            <div class="col-7 grid-margin stretch-card mx-auto mt-5">
-                <div class="card bg-danger">
+            <div class="col-9 grid-margin stretch-card mx-auto mt-5">
+                <div class="card bg-dark">
                     <div class="card-body pt-2">
-                        <h4 class="card-title text-center mb-2">Category Entry</h4>
+                        <h5 class="text-center text-white mb-2">Category Entry</h5>
 
-                        <hr class="my-2" />
+                        <hr class="my-2 bg-secondary">
                         <form class="forms-sample" data-toggle="validator" th:action="@{/master/category/add}" role="form" method="post">
                             <div class="row border bg-success">
                                 <div class="col-6 mt-1">
@@ -53,7 +55,7 @@
                                         <div class="help-block with-errors text-danger"></div>
                                     </div>
                                 </div>
-                                <div class="col-2 mt-4">
+                                <div class="col-2" style="margin-top: 27px;">
                                     <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
                                 </div>
                             </div>
@@ -61,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-10 grid-margin stretch-card mx-auto mt-4">
+            <div class="col-lg-11 grid-margin stretch-card mx-auto mt-4">
                 <div class="card">
                     <div class="card-body p-1">
                         <h4 class="card-title text-center mb-0 text-black py-2 font-weight-bold bg-info">All Category</h4>
@@ -171,6 +173,54 @@
                     </div>
                 </div>
             </div>
+                </div>
+                <div class="col-2">
+                    <div class="container p-0 mx-0">
+                        <div class="bar opened dark">
+                            <div class="icon" onclick="window.location='/master/barcode'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/barcode' ? 'active':''}">
+                                <span class="text">Barcode Generate</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">
+                                <span class="text">Brand Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/publisher'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/publisher' ? 'active':''}">
+                                <span class="text">Brand Publisher</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/cash-counter'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/cash-counter' ? 'active':''}">
+                                <span class="text">Cash Counter</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/catalogue'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/catalogue' ? 'active':''}">
+                                <span class="text">Catalogue Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/category'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/category' ? 'active':''}">
+                                <span class="text">Category Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/bundle'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/bundle' ? 'active':''}">
+                                <span class="text">Bundle Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/hsn'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/hsn' ? 'active':''}">
+                                <span class="text">HSN Code</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/item'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/item' ? 'active':''}">
+                                <span class="text">Item Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/school'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/school' ? 'active':''}">
+                                <span class="text">School Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/supplier'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/supplier' ? 'active':''}">
+                                <span class="text">Supplier Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/tax'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/tax' ? 'active':''}">
+                                <span class="text">Tax Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/measures'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/measures' ? 'active':''}">
+                                <span class="text">Unit of Measures</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </body>
 </html>
+	

@@ -187,49 +187,12 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/bundle-creation}" th:classappend="${#httpServletRequest.getRequestURI() == '/bundle-creation' ? 'active':''}">
-                                <i class="fa fa-file-alt menu-icon pl-1"></i>
-                                <span class="menu-title">Bundle Creation</span>
+                       <li class="nav-item">
+                            <a class="nav-link" th:href="@{/master/brand}" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/master') ? 'active':''}">
+                                <i class="fa fa-rupee-sign menu-icon pl-2"></i>
+                                <span class="menu-title">Master</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/cash-counter}" th:classappend="${#httpServletRequest.getRequestURI() == '/cash-counter' ? 'active':''}">
-                                <i class="fa fa-file-alt menu-icon pl-1"></i>
-                                <span class="menu-title">Cash Counter</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/barcode-generator}" th:classappend="${#httpServletRequest.getRequestURI() == '/barcode-generator' ? 'active':''}">
-                                <i class="fa fa-file-alt menu-icon pl-1"></i>
-                                <span class="menu-title">Barcode Genrate</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#masters" aria-expanded="false" aria-controls="masters">
-                                <i class="fa fa-align-left menu-icon pl-1"></i>
-                                <span class="menu-title">Masters</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="masters">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/barcode}">Barcode Generate</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/brand}">Brand Master</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/publisher}">Brand Publisher</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/cash-counter}">Cash Counter</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/catalogue}">Catalogue Master</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/category}">Category Master</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/bundle}">Create Bundle</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/hsn}">HSN Code Master</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/item}">Item Master</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/school}">School Master</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/supplier}">Supplier Master</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/tax}">Tax Master</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/master/measures}">Unit of Measures</a></li>
-                                </ul>
-                            </div>
-                        </li>
-
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/excel}" th:classappend="${#httpServletRequest.getRequestURI() == '/excel' ? 'active':''}">
                                 <i class="fa fa-file-alt menu-icon pl-1"></i>

@@ -3,34 +3,32 @@
     <body>
         <section>
             <div class="row">
-                <div class="col-10 p-0">
+                <div class="col-10">
                     <div class="page-header">
-                     <ul class="breadcrumb px-0">
-					  <li><a class="text-white">Master</a></li>
-					  <li><a th:href="@{/master/brand}">&nbsp;Barcode Master</a></li>					  
-					</ul>
-                     <nav aria-label="breadcrumb">
-		               <a th:href="@{/branch/management}" class="btn btn-primary btn-icon-text">
-		               <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Brand List
-		               </a>
-		            </nav>
+                        <h3 class="page-title">
+                            Brand Master
+                        </h3>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Master</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Brand Master</li>
+                                <li class="breadcrumb-item active" aria-current="page">Brand List</li>
+                            </ol>
+                        </nav>
                     </div>
-                     <div class="mt-5"></div>
-                   
-                    <div class="alert alert-success text-center p-2 col-8 mx-auto" role="alert" th:if="${param.brandAdded}">
+                    <div class="alert alert-success text-center p-2" role="alert" th:if="${param.brandAdded}">
                         Brand has been added successfully!
                     </div>
-                    <div class="alert alert-danger text-center p-2 font-weight-bold col-8 mx-auto" role="alert" th:if="${param.brandDeleted}">
+                    <div class="alert alert-danger text-center p-2 font-weight-bold" role="alert" th:if="${param.brandDeleted}">
                         Brand has been deleted !
                     </div>
-                    <div class="alert alert-success text-center p-2 font-weight-bold col-8 mx-auto" role="alert" th:if="${param.brandUpdated}">
+                    <div class="alert alert-success text-center p-2 font-weight-bold" role="alert" th:if="${param.brandUpdated}">
                         Brand has been updated successfully!
                     </div>
-                    <div class="alert alert-danger text-center p-2 font-weight-bold col-8 mx-auto" role="alert" th:if="${param.brandAlreadyExists}">
+                    <div class="alert alert-danger text-center p-2 font-weight-bold" role="alert" th:if="${param.brandAlreadyExists}">
                         Brand Name already Exists!
                     </div>
-                   
-                    <div class="row">
+                    <div class="row pt-3">
                         <div class="col-8 mx-auto">
                             <div class="card">
                                 <div class="card-body p-0">
