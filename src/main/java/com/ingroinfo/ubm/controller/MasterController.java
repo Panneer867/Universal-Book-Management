@@ -16,6 +16,7 @@ import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Company;
+import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.entity.User;
 import com.ingroinfo.ubm.service.BranchService;
@@ -170,102 +171,6 @@ public class MasterController {
 		return "redirect:/master/brand/list?brandDeleted";
 	}
 
-	@GetMapping("/measures")
-	public String unitOfMeasures(Model model, Principal principal) {
-		model.addAttribute("title", "Unit of Measures");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		return "/masters/unit_measures";
-	}
-
-	@GetMapping("/measures/list")
-	public String unitOfMeasuresList(Model model, Principal principal) {
-		model.addAttribute("title", "Unit of Measures List");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-		}
-
-		List<UnitOfMeasures> unitList = masterService.getUnits();
-		if (unitList.size() == 0) {
-			model.addAttribute("emptyList", "No Records");
-		}
-
-		model.addAttribute("units", unitList);
-		return "/masters/unit_measures_list";
-	}
-
-	@PostMapping("/measures/add")
-	public String unitOfMeasuresAdd(@RequestParam String unitOfMeasure, Principal principal) {
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-
-		if (masterService.unitExists(unitOfMeasure)) {
-			return "redirect:/master/measures?unitAlreadyExists";
-		}
-
-		if (company != null) {
-			masterService.saveUnitOfMeasure(unitOfMeasure);
-		}
-		return "redirect:/master/measures?unitAdded";
-	}
-
-	@PostMapping("/measures/update")
-	public String unitUpdate(@RequestParam String unitId, @RequestParam String unitOfMeasure) {
-
-		UnitOfMeasures unit = masterService.findByUnitId(Long.parseLong(unitId));
-
-		if (masterService.unitOfMeasureCheck(Long.parseLong(unitId), unitOfMeasure)) {
-			return "redirect:/master/measures?unitAlreadyExists";
-		}
-
-		unit.setUnitOfMeasure(unitOfMeasure);
-		masterService.updateUnitOfMeasure(unit);
-
-		return "redirect:/master/measures/list?unitUpdated";
-	}
-
-	@GetMapping("/measures/delete")
-	public String deleteEmpmloyee(@RequestParam Long unitId) {
-
-		masterService.deleteByUnitId(unitId);
-		return "redirect:/master/measures/list?unitDeleted";
-	}
-
 	@GetMapping("/category")
 	public String category(Model model, Principal principal) {
 		model.addAttribute("title", "Category Master");
@@ -365,4 +270,136 @@ public class MasterController {
 		return "redirect:/master/category/list?categoryDeleted";
 	}
 
+	@GetMapping("/measures")
+	public String unitOfMeasures(Model model, Principal principal) {
+		model.addAttribute("title", "Unit of Measures");
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("pe", company.getProfile());
+			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("pe", cmpy.getProfile());
+			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		return "/masters/unit_measures";
+	}
+
+	@GetMapping("/measures/list")
+	public String unitOfMeasuresList(Model model, Principal principal) {
+		model.addAttribute("title", "Unit of Measures List");
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("pe", company.getProfile());
+			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("pe", cmpy.getProfile());
+			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		List<UnitOfMeasures> unitList = masterService.getUnits();
+		if (unitList.size() == 0) {
+			model.addAttribute("emptyList", "No Records");
+		}
+
+		model.addAttribute("units", unitList);
+		return "/masters/unit_measures_list";
+	}
+
+	@PostMapping("/measures/add")
+	public String unitOfMeasuresAdd(@RequestParam String unitOfMeasure, Principal principal) {
+
+		if (masterService.unitExists(unitOfMeasure)) {
+			return "redirect:/master/measures?unitAlreadyExists";
+		}
+		masterService.saveUnitOfMeasure(unitOfMeasure);
+
+		return "redirect:/master/measures?unitAdded";
+	}
+
+	@PostMapping("/measures/update")
+	public String unitUpdate(@RequestParam String unitId, @RequestParam String unitOfMeasure) {
+
+		UnitOfMeasures unit = masterService.findByUnitId(Long.parseLong(unitId));
+
+		if (masterService.unitOfMeasureCheck(Long.parseLong(unitId), unitOfMeasure)) {
+			return "redirect:/master/measures?unitAlreadyExists";
+		}
+
+		unit.setUnitOfMeasure(unitOfMeasure);
+		masterService.updateUnitOfMeasure(unit);
+
+		return "redirect:/master/measures/list?unitUpdated";
+	}
+
+	@GetMapping("/measures/delete")
+	public String deleteEmpmloyee(@RequestParam Long unitId) {
+
+		masterService.deleteByUnitId(unitId);
+		return "redirect:/master/measures/list?unitDeleted";
+	}
+
+	@GetMapping("/hsn")
+	public String hsnCode(Model model, Principal principal) {
+		model.addAttribute("title", "HSN Code Master");
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("pe", company.getProfile());
+			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("pe", cmpy.getProfile());
+			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		model.addAttribute("categories", masterService.getCategories());
+		return "/masters/unit_measures";
+	}
+
+	@PostMapping("/hsn/add")
+	public String hsnAdd(@RequestParam String categoryName, @RequestParam Long hsnCode, Principal principal) {
+
+		if (masterService.hsnExists(hsnCode)) {
+			return "redirect:/master/hsn?hsnAlreadyExists";
+		}
+
+		HsnCode hsn = new HsnCode();
+		hsn.setCategoryName(categoryName);
+		hsn.setHsnCode(hsnCode);
+
+		masterService.saveHsnCode(hsn);
+		return "redirect:/master/hsn?hsnAdded";
+	}
 }

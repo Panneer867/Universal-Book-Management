@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ingroinfo.ubm.dao.BrandRepository;
 import com.ingroinfo.ubm.dao.CategoryRepository;
+import com.ingroinfo.ubm.dao.HsnCodeRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.Category;
+import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.service.MasterService;
 
@@ -24,6 +26,9 @@ public class MasterServiceImpl implements MasterService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private HsnCodeRepository hsnCodeRepository;
 
 	@Override
 	public List<UnitOfMeasures> getUnits() {
@@ -186,7 +191,20 @@ public class MasterServiceImpl implements MasterService {
 	public void deleteByCategoryId(Long brandId) {
 
 		categoryRepository.deleteById(brandId);
-
 	}
 
+	@Override
+	public boolean hsnExists(Long hsnCode) {
+		
+		return false;
+	}
+
+	@Override
+	public void saveHsnCode(HsnCode hsnCode) {
+		hsnCodeRepository.save(hsnCode);
+		
+	}
+
+	
+	
 }

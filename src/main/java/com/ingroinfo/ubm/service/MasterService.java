@@ -3,6 +3,7 @@ package com.ingroinfo.ubm.service;
 import java.util.List;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.Category;
+import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 
 public interface MasterService {
@@ -51,4 +52,8 @@ public interface MasterService {
 
 	void deleteByCategoryId(Long brandId);
 
+	boolean hsnExists(Long hsnCode);
+
+	void saveHsnCode(HsnCode hsnCode);
+	
 }
