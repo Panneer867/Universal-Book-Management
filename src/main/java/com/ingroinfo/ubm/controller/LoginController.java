@@ -234,7 +234,7 @@ public class LoginController {
 		// String profile = StringUtils.cleanPath(file2.getOriginalFilename());
 		String profile = company.getFirstName() + ".jpg";
 		String uploadDir = "C:/Company/" + company.getCompanyName() + "/Logo";
-		String uploadDir1 = "C:/Company/" + company.getCompanyName() + "/Owner_Profile";
+		String uploadDir1 = "C:/Company/" + company.getCompanyName() + "/Profile";
 
 		company.setCompanyPath("C:/Company/" + company.getCompanyName() + "/");
 		company.setCompanyLogo(companyLogo);

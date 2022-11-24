@@ -4,41 +4,43 @@
         <section>
             <div class="page-header">
                 <ul class="breadcrumb px-0">
-                    <li><a th:href="@{/master/brand}">Master</a></li>
-                    <li><a th:href="@{/master/brand}">&nbsp;Brand Master</a></li>
-                    <li><a th:href="@{/master/brand/list}">&nbsp;Brand List</a></li>
+                    <li><a th:href="@{/master/category}">Master</a></li>
+                    <li><a th:href="@{/master/category}">&nbsp;Category Master</a></li>
+                    <li><a th:href="@{/master/category/list}">&nbsp;Category List</a></li>
                 </ul>
             </div>
             <div class="px-2">
-                <button type="button" class="btn btn-dark btn-rounded btn-icon" onclick="window.location.href='/master/brand'" style="width: 30px; height: 30px;">
+                <button type="button" class="btn btn-dark btn-rounded btn-icon" onclick="window.location.href='/master/category'" style="width: 30px; height: 30px;">
                     <i class="fa fa-arrow-left"></i>
                 </button>
             </div>
-            <div class="alert alert-danger text-center p-2 col-10 mx-auto font-weight-bold" role="alert" th:if="${param.brandDeleted}">
-                Brand has been deleted !
+            <div class="alert alert-danger text-center p-2 col-10 mx-auto font-weight-bold" role="alert" th:if="${param.categoryDeleted}">
+                Category has been deleted !
             </div>
-            <div class="alert alert-success text-center p-2 col-10 mx-auto font-weight-bold" role="alert" th:if="${param.brandUpdated}">
-                Brand has been updated successfully!
+            <div class="alert alert-success text-center p-2 col-10 mx-auto font-weight-bold" role="alert" th:if="${param.categoryUpdated}">
+                Category has been updated successfully!
             </div>
-            <div class="alert alert-danger text-center p-2 col-10 mx-auto font-weight-bold" role="alert" th:if="${param.brandAlreadyExists}">
-                Brand Name already Exists!
+
+            <div class="alert alert-danger text-center p-2 col-10 mx-auto font-weight-bold" role="alert" th:if="${param.categoryAlreadyExists}">
+                Category Name already Exists!
             </div>
+
             <div class="col-lg-11 grid-margin stretch-card mx-auto mt-4">
                 <div class="card">
                     <div class="card-body p-1">
-                        <h4 class="card-title text-center mb-0 text-black py-2 font-weight-bold bg-info">Brands List</h4>
+                        <h4 class="card-title text-center mb-0 text-black py-2 font-weight-bold bg-info">All Category</h4>
                         <div class="table-responsive">
                             <table class="table table-striped table-dark">
                                 <thead class="bg-warning">
                                     <tr>
-                                        <th class="text-center">
+                                        <th>
                                             ID
                                         </th>
                                         <th class="text-center">
-                                            Brand Logo
+                                            Category Name
                                         </th>
                                         <th class="text-center">
-                                            Brand Name
+                                            Category Status
                                         </th>
                                         <th class="text-center">
                                             Date Created
@@ -52,17 +54,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="brand: ${brands}">
-                                        <td class="text-center" th:text="${brand.brandId}"></td>
+                                    <tr th:each="category: ${categories}">
+                                        <td th:text="${category.categoryId}"></td>
+                                        <td class="text-center" th:text="${category.categoryName}"></td>
                                         <td class="py-1 text-center">
-                                            <img th:src="@{'/Company/'+ ${cne} +'/Brands/'+ ${brand.brandLogo}}" style="width: 70px; height: 70px; border: 1px solid rgb(0, 128, 192);" alt="image" />
+                                            <label class="badge badge-pill" th:classappend="${category.categoryStatus} == Available ? 'badge-success': 'badge-danger'" th:text="${category.categoryStatus}"></label>
                                         </td>
-                                        <td class="text-center" th:text="${brand.brandName}"></td>
-                                        <td class="text-center" th:text="${#dates.format(brand.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
-                                        <td class="text-center" th:text="${#dates.format(brand.lastUpdated, 'dd/MM/yyyy hh:mm a')}"></td>
+                                        <td class="text-center" th:text="${#dates.format(category.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
+                                        <td class="text-center" th:text="${#dates.format(category.lastUpdated, 'dd/MM/yyyy hh:mm a')}"></td>
                                         <td class="text-center">
-                                            <a th:href="@{/get/brand/(id=${brand.brandId})}" class="btn btn-info p-1 mx-2 edit-brand" data-toggle="modal" data-target="#editBrand">Edit</a>
-                                            <a th:href="@{/master/brand/delete(brandId=${brand.brandId})}" class="btn btn-danger p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                            <a th:href="@{/get/category/(id=${category.categoryId})}" class="btn btn-info p-1 mx-2 edit-category" data-toggle="modal" data-target="#editCategory">Edit</a>
+                                            <a th:href="@{/master/category/delete(categoryId=${category.categoryId})}" class="btn btn-danger p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -72,32 +74,35 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="editBrand" tabindex="-1" role="dialog" aria-labelledby="editBrand" aria-hidden="true">
+            <div class="modal fade" id="editCategory" tabindex="-1" role="dialog" aria-labelledby="editCategory" aria-hidden="true">
                 <div class="modal-dialog" role="document" style="max-width: 40%; margin-top: 170px;">
                     <div class="modal-content">
-                        <form data-toggle="validator" th:action="@{/master/brand/update}" role="form" method="post" enctype="multipart/form-data">
+                        <form data-toggle="validator" th:action="@{/master/category/update}" role="form" method="post" enctype="multipart/form-data">
                             <div class="modal-header pt-2 pb-1">
-                                <h5 class="modal-title" id="editModal">Edit Brand</h5>
+                                <h5 class="modal-title" id="editModal">Edit Category</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body py-0">
                                 <div class="row justify-content-center">
-                                    <div class="col-5 pt-5">
-                                        <div class="form-group">
-                                            <label for="brandNameCopy">Brand Name<strong class="text-danger">*</strong></label>
-                                            <input type="hidden" id="brandIdCopy" name="brandId" />
-                                            <input type="text" class="form-control" id="brandNameCopy" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />
-                                            <small class="text-info">Example: Classmate</small>
+                                    <div class="col-6 mt-1">
+                                        <div class="form-group mb-2">
+                                            <label for="categoryNameCopy">Category Name<strong class="text-danger">*</strong></label>
+                                            <input type="hidden" id="categoryIdCopy" name="categoryId" />
+                                            <input type="text" class="form-control" id="categoryNameCopy" name="categoryName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter category name" required />
+                                            <small class="text-info">Example: NoteBook</small>
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
-                                    <div class="col-5">
-                                        <div class="form-group text-center">
-                                            <label for="brandLogo" class="font-weight-bold">Brand Logo<strong class="text-danger">*</strong></label>
-                                            <input type="file" name="brandLogo" id="brandLogo" accept="image/png" data-height="100" data-max-file-size="200K" class="dropify" data-error="Logo required !" />
-                                            <small class="text-info">[File: 200KB MAX]</small>
+                                    <div class="col-4 mt-1">
+                                        <div class="form-group mb-2">
+                                            <label for="categoryStatusCopy">Category Status<strong class="text-danger">*</strong></label>
+                                            <select class="form-control" id="categoryStatusCopy" name="categoryStatus" data-error="Select a category status !" required>
+                                                <option value="" selected>select</option>
+                                                <option value="Available">Available</option>
+                                                <option value="Not Available">Not Available</option>
+                                            </select>
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
@@ -121,7 +126,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            Are you sure, you want to delete this Brand?
+                            Are you sure, you want to delete this Category?
                         </div>
                         <div class="modal-footer p-2">
                             <a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Delete</a>

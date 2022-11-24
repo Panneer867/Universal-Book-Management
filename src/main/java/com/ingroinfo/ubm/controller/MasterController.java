@@ -41,7 +41,33 @@ public class MasterController {
 
 	@GetMapping("/brand")
 	public String brand(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
+		model.addAttribute("title", "Brand Master");
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("pe", company.getProfile());
+			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("pe", cmpy.getProfile());
+			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		return "/masters/brand";
+	}
+
+	@GetMapping("/brand/list")
+	public String brandList(Model model, Principal principal) {
+		model.addAttribute("title", "Brand Lists");
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
@@ -69,7 +95,7 @@ public class MasterController {
 
 		model.addAttribute("brands", brandList);
 
-		return "/masters/brand";
+		return "/masters/brand_list";
 	}
 
 	@PostMapping("/brand/add")
@@ -108,7 +134,7 @@ public class MasterController {
 		String companyName = company.getCompanyName();
 
 		if (masterService.brandNameCheck(Long.parseLong(brandId), brandName)) {
-			return "redirect:/master/brand?brandAlreadyExists";
+			return "redirect:/master/brand/list?brandAlreadyExists";
 		}
 
 		if (file.getOriginalFilename().equals("")) {
@@ -134,19 +160,45 @@ public class MasterController {
 		}
 
 		masterService.updateBrand(brand);
-		return "redirect:/master/brand?brandUpdated";
+		return "redirect:/master/brand/list?brandUpdated";
 	}
 
 	@GetMapping("/brand/delete")
 	public String deleteBrand(@RequestParam Long brandId) {
 
 		masterService.deleteByBrandId(brandId);
-		return "redirect:/master/brand?brandDeleted";
+		return "redirect:/master/brand/list?brandDeleted";
 	}
 
 	@GetMapping("/measures")
 	public String unitOfMeasures(Model model, Principal principal) {
 		model.addAttribute("title", "Unit of Measures");
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("pe", company.getProfile());
+			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("pe", cmpy.getProfile());
+			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		return "/masters/unit_measures";
+	}
+
+	@GetMapping("/measures/list")
+	public String unitOfMeasuresList(Model model, Principal principal) {
+		model.addAttribute("title", "Unit of Measures List");
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
@@ -173,7 +225,7 @@ public class MasterController {
 		}
 
 		model.addAttribute("units", unitList);
-		return "/masters/unit_measures";
+		return "/masters/unit_measures_list";
 	}
 
 	@PostMapping("/measures/add")
@@ -204,18 +256,44 @@ public class MasterController {
 		unit.setUnitOfMeasure(unitOfMeasure);
 		masterService.updateUnitOfMeasure(unit);
 
-		return "redirect:/master/measures?unitUpdated";
+		return "redirect:/master/measures/list?unitUpdated";
 	}
 
 	@GetMapping("/measures/delete")
 	public String deleteEmpmloyee(@RequestParam Long unitId) {
 
 		masterService.deleteByUnitId(unitId);
-		return "redirect:/master/measures?unitDeleted";
+		return "redirect:/master/measures/list?unitDeleted";
 	}
 
 	@GetMapping("/category")
 	public String category(Model model, Principal principal) {
+		model.addAttribute("title", "Category Master");
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("pe", company.getProfile());
+			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("pe", cmpy.getProfile());
+			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		return "/masters/category";
+	}
+
+	@GetMapping("/category/list")
+	public String categoryList(Model model, Principal principal) {
 		model.addAttribute("title", "Category Master");
 
 		User user = userService.getUserId(principal.getName());
@@ -244,8 +322,7 @@ public class MasterController {
 		}
 
 		model.addAttribute("categories", categoryList);
-
-		return "/masters/category";
+		return "/masters/category_list";
 	}
 
 	@PostMapping("/category/add")
@@ -271,21 +348,21 @@ public class MasterController {
 		Category category = masterService.findByCategoryId(Long.parseLong(categoryId));
 
 		if (masterService.categoryNameCheck(Long.parseLong(categoryId), categoryName)) {
-			return "redirect:/master/category?categoryAlreadyExists";
+			return "redirect:/master/category/list?categoryAlreadyExists";
 		}
 
 		category.setCategoryName(categoryName);
 		category.setCategoryStatus(categoryStatus);
 
 		masterService.updateCategory(category);
-		return "redirect:/master/category?categoryUpdated";
+		return "redirect:/master/category/list?categoryUpdated";
 	}
 
 	@GetMapping("/category/delete")
 	public String deleteCategory(@RequestParam Long categoryId) {
 
 		masterService.deleteByCategoryId(categoryId);
-		return "redirect:/master/category?categoryDeleted";
+		return "redirect:/master/category/list?categoryDeleted";
 	}
 
 }

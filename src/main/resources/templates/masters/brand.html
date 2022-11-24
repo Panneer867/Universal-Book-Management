@@ -5,31 +5,22 @@
             <div class="row">
                 <div class="col-10 p-0">
                     <div class="page-header">
-                     <ul class="breadcrumb px-0">
-					  <li><a class="text-white">Master</a></li>
-					  <li><a th:href="@{/master/brand}">&nbsp;Barcode Master</a></li>					  
-					</ul>
-                     <nav aria-label="breadcrumb">
-		               <a th:href="@{/branch/management}" class="btn btn-primary btn-icon-text">
-		               <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Brand List
-		               </a>
-		            </nav>
+                        <ul class="breadcrumb px-0">
+                            <li><a th:href="@{/master/brand}">Master</a></li>
+                            <li><a href="#" class="text-white">&nbsp;Brand Master</a></li>
+                        </ul>
+                        <nav aria-label="breadcrumb">
+                            <a th:href="@{/master/brand/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Brand List</a>
+                        </nav>
                     </div>
-                     <div class="mt-5"></div>
-                   
+                    <div class="mt-5"></div>
                     <div class="alert alert-success text-center p-2 col-8 mx-auto" role="alert" th:if="${param.brandAdded}">
                         Brand has been added successfully!
                     </div>
-                    <div class="alert alert-danger text-center p-2 font-weight-bold col-8 mx-auto" role="alert" th:if="${param.brandDeleted}">
-                        Brand has been deleted !
-                    </div>
-                    <div class="alert alert-success text-center p-2 font-weight-bold col-8 mx-auto" role="alert" th:if="${param.brandUpdated}">
-                        Brand has been updated successfully!
-                    </div>
+
                     <div class="alert alert-danger text-center p-2 font-weight-bold col-8 mx-auto" role="alert" th:if="${param.brandAlreadyExists}">
                         Brand Name already Exists!
                     </div>
-                   
                     <div class="row">
                         <div class="col-8 mx-auto">
                             <div class="card">
@@ -58,20 +49,17 @@
 
                                         <div class="text-center mb-3">
                                             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
+                                            <button type="reset" class="btn btn-sm btn-secondary mr-2"><i class="fa fa-refresh menu-icon pr-2"></i>Reset</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
                 </div>
                 <div class="col-2">
-                     <div class="container p-0 mx-0">
+                    <div class="container p-0 mx-0">
                         <div class="bar opened dark">
-                            <div class="icon" onclick="window.location='/master/barcode'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/barcode' ? 'active':''}">
-                                <span class="text">Barcode Generate</span>
-                            </div>
                             <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">
                                 <span class="text">Brand Master</span>
                             </div>
