@@ -1,858 +1,1016 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
-   <body>
-      <section>
-         <div class="page-header">
-            <h3 class="page-title">
-               Company Profile
-            </h3>
-            <nav aria-label="breadcrumb">
-               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Profile</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Company</li>
-               </ol>
-            </nav>
-         </div>
-         <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.emailAlreadyExists}">[[${emailExists}]]</div>
-         <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.mobileAlreadyExists}">[[${mobileExists}]]</div>
-         <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.usernameExists}">[[${usernameExists}]]</div>
-         <div class="alert alert-success text-center mb-1 py-2" role="alert" th:if="${param.profileUpdated}">[[${profile}]]</div>
-         <div class="alert alert-success text-center mb-1 py-2" role="alert" th:if="${param.userDetailsChanged}">[[${changed}]]</div>
-         <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.wrongPassword}">[[${wrong}]]</div>
-         <div class="row">
-            <div class="col-3 grid-margin stretch-card">
-               <div class="card">
-                  <div class="card-body">
-                     <a class="text-primary" href="#" id="clickEditProfile" data-toggle="modal" data-target="#editProfile">
-                     <i class="fas fa-pencil-alt btn-icon-append float-right"></i></a>
-                     <div class="text-center">
-                        <img th:src="@{'/Company/'+ ${details.companyName} +'/Profile/'+ ${details.profile}}" class="rounded-circle" alt="profile" style="width:70%"/>
-                     </div>
-                     <div  class="text-center pt-3" >
-                        <h4> <span 	th:text="*{details.firstName}"></span></h4>
-                     </div >
-                     <hr>
-                     <p class="clearfix">
-                        <span class="float-left">
-                        Status
-                        </span>
-                        <span class="float-right text-success ">
-                        Active
-                        </span>
-                     </p>
-                     <p class="clearfix">
-                        <span class="float-left">
-                        Phone
-                        </span>
-                        <span class="float-right text-info" th:text="*{details.telephone}"></span>
-                     </p>
-                     <p class="clearfix">
-                        <span class="float-left">
-                        Mail
-                        </span>
-                        <span class="float-right text-muted" th:text="*{details.email}"></span>
-                     </p>
-                  </div>
-               </div>
+    <body>
+        <section>
+            <div class="page-header">
+                <h3 class="page-title">
+                    Company Profile
+                </h3>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Profile</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Company</li>
+                    </ol>
+                </nav>
             </div>
-            <div class="col-9 grid-margin stretch-card">
-               <div class="card">
-                  <div class="card-body pt-0 px-0 pb-0">
-                     <div class="row bg-primary">
-                        <div class="col-11">
-                           <h3 class="card-title text-center mb-0 text-white font-weight-bold" style="margin-top: 11px;">PROFILE OVERVIEW</h3>
+            <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.emailAlreadyExists}">[[${emailExists}]]</div>
+            <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.mobileAlreadyExists}">[[${mobileExists}]]</div>
+            <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.usernameExists}">[[${usernameExists}]]</div>
+            <div class="alert alert-success text-center mb-1 py-2" role="alert" th:if="${param.profileUpdated}">[[${profile}]]</div>
+            <div class="alert alert-success text-center mb-1 py-2" role="alert" th:if="${param.userDetailsChanged}">[[${changed}]]</div>
+            <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.wrongPassword}">[[${wrong}]]</div>
+            <div class="row">
+                <div class="col-3 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <a class="text-primary" href="#" id="clickEditProfile" data-toggle="modal" data-target="#editProfile"> <i class="fas fa-pencil-alt btn-icon-append float-right"></i></a>
+                            <div class="text-center">
+                                <img th:src="@{'/Company/'+ ${details.companyName} +'/Profile/'+ ${details.profile}}" class="rounded-circle" alt="profile" style="width: 70%;" />
+                            </div>
+                            <div class="text-center pt-3">
+                                <h4><span th:text="*{details.firstName}"></span></h4>
+                            </div>
+                            <hr />
+                            <p class="clearfix">
+                                <span class="float-left">
+                                    Status
+                                </span>
+                                <span class="float-right text-success">
+                                    Active
+                                </span>
+                            </p>
+                            <p class="clearfix">
+                                <span class="float-left">
+                                    Phone
+                                </span>
+                                <span class="float-right text-info" th:text="*{details.telephone}"></span>
+                            </p>
+                            <p class="clearfix">
+                                <span class="float-left">
+                                    Mail
+                                </span>
+                                <span class="float-right text-muted" th:text="*{details.email}"></span>
+                            </p>
                         </div>
-                        <div class="col-1">
-                           <div class="dropdown">
-                              <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuIconButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fas fa-cog btn-icon-append text-white"></i>
-                              </button>
-                              <div class="dropdown-menu mt-1 px-2" aria-labelledby="dropdownMenuIconButton2">
-                                 <a class="dropdown-item px-2" href="#" id="clickEditCompany" data-toggle="modal" data-target="#editCompany"><small> <i class="fas fa-edit btn-icon-append text-primary"></i>  Edit Company</small></a>
-                                 <a class="dropdown-item px-2" href="#" id="clickEditOwner" data-toggle="modal" data-target="#editOwner"><small><i class="fas fa-edit btn-icon-append text-primary"></i>  Edit Owner</small></a>
-                                 <a class="dropdown-item px-2" href="#" id="clickEditBank" data-toggle="modal" data-target="#editBank"><small><i class="fas fa-edit btn-icon-append text-primary"></i>  Edit Bank Details</small></a>
-                                 <a class="dropdown-item px-2" href="#" th:onclick="|deleteCompany(${details.companyId})|" ><small><i class="fas fa-trash btn-icon-append text-danger"></i> Delete Company</small></a>
-                              </div>
-                           </div>
+                    </div>
+                </div>
+                <div class="col-9 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body pt-0 px-0 pb-0">
+                            <div class="row bg-primary">
+                                <div class="col-11">
+                                    <h3 class="card-title text-center mb-0 text-white font-weight-bold" style="margin-top: 11px;">PROFILE OVERVIEW</h3>
+                                </div>
+                                <div class="col-1">
+                                    <div class="dropdown">
+                                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuIconButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-cog btn-icon-append text-white"></i>
+                                        </button>
+                                        <div class="dropdown-menu mt-1 px-2" aria-labelledby="dropdownMenuIconButton2">
+                                            <a class="dropdown-item px-2" href="#" id="clickEditCompany" data-toggle="modal" data-target="#editCompany">
+                                                <small> <i class="fas fa-edit btn-icon-append text-primary"></i> Edit Company</small>
+                                            </a>
+                                            <a class="dropdown-item px-2" href="#" id="clickEditOwner" data-toggle="modal" data-target="#editOwner">
+                                                <small><i class="fas fa-edit btn-icon-append text-primary"></i> Edit Owner</small>
+                                            </a>
+                                            <a class="dropdown-item px-2" href="#" id="clickEditBank" data-toggle="modal" data-target="#editBank">
+                                                <small><i class="fas fa-edit btn-icon-append text-primary"></i> Edit Bank Details</small>
+                                            </a>
+                                            <a class="dropdown-item px-2" href="#" th:onclick="|deleteCompany(${details.companyId})|">
+                                                <small><i class="fas fa-trash btn-icon-append text-danger"></i> Delete Company</small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfile" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form data-toggle="validator" th:action="@{/company/profile/picture}" role="form" th:object="${update}" method="post" enctype="multipart/form-data">
+                                            <div class="modal-header py-2">
+                                                <h5 class="modal-title" id="editModal">Edit Profile</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body p-2">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-5">
+                                                        <div class="form-group text-center">
+                                                            <label for="profile" class="font-weight-bold">Profile<strong class="text-danger">*</strong></label>
+                                                            <input
+                                                                type="file"
+                                                                name="profile"
+                                                                id="profile"
+                                                                accept="image/*"
+                                                                data-max-file-size="200K"
+                                                                data-error="Profile required !"
+                                                                data-max-width="800"
+                                                                data-max-height="900"
+                                                                class="dropify"
+                                                                required
+                                                            />
+                                                            <small class="text-info">[File: 200KB Size: 800x900]</small>
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer justify-content-center py-2">
+                                                <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="editCompany" tabindex="-1" role="dialog" aria-labelledby="editCompany" aria-hidden="true">
+                                <div class="modal-dialog" role="document" style="max-width: 60%;">
+                                    <div class="modal-content">
+                                        <form data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
+                                            <div class="modal-header py-2">
+                                                <h5 class="modal-title" id="editModal">Edit Company Details</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="companyName">Company Name<strong class="text-danger">*</strong></label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                name="companyName"
+                                                                id="companyNameCopy"
+                                                                data-minlength="3"
+                                                                data-error="Min 3 characters required !"
+                                                                placeholder="Enter company name"
+                                                                required
+                                                            />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="email">Email<strong class="text-danger">*</strong></label>
+                                                            <input type="email" class="form-control" name="email" id="emailCopy" data-error="Provide a valid email !" placeholder="Enter Email ID" required />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="telephone">Telephone</label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control form-control-sm"
+                                                                name="telephone"
+                                                                id="telephoneCopy"
+                                                                pattern="[7-9]{1}[0-9]{9}"
+                                                                maxlength="10"
+                                                                data-error="Provide a valid phone number !"
+                                                                placeholder="Enter telephone no"
+                                                                required
+                                                            />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="gstin">GSTIN/UIN<strong class="text-danger">*</strong></label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control form-control-sm"
+                                                                name="gstin"
+                                                                id="gstinCopy"
+                                                                oninput="this.value = this.value.toUpperCase()"
+                                                                data-minlength="15"
+                                                                maxlength="15"
+                                                                data-error="Provide a GSTIN/UIN !"
+                                                                placeholder="Enter GSTIN/UIN"
+                                                                required
+                                                            />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="fax">Fax</label>
+                                                            <input type="text" class="form-control form-control-sm" name="fax" id="faxCopy" placeholder="Enter fax no" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="website">Website</label>
+                                                            <input type="url" class="form-control form-control-sm" name="website" id="websiteCopy" data-error="Ex: http://yahoo.com" placeholder="Enter Website" required />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="serviceType">Service Type<strong class="text-danger">*</strong></label>
+                                                            <select class="form-control" name="serviceType" id="serviceTypeCopy" data-error="Select service type !" required>
+                                                                <option value="" selected>select</option>
+                                                                <option value="Stationery">Stationery</option>
+                                                                <option value="Electronics and accessories">Electronics and accessories</option>
+                                                                <option value="Smartphone accessories">Smartphone accessories</option>
+                                                                <option value="Homeware">Homeware</option>
+                                                                <option value="Clothing">Clothing</option>
+                                                                <option value="Workout and exercise">Workout and exercise</option>
+                                                                <option value="Medical supplies">Medical supplies</option>
+                                                                <option value="Kitchen and cooking">Kitchen and cooking</option>
+                                                                <option value="Jewelry and fashion">Jewelry and fashion</option>
+                                                            </select>
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="noOfBranch">No of Branch</label>
+                                                            <select class="form-control" name="noOfBranch" id="noOfBranchCopy">
+                                                                <option value="" selected>select</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="companyState">Address<strong class="text-danger">*</strong></label>
+                                                            <textarea
+                                                                type="text"
+                                                                class="form-control"
+                                                                name="companyAddress"
+                                                                rows="3"
+                                                                id="companyAddressCopy"
+                                                                data-error="Provide a address !"
+                                                                placeholder="Enter Company address"
+                                                                required
+                                                            ></textarea>
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="companyState">State<strong class="text-danger">*</strong></label>
+                                                            <select class="form-control" name="companyState" id="companyStateCopy" data-error="Select state !" required>
+                                                                <option value="" selected>Select</option>
+                                                                <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                                            </select>
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="companyCityCopy">City<strong class="text-danger">*</strong></label>
+                                                            <input type="text" class="form-control form-control-sm" name="companyCity" id="companyCityCopy" data-error="Provide a city !" placeholder="Enter city" required />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="companyPinCode">Pincode<strong class="text-danger">*</strong></label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control form-control-sm"
+                                                                name="companyPinCode"
+                                                                id="companyPinCodeCopy"
+                                                                pattern="[0-9]{6}"
+                                                                maxlength="6"
+                                                                data-error="Provide a pincode !"
+                                                                placeholder="Enter pincode"
+                                                                required
+                                                            />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer justify-content-center py-2">
+                                                <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="editOwner" tabindex="-1" role="dialog" aria-labelledby="editOwner" aria-hidden="true">
+                                <div class="modal-dialog" role="document" style="max-width: 60%;">
+                                    <div class="modal-content">
+                                        <form data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
+                                            <div class="modal-header py-2">
+                                                <h5 class="modal-title" id="editModal">Edit Owner Details</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="firstNameCopy">First Name<strong class="text-danger">*</strong></label>
+                                                            <input type="text" class="form-control" name="firstName" id="firstNameCopy" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter first name" required />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="lastName">Last Name<strong class="text-danger">*</strong></label>
+                                                            <input type="text" class="form-control" name="lastName" id="lastNameCopy" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter last name" required />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="drivingLicense">Driving License no</label>
+                                                            <input type="text" class="form-control form-control-sm" name="drivingLicense" id="drivingLicenseCopy" placeholder="Enter driving License" />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="ownerEmail">Email<strong class="text-danger">*</strong></label>
+                                                            <input type="email" class="form-control form-control-sm" name="ownerEmail" id="ownerEmailCopy" data-error="Provide a valid email !" placeholder="Enter Email ID" required />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="mobile">Mobile No</label>
+                                                            <input
+                                                                type="text"
+                                                                pattern="[7-9]{1}[0-9]{9}"
+                                                                class="form-control form-control-sm"
+                                                                name="mobile"
+                                                                id="mobileNoCopy"
+                                                                onkeyup="checkMobileOwner();"
+                                                                maxlength="10"
+                                                                data-error="Provide a valid mobile number"
+                                                                placeholder="Enter mobile no"
+                                                                required
+                                                            />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="alternateMobile">Alternate Mobile No</label>
+                                                            <input
+                                                                type="text"
+                                                                pattern="[7-9]{1}[0-9]{9}"
+                                                                class="form-control form-control-sm"
+                                                                name="alternateMobile"
+                                                                id="alternateMobileCopy"
+                                                                onkeyup="checkMobileOwner();"
+                                                                maxlength="10"
+                                                                data-error="Provide a valid mobile number"
+                                                                placeholder="Enter alternate mobile no"
+                                                            />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                            <small id="message"></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="ownerAddress">Address<strong class="text-danger">*</strong></label>
+                                                            <textarea
+                                                                type="text"
+                                                                class="form-control"
+                                                                name="ownerAddress"
+                                                                rows="3"
+                                                                id="ownerAddressCopy"
+                                                                data-error="Provide a address !"
+                                                                placeholder="Enter owner address"
+                                                                required
+                                                            ></textarea>
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="ownerState">State<strong class="text-danger">*</strong></label>
+                                                            <select class="form-control" name="ownerState" id="ownerStateCopy" data-error="Select state !" required>
+                                                                <option value="" selected>Select</option>
+                                                                <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                                            </select>
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="ownerCity">City<strong class="text-danger">*</strong></label>
+                                                            <input type="text" class="form-control form-control-sm" name="ownerCity" id="ownerCityCopy" data-error="Provide a city !" placeholder="Enter city name" required />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="ownerPinCode">Pincode<strong class="text-danger">*</strong></label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control form-control-sm"
+                                                                name="ownerPinCode"
+                                                                id="ownerPinCodeCopy"
+                                                                pattern="[0-9]{6}"
+                                                                maxlength="6"
+                                                                data-error="Provide a pincode !"
+                                                                placeholder="Enter pincode"
+                                                                required
+                                                            />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer justify-content-center py-2">
+                                                <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="editBank" tabindex="-1" role="dialog" aria-labelledby="editBank" aria-hidden="true">
+                                <div class="modal-dialog" role="document" style="max-width: 60%;">
+                                    <div class="modal-content">
+                                        <form data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
+                                            <div class="modal-header py-2">
+                                                <h5 class="modal-title" id="editModal">Edit Bank Details</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="bankName">Bank Name<strong class="text-danger">*</strong></label>
+                                                            <select class="form-control" name="bankName" id="bankNameCopy" data-error="Select Bank Name !" required>
+                                                                <option value="" selected>select</option>
+                                                                <option th:each="banks : ${bankList}" th:value="${banks.name}" th:utext="${banks.name}" />
+                                                            </select>
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="beneficiaryName">BeneficiaryName<strong class="text-danger">*</strong></label>
+                                                            <input type="text" class="form-control" name="beneficiaryName" id="beneficiaryNameCopy" data-error="Min 3 characters required !" placeholder="Enter beneficiary name" required />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="accountType">Account Type</label>
+                                                            <select class="form-control" name="accountType" id="accountTypeCopy" data-error="Select account type !" required>
+                                                                <option value="" selected>select</option>
+                                                                <option value="Current account">Current account</option>
+                                                                <option value="Savings account">Savings account</option>
+                                                                <option value="Salary account">Salary account</option>
+                                                                <option value="Fixed deposit account">Fixed deposit account</option>
+                                                                <option value="NRI accounts">NRI accounts</option>
+                                                            </select>
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="accountNumber">Account Number<strong class="text-danger">*</strong></label>
+                                                            <input
+                                                                type="number"
+                                                                class="form-control form-control-sm"
+                                                                name="accountNumber"
+                                                                id="accountNumberCopy"
+                                                                data-minlength="8"
+                                                                data-error="Provide a account number !"
+                                                                placeholder="Enter account number"
+                                                                required
+                                                            />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="ifscCode">IFSC Code</label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control form-control-sm"
+                                                                name="ifscCode"
+                                                                id="ifscCodeCopy"
+                                                                oninput="this.value = this.value.toUpperCase()"
+                                                                data-error="Provide IFSC Code !"
+                                                                placeholder="Enter ifsc code"
+                                                                required
+                                                            />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="bankAddress">Bank Address</label>
+                                                            <input type="text" class="form-control form-control-sm" name="bankAddress" id="bankAddressCopy" data-error="Provide a address !" placeholder="Enter bank address" required />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="bankState">Bank State<strong class="text-danger">*</strong></label>
+                                                            <select class="form-control" name="bankState" id="bankStateCopy" data-error="Select state !" required>
+                                                                <option value="" selected>Select</option>
+                                                                <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                                            </select>
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="bankCity">Bank City<strong class="text-danger">*</strong></label>
+                                                            <input type="text" class="form-control form-control-sm" name="bankCity" id="bankCityCopy" data-error="Provide a city !" placeholder="Enter city name" required />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
+                                                            <label for="bankPinCode">Bank PinCode<strong class="text-danger">*</strong></label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control form-control-sm"
+                                                                name="bankPinCode"
+                                                                id="bankPinCodeCopy"
+                                                                pattern="[0-9]{6}"
+                                                                maxlength="6"
+                                                                data-error="Provide a pincode !"
+                                                                placeholder="Enter pincode"
+                                                                required
+                                                            />
+                                                            <div class="help-block with-errors text-danger"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer justify-content-center py-2">
+                                                <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="nav nav-pills nav-pills-custom justify-content-center pt-3" id="pills-tab-custom" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link profile-tab active" id="pills-company-tab-custom" data-toggle="pill" href="#pills-company" role="tab" aria-controls="pills-company" aria-selected="true">
+                                                Company
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link profile-tab" id="pills-owner-tab-custom" data-toggle="pill" href="#pills-owner" role="tab" aria-controls="pills-owner" aria-selected="false">
+                                                Owner
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link profile-tab" id="pills-bank-tab-custom" data-toggle="pill" href="#pills-bank" role="tab" aria-controls="pills-bank" aria-selected="false">
+                                                Bank Details
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link profile-tab" id="pills-security-tab-custom" data-toggle="pill" href="#pills-security" role="tab" aria-controls="pills-security" aria-selected="false">
+                                                Security
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content tab-content-custom-pill pt-3 px-3 pb-1" id="pills-tabContent-custom">
+                                        <div class="tab-pane fade show active" id="pills-company" role="tabpanel" aria-labelledby="pills-company-tab-custom">
+                                            <form class="is-readonly">
+                                                <div class="row">
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Company Name:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="companyName" th:value="${details.companyName}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Email:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="email" th:value="${details.email}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Telephone:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="telephone" th:value="${details.telephone}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">GSTIN/UIN:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="gstin" th:value="${details.gstin}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Fax No:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="fax" th:value="${details.fax}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Website:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="website" th:value="${details.website}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Service Type:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="serviceType" th:value="${details.serviceType}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">No of Branch:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="noOfBranch" th:value="${details.noOfBranch}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Address:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="companyAddress" th:value="${details.companyAddress}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">State:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="companyState" th:value="${details.companyState}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">City:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="companyCity" th:value="${details.companyCity}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Pincode:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="companyPinCode" th:value="${details.companyPinCode}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="pills-owner" role="tabpanel" aria-labelledby="pills-owner-tab-custom">
+                                            <form class="is-readonly">
+                                                <div class="row pb-2">
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Username:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="userName" th:value="${username}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">First Name:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="firstName" th:value="${details.firstName}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Last Name:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="lastName" th:value="${details.lastName}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row pb-2">
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Father Name:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="fatherName" th:value="${details.fatherName}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-5 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Qualification:</label>
+                                                            <div class="col-sm-7 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="qualification" th:value="${details.qualification}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-3 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Email:</label>
+                                                            <div class="col-sm-9 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="ownerEmail" th:value="${details.ownerEmail}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row pb-2">
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Mobile:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="mobileNo" th:value="${details.mobile}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Alternate Mobile:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="alternateMobile" th:value="${details.alternateMobile}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Aadhaar:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="aadhaar" th:value="${details.aadhaar}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row pb-2">
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">PAN:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="pan" th:value="${details.pan}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Driving License:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="drivingLicense" th:value="${details.drivingLicense}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Address:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="ownerAddress" th:value="${details.ownerAddress}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row pb-2">
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">State:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="ownerState" th:value="${details.ownerState}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">City:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="ownerCity" th:value="${details.ownerCity}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Pincode:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="ownerPinCode" th:value="${details.ownerPinCode}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="pills-bank" role="tabpanel" aria-labelledby="pills-bank-tab-custom">
+                                            <form class="is-readonly">
+                                                <div class="row">
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank Name:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="bankName" th:value="${details.bankName}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Beneficiary Name:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="beneficiaryName" th:value="${details.beneficiaryName}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Account Type:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="accountType" th:value="${details.accountType}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Account Number:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="accountNumber" th:value="${details.accountNumber}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">IFSC Code:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="ifscCode" th:value="${details.ifscCode}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank Address:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="bankAddress" th:value="${details.bankAddress}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank State:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="bankState" th:value="${details.bankState}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank City:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="bankCity" th:value="${details.bankCity}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 px-3">
+                                                        <div class="form-group row mb-1">
+                                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank PinCode:</label>
+                                                            <div class="col-sm-8 pl-0">
+                                                                <input type="text" class="form-control is-disabled" id="bankPinCode" th:value="${details.bankPinCode}" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="pills-security" role="tabpanel" aria-labelledby="pills-security-tab-custom">
+                                            <div class="template-demo">
+                                                <form id="editable-form" class="editable-form" data-toggle="validator" th:action="@{/company/userDetails}" th:object="${user}" method="post">
+                                                    <div class="row mb-3">
+                                                        <div class="col-6 border border-primary">
+                                                            <div style="padding-left: 135px; padding-top: 12px;">
+                                                                <strong class="text-warning">CHANGE USERNAME</strong>
+                                                            </div>
+                                                            <div class="form-group pt-4">
+                                                                <label for="username">User Name<strong class="text-danger">*</strong></label>
+                                                                <input type="text" class="form-control form-control-sm" name="username" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter username" required />
+                                                                <div class="help-block with-errors text-danger"></div>
+                                                            </div>
+                                                            <div class="form-group pt-1">
+                                                                <label for="password">Current Password<strong class="text-danger">*</strong></label>
+                                                                <input
+                                                                    name="password"
+                                                                    type="password"
+                                                                    class="form-control form-control-sm"
+                                                                    id="password"
+                                                                    data-error="Provide current password !"
+                                                                    placeholder="Enter current Password"
+                                                                    required
+                                                                />
+                                                                <div class="help-block with-errors text-danger"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 border-right border-top border-bottom border-primary">
+                                                            <small class="text-warning">Note: Leave this fields blank if you are not going to change your password.</small>
+                                                            <div class="form-group pt-3 mb-2">
+                                                                <label for="userNameCopy">New Password</label>
+                                                                <input
+                                                                    type="password"
+                                                                    data-minlength="6"
+                                                                    class="form-control form-control-sm"
+                                                                    id="inputPassword"
+                                                                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                                                    data-error="Password must be alphanumeric !"
+                                                                    placeholder="Enter password"
+                                                                />
+                                                                <small class="text-info">
+                                                                    Min 6 characters required
+                                                                </small>
+                                                                <div class="help-block with-errors text-danger"></div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="userNameCopy">Confirm Password</label>
+                                                                <input
+                                                                    type="password"
+                                                                    class="form-control form-control-sm"
+                                                                    name="newPassword"
+                                                                    id="password"
+                                                                    data-match="#inputPassword"
+                                                                    data-match-error="Whoops, these don't match"
+                                                                    data-error="Provide confirm password !"
+                                                                    placeholder="Enter confirm password"
+                                                                />
+                                                                <div class="help-block with-errors text-danger"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <button type="submit" class="btn btn-sm btn-primary my-2">Submit</button>
+                                                        <button type="reset" class="btn btn-sm btn-danger my-2">Reset</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                     <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfile" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                           <div class="modal-content">
-                              <form data-toggle="validator" th:action="@{/company/profile/picture}" role="form" th:object="${update}" method="post" enctype="multipart/form-data">
-                                 <div class="modal-header py-2">
-                                    <h5 class="modal-title" id="editModal">Edit Profile</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                 </div>
-                                 <div class="modal-body p-2">
-                                    <div class="row justify-content-center">
-                                       <div class="col-5">
-                                          <div class="form-group text-center">
-                                             <label for="profile" class="font-weight-bold">Profile<strong class="text-danger ">*</strong></label>
-                                             <input type="file" name="profile" id="profile" accept="image/*" data-max-file-size="200K" data-error="Profile required !"
-                                                data-max-width="800" data-max-height="900" class="dropify" required>
-                                             <small class="text-info">[File: 200KB Size: 800x900]</small>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="modal-footer justify-content-center py-2">
-                                    <button type="submit" class="btn btn-sm btn-success">Submit</button>
-                                    <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-                                 </div>
-                              </form>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="modal fade" id="editCompany" tabindex="-1" role="dialog" aria-labelledby="editCompany" aria-hidden="true">
-                        <div class="modal-dialog" role="document" style="max-width: 60%;">
-                           <div class="modal-content">
-                              <form data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
-                                 <div class="modal-header py-2">
-                                    <h5 class="modal-title" id="editModal">Edit Company Details</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                 </div>
-                                 <div class="modal-body">
-                                    <div class="row">
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="companyName">Company Name<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control" name="companyName" id="companyNameCopy" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter company name" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="email">Email<strong class="text-danger ">*</strong></label>
-                                             <input type="email" class="form-control" name="email" id="emailCopy" data-error="Provide a valid email !" placeholder="Enter Email ID" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="telephone">Telephone</label>
-                                             <input type="text" class="form-control form-control-sm" name="telephone" id="telephoneCopy" pattern="[7-9]{1}[0-9]{9}" maxlength="10"  data-error="Provide a valid phone number !" placeholder="Enter telephone no" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="gstin">GSTIN/UIN<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control form-control-sm" name="gstin" id="gstinCopy" oninput="this.value = this.value.toUpperCase()" data-minlength="15" maxlength="15" data-error="Provide a GSTIN/UIN !" placeholder="Enter GSTIN/UIN" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="fax">Fax</label>
-                                             <input type="text" class="form-control form-control-sm" name="fax" id="faxCopy" placeholder="Enter fax no">
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="website">Website</label>
-                                             <input type="url" class="form-control form-control-sm" name="website" id="websiteCopy" data-error="Ex: http://yahoo.com" placeholder="Enter Website" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="serviceType">Service Type<strong class="text-danger ">*</strong></label>
-                                             <select class="form-control" name="serviceType" id="serviceTypeCopy" data-error="Select service type !" required>
-                                                <option value="" selected>select</option>
-                                                <option value="Stationery">Stationery</option>
-                                                <option value="Electronics and accessories">Electronics and accessories</option>
-                                                <option value="Smartphone accessories">Smartphone accessories</option>
-                                                <option value="Homeware">Homeware</option>
-                                                <option value="Clothing">Clothing</option>
-                                                <option value="Workout and exercise">Workout and exercise</option>
-                                                <option value="Medical supplies">Medical supplies</option>
-                                                <option value="Kitchen and cooking">Kitchen and cooking</option>
-                                                <option value="Jewelry and fashion">Jewelry and fashion</option>
-                                             </select>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="noOfBranch">No of Branch</label>
-                                             <select class="form-control" name="noOfBranch" id="noOfBranchCopy">
-                                                <option value="" selected>select</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                             </select>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="companyState">Address<strong class="text-danger ">*</strong></label>
-                                             <textarea type="text" class="form-control" name="companyAddress" rows="3" id="companyAddressCopy" data-error="Provide a address !" placeholder="Enter Company address" required></textarea>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="companyState">State<strong class="text-danger ">*</strong></label>
-                                             <select class="form-control" name="companyState" id="companyStateCopy" data-error="Select state !" required>
-                                                <option value="" selected>Select</option>
-                                                <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
-                                             </select>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="companyCityCopy">City<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control form-control-sm" name="companyCity" id="companyCityCopy" data-error="Provide a city !" placeholder="Enter city" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="companyPinCode">Pincode<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control form-control-sm" name="companyPinCode" id="companyPinCodeCopy" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required> 
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="modal-footer justify-content-center py-2">
-                                    <button type="submit" class="btn btn-sm btn-success">Submit</button>
-                                    <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-                                 </div>
-                              </form>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="modal fade" id="editOwner" tabindex="-1" role="dialog" aria-labelledby="editOwner" aria-hidden="true">
-                        <div class="modal-dialog" role="document" style="max-width: 60%;">
-                           <div class="modal-content">
-                              <form  data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
-                                 <div class="modal-header py-2">
-                                    <h5 class="modal-title" id="editModal">Edit Owner Details</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                 </div>
-                                 <div class="modal-body">
-                                    <div class="row">
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="firstNameCopy">First Name<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control" name="firstName" id="firstNameCopy" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter first name" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="lastName">Last Name<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control" name="lastName" id="lastNameCopy" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter last name" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="drivingLicense">Driving License no</label>
-                                             <input type="text" class="form-control form-control-sm" name="drivingLicense" id="drivingLicenseCopy" placeholder="Enter driving License">
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="ownerEmail">Email<strong class="text-danger ">*</strong></label>
-                                             <input type="email" class="form-control form-control-sm" name="ownerEmail" id="ownerEmailCopy" data-error="Provide a valid email !" placeholder="Enter Email ID" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="mobile">Mobile No</label>
-                                             <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="mobile" id="mobileNoCopy" onkeyup='checkMobileOwner();' maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter mobile no" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="alternateMobile">Alternate Mobile No</label>
-                                             <input type="text" pattern="[7-9]{1}[0-9]{9}" class="form-control form-control-sm" name="alternateMobile" id="alternateMobileCopy" onkeyup='checkMobileOwner();' maxlength="10" data-error="Provide a valid mobile number" placeholder="Enter alternate mobile no">
-                                             <div class="help-block with-errors text-danger"></div>
-                                             <small id="message"></small>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="ownerAddress">Address<strong class="text-danger ">*</strong></label>
-                                             <textarea type="text" class="form-control" name="ownerAddress" rows="3" id="ownerAddressCopy" data-error="Provide a address !" placeholder="Enter owner address" required></textarea>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="ownerState">State<strong class="text-danger ">*</strong></label>
-                                             <select class="form-control" name="ownerState" id="ownerStateCopy" data-error="Select state !" required>
-                                                <option value="" selected>Select</option>
-                                                <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
-                                             </select>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="ownerCity">City<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control form-control-sm" name="ownerCity" id="ownerCityCopy" data-error="Provide a city !" placeholder="Enter city name" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="ownerPinCode">Pincode<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control form-control-sm " name="ownerPinCode" id="ownerPinCodeCopy" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="modal-footer justify-content-center py-2">
-                                    <button type="submit" class="btn btn-sm btn-success">Submit</button>
-                                    <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-                                 </div>
-                              </form>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="modal fade" id="editBank" tabindex="-1" role="dialog" aria-labelledby="editBank" aria-hidden="true">
-                        <div class="modal-dialog" role="document" style="max-width: 60%;">
-                           <div class="modal-content">
-                              <form  data-toggle="validator" th:action="@{/company/profile}" role="form" th:object="${update}" method="post">
-                                 <div class="modal-header py-2">
-                                    <h5 class="modal-title" id="editModal">Edit Bank Details</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                 </div>
-                                 <div class="modal-body">
-                                    <div class="row">
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="bankName">Bank Name<strong class="text-danger ">*</strong></label>
-                                             <select class="form-control" name="bankName" id="bankNameCopy" data-error="Select Bank Name !" required>
-                                                <option value="" selected>select</option>
-                                                <option th:each="banks : ${bankList}" th:value="${banks.name}" th:utext="${banks.name}"/>
-                                             </select>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="beneficiaryName">BeneficiaryName<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control" name="beneficiaryName" id="beneficiaryNameCopy"  data-error="Min 3 characters required !" placeholder="Enter beneficiary name" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="accountType">Account Type</label> 
-                                             <select class="form-control" name="accountType" id="accountTypeCopy"  data-error="Select account type !" required>
-                                                <option value="" selected>select</option>
-                                                <option value="Current account">Current account</option>
-                                                <option value="Savings account">Savings account</option>
-                                                <option value="Salary account">Salary account</option>
-                                                <option value="Fixed deposit account">Fixed deposit account</option>
-                                                <option value="NRI accounts">NRI accounts</option>
-                                             </select>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="accountNumber">Account Number<strong class="text-danger ">*</strong></label>
-                                             <input type="number" class="form-control form-control-sm" name="accountNumber" id="accountNumberCopy"  data-minlength="8" data-error="Provide a account number !"  placeholder="Enter account number" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="ifscCode">IFSC Code</label>
-                                             <input type="text" class="form-control form-control-sm" name="ifscCode" id="ifscCodeCopy" oninput="this.value = this.value.toUpperCase()" data-error="Provide IFSC Code !" placeholder="Enter ifsc code" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="bankAddress">Bank Address</label>
-                                             <input type="text" class="form-control form-control-sm" name="bankAddress" id="bankAddressCopy" data-error="Provide a address !" placeholder="Enter bank address" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="bankState">Bank State<strong class="text-danger ">*</strong></label>
-                                             <select class="form-control" name="bankState" id="bankStateCopy" data-error="Select state !" required>
-                                                <option value="" selected>Select</option>
-                                                <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
-                                             </select>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="bankCity">Bank City<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control form-control-sm" name="bankCity" id="bankCityCopy" data-error="Provide a city !" placeholder="Enter city name" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group">
-                                             <label for="bankPinCode">Bank PinCode<strong class="text-danger ">*</strong></label>
-                                             <input type="text" class="form-control form-control-sm" name="bankPinCode" id="bankPinCodeCopy" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required>
-                                             <div class="help-block with-errors text-danger"></div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="modal-footer justify-content-center py-2">
-                                    <button type="submit" class="btn btn-sm btn-success">Submit</button>
-                                    <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
-                                 </div>
-                              </form>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-12">
-                           <ul class="nav nav-pills nav-pills-custom justify-content-center pt-3" id="pills-tab-custom" role="tablist">
-                              <li class="nav-item ">
-                                 <a class="nav-link profile-tab active" id="pills-company-tab-custom" data-toggle="pill" href="#pills-company" role="tab" aria-controls="pills-company" aria-selected="true">
-                                 Company
-                                 </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link profile-tab " id="pills-owner-tab-custom" data-toggle="pill" href="#pills-owner" role="tab" aria-controls="pills-owner" aria-selected="false">
-                                 Owner
-                                 </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link profile-tab " id="pills-bank-tab-custom" data-toggle="pill" href="#pills-bank" role="tab" aria-controls="pills-bank" aria-selected="false">
-                                 Bank Details
-                                 </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link profile-tab " id="pills-security-tab-custom" data-toggle="pill" href="#pills-security" role="tab" aria-controls="pills-security" aria-selected="false">
-                                 Security
-                                 </a>
-                              </li>
-                           </ul>
-                           <div class="tab-content tab-content-custom-pill pt-3 px-3 pb-1" id="pills-tabContent-custom">
-                              <div class="tab-pane fade show active" id="pills-company" role="tabpanel" aria-labelledby="pills-company-tab-custom">
-                                 <form class="is-readonly">
-                                    <div class="row">
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Company Name:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="companyName" th:value="${details.companyName}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Email:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="email" th:value="${details.email}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Telephone:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="telephone" th:value="${details.telephone}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">GSTIN/UIN:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="gstin" th:value="${details.gstin}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Fax No:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="fax" th:value="${details.fax}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Website:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="website" th:value="${details.website}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Service Type:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="serviceType" th:value="${details.serviceType}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">No of Branch:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="noOfBranch" th:value="${details.noOfBranch}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Address:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="companyAddress" th:value="${details.companyAddress}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">State:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="companyState" th:value="${details.companyState}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">City:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="companyCity" th:value="${details.companyCity}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Pincode:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="companyPinCode" th:value="${details.companyPinCode}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </form>
-                              </div>
-                              <div class="tab-pane fade" id="pills-owner" role="tabpanel" aria-labelledby="pills-owner-tab-custom">
-                                 <form class="is-readonly">
-                                    <div class="row pb-2">
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Username:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="userName" th:value="${username}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">First Name:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="firstName" th:value="${details.firstName}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Last Name:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="lastName" th:value="${details.lastName}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row pb-2">
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Father Name:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="fatherName" th:value="${details.fatherName}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-5 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Qualification:</label>
-                                             <div class="col-sm-7 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="qualification" th:value="${details.qualification}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-3 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Email:</label>
-                                             <div class="col-sm-9 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="ownerEmail" th:value="${details.ownerEmail}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row pb-2">
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Mobile:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="mobileNo" th:value="${details.mobile}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Alternate Mobile:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="alternateMobile" th:value="${details.alternateMobile}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Aadhaar:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="aadhaar" th:value="${details.aadhaar}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row pb-2">
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">PAN:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="pan" th:value="${details.pan}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Driving License:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="drivingLicense" th:value="${details.drivingLicense}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Address:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="ownerAddress" th:value="${details.ownerAddress}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row pb-2">
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">State:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="ownerState" th:value="${details.ownerState}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">City:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="ownerCity" th:value="${details.ownerCity}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-4">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold" style="padding-top: 11px;">Pincode:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="ownerPinCode" th:value="${details.ownerPinCode}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </form>
-                              </div>
-                              <div class="tab-pane fade" id="pills-bank" role="tabpanel" aria-labelledby="pills-bank-tab-custom">
-                                 <form class="is-readonly">
-                                    <div class="row">
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank Name:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="bankName" th:value="${details.bankName}" disabled/>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Beneficiary Name:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="beneficiaryName" th:value="${details.beneficiaryName}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Account Type:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="accountType" th:value="${details.accountType}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Account Number:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="accountNumber" th:value="${details.accountNumber}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">IFSC Code:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="ifscCode" th:value="${details.ifscCode}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank Address:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="bankAddress" th:value="${details.bankAddress}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank State:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="bankState" th:value="${details.bankState}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank City:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="bankCity" th:value="${details.bankCity}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                       <div class="col-6 px-3">
-                                          <div class="form-group row mb-1">
-                                             <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank PinCode:</label>
-                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="bankPinCode" th:value="${details.bankPinCode}" disabled>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </form>
-                              </div>
-                              <div class="tab-pane fade" id="pills-security" role="tabpanel" aria-labelledby="pills-security-tab-custom">
-                                 <div class="template-demo">
-                                    <form id="editable-form" class="editable-form" data-toggle="validator" th:action="@{/company/userDetails}" th:object="${user}" method="post">
-                                       <div class="row mb-3">
-                                          <div class="col-6 border border-primary">
-                                             <div style="padding-left: 135px;padding-top: 12px;">
-                                                <strong class="text-warning">CHANGE USERNAME</strong>
-                                             </div>
-                                             <div class="form-group pt-4">
-                                                <label for="username">User Name<strong class="text-danger ">*</strong></label>
-                                                <input type="text" class="form-control form-control-sm" name="username" data-minlength="3" data-error="Min 3 characters required !" placeholder="Enter username" required>
-                                                <div class="help-block with-errors text-danger"></div>
-                                             </div>
-                                             <div class="form-group pt-1">
-                                                <label for="password">Current Password<strong class="text-danger ">*</strong></label>
-                                                <input name="password" type="password" class="form-control form-control-sm" id="password" data-error="Provide current password !" placeholder="Enter current Password" required>
-                                                <div class="help-block with-errors text-danger"></div>
-                                             </div>
-                                          </div>
-                                          <div class="col-6 border-right border-top border-bottom border-primary">
-                                             <small class="text-warning">Note: Leave this fields blank if you are not going to change your password.</small>
-                                             <div class="form-group pt-3 mb-2">
-                                                <label for="userNameCopy">New Password</label>
-                                                <input type="password" data-minlength="6" class="form-control form-control-sm" id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" 
-                                                   data-error="Password must be alphanumeric !" placeholder="Enter password" >
-                                                <small class="text-info">
-                                                Min 6 characters required
-                                                </small>
-                                                <div class="help-block with-errors text-danger"></div>
-                                             </div>
-                                             <div class="form-group">
-                                                <label for="userNameCopy">Confirm Password</label>
-                                                <input type="password" class="form-control form-control-sm" name="newPassword" id="password" data-match="#inputPassword" data-match-error="Whoops, these don't match" data-error="Provide confirm password !" placeholder="Enter confirm password">
-                                                <div class="help-block with-errors text-danger"></div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="text-center">
-                                          <button type="submit" class="btn btn-sm btn-primary my-2">Submit</button>
-                                          <button type="reset" class="btn btn-sm btn-danger my-2">Reset</button>
-                                       </div>
-                                    </form>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </section>
-   </body>
+        </section>
+    </body>
 </html>

@@ -14,17 +14,17 @@
                     <i class="fa fa-arrow-left"></i>
                 </button>
             </div>
-
-            <div class="alert alert-danger text-center p-2 col-8 mx-auto font-weight-bold" role="alert" th:if="${param.unitDeleted}">
+            <div class="mt-5"></div>
+            <div class="alert alert-danger text-center p-2 col-10 mx-auto font-weight-bold" role="alert" th:if="${param.unitDeleted}">
                 Unit of Measure has been deleted !
             </div>
-            <div class="alert alert-success text-center p-2 col-8 mx-auto font-weight-bold" role="alert" th:if="${param.unitUpdated}">
+            <div class="alert alert-success text-center p-2 col-10 mx-auto font-weight-bold" role="alert" th:if="${param.unitUpdated}">
                 Unit of Measure has been updated successfully!
             </div>
             <div class="alert alert-danger text-center p-2 font-weight-bold" role="alert" th:if="${param.unitAlreadyExists}">
                 Unit of Measure already Exists!
             </div>
-            <div class="col-10 mt-3 mx-auto">
+            <div class="col-10 mx-auto">
                 <div class="table-responsive">
                     <table class="table table-dark">
                         <thead class="bg-info">

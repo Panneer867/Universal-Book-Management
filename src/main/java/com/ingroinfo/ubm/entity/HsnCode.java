@@ -27,15 +27,15 @@ public class HsnCode {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long hsnId;
-	
+
 	private String categoryName;
-	
+
 	private Long hsnCode;
-	
+
 	@CreationTimestamp
 	private Date dateCreated;
 
 	@UpdateTimestamp
 	private Date lastUpdated;
-	
+
 }

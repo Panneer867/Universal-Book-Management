@@ -13,14 +13,15 @@
                             <a th:href="@{/master/measures/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Units List</a>
                         </nav>
                     </div>
-                    <div class="alert alert-success text-center p-2 col-8 mx-auto" role="alert" th:if="${param.unitAdded}">
+                    <div class="mt-5"></div>
+                    <div class="alert alert-success text-center p-2 col-5 mx-auto" role="alert" th:if="${param.unitAdded}">
                         Unit of Measures has been added successfully!
                     </div>
-                    <div class="alert alert-danger text-center p-2 col-8 mx-auto font-weight-bold" role="alert" th:if="${param.unitAlreadyExists}">
+                    <div class="alert alert-danger text-center p-2 col-5 mx-auto font-weight-bold" role="alert" th:if="${param.unitAlreadyExists}">
                         Unit of Measure already Exists!
                     </div>
 
-                    <div class="col-5 mt-5 mx-auto">
+                    <div class="col-5 mx-auto">
                         <div class="card">
                             <div class="card-body p-0">
                                 <h5 class="p-2 mb-0 text-center">Unit of Measures</h5>

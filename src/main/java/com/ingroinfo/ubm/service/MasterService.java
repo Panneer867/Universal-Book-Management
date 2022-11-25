@@ -55,5 +55,17 @@ public interface MasterService {
 	boolean hsnExists(Long hsnCode);
 
 	void saveHsnCode(HsnCode hsnCode);
-	
+
+	boolean categoryNameExists(String categoryName);
+
+	List<HsnCode> getHsnList();
+
+	HsnCode findByHsnId(Long hsnId);
+
+	boolean hsnCodeCheck(Long hsnId, Long hsnCode);
+
+	void updateHsnCode(HsnCode hsn);
+
+	void deleteByHsnId(Long hsnId);
+
 }

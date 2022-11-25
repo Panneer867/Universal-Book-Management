@@ -1,155 +1,182 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
-   <body>
-      <section>
-         <div class="page-header">
-            <h3 class="page-title">
-               Branch Creation
-            </h3>
-            <nav aria-label="breadcrumb">
-               <a th:href="@{/branch/management}" class="btn btn-primary btn-icon-text">
-               <i class="fa fa-users"></i>
-               Branch Management
-               </a>
-            </nav>
-         </div>
-         <div class="row border border-dark bg-dark text-white">
-            <div class="col-4">
-               <div class="form-group mb-0 mt-2">
-                  <label for="exampleInputCity1" class="pt-2 pr-3 font-weight-bold">Company Name</label>
-                  <label class="badge badge-warning">[[${companyName}]]</label>
-               </div>
+    <body>
+        <section>
+            <div class="page-header">
+                <h3 class="page-title">
+                    Branch Creation
+                </h3>
+                <nav aria-label="breadcrumb">
+                    <a th:href="@{/branch/management}" class="btn btn-primary btn-icon-text">
+                        <i class="fa fa-users"></i>
+                        Branch Management
+                    </a>
+                </nav>
             </div>
-            <div class="col-6">
+            <div class="row border border-dark bg-dark text-white">
+                <div class="col-4">
+                    <div class="form-group mb-0 mt-2">
+                        <label for="exampleInputCity1" class="pt-2 pr-3 font-weight-bold">Company Name</label>
+                        <label class="badge badge-warning">[[${companyName}]]</label>
+                    </div>
+                </div>
+                <div class="col-6"></div>
+                <div class="col-2">
+                    <div class="form-group mb-0 mt-2">
+                        <label for="exampleInputCity1" class="pt-2 pr-3 font-weight-bold">Company ID</label>
+                        <label class="badge badge-danger">[[${companyId}]]</label>
+                    </div>
+                </div>
             </div>
-            <div class="col-2">
-               <div class="form-group mb-0 mt-2">
-                  <label for="exampleInputCity1" class="pt-2 pr-3 font-weight-bold">Company ID</label>
-                  <label class="badge badge-danger">[[${companyId}]]</label>
-               </div>
-            </div>
-         </div>
-         <div class="row justify-content-center">
-            <div class="col-11 pt-3">
-               <div class="alert alert-success text-center mb-1" role="alert" th:if="${param.success}"> Your Branch has been successfully created!</div>
-               <div class="alert alert-danger text-center mb-1" role="alert" th:if="${param.notAllowed}"> Only <strong>[[${branchCount}]]</strong> Branches are Allowed</div>
-               <div class="alert alert-danger text-center mb-1" role="alert" th:if="${param.emailExists}"><strong>[[${emailExists}]]</strong></div>
-               <div class="alert alert-danger text-center mb-1" role="alert" th:if="${param.mobileExists}"><strong>[[${mobileExists}]]</strong></div>
-               <div class="alert alert-danger text-center mb-1" role="alert" th:if="${param.usernameExists}"><strong>[[${usernameExists}]]</strong></div>
-               <div class="card">
-                  <div class="card-body pt-3">
-                     <h4 class="card-title text-center mb-3">Branch Registration</h4>
-                     <hr class="mt-0">
-                     <form class="forms-sample" data-toggle="validator" th:action="@{/branch}" role="form" th:object="${branch}" method="post" enctype="multipart/form-data">
-                        <div class="row justify-content-center">
-                           <div class="col-6">
-                              <div class="form-group row">
-                                 <label for="branchName" class="col-sm-3 col-form-label pr-0">Branch Name<strong class="text-danger ">*</strong></label>
-                                 <div class="col-sm-9 pl-0">
-                                    <input type="text" class="form-control" th:field="*{branchName}" id="branchName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter branch name" required>
-                                    <div class="help-block with-errors text-danger"></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-8 border-right border-primary">
-                              <div class="row">
-                                 <div class="col-6">
-                                    <div class="form-group">
-                                       <label for="firstName">Admin Name<strong class="text-danger ">*</strong></label>
-                                       <input type="text" class="form-control" th:field="*{firstName}" id="firstName" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Admin name" required>
-                                       <div class="help-block with-errors text-danger"></div>
+            <div class="row justify-content-center">
+                <div class="col-11 pt-3">
+                    <div class="alert alert-success text-center mb-1" role="alert" th:if="${param.success}">Your Branch has been successfully created!</div>
+                    <div class="alert alert-danger text-center mb-1" role="alert" th:if="${param.notAllowed}">Only <strong>[[${branchCount}]]</strong> Branches are Allowed</div>
+                    <div class="alert alert-danger text-center mb-1" role="alert" th:if="${param.emailExists}"><strong>[[${emailExists}]]</strong></div>
+                    <div class="alert alert-danger text-center mb-1" role="alert" th:if="${param.mobileExists}"><strong>[[${mobileExists}]]</strong></div>
+                    <div class="alert alert-danger text-center mb-1" role="alert" th:if="${param.usernameExists}"><strong>[[${usernameExists}]]</strong></div>
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <h4 class="card-title text-center mb-3">Branch Registration</h4>
+                            <hr class="mt-0" />
+                            <form class="forms-sample" data-toggle="validator" th:action="@{/branch}" role="form" th:object="${branch}" method="post" enctype="multipart/form-data">
+                                <div class="row justify-content-center">
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label for="branchName" class="col-sm-3 col-form-label pr-0">Branch Name<strong class="text-danger">*</strong></label>
+                                            <div class="col-sm-9 pl-0">
+                                                <input type="text" class="form-control" th:field="*{branchName}" id="branchName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter branch name" required />
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                 </div>
-                                 <div class="col-6">
-                                    <div class="form-group">
-                                       <label for="designation">Designation<strong class="text-danger ">*</strong></label>
-                                       <select class="form-control" th:field="*{designation}" id="designation" data-error="Select designation !" required>
-                                          <option value="" selected>select</option>
-                                          <option value="Branch Adminstrator">Branch Adminstrator</option>
-                                       </select>
-                                       <div class="help-block with-errors text-danger"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8 border-right border-primary">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="firstName">Admin Name<strong class="text-danger">*</strong></label>
+                                                    <input type="text" class="form-control" th:field="*{firstName}" id="firstName" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Admin name" required />
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="designation">Designation<strong class="text-danger">*</strong></label>
+                                                    <select class="form-control" th:field="*{designation}" id="designation" data-error="Select designation !" required>
+                                                        <option value="" selected>select</option>
+                                                        <option value="Branch Adminstrator">Branch Adminstrator</option>
+                                                    </select>
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="branchName">Branch E-Mail ID<strong class="text-danger">*</strong></label>
+                                                    <input type="email" class="form-control" th:field="*{email}" id="email" data-error="Provide a valid email !" placeholder="Enter Email" required />
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="mobile">Mobile Number<strong class="text-danger">*</strong></label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        pattern="[7-9]{1}[0-9]{9}"
+                                                        th:field="*{mobile}"
+                                                        id="mobile"
+                                                        maxlength="10"
+                                                        data-error="Enter a valid phone number"
+                                                        placeholder="Enter phone no"
+                                                        required
+                                                    />
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="address">Address<strong class="text-danger">*</strong></label>
+                                                    <textarea type="text" class="form-control" th:field="*{address}" rows="3" id="address" data-error="Provide a address !" placeholder="Enter branch address" required></textarea>
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="cstates">State<strong class="text-danger">*</strong></label>
+                                                    <select class="form-control" th:field="*{state}" id="cstates" data-error="Select a state !" required>
+                                                        <option value="" selected>select</option>
+                                                        <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                                    </select>
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="ccities">City<strong class="text-danger">*</strong></label>
+                                                    <select class="form-control" th:field="*{city}" id="ccities" data-error="Provide a city !" required>
+                                                        <option value="" selected>select</option>
+                                                    </select>
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="pinCode">Pincode<strong class="text-danger">*</strong></label>
+                                                    <input type="text" class="form-control" th:field="*{pinCode}" id="pinCode" data-error="Provide a pincode !" pattern="[0-9]{6}" maxlength="6" placeholder="Enter a pincode" required />
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                 </div>
-                              </div>
-                              <div class="row">
-                                 <div class="col-6">
-                                    <div class="form-group">
-                                       <label for="branchName">Branch E-Mail ID<strong class="text-danger ">*</strong></label>
-                                       <input type="email" class="form-control" th:field="*{email}" id="email" data-error="Provide a valid email !" placeholder="Enter Email" required>
-                                       <div class="help-block with-errors text-danger"></div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="username">Username<strong class="text-danger">*</strong></label>
+                                            <input type="text" class="form-control" th:field="*{username}" id="username" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Username" required />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword">Password<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="password"
+                                                data-minlength="6"
+                                                class="form-control"
+                                                id="inputPassword"
+                                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                                data-error="Password must be alphanumeric !"
+                                                placeholder="Password"
+                                                required
+                                            />
+                                            <small class="text-info">
+                                                Minimum 6 characters required
+                                            </small>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Confirm Password<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="password"
+                                                class="form-control"
+                                                th:field="*{password}"
+                                                id="password"
+                                                data-match="#inputPassword"
+                                                data-match-error="Whoops, these don't match"
+                                                placeholder="Confirm Password"
+                                                data-error="Provide confirm password !"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
                                     </div>
-                                 </div>
-                                 <div class="col-6">
-                                    <div class="form-group">
-                                       <label for="mobile">Mobile Number<strong class="text-danger ">*</strong></label>
-                                       <input type="text" class="form-control" pattern="[7-9]{1}[0-9]{9}" th:field="*{mobile}" id="mobile" maxlength="10" data-error="Enter a valid phone number" placeholder="Enter phone no" required>
-                                       <div class="help-block with-errors text-danger"></div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="row">
-                                 <div class="col-6">
-                                    <div class="form-group">
-                                       <label for="address">Address<strong class="text-danger ">*</strong></label>
-                                       <textarea type="text" class="form-control" th:field="*{address}" rows="3" id="address" data-error="Provide a address !" placeholder="Enter branch address" required></textarea>
-                                       <div class="help-block with-errors text-danger"></div>
-                                    </div>
-                                 </div>
-                                 <div class="col-6">
-                                    <div class="form-group">
-                                       <label for="cstates">State<strong class="text-danger ">*</strong></label>
-                                       <select class="form-control" th:field="*{state}" id="cstates" data-error="Select a state !" required>
-                                          <option value="" selected>select</option>
-                                          <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
-                                       </select>
-                                       <div class="help-block with-errors text-danger"></div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="row">
-                                 <div class="col-6">
-                                    <div class="form-group">
-                                       <label for="ccities">City<strong class="text-danger">*</strong></label>
-                                       <select class="form-control" th:field="*{city}" id="ccities" data-error="Provide a city !" required>
-                                          <option value="" selected>select</option>
-                                       </select>
-                                       <div class="help-block with-errors text-danger"></div>
-                                    </div>
-                                 </div>
-                                 <div class="col-4">
-                                    <div class="form-group">
-                                       <label for="pinCode">Pincode<strong class="text-danger ">*</strong></label>
-                                       <input type="text" class="form-control" th:field="*{pinCode}" id="pinCode" data-error="Provide a pincode !" pattern="[0-9]{6}" maxlength="6" placeholder="Enter a pincode" required>
-                                       <div class="help-block with-errors text-danger"></div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-4">
-                              <div class="form-group">
-                                 <label for="username">Username<strong class="text-danger ">*</strong></label>
-                                 <input type="text" class="form-control" th:field="*{username}" id="username" data-minlength="5" data-error="Minimum 5 characters required !" placeholder="Enter Username" required>
-                                 <div class="help-block with-errors text-danger"></div>
-                              </div>
-                              <div class="form-group">
-                                 <label for="inputPassword">Password<strong class="text-danger ">*</strong></label>
-                                 <input type="password" data-minlength="6" class="form-control" id="inputPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" 
-                                    data-error="Password must be alphanumeric !" placeholder="Password" required>
-                                 <small class="text-info">
-                                 Minimum 6 characters required
-                                 </small>
-                                 <div class="help-block with-errors text-danger"></div>
-                              </div>
-                              <div class="form-group">
-                                 <label for="password">Confirm Password<strong class="text-danger ">*</strong></label>
-                                 <input type="password" class="form-control" th:field="*{password}" id="password" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm Password" data-error="Provide confirm password !" required>
-                                 <div class="help-block with-errors text-danger"></div>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- <div class="col-3 pl-3">
+                                </div>
+                                <!-- <div class="col-3 pl-3">
                            <div class="form-group">
                                    <label for="branchEmployees">Add Branch Employees<strong class="text-danger ">*</strong></label>
                                    <select class="form-control" multiple id="branchEmployees" th:field="*{branchEmployees}" data-error="Select branch employees !" data-placeholder="Select Employees" required>
@@ -159,15 +186,15 @@
                                    <div class="help-block with-errors text-danger"></div>
                                 </div>
                            </div>-->
-                        <div class="text-center">
-                           <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
-                           <button type="reset" class="btn btn-sm btn-danger">Reset</button>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
+                                    <button type="reset" class="btn btn-sm btn-danger">Reset</button>
+                                </div>
+                            </form>
                         </div>
-                     </form>
-                  </div>
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </section>
-   </body>
+        </section>
+    </body>
 </html>

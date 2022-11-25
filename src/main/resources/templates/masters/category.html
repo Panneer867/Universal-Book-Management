@@ -13,21 +13,22 @@
                             <a th:href="@{/master/category/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Category List</a>
                         </nav>
                     </div>
-                    <div class="alert alert-success text-center p-2 col-10 mx-auto font-weight-bold" role="alert" th:if="${param.categoryAdded}">
+                    <div class="mt-5"></div>
+                    <div class="alert alert-success text-center p-2 col-9 mx-auto font-weight-bold" role="alert" th:if="${param.categoryAdded}">
                         Category has been added successfully!
                     </div>
-                    <div class="alert alert-danger text-center p-2 col-10 mx-auto font-weight-bold" role="alert" th:if="${param.categoryAlreadyExists}">
+                    <div class="alert alert-danger text-center p-2 col-9 mx-auto font-weight-bold" role="alert" th:if="${param.categoryAlreadyExists}">
                         Category Name already Exists!
                     </div>
-                    <div class="col-9 grid-margin stretch-card mx-auto mt-5">
-                        <div class="card bg-dark">
+                    <div class="col-9 grid-margin stretch-card mx-auto">
+                        <div class="card">
                             <div class="card-body pt-2">
-                                <h5 class="text-center text-white mb-2">Category Master</h5>
+                                <h5 class="text-center mb-2">Category Master</h5>
 
                                 <hr class="my-2 bg-secondary" />
                                 <form class="forms-sample" data-toggle="validator" th:action="@{/master/category/add}" role="form" method="post">
-                                    <div class="row border bg-success">
-                                        <div class="col-6 mt-1">
+                                    <div class="row">
+                                        <div class="col-6 mt-3">
                                             <div class="form-group mb-2">
                                                 <label for="categoryName">Category Name<strong class="text-danger">*</strong></label>
                                                 <input type="text" class="form-control" id="categoryName" name="categoryName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter category name" required />
@@ -35,7 +36,7 @@
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
-                                        <div class="col-4 mt-1">
+                                        <div class="col-4 mt-3">
                                             <div class="form-group mb-2">
                                                 <label for="categoryStatus">Category Status<strong class="text-danger">*</strong></label>
                                                 <select class="form-control" id="categoryStatus" name="categoryStatus" data-error="Select a category status !" required>
@@ -46,7 +47,7 @@
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
-                                        <div class="col-2" style="margin-top: 27px;">
+                                        <div class="col-2" style="margin-top: 36px;">
                                             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
                                         </div>
                                     </div>

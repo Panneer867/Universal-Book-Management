@@ -26,19 +26,17 @@ public class MasterServiceImpl implements MasterService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	private HsnCodeRepository hsnCodeRepository;
 
 	@Override
 	public List<UnitOfMeasures> getUnits() {
-
 		return unitsRepository.findAll();
 	}
 
 	@Override
 	public UnitOfMeasures findByUnitId(Long unitId) {
-
 		return unitsRepository.findByUnitId(unitId);
 	}
 
@@ -53,7 +51,6 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public boolean unitExists(String unitOfMeasure) {
-
 		return unitsRepository.findByUnitOfMeasure(unitOfMeasure) != null;
 	}
 
@@ -72,43 +69,36 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public void updateUnitOfMeasure(UnitOfMeasures unit) {
-
 		unitsRepository.save(unit);
 	}
 
 	@Override
 	public void deleteByUnitId(Long unitId) {
-
 		unitsRepository.deleteById(unitId);
 	}
 
 	@Override
 	public boolean brandExists(String brandName) {
-
 		return brandRepository.findByBrandName(brandName) != null;
 	}
 
 	@Override
 	public void saveBrand(Brand brand) {
 		brandRepository.save(brand);
-
 	}
 
 	@Override
 	public List<Brand> getBrands() {
-
 		return brandRepository.findAll();
 	}
 
 	@Override
 	public Brand findByBrandId(Long brandId) {
-
 		return brandRepository.findByBrandId(brandId);
 	}
 
 	@Override
 	public void updateBrand(Brand brand) {
-
 		brandRepository.save(brand);
 	}
 
@@ -138,32 +128,26 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public void deleteByBrandId(Long brandId) {
-
 		brandRepository.deleteById(brandId);
-
 	}
 
 	@Override
 	public boolean categoryExists(String categoryName) {
-
 		return categoryRepository.findByCategoryName(categoryName) != null;
 	}
 
 	@Override
 	public void saveCategory(Category category) {
-
 		categoryRepository.save(category);
 	}
 
 	@Override
 	public List<Category> getCategories() {
-
 		return categoryRepository.findAll();
 	}
 
 	@Override
 	public Category findByCategoryId(Long categoryId) {
-
 		return categoryRepository.findByCategoryId(categoryId);
 	}
 
@@ -183,28 +167,59 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public void updateCategory(Category category) {
-
 		categoryRepository.save(category);
 	}
 
 	@Override
 	public void deleteByCategoryId(Long brandId) {
-
 		categoryRepository.deleteById(brandId);
 	}
 
 	@Override
 	public boolean hsnExists(Long hsnCode) {
-		
-		return false;
+		return hsnCodeRepository.findByHsnCode(hsnCode) != null;
 	}
 
 	@Override
 	public void saveHsnCode(HsnCode hsnCode) {
 		hsnCodeRepository.save(hsnCode);
-		
 	}
 
-	
-	
+	@Override
+	public boolean categoryNameExists(String categoryName) {
+		return hsnCodeRepository.findByCategoryName(categoryName) != null;
+	}
+
+	@Override
+	public List<HsnCode> getHsnList() {
+		return hsnCodeRepository.findAll();
+	}
+
+	@Override
+	public HsnCode findByHsnId(Long hsnId) {
+		return hsnCodeRepository.findByHsnId(hsnId);
+	}
+
+	@Override
+	public boolean hsnCodeCheck(Long hsnId, Long hsnCode) {
+
+		List<HsnCode> hsnList = hsnCodeRepository.findAll();
+
+		List<HsnCode> filteredList = hsnList.stream().filter(x -> !hsnId.equals(x.getHsnId()))
+				.collect(Collectors.toList());
+
+		boolean isExists = filteredList.stream().filter(o -> o.getHsnCode().equals(hsnCode)).findFirst().isPresent();
+		return isExists;
+	}
+
+	@Override
+	public void updateHsnCode(HsnCode hsn) {
+		hsnCodeRepository.save(hsn);
+	}
+
+	@Override
+	public void deleteByHsnId(Long hsnId) {
+		hsnCodeRepository.deleteById(hsnId);
+	}
+
 }

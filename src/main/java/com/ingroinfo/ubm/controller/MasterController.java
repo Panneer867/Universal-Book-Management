@@ -355,7 +355,7 @@ public class MasterController {
 	}
 
 	@GetMapping("/measures/delete")
-	public String deleteEmpmloyee(@RequestParam Long unitId) {
+	public String deleteUnit(@RequestParam Long unitId) {
 
 		masterService.deleteByUnitId(unitId);
 		return "redirect:/master/measures/list?unitDeleted";
@@ -385,7 +385,41 @@ public class MasterController {
 		}
 
 		model.addAttribute("categories", masterService.getCategories());
-		return "/masters/unit_measures";
+		return "/masters/hsn";
+	}
+
+	@GetMapping("/hsn/list")
+	public String hsnList(Model model, Principal principal) {
+		model.addAttribute("title", "HSN Code Lists");
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("pe", company.getProfile());
+			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("pe", cmpy.getProfile());
+			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		List<HsnCode> hsnList = masterService.getHsnList();
+		if (hsnList.size() == 0) {
+			model.addAttribute("emptyList", "No Records");
+		}
+
+		model.addAttribute("hsnLists", hsnList);
+		model.addAttribute("categories", masterService.getCategories());
+
+		return "/masters/hsn_list";
 	}
 
 	@PostMapping("/hsn/add")
@@ -395,11 +429,37 @@ public class MasterController {
 			return "redirect:/master/hsn?hsnAlreadyExists";
 		}
 
+		if (masterService.categoryNameExists(categoryName)) {
+			return "redirect:/master/hsn?categoryAlreadyExists";
+		}
+
 		HsnCode hsn = new HsnCode();
 		hsn.setCategoryName(categoryName);
 		hsn.setHsnCode(hsnCode);
 
 		masterService.saveHsnCode(hsn);
 		return "redirect:/master/hsn?hsnAdded";
+	}
+
+	@PostMapping("/hsn/update")
+	public String hsnUpdate(@RequestParam Long hsnId, @RequestParam Long hsnCode) {
+
+		HsnCode hsn = masterService.findByHsnId(hsnId);
+
+		if (masterService.hsnCodeCheck(hsnId, hsnCode)) {
+			return "redirect:/master/hsn/list?hsnAlreadyExists";
+		}
+
+		hsn.setHsnCode(hsnCode);
+		masterService.updateHsnCode(hsn);
+
+		return "redirect:/master/hsn/list?hsnUpdated";
+	}
+
+	@GetMapping("/hsn/delete")
+	public String deleteHsnCode(@RequestParam Long hsnId) {
+
+		masterService.deleteByHsnId(hsnId);
+		return "redirect:/master/hsn/list?hsnDeleted";
 	}
 }

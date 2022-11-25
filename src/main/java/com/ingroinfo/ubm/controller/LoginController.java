@@ -30,6 +30,7 @@ import com.ingroinfo.ubm.dao.BrandRepository;
 import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.CompanyRepository;
 import com.ingroinfo.ubm.dao.EmployeeRepository;
+import com.ingroinfo.ubm.dao.HsnCodeRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
 import com.ingroinfo.ubm.dao.UserRepository;
 import com.ingroinfo.ubm.dto.BranchDto;
@@ -40,6 +41,7 @@ import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.Employee;
+import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.State;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.entity.User;
@@ -69,6 +71,9 @@ public class LoginController {
 
 	@Autowired
 	private CompanyRepository companyRepository;
+
+	@Autowired
+	private HsnCodeRepository hsnCodeRepository;
 
 	@Autowired
 	private BrandRepository brandRepository;
@@ -321,5 +326,12 @@ public class LoginController {
 	public Category getCategory(@RequestParam Long id) {
 
 		return categoryRepository.findByCategoryId(id);
+	}
+
+	@ResponseBody
+	@RequestMapping("/get/hsn")
+	public HsnCode getHsnCode(@RequestParam Long id) {
+
+		return hsnCodeRepository.findByHsnId(id);
 	}
 }

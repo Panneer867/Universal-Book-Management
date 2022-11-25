@@ -27,9 +27,9 @@ public class UnitOfMeasures {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long unitId;
-	
+
 	private String unitOfMeasure;
-	
+
 	@CreationTimestamp
 	private Date dateCreated;
 

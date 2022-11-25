@@ -1,82 +1,82 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http:https://www.thymeleaf.org/">
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Login</title>
-      <link rel="stylesheet" th:href="@{/vendors/iconfonts/font-awesome/css/all.min.css}">
-      <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}">
-      <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}">
-      <link rel="stylesheet" th:href="@{/css/style.css}">
-      <link rel="stylesheet" th:href="@{/css/custom.css}">
-   </head>
-   <body>
-      <div class="container-scroller">
-         <div class="container-fluid page-body-wrapper full-page-wrapper">
-            <div class="content-wrapper bg-login d-flex align-items-center auth">
-               <div class="row w-100 ">
-                  <div class="col-lg-4 mx-auto">
-                     <div class="alert alert-primary text-center bg-warning mt-5" role="alert" th:if="${param.companyDeleted}">
-                        Company has been successfully deleted permanently.
-                     </div>
-                     <div class="alert alert-success text-white text-center bg-success mt-5" role="alert" th:if="${param.logout}">
-                        You have been successfully logged out.
-                     </div>
-                     <div class="alert alert-success text-white text-center bg-success mt-5" role="alert" th:if="${param.userDetailsChanged}">
-                        User Credentials has been successfully Updated.
-                     </div>
-                     <div class="alert alert-danger text-white text-center bg-danger mt-5" role="alert" th:if="${param.error}">
-                        Invalid Username or Password
-                        <i class="fa fa-exclamation-circle ml-1" aria-hidden="true"></i>
-                     </div>
-                     <div class="alert alert-success text-white text-center bg-success mt-5" role="alert" th:if="${param.checkEmailConfirm}">
-                        Please check your email and confirm.  
-                     </div>
-                     <div class="alert alert-success text-white text-center bg-success mt-5" role="alert" th:if="${param.passwordChanged}">
-                        Password has been successfully changed ! 
-                     </div>
-                     <div class="alert alert-danger text-white text-center bg-danger mt-5" role="alert" th:if="${param.somethingWentWrong}">
-                        Something went wrong!, Please try again later.  
-                     </div>
-                     <div class="auth-form-light text-left px-5 py-4">
-                        <div class="brand-logo d-flex justify-content-center">
-                           <img th:src="@{/images/logo.png}" alt="logo">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Login</title>
+        <link rel="stylesheet" th:href="@{/vendors/iconfonts/font-awesome/css/all.min.css}" />
+        <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}" />
+        <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}" />
+        <link rel="stylesheet" th:href="@{/css/style.css}" />
+        <link rel="stylesheet" th:href="@{/css/custom.css}" />
+    </head>
+    <body>
+        <div class="container-scroller">
+            <div class="container-fluid page-body-wrapper full-page-wrapper">
+                <div class="content-wrapper bg-login d-flex align-items-center auth">
+                    <div class="row w-100">
+                        <div class="col-lg-4 mx-auto">
+                            <div class="alert alert-primary text-center bg-warning mt-5" role="alert" th:if="${param.companyDeleted}">
+                                Company has been successfully deleted permanently.
+                            </div>
+                            <div class="alert alert-success text-white text-center bg-success mt-5" role="alert" th:if="${param.logout}">
+                                You have been successfully logged out.
+                            </div>
+                            <div class="alert alert-success text-white text-center bg-success mt-5" role="alert" th:if="${param.userDetailsChanged}">
+                                User Credentials has been successfully Updated.
+                            </div>
+                            <div class="alert alert-danger text-white text-center bg-danger mt-5" role="alert" th:if="${param.error}">
+                                Invalid Username or Password
+                                <i class="fa fa-exclamation-circle ml-1" aria-hidden="true"></i>
+                            </div>
+                            <div class="alert alert-success text-white text-center bg-success mt-5" role="alert" th:if="${param.checkEmailConfirm}">
+                                Please check your email and confirm.
+                            </div>
+                            <div class="alert alert-success text-white text-center bg-success mt-5" role="alert" th:if="${param.passwordChanged}">
+                                Password has been successfully changed !
+                            </div>
+                            <div class="alert alert-danger text-white text-center bg-danger mt-5" role="alert" th:if="${param.somethingWentWrong}">
+                                Something went wrong!, Please try again later.
+                            </div>
+                            <div class="auth-form-light text-left px-5 py-4">
+                                <div class="brand-logo d-flex justify-content-center">
+                                    <img th:src="@{/images/logo.png}" alt="logo" />
+                                </div>
+                                <h4>Hello! Welcome to UBM</h4>
+                                <h6 class="font-weight-light">Sign in to continue.</h6>
+                                <form class="pt-3" th:action="@{/login}" method="post">
+                                    <div class="form-group">
+                                        <input type="text" name="username" class="form-control login-box pl-cr" placeholder="Username" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" class="form-control login-box pl-cr" placeholder="Password" />
+                                    </div>
+                                    <div class="mt-3">
+                                        <button class="btn btn-block btn-primary btn-lg font-weight-medium login-btn" type="submit">Login</button>
+                                    </div>
+                                    <div class="my-2 d-flex justify-content-between align-items-center">
+                                        <a th:href="@{/company/register}" th:if="${enable != null}" class="auth-link text-black pt-3" style="text-decoration: none !important;">Company Creation</a>
+                                        <a th:href="@{/reset/password}" class="auth-link text-white pt-3" style="text-decoration: none !important;">Forgot password?</a>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <h4>Hello! Welcome to UBM</h4>
-                        <h6 class="font-weight-light">Sign in to continue.</h6>
-                        <form class="pt-3" th:action ="@{/login}" method ="post">
-                           <div class="form-group">
-                              <input type="text" name="username" class="form-control login-box pl-cr" placeholder="Username">
-                           </div>
-                           <div class="form-group">
-                              <input type="password" name="password" class="form-control login-box pl-cr" placeholder="Password">
-                           </div>
-                           <div class="mt-3">
-                              <button class="btn btn-block btn-primary btn-lg font-weight-medium login-btn" type="submit">Login</button>
-                           </div>
-                           <div class="my-2 d-flex justify-content-between align-items-center">
-                              <a th:href="@{/company/register}" th:if="${enable != null}" class="auth-link text-black pt-3" style="text-decoration: none!important;">Company Creation</a>
-                              <a th:href="@{/reset/password}" class="auth-link text-white pt-3" style="text-decoration: none!important;">Forgot password?</a>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
-      <script th:src="@{/vendors/js/vendor.bundle.addons.js}"></script>
-      <script th:src="@{/js/off-canvas.js}"></script>
-      <script th:src="@{/js/hoverable-collapse.js}"></script>
-      <script th:src="@{/js/misc.js}"></script>
-      <script th:src="@{/js/todolist.js}"></script>
-      <script th:src="@{/js/custom.js}"></script>
-      <script th:src="@{/js/validator.js}"></script>
-      <script>
-	      $('.login-btn').on('click', function(){
-			$(this).html('<div class="loader"></div> Loading...');
-		  });
-     </script>
-   </body>
+        </div>
+        <script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
+        <script th:src="@{/vendors/js/vendor.bundle.addons.js}"></script>
+        <script th:src="@{/js/off-canvas.js}"></script>
+        <script th:src="@{/js/hoverable-collapse.js}"></script>
+        <script th:src="@{/js/misc.js}"></script>
+        <script th:src="@{/js/todolist.js}"></script>
+        <script th:src="@{/js/custom.js}"></script>
+        <script th:src="@{/js/validator.js}"></script>
+        <script>
+            $(".login-btn").on("click", function () {
+                $(this).html('<div class="loader"></div> Loading...');
+            });
+        </script>
+    </body>
 </html>

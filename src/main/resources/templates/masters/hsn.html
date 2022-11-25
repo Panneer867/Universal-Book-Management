@@ -1,62 +1,118 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
-   <body>
-      <section>
-         <div class="page-header">
-            <h3 class="page-title">
-               HSN Code
-            </h3>
-            <nav aria-label="breadcrumb">
-               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">HSN Code</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
-               </ol>
-            </nav>
-         </div>
-         <div class="row d-flex justify-content-center pt-3">
-            <div class="col-7">
-               <div class="card">
-                  <div class="card-body">
-                     <h4 class="card-title text-center">HSN Code</h4>
-                    
-                     <hr class="pb-3">
-                     <form class="forms-sample" th:action="@{/master/saveHsnData}" method="post"  data-toggle="validator" role="form" th:object="${hsnCode}">
-                        <div class="form-group row">
-                           <label for="itemName" class="col-sm-2 col-form-label">Item Name<strong class="text-danger ">*</strong></label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control col-sm-10" name="itemName" id="itemName" data-minlength="2" data-error="Min 2 digits required !" placeholder="Enter Item Name" required>
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
+    <body>
+        <section>
+            <div class="row">
+                <div class="col-10">
+                    <div class="page-header">
+                        <ul class="breadcrumb px-0">
+                            <li><a th:href="@{/master/hsn}">Master</a></li>
+                            <li><a href="#" class="text-white">&nbsp;HSN Master</a></li>
+                        </ul>
+                        <nav aria-label="breadcrumb">
+                            <a th:href="@{/master/hsn/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>HSN List</a>
+                        </nav>
+                    </div>
+
+                    <div class="mt-5"></div>
+                    <div class="alert alert-success text-center p-2 col-8 mx-auto" role="alert" th:if="${param.hsnAdded}">
+                        HSN Code has been added successfully!
+                    </div>
+                    <div class="alert alert-danger text-center p-2 col-8 mx-auto font-weight-bold" role="alert" th:if="${param.hsnAlreadyExists}">
+                        HSN Code already Exists!
+                    </div>
+                    <div class="alert alert-danger text-center p-2 col-8 mx-auto font-weight-bold" role="alert" th:if="${param.categoryAlreadyExists}">
+                        This category has already a HSN code Exists
+                    </div>
+
+                    <div class="col-8 mx-auto">
+                        <div class="card">
+                            <div class="card-body pt-0">
+                                <h5 class="p-2 mb-0 text-center">HSN Code Master</h5>
+                                <hr class="mb-4 mt-0" />
+                                <form class="forms-sample" data-toggle="validator" th:action="@{/master/hsn/add}" role="form" method="post">
+                                    <div class="row justify-content-center">
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label for="categoryName">Category Name<strong class="text-danger">*</strong></label>
+                                                <select class="form-control" name="categoryName" id="categoryName" data-error="Select Category Name !" required>
+                                                    <option value="" selected>select</option>
+                                                    <option th:each="category : ${categories}" th:value="${category.categoryName}" th:utext="${category.categoryName}" />
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label for="hsnCode">HSN Code<strong class="text-danger">*</strong></label>
+                                                <input
+                                                    type="number"
+                                                    class="form-control"
+                                                    id="hsnCode"
+                                                    name="hsnCode"
+                                                    data-error="Provide HSN Code!"
+                                                    maxlength="11"
+                                                    oninput="this.value=this.value.slice(0,this.maxLength)"
+                                                    placeholder="Enter HSN Code"
+                                                    required
+                                                />
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2" style="margin-top: 20px;">
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="form-group row">
-                           <label for="catagoryName" class="col-sm-2 col-form-label">Category<strong class="text-danger ">*</strong></label>
-                           <div class="col-sm-9">
-                              <select class="form-control col-sm-8" name="catagoryName" data-error="Select Catagory !" required>
-                                 <option>Select</option>
-                                 <option>Category-1</option>
-                                 <option>Category-2</option>
-                                 <div class="help-block with-errors text-danger"></div>
-                              </select>               
-                           </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="container p-0 mx-0">
+                        <div class="bar opened dark">
+                            <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">
+                                <span class="text">Brand Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/publisher'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/publisher' ? 'active':''}">
+                                <span class="text">Brand Publisher</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/cash-counter'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/cash-counter' ? 'active':''}">
+                                <span class="text">Cash Counter</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/catalogue'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/catalogue' ? 'active':''}">
+                                <span class="text">Catalogue Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/category'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/category' ? 'active':''}">
+                                <span class="text">Category Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/bundle'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/bundle' ? 'active':''}">
+                                <span class="text">Bundle Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/hsn'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/hsn' ? 'active':''}">
+                                <span class="text">HSN Code</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/item'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/item' ? 'active':''}">
+                                <span class="text">Item Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/school'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/school' ? 'active':''}">
+                                <span class="text">School Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/supplier'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/supplier' ? 'active':''}">
+                                <span class="text">Supplier Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/tax'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/tax' ? 'active':''}">
+                                <span class="text">Tax Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/measures'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/measures' ? 'active':''}">
+                                <span class="text">Unit of Measures</span>
+                            </div>
                         </div>
-                        <div class="form-group row">
-                           <label for="hsnCode" class="col-sm-2 col-form-label">HSN Code<strong class="text-danger ">*</strong></label>
-                           <div class="col-sm-9">
-                              <input type="number" class="form-control col-sm-5" name="hsnCode" id="hsnCode" data-minlength="6" data-error="Min 6 Number required !" placeholder="Enter HSN Code" required>
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        <div class="text-center">
-                           <button type="submit" th:href="@{/master/saveHsnData}" class="btn btn-primary mr-2">Submit</button>
-                           <a type="button" th:href="@{/master/displayHsnData}" class="btn btn-success">View</a>
-                       </div>
-                     </form>
-                  </div>
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-         
-         
-      </section>
-   </body>
+        </section>
+    </body>
 </html>

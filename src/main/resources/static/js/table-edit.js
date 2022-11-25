@@ -91,9 +91,9 @@ $(document).ready(function() {
 	$('.table .edit-brand').on('click', function(event) {
 		event.preventDefault();
 		var href = $(this).attr('href');
-		$.get(href, function(unit) {
-			$('#brandIdCopy').val(unit.brandId);
-			$('#brandNameCopy').val(unit.brandName);
+		$.get(href, function(brand) {
+			$('#brandIdCopy').val(brand.brandId);
+			$('#brandNameCopy').val(brand.brandName);
 		});
 		$('editBrand').modal();
 	});
@@ -103,11 +103,25 @@ $(document).ready(function() {
 	$('.table .edit-category').on('click', function(event) {
 		event.preventDefault();
 		var href = $(this).attr('href');
-		$.get(href, function(unit) {
-			$('#categoryIdCopy').val(unit.categoryId);
-			$('#categoryNameCopy').val(unit.categoryName);
-			$('#categoryStatusCopy').val(unit.categoryStatus);
+		$.get(href, function(category) {
+			$('#categoryIdCopy').val(category.categoryId);
+			$('#categoryNameCopy').val(category.categoryName);
+			$('#categoryStatusCopy').val(category.categoryStatus);
 		});
 		$('editCategory').modal();
 	});
+
+	$(document).ready(function() {
+		$('.table .edit-hsn').on('click', function(event) {
+			event.preventDefault();
+			var href = $(this).attr('href');
+			$.get(href, function(hsn) {
+				$('#hsnIdCopy').val(hsn.hsnId);
+				$('#categoryNameCopy').val(hsn.categoryName);
+				$('#hsnCodeCopy').val(hsn.hsnCode);
+			});
+			$('editHsn').modal();
+		});
+	});
+
 });

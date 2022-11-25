@@ -14,7 +14,6 @@
         <link rel="stylesheet" th:href="@{/css/edit.css}" />
         <link rel="stylesheet" th:href="@{/css/custom.css}" />
         <link rel="stylesheet" th:href="@{/css/dropdown-list.css}" />
-
         <script th:src="@{https://www.gstatic.com/charts/loader.js}"></script>
         <script th:src="@{https://unpkg.com/sweetalert/dist/sweetalert.min.js}"></script>
     </head>
@@ -187,7 +186,7 @@
                                 </ul>
                             </div>
                         </li>
-                       <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" th:href="@{/master/brand}" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/master') ? 'active':''}">
                                 <i class="fa fa-rupee-sign menu-icon pl-2"></i>
                                 <span class="menu-title">Master</span>
