@@ -1,95 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
-   <body>
-      <section>
-         <div class="page-header">
-            <h3 class="page-title">
-               Item Master
-            </h3>
-            <nav aria-label="breadcrumb">
-               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Item Master</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
-               </ol>
-            </nav>
-         </div>
-         <div class="col-12 grid-margin stretch-card mx-auto pt-5">
-            <div class="card">
-               <div class="card-body">
-                  <h4 class="card-title text-center">Item Master</h4>
-					
-					
-                  <hr class="pb-3">
-                  <form class="forms-sample" th:action="@{/master/saveItemData}" data-toggle="validator" role="form" th:object="${item}" method="post" enctype="multipart/form-data">
-                     <div class="row">
-                        <div class="col-3">
-                           <div class="form-group">
-                              <label for="itemName">Item Name</label><strong class="text-danger ">*</strong>
-                              <input type="text" name="itemName" class="form-control" id="itemName" data-minlength="2" data-error="Min 2 digits required !" placeholder="Enter Item Name" required>                             
-                            <div class="help-block with-errors text-danger"></div>
-                           </div>
-                           
-                            <div class="form-group">
-                              <label for="categoryName">Category Name</label><strong class="text-danger ">*</strong>
-                               <select class="form-control" id="exampleItemCategory" name="categoryName">
-                                 <option>--select--</option>
-                                 <option>Mobile</option>
-                                 <option>Laptop</option>
-                              </select>               
-                            <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        <div class="col-3">
-                           <div class="form-group">
-                              <label for="itemStatus">Item Status</label><strong class="text-danger ">*</strong>
-                              <select class="form-control" id="exampleItemStatus" name="itemStatus">
-                                 <option>Available</option>
-                                 <option>Not Available</option>
-                              </select>
-                            <div class="help-block with-errors text-danger"></div>
-                           </div>
-                           <div class="form-group">
-                              <label for="authorName">Author Name</label>
-                              <input type="text" name="authorName" class="form-control" id="authorName" data-minlength="2" data-error="Min 2 digits required !" placeholder="Enter Author Name" required>                             
-                            <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                         <div class="col-3">
-                           <div class="form-group">
-                              <label for="createDate">Create Date</label><strong class="text-danger ">*</strong>
-                              <input type="date" class="form-control" id="exampleInputDate" name="createDate">
-                            <div class="help-block with-errors text-danger"></div>
-                           </div>
-                           <div class="form-group">
-                              <label for="publisherName">Publisher Name</label>
-                              <input type="text" name="publisherName" class="form-control" id="publisherName" data-minlength="2" data-error="Min 2 digits required !" placeholder="Enter Publisher Name" required>                             
-                            <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        
-                        <div class="col-3">
-                              <div class="form-group text-center">
-                                                <label for="itemImage" class="font-weight-bold">Item Logo<strong class="text-danger ">*</strong></label>
-                                                <input type="file" name="itemImage" id="itemImage" accept="image/*" data-height="80" data-max-file-size="300K" 
-                                                   data-max-width="250" data-max-height="150" class="dropify" data-error="Logo required !" required>
-                                                <small class="text-info">[File: 300KB 250x150]</small>
+    <body>
+        <section>
+            <div class="row">
+                <div class="col-10">
+                    <div class="page-header">
+                        <ul class="breadcrumb px-0">
+                            <li><a th:href="@{/master/item}">Master</a></li>
+                            <li><a href="#" class="text-white">&nbsp;Item Master</a></li>
+                        </ul>
+                        <nav aria-label="breadcrumb">
+                            <a th:href="@{/master/category/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Category List</a>
+                        </nav>
+                    </div>
+                    <div class="mt-5"></div>
+                    <div class="alert alert-success text-center p-2 col-9 mx-auto font-weight-bold" role="alert" th:if="${param.itemAdded}">
+                        Item has been added successfully!
+                    </div>
+                    <div class="alert alert-danger text-center p-2 col-9 mx-auto font-weight-bold" role="alert" th:if="${param.itemAlreadyExists}">
+                        Item already Exists!
+                    </div>
+                    <div class="col-9 grid-margin stretch-card mx-auto">
+                        <div class="card">
+                            <div class="card-body pt-2">
+                                <h5 class="text-center mb-2">Item Master</h5>
+
+                                <hr class="my-2 bg-secondary" />
+                                <form class="forms-sample" data-toggle="validator" th:action="@{/master/item/add}" role="form" method="post">
+                                    <div class="row">
+                                        <div class="col-6 mt-3">
+                                            <div class="form-group mb-2">
+                                                <label for="categoryName">Category Name<strong class="text-danger">*</strong></label>
+                                                <input type="text" class="form-control" id="categoryName" name="categoryName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter category name" required />
+                                                <small class="text-white">Example: NoteBook</small>
                                                 <div class="help-block with-errors text-danger"></div>
-                                             </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 mt-3">
+                                            <div class="form-group mb-2">
+                                                <label for="categoryStatus">Category Status<strong class="text-danger">*</strong></label>
+                                                <select class="form-control" id="categoryStatus" name="categoryStatus" data-error="Select a category status !" required>
+                                                    <option value="" selected>select</option>
+                                                    <option value="Available">Available</option>
+                                                    <option value="Not Available">Not Available</option>
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2" style="margin-top: 36px;">
+                                            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                     </div>
-                     
-                     <div class="text-center">
-                        <button type="submit" th:href="@{/master/saveItemData}" class="btn btn-sm btn-primary mr-2">Submit</button>
-                         <a type="button" th:href="@{/master/findItemHistory}" class="btn btn-sm btn-success mr-2">View</a>
-                        <button type="reset" class="btn btn-sm btn-secondary">Reset</button>
-                     </div>
-                  </form>
-               </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="container p-0 mx-0">
+                        <div class="bar opened dark">
+                            <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">
+                                <span class="text">Brand Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/brand/publisher'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand/publisher' ? 'active':''}">
+                                <span class="text">Brand Publisher</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/cash-counter'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/cash-counter' ? 'active':''}">
+                                <span class="text">Cash Counter</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/catalogue'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/catalogue' ? 'active':''}">
+                                <span class="text">Catalogue Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/category'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/category' ? 'active':''}">
+                                <span class="text">Category Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/bundle'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/bundle' ? 'active':''}">
+                                <span class="text">Bundle Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/hsn'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/hsn' ? 'active':''}">
+                                <span class="text">HSN Code</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/item'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/item' ? 'active':''}">
+                                <span class="text">Item Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/school'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/school' ? 'active':''}">
+                                <span class="text">School Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/supplier'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/supplier' ? 'active':''}">
+                                <span class="text">Supplier Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/tax'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/tax' ? 'active':''}">
+                                <span class="text">Tax Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/measures'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/measures' ? 'active':''}">
+                                <span class="text">Unit of Measures</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-         
-         
-         
-      </section>
-   </body>
+        </section>
+    </body>
 </html>

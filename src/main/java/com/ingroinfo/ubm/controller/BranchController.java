@@ -72,8 +72,8 @@ public class BranchController {
 			model.addAttribute("companyId", company.getCompanyId());
 			model.addAttribute("companyName", company.getCompanyName());
 			model.addAttribute("branchCount", company.getNoOfBranch());
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 
 		} else if (branch != null) {
@@ -138,8 +138,8 @@ public class BranchController {
 			model.addAttribute("companyId", company.getCompanyId());
 			model.addAttribute("companyName", company.getCompanyName());
 			model.addAttribute("branchCount", company.getNoOfBranch());
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 		}
 

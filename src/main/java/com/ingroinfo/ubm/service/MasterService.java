@@ -10,7 +10,7 @@ public interface MasterService {
 
 	UnitOfMeasures findByUnitId(Long unitId);
 
-	List<UnitOfMeasures> getUnits();
+	List<UnitOfMeasures> getAllUnits();
 
 	void saveUnitOfMeasure(String unitOfMeasure);
 
@@ -26,7 +26,7 @@ public interface MasterService {
 
 	void saveBrand(Brand brand);
 
-	List<Brand> getBrands();
+	List<Brand> getAllBrands();
 
 	Brand findByBrandId(Long id);
 
@@ -42,7 +42,7 @@ public interface MasterService {
 
 	void saveCategory(Category category);
 
-	List<Category> getCategories();
+	List<Category> getAllCategories();
 
 	Category findByCategoryId(Long categoryId);
 
@@ -58,7 +58,7 @@ public interface MasterService {
 
 	boolean categoryNameExists(String categoryName);
 
-	List<HsnCode> getHsnList();
+	List<HsnCode> getAllHsnCode();
 
 	HsnCode findByHsnId(Long hsnId);
 

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+    <body>
+        <section>
+            <div class="row">
+                <div class="col-10">
+                    <div class="page-header">
+                        <ul class="breadcrumb px-0">
+                            <li><a th:href="@{/master/brand/publisher}">Master</a></li>
+                            <li><a href="#" class="text-white">&nbsp;Brand Publisher</a></li>
+                        </ul>
+                        <nav aria-label="breadcrumb">
+                            <a th:href="@{/master/brand/publisher/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Brand Publisher List</a>
+                        </nav>
+                    </div>
+                    <div class="mt-5"></div>
+                    <div class="alert alert-success text-center p-2 col-9 mx-auto font-weight-bold" role="alert" th:if="${param.brandPublisherAdded}">
+                        Brand Publisher has been added successfully!
+                    </div>
+                    <div class="alert alert-danger text-center p-2 col-9 mx-auto font-weight-bold" role="alert" th:if="${param.brandPublisherAlreadyExists}">
+                        Brand Publisher Name already Exists!
+                    </div>
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-7">
+                            <div class="card">
+                                <div class="card-body pt-2">
+                                    <h5 class="text-center mb-2">Brand Publisher</h5>
+                                    <hr class="my-2 bg-secondary" />
+                                    <form class="forms-sample" data-toggle="validator" th:action="@{/master/brand/publisher/add}" role="form" method="post">
+                                       
+                                       <div class="form-group row pt-3 mb-2">
+                                            <label for="companyName" class="col-sm-4 col-form-label">Select Brand<strong class="text-danger">*</strong></label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="brand" name="brand" data-error="Select a brand !" required>
+                                                    <option value="" selected>select</option>
+                                                    <option th:each="brand : ${brands}" th:value="${brand.brandName}" th:utext="${brand.brandName}" />
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="form-group row mb-2">
+                                            <label for="category" class="col-sm-4 col-form-label">Under Category<strong class="text-danger">*</strong></label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="category" name="category" data-error="Select a Category !" required>
+                                                    <option value="" selected>select</option>
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                        
+                                          <div class="form-group row mb-2">
+                                            <label for="supplier" class="col-sm-4 col-form-label">Supplier<strong class="text-danger">*</strong></label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="supplier" name="supplier" data-error="Select a Supplier !" required>
+                                                    <option value="" selected>select</option>
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group row mb-2">
+                                            <label for="publisherName" class="col-sm-4 col-form-label">Publisher Name<strong class="text-danger">*</strong></label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="publisherName" name="publisherName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter Publisher Name" required />
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group row mb-2">
+                                            <label for="remarks" class="col-sm-4 col-form-label">Remarks<strong class="text-danger">*</strong></label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="remarks" name="remarks" data-minlength="3" placeholder="Enter Publisher Name" />
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                        
+ 										<div class="text-center">
+                                            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
+                                        </div>
+                                        
+                                        
+
+                                        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    <h5 class="text-center mb-2">Brand Logo</h5>
+                                    <hr class="my-2 bg-secondary" />
+                                    <div class="text-center">
+                                        <img th:src="@{'/Company/'+ ${details.companyName} +'/Brands/asdasdasa.png'}" onerror="this.src='/images/noimage.jpg'" class="rounded" alt="profile" style="width: 70%;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="container p-0 mx-0">
+                        <div class="bar opened dark">
+                            <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">
+                                <span class="text">Brand Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/brand/publisher'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand/publisher' ? 'active':''}">
+                                <span class="text">Brand Publisher</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/cash-counter'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/cash-counter' ? 'active':''}">
+                                <span class="text">Cash Counter</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/catalogue'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/catalogue' ? 'active':''}">
+                                <span class="text">Catalogue Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/category'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/category' ? 'active':''}">
+                                <span class="text">Category Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/bundle'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/bundle' ? 'active':''}">
+                                <span class="text">Bundle Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/hsn'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/hsn' ? 'active':''}">
+                                <span class="text">HSN Code</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/item'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/item' ? 'active':''}">
+                                <span class="text">Item Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/school'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/school' ? 'active':''}">
+                                <span class="text">School Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/supplier'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/supplier' ? 'active':''}">
+                                <span class="text">Supplier Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/tax'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/tax' ? 'active':''}">
+                                <span class="text">Tax Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/measures'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/measures' ? 'active':''}">
+                                <span class="text">Unit of Measures</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

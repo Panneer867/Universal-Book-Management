@@ -35,14 +35,14 @@ public class DashboardController {
 		Branch branch = branchService.findByUserId(user);
 
 		if (company != null) {
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 		} else if (branch != null) {
 			Company cmpy = branch.getCompany();
 			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		} else {
 			model.addAttribute("usernameofuser", user.getFirstName());

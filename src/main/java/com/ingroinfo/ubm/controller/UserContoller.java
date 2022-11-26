@@ -74,8 +74,8 @@ public class UserContoller {
 			model.addAttribute("companyProfile", "enableCompany");
 			model.addAttribute("companyId", company.getCompanyId());
 			model.addAttribute("companyName", company.getCompanyName());
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("enable", "userRole");
 
 			model.addAttribute("branches", branches);
@@ -147,8 +147,8 @@ public class UserContoller {
 			model.addAttribute("companyProfile", "enableCompany");
 			model.addAttribute("companyId", company.getCompanyId());
 			model.addAttribute("companyName", company.getCompanyName());
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("branches", branches);
 
 			for (Iterator<UserDto> it = users.iterator(); it.hasNext();) {

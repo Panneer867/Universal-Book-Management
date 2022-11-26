@@ -50,16 +50,16 @@ public class MasterController {
 
 		if (company != null) {
 
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
 			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
@@ -76,20 +76,20 @@ public class MasterController {
 
 		if (company != null) {
 
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
 			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
-		List<Brand> brandList = masterService.getBrands();
+		List<Brand> brandList = masterService.getAllBrands();
 		if (brandList.size() == 0) {
 			model.addAttribute("emptyList", "No Records");
 		}
@@ -181,16 +181,16 @@ public class MasterController {
 
 		if (company != null) {
 
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
 			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
@@ -207,20 +207,20 @@ public class MasterController {
 
 		if (company != null) {
 
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
 			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
-		List<Category> categoryList = masterService.getCategories();
+		List<Category> categoryList = masterService.getAllCategories();
 
 		if (categoryList.size() == 0) {
 			model.addAttribute("emptyList", "No Records");
@@ -280,16 +280,16 @@ public class MasterController {
 
 		if (company != null) {
 
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
 			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
@@ -306,20 +306,20 @@ public class MasterController {
 
 		if (company != null) {
 
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
 			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
-		List<UnitOfMeasures> unitList = masterService.getUnits();
+		List<UnitOfMeasures> unitList = masterService.getAllUnits();
 		if (unitList.size() == 0) {
 			model.addAttribute("emptyList", "No Records");
 		}
@@ -371,20 +371,20 @@ public class MasterController {
 
 		if (company != null) {
 
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
 			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
-		model.addAttribute("categories", masterService.getCategories());
+		model.addAttribute("categories", masterService.getAllCategories());
 		return "/masters/hsn";
 	}
 
@@ -398,26 +398,26 @@ public class MasterController {
 
 		if (company != null) {
 
-			model.addAttribute("pe", company.getProfile());
-			model.addAttribute("cne", company.getCompanyName());
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
-			model.addAttribute("pe", cmpy.getProfile());
-			model.addAttribute("cne", cmpy.getCompanyName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("usernameofbranch", branch.getFirstName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
-		List<HsnCode> hsnList = masterService.getHsnList();
+		List<HsnCode> hsnList = masterService.getAllHsnCode();
 		if (hsnList.size() == 0) {
 			model.addAttribute("emptyList", "No Records");
 		}
 
 		model.addAttribute("hsnLists", hsnList);
-		model.addAttribute("categories", masterService.getCategories());
+		model.addAttribute("categories", masterService.getAllCategories());
 
 		return "/masters/hsn_list";
 	}
@@ -461,5 +461,33 @@ public class MasterController {
 
 		masterService.deleteByHsnId(hsnId);
 		return "redirect:/master/hsn/list?hsnDeleted";
+	}
+	
+	@GetMapping("/brand/publisher")
+	public String brandPublisher(Model model, Principal principal) {
+		model.addAttribute("title", "Brand Publisher");
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+			model.addAttribute("details",company);
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+			model.addAttribute("details",cmpy);
+		}
+
+		model.addAttribute("brands", masterService.getAllBrands());
+		return "/masters/brand_publisher";
 	}
 }

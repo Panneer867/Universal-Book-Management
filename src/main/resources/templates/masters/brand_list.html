@@ -56,7 +56,7 @@
                                     <tr th:each="brand: ${brands}">
                                         <td class="text-center" th:text="${brand.brandId}"></td>
                                         <td class="py-1 text-center">
-                                            <img th:src="@{'/Company/'+ ${cne} +'/Brands/'+ ${brand.brandLogo}}" style="width: 70px; height: 70px; border: 1px solid rgb(0, 128, 192);" alt="image" />
+                                            <img th:src="@{'/Company/'+ ${companyNameData} +'/Brands/'+ ${brand.brandLogo}}" style="width: 70px; height: 70px; border: 1px solid rgb(0, 128, 192);" alt="image" />
                                         </td>
                                         <td class="text-center" th:text="${brand.brandName}"></td>
                                         <td class="text-center" th:text="${#dates.format(brand.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>

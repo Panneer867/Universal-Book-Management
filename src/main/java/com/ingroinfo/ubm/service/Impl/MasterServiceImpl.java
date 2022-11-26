@@ -31,7 +31,7 @@ public class MasterServiceImpl implements MasterService {
 	private HsnCodeRepository hsnCodeRepository;
 
 	@Override
-	public List<UnitOfMeasures> getUnits() {
+	public List<UnitOfMeasures> getAllUnits() {
 		return unitsRepository.findAll();
 	}
 
@@ -88,7 +88,7 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
-	public List<Brand> getBrands() {
+	public List<Brand> getAllBrands() {
 		return brandRepository.findAll();
 	}
 
@@ -142,7 +142,7 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
-	public List<Category> getCategories() {
+	public List<Category> getAllCategories() {
 		return categoryRepository.findAll();
 	}
 
@@ -191,7 +191,7 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
-	public List<HsnCode> getHsnList() {
+	public List<HsnCode> getAllHsnCode() {
 		return hsnCodeRepository.findAll();
 	}
 

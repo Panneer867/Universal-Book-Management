@@ -74,8 +74,8 @@ public class CompanyController {
 		model.addAttribute("profile", "Profile has been sucessfully updated !");
 		model.addAttribute("changed", "Login Credentials has been sucessfully updated !");
 		model.addAttribute("wrong", "You have entered wrong password!!");
-		model.addAttribute("pe", company.getProfile());
-		model.addAttribute("cne", company.getCompanyName());
+		model.addAttribute("profileData", company.getProfile());
+		model.addAttribute("companyNameData", company.getCompanyName());
 		model.addAttribute("details", company);
 		model.addAttribute("username", principal.getName());
 		model.addAttribute("stateList", userService.getAllStates());
