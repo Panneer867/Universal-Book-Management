@@ -21,12 +21,14 @@ import lombok.Setter;
 @Entity
 @Table(name = "state")
 public class State {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name = "state_name")
 	private String name;
+	
 	@OneToMany
 	@JoinColumn(name = "state_id")
 	private Set<City> cities;
