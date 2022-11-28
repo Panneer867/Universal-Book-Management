@@ -477,6 +477,7 @@ public class MasterController {
 			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
 			model.addAttribute("details",company);
+			
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
@@ -486,8 +487,9 @@ public class MasterController {
 			model.addAttribute("branchProfile", "enableBranch");
 			model.addAttribute("details",cmpy);
 		}
-
+		
 		model.addAttribute("brands", masterService.getAllBrands());
+		model.addAttribute("categories", masterService.getAllCategories());
 		return "/masters/brand_publisher";
 	}
 }

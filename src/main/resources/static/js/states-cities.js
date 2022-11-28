@@ -22,10 +22,10 @@ $(document).ready(function() {
 		//reset data
 		$('#ccities').html(s);
 	});
-	
-		$("#ostates").change(function() {
+
+	$("#ostates").change(function() {
 		var stateName = $(this).val().trim();
-	
+
 		var s = '<option value="">Select</option>';
 		if (stateName != null) {
 			$.ajax({
@@ -46,10 +46,10 @@ $(document).ready(function() {
 		//reset data
 		$('#ocities').html(s);
 	});
-	
-		$("#bstates").change(function() {
+
+	$("#bstates").change(function() {
 		var stateName = $(this).val().trim();
-	
+
 		var s = '<option value="">Select</option>';
 		if (stateName != null) {
 			$.ajax({
@@ -70,11 +70,11 @@ $(document).ready(function() {
 		//reset data
 		$('#bcities').html(s);
 	});
-	
-	
+
+
 	$("#estates").change(function() {
 		var stateName = $(this).val().trim();
-	
+
 		var s = '<option value="">Select</option>';
 		if (stateName != null) {
 			$.ajax({
@@ -95,6 +95,5 @@ $(document).ready(function() {
 		//reset data
 		$('#ecities').html(s);
 	});
-	
-	
+
 });

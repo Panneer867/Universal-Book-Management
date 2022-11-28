@@ -21,15 +21,13 @@
                         Brand Publisher Name already Exists!
                     </div>
                     <div class="row">
-                        <div class="col-2"></div>
-                        <div class="col-7">
+                        <div class="col-7 mx-auto">
                             <div class="card">
                                 <div class="card-body pt-2">
                                     <h5 class="text-center mb-2">Brand Publisher</h5>
                                     <hr class="my-2 bg-secondary" />
                                     <form class="forms-sample" data-toggle="validator" th:action="@{/master/brand/publisher/add}" role="form" method="post">
-                                       
-                                       <div class="form-group row pt-3 mb-2">
+                                        <div class="form-group row pt-3 mb-2">
                                             <label for="companyName" class="col-sm-4 col-form-label">Select Brand<strong class="text-danger">*</strong></label>
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="brand" name="brand" data-error="Select a brand !" required>
@@ -39,18 +37,19 @@
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
-                                       
+
                                         <div class="form-group row mb-2">
                                             <label for="category" class="col-sm-4 col-form-label">Under Category<strong class="text-danger">*</strong></label>
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="category" name="category" data-error="Select a Category !" required>
                                                     <option value="" selected>select</option>
+                                                    <option th:each="category : ${categories}" th:value="${category.categoryName}" th:utext="${category.categoryName}" />
                                                 </select>
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
-                                        
-                                          <div class="form-group row mb-2">
+
+                                        <div class="form-group row mb-2">
                                             <label for="supplier" class="col-sm-4 col-form-label">Supplier<strong class="text-danger">*</strong></label>
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="supplier" name="supplier" data-error="Select a Supplier !" required>
@@ -59,7 +58,7 @@
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-group row mb-2">
                                             <label for="publisherName" class="col-sm-4 col-form-label">Publisher Name<strong class="text-danger">*</strong></label>
                                             <div class="col-sm-8">
@@ -67,7 +66,7 @@
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-group row mb-2">
                                             <label for="remarks" class="col-sm-4 col-form-label">Remarks<strong class="text-danger">*</strong></label>
                                             <div class="col-sm-8">
@@ -75,26 +74,11 @@
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
-                                        
- 										<div class="text-center">
+
+                                        <div class="text-center">
                                             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
                                         </div>
-                                        
-                                        
-
-                                        
                                     </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="card">
-                                <div class="card-body p-2">
-                                    <h5 class="text-center mb-2">Brand Logo</h5>
-                                    <hr class="my-2 bg-secondary" />
-                                    <div class="text-center">
-                                        <img th:src="@{'/Company/'+ ${details.companyName} +'/Brands/asdasdasa.png'}" onerror="this.src='/images/noimage.jpg'" class="rounded" alt="profile" style="width: 70%;" />
-                                    </div>
                                 </div>
                             </div>
                         </div>

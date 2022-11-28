@@ -68,4 +68,6 @@ public interface MasterService {
 
 	void deleteByHsnId(Long hsnId);
 
+	Brand findByBrandName(String brandName);
+
 }
