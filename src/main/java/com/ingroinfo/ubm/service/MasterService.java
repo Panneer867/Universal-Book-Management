@@ -4,6 +4,7 @@ import java.util.List;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
+import com.ingroinfo.ubm.entity.Supplier;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 
 public interface MasterService {
@@ -69,5 +70,11 @@ public interface MasterService {
 	void deleteByHsnId(Long hsnId);
 
 	Brand findByBrandName(String brandName);
+
+	boolean reciptExists(String reciptNo);
+
+	boolean gstNoExists(String gstin);
+
+	void saveSupplier(Supplier supplier);
 
 }

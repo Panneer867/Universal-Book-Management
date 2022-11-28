@@ -1,312 +1,266 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
-   <body>
-      <section>
-         <div class="page-header">
-            <h3 class="page-title">
-               Supplier Master
-            </h3>
-            <nav aria-label="breadcrumb">
-               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Supplier Master</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
-               </ol>
-            </nav>
-         </div>
-         <div class="col-md-12 grid-margin stretch-card mx-auto">
-            <div class="card">
-               <div class="card-body">
-                  <h4 class="card-title text-center">Supplier Master</h4>
-                  <hr class="pb-3">
-                  
-                  <form class="forms-sample" data-toggle="validator" th:action="@{/master/createSupplierMaster}" method="post">
-                     <div class="row">
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputUsername1">Supplier Code</label>
-                              <input type="text" name="supplierCode" class="form-control" id="exampleInputUsername1" placeholder="Enter Supplier ID" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
+    <body>
+        <section>
+            <div class="row">
+                <div class="col-10">
+                    <div class="page-header">
+                        <ul class="breadcrumb px-0">
+                            <li><a th:href="@{/master/supplier}">Master</a></li>
+                            <li><a href="#" class="text-white">&nbsp;Supplier Master</a></li>
+                        </ul>
+                        <nav aria-label="breadcrumb">
+                            <a th:href="@{/master/supplier/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Supplier List</a>
+                        </nav>
+                    </div>
+                    <div class="mt-4"></div>
+                    <div class="alert alert-success text-center p-2 mx-auto font-weight-bold" role="alert" th:if="${param.supplierAdded}">
+                        Supplier has been added successfully!
+                    </div>
+                    <div class="alert alert-success text-center p-2 mx-auto font-weight-bold" role="alert" th:if="${param.gstNoAlreadyExists}">
+                        GSTIN already Exists!
+                    </div>
+                    <div class="alert alert-danger text-center p-2 mx-auto font-weight-bold" role="alert" th:if="${param.reciptAlreadyExists}">
+                        Recipt No already Exists!
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body pt-2">
+                            <h5 class="text-center mb-2">Supplier Master</h5>
+
+                            <hr class="my-2 bg-secondary">
+                            <form class="forms-sample" data-toggle="validator" th:action="@{/master/supplier/add}" th:object="${supplier}" role="form" method="post">
+                                <div class="row mt-3">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="supplierName">Supplier Name<strong class="text-danger">*</strong></label>
+                                            <input type="text" class="form-control" id="supplierName" name="supplierName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter supplier name" required />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="reciptNo">Recipt No<strong class="text-danger">*</strong></label>
+                                            <input type="text" class="form-control" id="reciptNo" name="reciptNo" data-error="Recipt no is required !" oninput="this.value = this.value.toUpperCase()" placeholder="Enter recipt no" required />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="gstType">GST Type<strong class="text-danger">*</strong></label>
+                                            <select class="form-control" id="gstType" name="gstType" data-error="Select GST type !" required>
+                                                <option value="" selected>select</option>
+                                                <option value="Taxable">Taxable</option>
+                                                <option value="Exempted">Exempted</option>
+                                            </select>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="gstin">GSTIN<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="text"
+                                                class="form-control form-control-sm"
+                                                oninput="this.value = this.value.toUpperCase()"
+                                                id="gstin"
+                                                name="gstin"
+                                                data-minlength="15"
+                                                maxlength="15"
+                                                data-error="Provide a GSTIN/UIN !"
+                                                placeholder="Enter GSTIN/UIN"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="text-center bg-warning py-1">Contact Details</h5>
+                                <div class="row mt-3">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="address">Address<strong class="text-danger">*</strong></label>
+                                            <textarea type="text" class="form-control" rows="2" name="address" id="address" data-error="Provide a address !" placeholder="Enter address" required></textarea>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="state">State<strong class="text-danger">*</strong></label>
+                                            <select class="form-control" id="bstates" name="state" data-error="Select state !" required>
+                                                <option value="" selected>Select</option>
+                                                <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                            </select>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="city">City<strong class="text-danger">*</strong></label>
+                                            <select class="form-control" id="bcities" name="city" data-error="Select city !" required>
+                                                <option value="" selected>Select</option>
+                                            </select>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label for="pinCode">Pincode<strong class="text-danger">*</strong></label>
+                                            <input type="text" class="form-control form-control-sm" name="pinCode" id="pinCode" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="text-center bg-warning py-1">Bank Details</h5>
+                                <div class="row mt-3">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="bankName">Bank Name<strong class="text-danger">*</strong></label>
+                                            <select class="form-control" id="bankName" name="bankName" data-error="Select Bank Name !" required>
+                                                <option value="" selected>select</option>
+                                                <option th:each="banks : ${bankList}" th:value="${banks.name}" th:utext="${banks.name}" />
+                                            </select>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="initAccountNumber">Account Number<strong class="text-danger">*</strong></label>
+                                            <input type="number" class="form-control form-control-sm" id="initAccountNumber" data-minlength="8" data-error="Provide a account number !" required />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="accountNumber">Confirm Account Number<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="password"
+                                                class="form-control form-control-sm"
+                                                id="accountNumber"
+                                                name="accountNumber"
+                                                data-minlength="8"
+                                                data-match="#initAccountNumber"
+                                                data-match-error="Whoops, these don't match"
+                                                placeholder="Enter confirm account no"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="ifscCode">IFSC Code<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="text"
+                                                class="form-control form-control-sm"
+                                                id="ifscCode"
+                                                name="ifscCode"
+                                                oninput="this.value = this.value.toUpperCase()"
+                                                data-error="Provide IFSC Code !"
+                                                placeholder="Enter ifsc code"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="text-center bg-warning py-1">Cost Details</h5>
+                                <div class="row mt-4">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="totalPurchasedAmount">Total Purchased Amount<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="number"
+                                                class="form-control form-control-sm"
+                                                name="totalPurchasedAmount"
+                                                oninput="this.value = this.value.toUpperCase()"
+                                                id="totalPurchasedAmount"
+                                                data-error="Provide Purchase amount !"
+                                                placeholder="Enter Purchase amount"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="paidAmount">Paid Amount<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="number"
+                                                class="form-control form-control-sm"
+                                                name="paidAmount"
+                                                oninput="this.value = this.value.toUpperCase()"
+                                                id="paidAmount"
+                                                data-error="Provide Paid amount !"
+                                                placeholder="Enter Paid amount"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="balanceAmount">Balance Amount<strong class="text-danger">*</strong></label>
+                                            <input type="hidden" name="balanceAmount" id="balanceAmountCopy" />
+                                            <input type="number" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()" id="balanceAmount" data-error="Provide Purchase amount !" disabled />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
+                                    <button type="reset" class="btn btn-sm btn-danger">Reset</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Supplier Name</label>
-                              <input type="text"  name="supplierName" class="form-control" id="exampleInputEmail1" placeholder="Enter Supplier Name" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Company Name</label>
-                              <input type="text"  name="companyName" class="form-control" id="exampleInputEmail1" placeholder="Enter Company Name" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputUsername1">Alias</label>
-                              <input type="text"  name="alias" class="form-control" id="exampleInputUsername1" placeholder="Alias" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Supplier Type</label>
-                              <input type="text"  name="supplierType" class="form-control" id="exampleInputEmail1" placeholder="Enter Supplier Type" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Supplier Reference</label>
-                              <input type="text"  name="supplierReference" class="form-control" id="exampleInputEmail1" placeholder="Enter Supplier Reference" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                     </div>
-                     
-                     <div class="row">
-                        <div class="col-6">
-                           <div class="form-group">
-                              <label for="exampleInputUsername1">About Supplier</label>
-                              <input type="text"  name="aboutSupplier" class="form-control" id="exampleInputUsername1" placeholder="About Supplier" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                       
-                        <div class="col-6">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Supplier Reference Contact</label>
-                              <input type="number"  name="supplierReferenceContact" class="form-control" id="exampleInputEmail1" placeholder="Enter Supplier Reference Contact" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                     </div>
-                     
-                     <h4 class="card-title text-info text-center p-2" style="background:aqua;">Address</h4>
-                     <div class="row">
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputUsername1">Door No</label>
-                              <input type="text"  name="doorNo" class="form-control" id="exampleInputUsername1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                         <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputUsername1">Cross</label>
-                              <input type="text" name="cross" class="form-control" id="exampleInputUsername1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                         <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputUsername1">Main</label>
-                              <input type="text"  name="main" class="form-control" id="exampleInputUsername1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                         <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputUsername1">Nearby</label>
-                              <input type="text"  name="nearBy" class="form-control" id="exampleInputUsername1"  data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                      </div>
-                     <div class="row">
-                     
-                       <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Area</label>
-                              <input type="text" name="area" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                         <div class="col">
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">City</label>
-                              <input type="text"  name="city" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="container p-0 mx-0">
+                        <div class="bar opened dark">
+                            <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">
+                                <span class="text">Brand Master</span>
                             </div>
-                          </div>
-                          
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">State</label>
-                              <input type="text"  name="state" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Pincode</label>
-                              <input type="number"  name="pinCode" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                     </div>
-                     
-                     
-                      <div class="row">
-                         <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Landline Number</label>
-                              <input type="number"  name="landlineNumber" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                         <div class="col">
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">Email Id</label>
-                              <input type="email"  name="emailId" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
+                            <div class="icon" onclick="window.location='/master/brand/publisher'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand/publisher' ? 'active':''}">
+                                <span class="text">Brand Publisher</span>
                             </div>
-                          </div>
-                          
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">GSTN Type</label>
-                              <input type="text"  name="gstnType" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">GSTN Number</label>
-                              <input type="number"  name="gstnNumber" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                     
-                     </div>
-                     
-                     
-                   <div class="row">
-                      <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Supplier Status</label>
-                              <input type="text"  name="supplierStatus" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        
-                         <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Mobile Number</label>
-                              <input type="number"  name="mobileNO" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                   
-                         <div class="col">
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">Supplier Brand</label>
-                              <input type="text"  name="supplierBrand" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
+                            <div class="icon" onclick="window.location='/master/cash-counter'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/cash-counter' ? 'active':''}">
+                                <span class="text">Cash Counter</span>
                             </div>
-                          </div>
-                          
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">PAN Number</label>
-                              <input type="text"  name="panNumber" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
+                            <div class="icon" onclick="window.location='/master/catalogue'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/catalogue' ? 'active':''}">
+                                <span class="text">Catalogue Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/category'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/category' ? 'active':''}">
+                                <span class="text">Category Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/bundle'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/bundle' ? 'active':''}">
+                                <span class="text">Bundle Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/hsn'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/hsn' ? 'active':''}">
+                                <span class="text">HSN Code</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/item'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/item' ? 'active':''}">
+                                <span class="text">Item Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/school'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/school' ? 'active':''}">
+                                <span class="text">School Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/supplier'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/supplier' ? 'active':''}">
+                                <span class="text">Supplier Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/tax'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/tax' ? 'active':''}">
+                                <span class="text">Tax Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/measures'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/measures' ? 'active':''}">
+                                <span class="text">Unit of Measures</span>
+                            </div>
                         </div>
-                     </div>
-                     
-                     
-                    <div class="row">
-                      <div class="col">
-                               <div class="form-group text-center">
-                                                <label for="uploadImage" class="font-weight-bold">Uplord GST Certificate <strong class="text-danger ">*</strong></label>
-                                                <input type="file" name="uploadGstCrft" id="uploadImage" accept="image/*" data-height="50" data-max-file-size="300K" 
-                                              class="dropify" data-error="Logo required !">
-                                                <small class="text-info">[File: 300KB 250x150]</small>
-                                                <div class="help-block with-errors text-danger"></div>
-                                             </div>
-                        </div>
-                        
-                         <div class="col">
-                           <div class="form-group pt-3">
-                              <label for="exampleInputEmail1">Note</label>
-                              <input type="text"  name="note" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                   
-                      
-                    
-                     </div>
-                     
-                     
-                     
-                     
-                     
-                     <h4 class="card-title text-info  text-center p-2" style="background:aqua;">Product</h4>
-                     <div class="row">
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputUsername1">Product Name</label>
-                              <input type="text" name="productName" class="form-control" id="exampleInputUsername1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Category</label>
-                              <input type="text" name="category" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">HSN Code</label>
-                              <input type="number" name="hsnCode" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                     </div>
-                     
-                     <h4 class="card-title text-info text-center p-2" style="background:aqua;">Bank Details</h4>
-                     <div class="row">
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputUsername1">Account Number</label>
-                              <input type="text" name="accountNumber" class="form-control" id="exampleInputUsername1"  data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Bank</label>
-                              <input type="text" name="bank" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">IFSC Code</label>
-                              <input type="text" name="ifscCode" class="form-control" id="exampleInputEmail1" data-minlength="2" data-error="Min 2 digits required !" required> 
-                              <div class="help-block with-errors text-danger"></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="text-center">
-                        <button type="submit" th:href="@{/master/createSupplierMaster}"  class="btn btn-primary mr-2">Submit</button>
-                        <a type="button" th:href="@{/master/showSupplierData}" class="btn btn-success">View</a>
-                        <button type="reset" class="btn btn-sm-2 btn-secondary">Reset</button>
-                     </div>
-                  </form>
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-         
-      </section>
-   </body>
+        </section>
+    </body>
 </html>

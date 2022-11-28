@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import com.ingroinfo.ubm.dao.BrandRepository;
 import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.HsnCodeRepository;
+import com.ingroinfo.ubm.dao.SupplierRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
+import com.ingroinfo.ubm.entity.Supplier;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.service.MasterService;
 
@@ -29,6 +31,9 @@ public class MasterServiceImpl implements MasterService {
 
 	@Autowired
 	private HsnCodeRepository hsnCodeRepository;
+	
+	@Autowired
+	private SupplierRepository supplierRepository;
 
 	@Override
 	public List<UnitOfMeasures> getAllUnits() {
@@ -250,6 +255,24 @@ public class MasterServiceImpl implements MasterService {
 	public Brand findByBrandName(String brandName) {
 
 		return brandRepository.findByBrandName(brandName);
+	}
+
+	@Override
+	public boolean reciptExists(String reciptNo) {
+		
+		return supplierRepository.findByReciptNo(reciptNo) != null;
+	}
+
+	@Override
+	public boolean gstNoExists(String gstin) {
+		
+		return supplierRepository.findByGstin(gstin) != null;
+	}
+
+	@Override
+	public void saveSupplier(Supplier supplier) {
+		
+		supplierRepository.save(supplier);
 	}
 
 }
