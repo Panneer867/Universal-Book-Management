@@ -11,4 +11,6 @@ public interface SupplierRepository extends JpaRepository<Supplier, Long> {
 
 	Supplier findByGstin(String gstin);
 
+	Supplier findBySupplierId(Long id);
+
 }

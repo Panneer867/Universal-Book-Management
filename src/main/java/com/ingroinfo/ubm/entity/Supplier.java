@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "supplier_master")
+@Table(name = "master_supplier")
 public class Supplier {
 
 	@Id
@@ -35,6 +35,10 @@ public class Supplier {
 	private String state;
 	private String city;
 	private String pinCode;
+	private String email;
+	private String telephone;
+	private String mobile;
+	private String faxNo;
 	private String bankName;
 	private String accountNumber;
 	private String ifscCode;

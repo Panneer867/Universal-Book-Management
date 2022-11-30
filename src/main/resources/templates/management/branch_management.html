@@ -79,7 +79,7 @@
                                         <td th:text="${branch.dateCreated}"></td>
                                         <td th:text="${branch.lastUpdated}"></td>
                                         <td class="text-center">
-                                            <a th:href="@{/get/(id=${branch.branchId})}" class="btn btn-success btn-sm p-1 mx-2 edit-branch" data-toggle="modal" data-target="#editBranch">Edit</a>
+                                            <a th:href="@{/get/branch/(id=${branch.branchId})}" class="btn btn-success btn-sm p-1 mx-2 edit-branch" data-toggle="modal" data-target="#editBranch">Edit</a>
                                             <a th:href="@{/branch/delete(branchId=${branch.branchId})}" class="btn btn-danger btn-sm p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
                                         </td>
                                     </tr>

@@ -1,6 +1,8 @@
 package com.ingroinfo.ubm.service;
 
 import java.util.List;
+
+import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
@@ -76,5 +78,17 @@ public interface MasterService {
 	boolean gstNoExists(String gstin);
 
 	void saveSupplier(Supplier supplier);
+
+	List<Supplier> getAllSupplier();
+
+	Supplier findBySupplierId(Long supplierId);
+
+	void updateSupplier(Supplier supplier);
+
+	boolean emailCheck(SupplierDto supplierDto);
+
+	boolean contactNoCheck(SupplierDto supplierDto);
+
+	void deleteBySupplierId(Long supplierId);
 
 }

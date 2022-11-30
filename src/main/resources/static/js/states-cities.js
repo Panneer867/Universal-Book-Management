@@ -6,7 +6,7 @@ $(document).ready(function() {
 		if (stateName != null) {
 			$.ajax({
 				type: 'GET',
-				url: '/getCities',
+				url: '/get/city',
 				data: { "stateName": stateName },
 				success: function(result) {
 					var result = JSON.parse(result);
@@ -30,7 +30,7 @@ $(document).ready(function() {
 		if (stateName != null) {
 			$.ajax({
 				type: 'GET',
-				url: '/getCities',
+				url: '/get/city',
 				data: { "stateName": stateName },
 				success: function(result) {
 					var result = JSON.parse(result);
@@ -54,7 +54,7 @@ $(document).ready(function() {
 		if (stateName != null) {
 			$.ajax({
 				type: 'GET',
-				url: '/getCities',
+				url: '/get/city',
 				data: { "stateName": stateName },
 				success: function(result) {
 					var result = JSON.parse(result);
@@ -79,7 +79,7 @@ $(document).ready(function() {
 		if (stateName != null) {
 			$.ajax({
 				type: 'GET',
-				url: '/getCities',
+				url: '/get/city',
 				data: { "stateName": stateName },
 				success: function(result) {
 					var result = JSON.parse(result);

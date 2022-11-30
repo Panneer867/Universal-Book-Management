@@ -34,21 +34,30 @@
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="supplierName">Supplier Name<strong class="text-danger">*</strong></label>
-                                            <input type="text" class="form-control" id="supplierName" name="supplierName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter supplier name" required />
+                                            <input type="text" class="form-control" id="supplierName" th:field="*{supplierName}" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter supplier name" required />
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="reciptNo">Recipt No<strong class="text-danger">*</strong></label>
-                                            <input type="text" class="form-control" id="reciptNo" name="reciptNo" data-error="Recipt no is required !" oninput="this.value = this.value.toUpperCase()" placeholder="Enter recipt no" required />
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="reciptNo"
+                                                th:field="*{reciptNo}"
+                                                data-error="Recipt no is required !"
+                                                oninput="this.value = this.value.toUpperCase()"
+                                                placeholder="Enter recipt no"
+                                                required
+                                            />
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="gstType">GST Type<strong class="text-danger">*</strong></label>
-                                            <select class="form-control" id="gstType" name="gstType" data-error="Select GST type !" required>
+                                            <select class="form-control" id="gstType" th:field="*{gstType}" data-error="Select GST type !" required>
                                                 <option value="" selected>select</option>
                                                 <option value="Taxable">Taxable</option>
                                                 <option value="Exempted">Exempted</option>
@@ -61,10 +70,10 @@
                                             <label for="gstin">GSTIN<strong class="text-danger">*</strong></label>
                                             <input
                                                 type="text"
-                                                class="form-control form-control-sm"
+                                                class="form-control"
                                                 oninput="this.value = this.value.toUpperCase()"
                                                 id="gstin"
-                                                name="gstin"
+                                                th:field="*{gstin}"
                                                 data-minlength="15"
                                                 maxlength="15"
                                                 data-error="Provide a GSTIN/UIN !"
@@ -80,14 +89,14 @@
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="address">Address<strong class="text-danger">*</strong></label>
-                                            <textarea type="text" class="form-control" rows="2" name="address" id="address" data-error="Provide a address !" placeholder="Enter address" required></textarea>
+                                            <textarea type="text" class="form-control" rows="2" th:field="*{address}" id="address" data-error="Provide a address !" placeholder="Enter address" required></textarea>
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="state">State<strong class="text-danger">*</strong></label>
-                                            <select class="form-control" id="bstates" name="state" data-error="Select state !" required>
+                                            <select class="form-control" id="bstates" th:field="*{state}" data-error="Select state !" required>
                                                 <option value="" selected>Select</option>
                                                 <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
                                             </select>
@@ -97,7 +106,7 @@
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="city">City<strong class="text-danger">*</strong></label>
-                                            <select class="form-control" id="bcities" name="city" data-error="Select city !" required>
+                                            <select class="form-control" id="bcities" th:field="*{city}" data-error="Select city !" required>
                                                 <option value="" selected>Select</option>
                                             </select>
                                             <div class="help-block with-errors text-danger"></div>
@@ -106,8 +115,56 @@
                                     <div class="col-2">
                                         <div class="form-group">
                                             <label for="pinCode">Pincode<strong class="text-danger">*</strong></label>
-                                            <input type="text" class="form-control form-control-sm" name="pinCode" id="pinCode" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required />
+                                            <input type="text" class="form-control" th:field="*{pinCode}" id="pinCode" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required />
                                             <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="email">Email ID<strong class="text-danger">*</strong></label>
+                                            <input type="email" class="form-control" th:field="*{email}" id="email" data-error="Provide a valid email !" placeholder="Enter Email" required />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="telephone">Telephone</label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                th:field="*{telephone}"
+                                                pattern="[7-9]{1}[0-9]{9}"
+                                                maxlength="10"
+                                                id="telephone"
+                                                data-error="Provide a valid phone number !"
+                                                placeholder="Enter telephone no"
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="mobile">Mobile No<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="text"
+                                                pattern="[7-9]{1}[0-9]{9}"
+                                                class="form-control"
+                                                th:field="*{mobile}"
+                                                id="mobile"
+                                                maxlength="10"
+                                                data-error="Provide a valid mobile number"
+                                                placeholder="Enter mobile no"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label for="fax">Fax</label>
+                                            <input type="text" class="form-control" th:field="*{faxNo}" id="faxNo" placeholder="Enter fax no" />
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +173,7 @@
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="bankName">Bank Name<strong class="text-danger">*</strong></label>
-                                            <select class="form-control" id="bankName" name="bankName" data-error="Select Bank Name !" required>
+                                            <select class="form-control" id="bankName" th:field="*{bankName}" data-error="Select Bank Name !" required>
                                                 <option value="" selected>select</option>
                                                 <option th:each="banks : ${bankList}" th:value="${banks.name}" th:utext="${banks.name}" />
                                             </select>
@@ -127,7 +184,7 @@
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label for="initAccountNumber">Account Number<strong class="text-danger">*</strong></label>
-                                            <input type="number" class="form-control form-control-sm" id="initAccountNumber" data-minlength="8" data-error="Provide a account number !" required />
+                                            <input type="number" class="form-control" id="initAccountNumber" data-minlength="8" data-error="Provide a account number !" required />
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
@@ -136,9 +193,9 @@
                                             <label for="accountNumber">Confirm Account Number<strong class="text-danger">*</strong></label>
                                             <input
                                                 type="password"
-                                                class="form-control form-control-sm"
+                                                class="form-control"
                                                 id="accountNumber"
-                                                name="accountNumber"
+                                                th:field="*{accountNumber}"
                                                 data-minlength="8"
                                                 data-match="#initAccountNumber"
                                                 data-match-error="Whoops, these don't match"
@@ -153,9 +210,9 @@
                                             <label for="ifscCode">IFSC Code<strong class="text-danger">*</strong></label>
                                             <input
                                                 type="text"
-                                                class="form-control form-control-sm"
+                                                class="form-control"
                                                 id="ifscCode"
-                                                name="ifscCode"
+                                                th:field="*{ifscCode}"
                                                 oninput="this.value = this.value.toUpperCase()"
                                                 data-error="Provide IFSC Code !"
                                                 placeholder="Enter ifsc code"
@@ -172,8 +229,8 @@
                                             <label for="totalPurchasedAmount">Total Purchased Amount<strong class="text-danger">*</strong></label>
                                             <input
                                                 type="number"
-                                                class="form-control form-control-sm"
-                                                name="totalPurchasedAmount"
+                                                class="form-control"
+                                                th:field="*{totalPurchasedAmount}"
                                                 oninput="this.value = this.value.toUpperCase()"
                                                 id="totalPurchasedAmount"
                                                 data-error="Provide Purchase amount !"
@@ -189,8 +246,8 @@
                                             <label for="paidAmount">Paid Amount<strong class="text-danger">*</strong></label>
                                             <input
                                                 type="number"
-                                                class="form-control form-control-sm"
-                                                name="paidAmount"
+                                                class="form-control"
+                                                th:field="*{paidAmount}"
                                                 oninput="this.value = this.value.toUpperCase()"
                                                 id="paidAmount"
                                                 data-error="Provide Paid amount !"
@@ -202,9 +259,9 @@
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
-                                            <label for="balanceAmount">Balance Amount<strong class="text-danger">*</strong></label>
-                                            <input type="hidden" name="balanceAmount" id="balanceAmountCopy" />
-                                            <input type="number" class="form-control form-control-sm" oninput="this.value = this.value.toUpperCase()" id="balanceAmount" data-error="Provide Purchase amount !" disabled />
+                                            <label for="balanceAmount">Balance Amount</label>
+                                            <input type="hidden" th:field="*{balanceAmount}" id="balanceAmountCopy" />
+                                            <input type="number" class="form-control" id="balanceAmount" data-error="Provide Purchase amount !" disabled />
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>

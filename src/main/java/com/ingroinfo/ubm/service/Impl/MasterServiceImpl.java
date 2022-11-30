@@ -10,6 +10,7 @@ import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.HsnCodeRepository;
 import com.ingroinfo.ubm.dao.SupplierRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
+import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
@@ -31,7 +32,7 @@ public class MasterServiceImpl implements MasterService {
 
 	@Autowired
 	private HsnCodeRepository hsnCodeRepository;
-	
+
 	@Autowired
 	private SupplierRepository supplierRepository;
 
@@ -259,20 +260,73 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public boolean reciptExists(String reciptNo) {
-		
+
 		return supplierRepository.findByReciptNo(reciptNo) != null;
 	}
 
 	@Override
 	public boolean gstNoExists(String gstin) {
-		
+
 		return supplierRepository.findByGstin(gstin) != null;
 	}
 
 	@Override
 	public void saveSupplier(Supplier supplier) {
-		
+
 		supplierRepository.save(supplier);
+	}
+
+	@Override
+	public List<Supplier> getAllSupplier() {
+
+		return supplierRepository.findAll();
+	}
+
+	@Override
+	public Supplier findBySupplierId(Long supplierId) {
+
+		return supplierRepository.findBySupplierId(supplierId);
+	}
+
+	@Override
+	public void updateSupplier(Supplier supplier) {
+
+		supplierRepository.save(supplier);
+	}
+
+	@Override
+	public boolean emailCheck(SupplierDto supplierDto) {
+
+		List<Supplier> supplierList = supplierRepository.findAll();
+
+		List<Supplier> filteredList = supplierList.stream()
+				.filter(x -> !supplierDto.getSupplierId().equals(x.getSupplierId())).collect(Collectors.toList());
+
+		boolean isExists = filteredList.stream().filter(o -> o.getEmail().equals(supplierDto.getEmail())).findFirst()
+				.isPresent();
+
+		return isExists;
+	}
+
+	@Override
+	public boolean contactNoCheck(SupplierDto supplierDto) {
+
+		List<Supplier> supplierList = supplierRepository.findAll();
+
+		List<Supplier> filteredList = supplierList.stream()
+				.filter(x -> !supplierDto.getSupplierId().equals(x.getSupplierId())).collect(Collectors.toList());
+
+		boolean isExists = filteredList.stream().filter(o -> o.getMobile().equals(supplierDto.getMobile())).findFirst()
+				.isPresent();
+
+		return isExists;
+	}
+
+	@Override
+	public void deleteBySupplierId(Long supplierId) {
+
+		supplierRepository.deleteById(supplierId);
+
 	}
 
 }

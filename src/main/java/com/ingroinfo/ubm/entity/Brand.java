@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "brand_master")
+@Table(name = "master_brand")
 public class Brand {
 
 	@Id

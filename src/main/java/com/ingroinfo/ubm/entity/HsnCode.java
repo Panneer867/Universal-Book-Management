@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "hsn_master")
+@Table(name = "master_hsn")
 public class HsnCode {
 
 	@Id

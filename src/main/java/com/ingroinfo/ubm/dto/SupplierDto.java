@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SupplierDto {
 
-	private String supplierId;
+	private Long supplierId;
 	private String supplierName;
 	private String reciptNo;
 	private String gstType;
@@ -21,6 +21,10 @@ public class SupplierDto {
 	private String state;
 	private String city;
 	private String pinCode;
+	private String email;
+	private String telephone;
+	private String mobile;
+	private String faxNo;
 	private String bankName;
 	private String accountNumber;
 	private String ifscCode;

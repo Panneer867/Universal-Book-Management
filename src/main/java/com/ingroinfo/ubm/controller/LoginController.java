@@ -1,7 +1,6 @@
 package com.ingroinfo.ubm.controller;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import javax.mail.MessagingException;
@@ -20,30 +19,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ingroinfo.ubm.dao.BrandRepository;
 import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.CompanyRepository;
 import com.ingroinfo.ubm.dao.EmployeeRepository;
-import com.ingroinfo.ubm.dao.HsnCodeRepository;
-import com.ingroinfo.ubm.dao.UnitsRepository;
 import com.ingroinfo.ubm.dao.UserRepository;
-import com.ingroinfo.ubm.dto.BranchDto;
 import com.ingroinfo.ubm.dto.CompanyDto;
-import com.ingroinfo.ubm.dto.UserDto;
-import com.ingroinfo.ubm.entity.Branch;
-import com.ingroinfo.ubm.entity.Brand;
-import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Company;
-import com.ingroinfo.ubm.entity.Employee;
-import com.ingroinfo.ubm.entity.HsnCode;
-import com.ingroinfo.ubm.entity.State;
-import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.entity.User;
 import com.ingroinfo.ubm.service.BranchService;
 import com.ingroinfo.ubm.service.CompanyService;
@@ -73,15 +56,6 @@ public class LoginController {
 	private CompanyRepository companyRepository;
 
 	@Autowired
-	private HsnCodeRepository hsnCodeRepository;
-
-	@Autowired
-	private BrandRepository brandRepository;
-
-	@Autowired
-	private UnitsRepository unitsRepository;
-
-	@Autowired
 	public CategoryRepository categoryRepository;
 
 	@Autowired
@@ -95,7 +69,9 @@ public class LoginController {
 
 		if (companyService.companyExists()) {
 			model.addAttribute("enable", null);
+
 		} else {
+
 			model.addAttribute("enable", "enable");
 		}
 
@@ -133,9 +109,11 @@ public class LoginController {
 		User user = userService.findUserByEmail(email);
 
 		if (user != null) {
+
 			String token = UUID.randomUUID().toString();
 			userService.createPasswordResetTokenForUser(user, token);
 			mailSender.send(constructResetTokenEmail(token, user, request));
+
 			return "redirect:/login?checkEmailConfirm";
 		}
 		return "redirect:/reset/password?wrongEmail";
@@ -143,8 +121,10 @@ public class LoginController {
 
 	private MimeMessage constructResetTokenEmail(String token, User user, HttpServletRequest request)
 			throws MessagingException {
+
 		String url = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()
 				+ "/reset/changePassword?token=" + token;
+
 		return constructEmail(url, user);
 	}
 
@@ -175,6 +155,7 @@ public class LoginController {
 		mimeMessage.setContent(content, "text/html");
 		helper.setTo(user.getEmail());
 		helper.setFrom(environment.getProperty("support.email"));
+
 		return mimeMessage;
 	}
 
@@ -183,8 +164,11 @@ public class LoginController {
 		String result = userService.validatePasswordResetToken(token);
 
 		if (result != null) {
+
 			return "redirect:/login?somethingWentWrong";
+
 		} else {
+
 			return "redirect:/reset/updatePassword?token=" + token;
 		}
 	}
@@ -203,10 +187,13 @@ public class LoginController {
 		String result = userService.validatePasswordResetToken(token);
 
 		if (result != null) {
+
 			return "redirect:/login?somethingWentWrong";
 		}
+
 		Optional<User> user = userService.getUserByPasswordResetToken(token);
 		if (user.isPresent()) {
+
 			userService.changeUserPassword(user.get(), newPassword);
 		}
 		return "redirect:/login?passwordChanged";
@@ -223,6 +210,7 @@ public class LoginController {
 		Company company = companyRepository.findTopByOrderByCompanyIdDesc();
 
 		if (company != null) {
+
 			model.addAttribute("companyNo", company.getCompanyId());
 		}
 		return "/main/company_creation";
@@ -252,87 +240,6 @@ public class LoginController {
 		companyService.saveCompany(company);
 
 		return "redirect:/company/register?success";
-	}
-
-	@GetMapping("/getCities")
-	public @ResponseBody String getCities(@RequestParam String stateName) {
-
-		State state = userService.findById(stateName);
-		Integer stateId = state.getId();
-
-		String json = null;
-		List<Object[]> list = userService.getCitiesByState(stateId);
-		try {
-			json = new ObjectMapper().writeValueAsString(list);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return json;
-	}
-
-	@ResponseBody
-	@RequestMapping("/get")
-	public BranchDto getBranch(@RequestParam Long id) {
-
-		Optional<Branch> branch = branchService.getBranchById(id);
-
-		BranchDto branchDto = modelMapper.map(branch, BranchDto.class);
-
-		branchDto.setUsername(branch.get().getUser().getUsername());
-
-		return branchDto;
-	}
-
-	@ResponseBody
-	@RequestMapping("/get/user")
-	public UserDto getUser(@RequestParam Long id) {
-
-		User user = userRepository.findByUserId(id);
-
-		String type = user.getUserType();
-
-		if (type.equalsIgnoreCase("NORMAL USER")) {
-			user.setUserType("ROLE_USER");
-		} else if (type.equalsIgnoreCase("BRANCH USER")) {
-			user.setUserType("ROLE_BRANCH");
-		}
-
-		return modelMapper.map(user, UserDto.class);
-	}
-
-	@ResponseBody
-	@RequestMapping("/get/employee")
-	public Employee getEmployee(@RequestParam Long id) {
-
-		return employeeRepository.findByEmployeeId(id);
-	}
-
-	@ResponseBody
-	@RequestMapping("/get/unit")
-	public UnitOfMeasures getUnit(@RequestParam Long id) {
-
-		return unitsRepository.findByUnitId(id);
-	}
-
-	@ResponseBody
-	@RequestMapping("/get/brand")
-	public Brand getBrand(@RequestParam Long id) {
-
-		return brandRepository.findByBrandId(id);
-	}
-
-	@ResponseBody
-	@RequestMapping("/get/category")
-	public Category getCategory(@RequestParam Long id) {
-
-		return categoryRepository.findByCategoryId(id);
-	}
-
-	@ResponseBody
-	@RequestMapping("/get/hsn")
-	public HsnCode getHsnCode(@RequestParam Long id) {
-
-		return hsnCodeRepository.findByHsnId(id);
 	}
 
 }

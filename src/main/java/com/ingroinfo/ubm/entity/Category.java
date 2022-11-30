@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "category_master")
+@Table(name = "master_category")
 public class Category {
 
 	@Id

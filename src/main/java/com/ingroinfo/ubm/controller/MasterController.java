@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import com.ingroinfo.ubm.configuration.ModelMapperConfig;
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
@@ -33,6 +34,9 @@ import com.ingroinfo.ubm.service.UserService;
 public class MasterController {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
+
+	@Autowired
+	public ModelMapperConfig mapper;
 
 	@Autowired
 	public CompanyService companyService;
@@ -458,7 +462,6 @@ public class MasterController {
 
 		hsn.setHsnCode(hsnCode);
 		masterService.updateHsnCode(hsn);
-
 		return "redirect:/master/hsn/list?hsnUpdated";
 	}
 
@@ -501,6 +504,7 @@ public class MasterController {
 
 	@GetMapping("/supplier")
 	public String supplier(Model model, Principal principal) {
+
 		model.addAttribute("title", "Supplier Master");
 		model.addAttribute("supplier", new SupplierDto());
 		User user = userService.getUserId(principal.getName());
@@ -544,5 +548,67 @@ public class MasterController {
 
 		masterService.saveSupplier(supplier);
 		return "redirect:/master/supplier?supplierAdded";
+	}
+
+	@GetMapping("/supplier/list")
+	public String supplierList(Model model, Principal principal) {
+
+		model.addAttribute("title", "Suppliers Lists");
+		model.addAttribute("supplier", new SupplierDto());
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		List<Supplier> supplierList = masterService.getAllSupplier();
+		if (supplierList.size() == 0) {
+			model.addAttribute("emptyList", "No Records");
+		}
+
+		model.addAttribute("supplierLists", supplierList);
+		model.addAttribute("stateList", userService.getAllStates());
+		model.addAttribute("bankList", userService.getAllBanks());
+
+		return "/masters/supplier_list";
+	}
+
+	@PostMapping("/supplier/update")
+	public String supplierUpdate(@ModelAttribute("supplier") SupplierDto supplierDto) {
+
+		Supplier supplier = masterService.findBySupplierId(supplierDto.getSupplierId());
+
+		if (masterService.contactNoCheck(supplierDto)) {
+			return "redirect:/master/supplier/list?contactNoAlreadyExists";
+		}
+		
+		if (masterService.emailCheck(supplierDto)) {
+			return "redirect:/master/supplier/list?emailAlreadyExists";
+		}
+
+		mapper.modelMapper().map(supplierDto, supplier);
+		masterService.updateSupplier(supplier);
+
+		return "redirect:/master/supplier/list?supplierUpdated";
+	}
+
+	@GetMapping("/supplier/delete")
+	public String deleteSupplier(@RequestParam Long supplierId) {
+
+		masterService.deleteBySupplierId(supplierId);
+		return "redirect:/master/supplier/list?supplierDeleted";
 	}
 }

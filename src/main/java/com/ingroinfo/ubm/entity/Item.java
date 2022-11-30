@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "item_master")
+@Table(name = "master_item")
 @SequenceGenerator(name = "item_sequence", initialValue = 201, allocationSize = 10000)
 public class Item {
 	

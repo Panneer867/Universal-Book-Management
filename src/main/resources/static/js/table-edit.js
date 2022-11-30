@@ -124,4 +124,67 @@ $(document).ready(function() {
 		});
 	});
 
+	$(document).ready(function() {
+		$('.table .edit-supplier').on('click', function(event) {
+			event.preventDefault();
+			var href = $(this).attr('href');
+			$.get(href, function(supplier) {
+				$('#supplierIdCopy').val(supplier.supplierId);
+				$('#ssupplierNameCopy').val(supplier.supplierName);
+				$('#sreciptNoCopy').val(supplier.reciptNo);
+				$('#sgstTypeCopy').val(supplier.gstType);
+				$('#sgstinCopy').val(supplier.gstin);
+				$('#semailCopy').val(supplier.email);
+				$('#stelephoneCopy').val(supplier.telephone);
+				$('#smobileCopy').val(supplier.mobile);
+				$('#sfaxNoCopy').val(supplier.faxNo);
+				$('#saddressCopy').val(supplier.address);
+				$('#sstateCopy').val(supplier.state);
+				$('#scityCopy').val(supplier.city);
+				$('#spinCodeCopy').val(supplier.pinCode);
+				$('#sbankNameCopy').val(supplier.bankName);
+				$('#scaccountNumberCopy').val(supplier.accountNumber);
+				$('#saccountNumberCopy').val(supplier.accountNumber);
+				$('#sifscCodeCopy').val(supplier.ifscCode);
+				$('#stotalPurchasedAmountCopy').val(supplier.totalPurchasedAmount);
+				$('#spaidAmountCopy').val(supplier.paidAmount);
+				$('#sbalanceAmountCopy').val(supplier.balanceAmount);
+				$('#csbalanceAmountCopy').val(supplier.balanceAmount);
+			});
+			$('editSupplier').modal();
+
+		});
+	});
+
+	$(document).ready(function() {
+		$('.table .view-supplier').on('click', function(event) {
+			event.preventDefault();
+			var href = $(this).attr('href');
+			$.get(href, function(supplier) {
+				$('#vsupplierIdCopy').val(supplier.supplierId);
+				$('#vssupplierNameCopy').val(supplier.supplierName);
+				$('#vsreciptNoCopy').val(supplier.reciptNo);
+				$('#vsgstTypeCopy').val(supplier.gstType);
+				$('#vsgstinCopy').val(supplier.gstin);
+				$('#vsemailCopy').val(supplier.email);
+				$('#vstelephoneCopy').val(supplier.telephone);
+				$('#vsmobileCopy').val(supplier.mobile);
+				$('#vsfaxNoCopy').val(supplier.faxNo);
+				$('#vsaddressCopy').val(supplier.address);
+				$('#vsstateCopy').val(supplier.state);
+				$('#vscityCopy').val(supplier.city);
+				$('#vspinCodeCopy').val(supplier.pinCode);
+				$('#vsbankNameCopy').val(supplier.bankName);
+				$('#vsaccountNumberCopy').val(supplier.accountNumber);
+				$('#vsifscCodeCopy').val(supplier.ifscCode);
+				$('#vstotalPurchasedAmountCopy').val(supplier.totalPurchasedAmount);
+				$('#vspaidAmountCopy').val(supplier.paidAmount);
+				$('#vsbalanceAmountCopy').val(supplier.balanceAmount);
+				$('#vcsbalanceAmountCopy').val(supplier.balanceAmount);
+			});
+			$('viewSupplier').modal();
+
+		});
+	});
+
 });
