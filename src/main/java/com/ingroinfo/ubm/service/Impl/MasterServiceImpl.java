@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.ingroinfo.ubm.dao.BrandPublisherRepository;
 import com.ingroinfo.ubm.dao.BrandRepository;
 import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.HsnCodeRepository;
@@ -12,6 +14,7 @@ import com.ingroinfo.ubm.dao.SupplierRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Brand;
+import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.Supplier;
@@ -35,6 +38,9 @@ public class MasterServiceImpl implements MasterService {
 
 	@Autowired
 	private SupplierRepository supplierRepository;
+
+	@Autowired
+	private BrandPublisherRepository brandPublisherRepository;
 
 	@Override
 	public List<UnitOfMeasures> getAllUnits() {
@@ -277,7 +283,7 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
-	public List<Supplier> getAllSupplier() {
+	public List<Supplier> getAllSuppliers() {
 
 		return supplierRepository.findAll();
 	}
@@ -326,7 +332,36 @@ public class MasterServiceImpl implements MasterService {
 	public void deleteBySupplierId(Long supplierId) {
 
 		supplierRepository.deleteById(supplierId);
+	}
 
+	@Override
+	public void saveBrandPublisher(BrandPublisher brandPublisher) {
+
+		brandPublisherRepository.save(brandPublisher);
+	}
+
+	@Override
+	public List<BrandPublisher> getAllBrandPublishers() {
+
+		return brandPublisherRepository.findAll();
+	}
+
+	@Override
+	public BrandPublisher findByPublisherId(Long publisherId) {
+
+		return brandPublisherRepository.findByPublisherId(publisherId);
+	}
+
+	@Override
+	public void updateBrandPublisher(BrandPublisher brandPublisher) {
+
+		brandPublisherRepository.save(brandPublisher);
+	}
+
+	@Override
+	public void deleteByPublisherId(Long publisherId) {
+
+		brandPublisherRepository.deleteById(publisherId);
 	}
 
 }

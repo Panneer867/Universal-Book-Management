@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+    <body>
+        <section>
+            <div class="page-header">
+                <ul class="breadcrumb px-0">
+                    <li><a th:href="@{/master/brand/publisher}">Master</a></li>
+                    <li><a th:href="@{/master/brand/publisher}">&nbsp;Brand Publisher</a></li>
+                    <li><a th:href="@{/master/brand/publisher/list}">&nbsp;Brand Publisher List</a></li>
+                </ul>
+            </div>
+            <div class="px-2">
+                <button type="button" class="btn btn-dark btn-rounded btn-icon" onclick="window.location.href='/master/brand/publisher'" style="width: 30px; height: 30px;">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+            </div>
+            <div class="mt-4"></div>
+            <div class="alert alert-danger text-center p-2 mx-auto font-weight-bold" role="alert" th:if="${param.brandPublisherDeleted}">
+                Brand Publisher has been deleted !
+            </div>
+            <div class="alert alert-success text-center p-2 mx-auto font-weight-bold" role="alert" th:if="${param.brandPublisherUpdated}">
+                Brand Publisher has been updated successfully!
+            </div>
+
+            <div class="card">
+                <div class="card-body p-1">
+                    <h4 class="card-title text-center mb-0 text-black py-2 font-weight-bold bg-info">All Brand Publisher</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-dark">
+                            <thead class="bg-warning">
+                                <tr>
+                                    <th class="text-center">
+                                        ID
+                                    </th>
+                                    <th class="text-center">
+                                        Publisher Name
+                                    </th>
+                                    <th class="text-center">
+                                        Brand
+                                    </th>
+                                    <th class="text-center">
+                                        Category
+                                    </th>
+                                    <th class="text-center">
+                                        Supplier
+                                    </th>
+                                    <th class="text-center">
+                                        Remarks
+                                    </th>
+                                    <th class="text-center">
+                                        Date Created
+                                    </th>
+
+                                    <th class="text-center">
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="brandPublisherList: ${brandPublisherLists}">
+                                    <td class="text-center" th:text="${brandPublisherList.publisherId}"></td>
+                                    <td class="text-center" th:text="${brandPublisherList.publisherName}"></td>
+                                    <td class="text-center" th:text="${brandPublisherList.brand}"></td>
+                                    <td class="text-center" th:text="${brandPublisherList.category}"></td>
+                                    <td class="text-center" th:text="${brandPublisherList.supplier}"></td>
+                                    <td class="text-center" th:text="${brandPublisherList.remarks}"></td>
+                                    <td class="text-center" th:text="${#dates.format(brandPublisherList.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
+                                    <td class="text-center">
+                                        <a th:href="@{/get/publisher/(id=${brandPublisherList.publisherId})}" class="btn btn-info p-1 mx-2 edit-publisher" data-toggle="modal" data-target="#editPublisher">Edit</a>
+                                        <a th:href="@{/master/brand/publisher/delete(publisherId=${brandPublisherList.publisherId})}" class="btn btn-danger p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="alert alert-warning text-center my-2 py-1" role="alert" th:if="${emptyList != null}">[[${emptyList}]]</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="editPublisher" tabindex="-1" role="dialog" aria-labelledby="editPublisher" aria-hidden="true">
+                <div class="modal-dialog" role="document" style="max-width: 40%; margin-top: 120px;">
+                    <div class="modal-content">
+                        <form data-toggle="validator" th:action="@{/master/brand/publisher/update}" th:object="${publisher}" role="form" method="post">
+                            <div class="modal-header pt-2 pb-1">
+                                <h5 class="modal-title" id="editModal">Edit Brand Publisher</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body py-0">
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <div class="form-group mb-2">
+                                            <label for="brandCopy">Change Brand<strong class="text-danger">*</strong></label>
+                                            <input type="hidden" id="publisherIdCopy" name="publisherId" />
+                                            <select class="form-control" id="brandCopy" name="brand" data-error="Select a brand !" required>
+                                                <option value="" selected>select</option>
+                                                <option th:each="brand : ${brands}" th:value="${brand.brandName}" th:utext="${brand.brandName}" />
+                                            </select>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group mb-2">
+                                            <label for="categoryCopy">Change Category<strong class="text-danger">*</strong></label>
+                                            <select class="form-control" id="categoryCopy" name="category" data-error="Select a Category !" required>
+                                                <option value="" selected>select</option>
+                                                <option th:each="category : ${categories}" th:value="${category.categoryName}" th:utext="${category.categoryName}" />
+                                            </select>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <div class="form-group mb-2">
+                                            <label for="supplierCopy">Change Supplier<strong class="text-danger">*</strong></label>
+
+                                            <select class="form-control" id="supplierCopy" name="supplier" data-error="Select a Supplier !" required>
+                                                <option value="" selected>select</option>
+                                                <option th:each="supplier : ${suppliers}" th:value="${supplier.supplierName}" th:utext="${supplier.supplierName}" />
+                                            </select>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group mb-2">
+                                            <label for="publisherNameCopy">Publisher Name<strong class="text-danger">*</strong></label>
+                                            <input type="text" class="form-control" id="publisherNameCopy" name="publisherName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter Publisher Name" required />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col my-3">
+                                    <div class="form-group mb-2">
+                                        <label for="remarksCopy">Remarks<strong class="text-danger">*</strong></label>
+
+                                        <input type="text" class="form-control" id="remarksCopy" name="remarks" data-minlength="3" placeholder="Enter Remarks" />
+                                        <div class="help-block with-errors text-danger"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-center py-2">
+                                <button type="submit" class="btn btn-sm btn-success">Update</button>
+                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+                <div class="modal-dialog" role="document" style="margin-top: 180px;">
+                    <div class="modal-content">
+                        <div class="modal-header p-2">
+                            <h5 class="modal-title" id="exampleModalLabel-2">Delete Brand Publisher</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure, you want to delete this Brand Publisher?
+                        </div>
+                        <div class="modal-footer p-2">
+                            <a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Delete</a>
+                            <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

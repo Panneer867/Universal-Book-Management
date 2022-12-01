@@ -30,6 +30,16 @@ public class BrandPublisher {
 	@Column(name = "publisher_id")
 	private Long publisherId;
 	
+	private String brand;
+	
+	private String category;
+	
+	private String supplier;
+	
+	private String publisherName;
+	
+	private String remarks;
+	
 	@CreationTimestamp
 	private Date dateCreated;
 

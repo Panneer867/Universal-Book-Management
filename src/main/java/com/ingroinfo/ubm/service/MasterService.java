@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Brand;
+import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.Supplier;
@@ -79,7 +80,7 @@ public interface MasterService {
 
 	void saveSupplier(Supplier supplier);
 
-	List<Supplier> getAllSupplier();
+	List<Supplier> getAllSuppliers();
 
 	Supplier findBySupplierId(Long supplierId);
 
@@ -90,5 +91,15 @@ public interface MasterService {
 	boolean contactNoCheck(SupplierDto supplierDto);
 
 	void deleteBySupplierId(Long supplierId);
+
+	void saveBrandPublisher(BrandPublisher brandPublisher);
+
+	List<BrandPublisher> getAllBrandPublishers();
+
+	BrandPublisher findByPublisherId(Long publisherId);
+
+	void updateBrandPublisher(BrandPublisher brandPublisher);
+
+	void deleteByPublisherId(Long publisherId);
 
 }

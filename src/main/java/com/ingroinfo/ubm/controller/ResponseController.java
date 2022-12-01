@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ingroinfo.ubm.dao.BrandPublisherRepository;
 import com.ingroinfo.ubm.dao.BrandRepository;
 import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.EmployeeRepository;
@@ -22,6 +23,7 @@ import com.ingroinfo.ubm.dto.BranchDto;
 import com.ingroinfo.ubm.dto.UserDto;
 import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
+import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Employee;
 import com.ingroinfo.ubm.entity.HsnCode;
@@ -61,9 +63,12 @@ public class ResponseController {
 
 	@Autowired
 	private UnitsRepository unitsRepository;
-	
+
 	@Autowired
 	private SupplierRepository supplierRepository;
+
+	@Autowired
+	private BrandPublisherRepository brandPublisherRepository;
 
 	@GetMapping("/city")
 	public @ResponseBody String getCities(@RequestParam String stateName) {
@@ -145,12 +150,19 @@ public class ResponseController {
 
 		return hsnCodeRepository.findByHsnId(id);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/supplier")
 	public Supplier getSupplier(@RequestParam Long id) {
 
 		return supplierRepository.findBySupplierId(id);
+	}
+
+	@ResponseBody
+	@RequestMapping("/publisher")
+	public BrandPublisher getPublisher(@RequestParam Long id) {
+
+		return brandPublisherRepository.findByPublisherId(id);
 	}
 
 }

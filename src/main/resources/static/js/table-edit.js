@@ -187,4 +187,21 @@ $(document).ready(function() {
 		});
 	});
 
+	$(document).ready(function() {
+		$('.table .edit-publisher').on('click', function(event) {
+			event.preventDefault();
+			var href = $(this).attr('href');
+			$.get(href, function(publisher) {
+				$('#publisherIdCopy').val(publisher.publisherId);
+				$('#brandCopy').val(publisher.brand);
+				$('#categoryCopy').val(publisher.category);
+				$('#supplierCopy').val(publisher.supplier);
+				$('#publisherNameCopy').val(publisher.publisherName);
+				$('#remarksCopy').val(publisher.remarks);
+			});
+			$('editPublisher').modal();
+		});
+
+	});
+
 });

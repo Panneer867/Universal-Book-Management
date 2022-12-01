@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.ubm.configuration.ModelMapperConfig;
+import com.ingroinfo.ubm.dto.BrandPublisherDto;
+import com.ingroinfo.ubm.dto.ItemDto;
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
+import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.HsnCode;
@@ -52,8 +55,8 @@ public class MasterController {
 
 	@GetMapping("/brand")
 	public String brand(Model model, Principal principal) {
-		model.addAttribute("title", "Brand Master");
 
+		model.addAttribute("title", "Brand Master");
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
@@ -78,8 +81,8 @@ public class MasterController {
 
 	@GetMapping("/brand/list")
 	public String brandList(Model model, Principal principal) {
-		model.addAttribute("title", "Brand Lists");
 
+		model.addAttribute("title", "Brand Lists");
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
@@ -209,8 +212,8 @@ public class MasterController {
 
 	@GetMapping("/category/list")
 	public String categoryList(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
 
+		model.addAttribute("title", "Category Lists");
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
@@ -282,8 +285,8 @@ public class MasterController {
 
 	@GetMapping("/measures")
 	public String unitOfMeasures(Model model, Principal principal) {
-		model.addAttribute("title", "Unit of Measures");
 
+		model.addAttribute("title", "Unit of Measures");
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
@@ -308,8 +311,8 @@ public class MasterController {
 
 	@GetMapping("/measures/list")
 	public String unitOfMeasuresList(Model model, Principal principal) {
-		model.addAttribute("title", "Unit of Measures List");
 
+		model.addAttribute("title", "Unit of Measures List");
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
@@ -472,36 +475,6 @@ public class MasterController {
 		return "redirect:/master/hsn/list?hsnDeleted";
 	}
 
-	@GetMapping("/brand/publisher")
-	public String brandPublisher(Model model, Principal principal) {
-		model.addAttribute("title", "Brand Publisher");
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		if (company != null) {
-
-			model.addAttribute("profileData", company.getProfile());
-			model.addAttribute("companyNameData", company.getCompanyName());
-			model.addAttribute("companyProfile", "enableCompany");
-			model.addAttribute("details", company);
-
-		} else if (branch != null) {
-
-			Company cmpy = branch.getCompany();
-			model.addAttribute("usernameofbranch", branch.getFirstName());
-			model.addAttribute("profileData", cmpy.getProfile());
-			model.addAttribute("companyNameData", cmpy.getCompanyName());
-			model.addAttribute("branchProfile", "enableBranch");
-			model.addAttribute("details", cmpy);
-		}
-
-		model.addAttribute("brands", masterService.getAllBrands());
-		model.addAttribute("categories", masterService.getAllCategories());
-		return "/masters/brand_publisher";
-	}
-
 	@GetMapping("/supplier")
 	public String supplier(Model model, Principal principal) {
 
@@ -574,7 +547,7 @@ public class MasterController {
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
-		List<Supplier> supplierList = masterService.getAllSupplier();
+		List<Supplier> supplierList = masterService.getAllSuppliers();
 		if (supplierList.size() == 0) {
 			model.addAttribute("emptyList", "No Records");
 		}
@@ -594,7 +567,7 @@ public class MasterController {
 		if (masterService.contactNoCheck(supplierDto)) {
 			return "redirect:/master/supplier/list?contactNoAlreadyExists";
 		}
-		
+
 		if (masterService.emailCheck(supplierDto)) {
 			return "redirect:/master/supplier/list?emailAlreadyExists";
 		}
@@ -611,4 +584,133 @@ public class MasterController {
 		masterService.deleteBySupplierId(supplierId);
 		return "redirect:/master/supplier/list?supplierDeleted";
 	}
+
+	@GetMapping("/brand/publisher")
+	public String brandPublisher(Model model, Principal principal) {
+
+		model.addAttribute("title", "Brand Publisher");
+		model.addAttribute("publisher", new BrandPublisherDto());
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+			model.addAttribute("details", company);
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+			model.addAttribute("details", cmpy);
+		}
+
+		model.addAttribute("brands", masterService.getAllBrands());
+		model.addAttribute("categories", masterService.getAllCategories());
+		model.addAttribute("suppliers", masterService.getAllSuppliers());
+
+		return "/masters/brand_publisher";
+	}
+
+	@PostMapping("/brand/publisher/add")
+	public String brandPublisherAdd(@ModelAttribute("publisher") BrandPublisherDto brandPublisherDto) {
+
+		BrandPublisher brandPublisher = modelMapper.map(brandPublisherDto, BrandPublisher.class);
+
+		masterService.saveBrandPublisher(brandPublisher);
+		return "redirect:/master/brand/publisher?brandPublisherAdded";
+	}
+
+	@GetMapping("/brand/publisher/list")
+	public String brandPublisherList(Model model, Principal principal) {
+
+		model.addAttribute("title", "Brnad Publishers Lists");
+		model.addAttribute("publisher", new BrandPublisherDto());
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		List<BrandPublisher> brandPublisherList = masterService.getAllBrandPublishers();
+		if (brandPublisherList.size() == 0) {
+			model.addAttribute("emptyList", "No Records");
+		}
+
+		model.addAttribute("brandPublisherLists", brandPublisherList);
+		model.addAttribute("brands", masterService.getAllBrands());
+		model.addAttribute("categories", masterService.getAllCategories());
+		model.addAttribute("suppliers", masterService.getAllSuppliers());
+
+		return "/masters/brand_publisher_list";
+	}
+
+	@PostMapping("/brand/publisher/update")
+	public String brandPublisherUpdate(@ModelAttribute("publisherUpdate") BrandPublisherDto brandPublisherDto) {
+
+		BrandPublisher brandPublisher = masterService.findByPublisherId(brandPublisherDto.getPublisherId());
+
+		mapper.modelMapper().map(brandPublisherDto, brandPublisher);
+		masterService.updateBrandPublisher(brandPublisher);
+
+		return "redirect:/master/brand/publisher/list?brandPublisherUpdated";
+	}
+
+	@GetMapping("/brand/publisher/delete")
+	public String deleteBrandPublisher(@RequestParam Long PublisherId) {
+
+		masterService.deleteByPublisherId(PublisherId);
+		return "redirect:/master/brand/publisher/list?brandPublisherDeleted";
+	}
+
+	@GetMapping("/item")
+	public String item(Model model, Principal principal) {
+
+		model.addAttribute("title", "Item Master");
+		model.addAttribute("item", new ItemDto());
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+			model.addAttribute("details", company);
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+			model.addAttribute("details", cmpy);
+		}
+
+		model.addAttribute("stateList", userService.getAllStates());
+		model.addAttribute("bankList", userService.getAllBanks());
+		return "/masters/item";
+	}
+
 }

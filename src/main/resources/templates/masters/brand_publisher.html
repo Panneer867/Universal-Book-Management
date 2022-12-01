@@ -22,12 +22,12 @@
                             <div class="card">
                                 <div class="card-body pt-2">
                                     <h5 class="text-center mb-2">Brand Publisher</h5>
-                                    <hr class="my-2 bg-secondary">
-                                    <form class="forms-sample" data-toggle="validator" th:action="@{/master/brand/publisher/add}" role="form" method="post">
+                                    <hr class="my-2 bg-secondary" />
+                                    <form class="forms-sample" data-toggle="validator" th:action="@{/master/brand/publisher/add}" th:object="${publisher}" role="form" method="post">
                                         <div class="form-group row pt-3 mb-2">
                                             <label for="companyName" class="col-sm-4 col-form-label">Select Brand<strong class="text-danger">*</strong></label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="brand" name="brand" data-error="Select a brand !" required>
+                                                <select class="form-control" id="brand" th:field="*{brand}" data-error="Select a brand !" required>
                                                     <option value="" selected>select</option>
                                                     <option th:each="brand : ${brands}" th:value="${brand.brandName}" th:utext="${brand.brandName}" />
                                                 </select>
@@ -38,7 +38,7 @@
                                         <div class="form-group row mb-2">
                                             <label for="category" class="col-sm-4 col-form-label">Under Category<strong class="text-danger">*</strong></label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="category" name="category" data-error="Select a Category !" required>
+                                                <select class="form-control" id="category" th:field="*{category}" data-error="Select a Category !" required>
                                                     <option value="" selected>select</option>
                                                     <option th:each="category : ${categories}" th:value="${category.categoryName}" th:utext="${category.categoryName}" />
                                                 </select>
@@ -49,8 +49,9 @@
                                         <div class="form-group row mb-2">
                                             <label for="supplier" class="col-sm-4 col-form-label">Supplier<strong class="text-danger">*</strong></label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="supplier" name="supplier" data-error="Select a Supplier !" required>
+                                                <select class="form-control" id="supplier" th:field="*{supplier}" data-error="Select a Supplier !" required>
                                                     <option value="" selected>select</option>
+                                                    <option th:each="supplier : ${suppliers}" th:value="${supplier.supplierName}" th:utext="${supplier.supplierName}" />
                                                 </select>
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
@@ -59,7 +60,16 @@
                                         <div class="form-group row mb-2">
                                             <label for="publisherName" class="col-sm-4 col-form-label">Publisher Name<strong class="text-danger">*</strong></label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="publisherName" name="publisherName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter Publisher Name" required />
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="publisherName"
+                                                    th:field="*{publisherName}"
+                                                    data-minlength="3"
+                                                    data-error="Minimum 3 characters required !"
+                                                    placeholder="Enter Publisher Name"
+                                                    required
+                                                />
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
@@ -67,7 +77,7 @@
                                         <div class="form-group row mb-2">
                                             <label for="remarks" class="col-sm-4 col-form-label">Remarks</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="remarks" name="remarks" data-minlength="3" placeholder="Enter Publisher Name" />
+                                                <input type="text" class="form-control" id="remarks" th:field="*{remarks}" data-minlength="3" placeholder="Enter Remarks" />
                                             </div>
                                         </div>
 
