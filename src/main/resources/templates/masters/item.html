@@ -10,36 +10,85 @@
                             <li><a href="#" class="text-white">&nbsp;Item Master</a></li>
                         </ul>
                         <nav aria-label="breadcrumb">
-                            <a th:href="@{/master/category/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Category List</a>
+                            <a th:href="@{/master/item/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Items List</a>
                         </nav>
                     </div>
                     <div class="mt-4"></div>
                     <div class="alert alert-success text-center p-2 col-9 mx-auto font-weight-bold" role="alert" th:if="${param.itemAdded}">
                         Item has been added successfully!
                     </div>
-                    <div class="alert alert-danger text-center p-2 col-9 mx-auto font-weight-bold" role="alert" th:if="${param.itemAlreadyExists}">
-                        Item already Exists!
-                    </div>
+                   
                     <div class="col-9 grid-margin stretch-card mx-auto">
                         <div class="card">
                             <div class="card-body pt-2">
                                 <h5 class="text-center mb-2">Item Master</h5>
 
-                                <hr class="my-2 bg-secondary" />
-                                <form class="forms-sample" data-toggle="validator" th:action="@{/master/item/add}" role="form" method="post">
+                                <hr class="my-2 bg-secondary">
+                                <form class="forms-sample" data-toggle="validator" th:action="@{/master/item/add}" th:object="${item}" role="form" method="post" enctype="multipart/form-data">
                                     <div class="row">
-                                        <div class="col-6 mt-3">
+                                        <div class="col-7 mt-3">
                                             <div class="form-group mb-2">
-                                                <label for="categoryName">Category Name<strong class="text-danger">*</strong></label>
-                                                <input type="text" class="form-control" id="categoryName" name="categoryName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter category name" required />
-                                                <small class="text-white">Example: NoteBook</small>
+                                                <label for="itemName">Item Name<strong class="text-danger">*</strong></label>
+                                                <input type="text" class="form-control" id="itemName" th:field="*{itemName}" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter item name" required />
+                                                <small class="text-white">Example: Pencil</small>
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label for="category">Category<strong class="text-danger">*</strong></label>
+                                                <select class="form-control" id="category" th:field="*{category}" data-error="Select a Category !" required>
+                                                    <option value="" selected>select</option>
+                                                    <option th:each="category : ${categories}" th:value="${category.categoryId}" th:utext="${category.categoryName}" />
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 mt-3">
+                                            <div class="form-group mb-2">
+                                                <label for="itemImage" class="font-weight-bold">Item Image<strong class="text-danger">*</strong></label>
+                                                <input type="file" name="itemImage" id="itemImage" accept="image/*" data-height="100" data-max-file-size="2M" class="dropify" data-error="Item Image required !" required />
+                                                <small class="text-info">[File: 2MB MAX]</small>
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 mt-3">
+                                            <div class="form-group mb-2">
+                                                <label for="brand">Brand<strong class="text-danger">*</strong></label>
+                                                <select class="form-control" id="brand" th:field="*{brand}" data-error="Select a brand !" required>
+                                                    <option value="" selected>select</option>
+                                                    <option th:each="brand : ${brands}" th:value="${brand.brandId}" th:utext="${brand.brandName}" />
+                                                </select>
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
                                         <div class="col-4 mt-3">
                                             <div class="form-group mb-2">
-                                                <label for="categoryStatus">Category Status<strong class="text-danger">*</strong></label>
-                                                <select class="form-control" id="categoryStatus" name="categoryStatus" data-error="Select a category status !" required>
+                                                <label for="supplier">Supplier<strong class="text-danger">*</strong></label>
+                                                <select class="form-control" id="supplier" th:field="*{supplier}" data-error="Select a Supplier !" required>
+                                                    <option value="" selected>select</option>
+                                                    <option th:each="supplier : ${suppliers}" th:value="${supplier.supplierId}" th:utext="${supplier.supplierName}" />
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 mt-3">
+                                           <div class="form-group mb-2">
+                                                <label for="unitOfMeasure">Unit of Measure<strong class="text-danger">*</strong></label>
+                                                 <select class="form-control" id="unitOfMeasure" th:field="*{unitOfMeasure}" data-error="Select Unit of measure !" required>
+                                                    <option value="" selected>select</option>
+                                                    <option th:each="unitOfMeasures : ${unitOfMeasureList}" th:value="${unitOfMeasures.unitOfMeasure}" th:utext="${unitOfMeasures.unitOfMeasure}"/>
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                       
+                                         <div class="col-6">
+                                            <div class="form-group mb-2">
+                                                <label for="itemStatus">Item Status<strong class="text-danger">*</strong></label>
+                                                <select class="form-control" id="itemStatus" th:field="*{itemStatus}" data-error="Select a item status !" required>
                                                     <option value="" selected>select</option>
                                                     <option value="Available">Available</option>
                                                     <option value="Not Available">Not Available</option>
@@ -47,9 +96,17 @@
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
-                                        <div class="col-2" style="margin-top: 36px;">
-                                            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
+                                        <div class="col-6">
+                                            <div class="form-group mb-2">
+                                                <label for="remarks">Remarks</label>
+                                                <input type="text" class="form-control" id="remarks" th:field="*{remarks}" data-minlength="3" placeholder="Enter Remarks" />
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
+                                        <button type="reset" class="btn btn-sm btn-secondary mr-2"><i class="fa fa-refresh menu-icon pr-2"></i>Reset</button>
                                     </div>
                                 </form>
                             </div>

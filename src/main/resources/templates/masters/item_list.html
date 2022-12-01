@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+    <body>
+        <section>
+            <div class="page-header">
+                <ul class="breadcrumb px-0">
+                    <li><a th:href="@{/master/item}">Master</a></li>
+                    <li><a th:href="@{/master/item}">&nbsp;Item Master</a></li>
+                    <li><a th:href="@{/master/item/list}">&nbsp;Item List</a></li>
+                </ul>
+            </div>
+            <div class="px-2">
+                <button type="button" class="btn btn-dark btn-rounded btn-icon" onclick="window.location.href='/master/item'" style="width: 30px; height: 30px;">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+            </div>
+            <div class="mt-4"></div>
+            <div class="alert alert-danger text-center p-2 mx-auto font-weight-bold" role="alert" th:if="${param.itemDeleted}">
+                Item has been deleted !
+            </div>
+            <div class="alert alert-success text-center p-2 mx-auto font-weight-bold" role="alert" th:if="${param.itemUpdated}">
+                Item Details has been updated successfully!
+            </div>
+
+            <div class="card">
+                <div class="card-body p-1">
+                    <h4 class="card-title text-center mb-0 text-black py-2 font-weight-bold bg-info">All Items</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-dark">
+                            <thead class="bg-warning">
+                                <tr>
+                                    <th class="text-center">
+                                        ID
+                                    </th>
+                                    <th class="text-center">
+                                        Item Name
+                                    </th>
+                                    <th class="text-center">
+                                        Item Image
+                                    </th>
+                                    <th class="text-center">
+                                        Category
+                                    </th>
+                                    <th class="text-center">
+                                        Brand
+                                    </th>
+                                    <th class="text-center">
+                                        Status
+                                    </th>
+                                    <th class="text-center">
+                                        Date Added
+                                    </th>
+                                    <th class="text-center">
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="itemList: ${itemLists}">
+                                    <td class="text-center" th:text="${itemList.itemId}"></td>
+                                    <td class="text-center" th:text="${itemList.itemName}"></td>
+                                    <td class="py-1 text-center">
+                                        <img th:src="@{'/Company/'+ ${companyNameData} +'/Items/'+ ${itemList.itemImage}}" style="width: 70px; height: 70px; border: 1px solid rgb(0, 128, 192);" alt="image" />
+                                    </td>
+                                    <td class="text-center" th:text="${itemList.categoryName}"></td>
+                                    <td class="text-center" th:text="${itemList.brandName}"></td>
+                                    <td class="text-center" th:text="${itemList.itemStatus}"></td>
+                                    <td class="text-center" th:text="${#dates.format(itemList.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
+                                    <td class="text-center">
+                                        <a th:href="@{/get/item/(id=${itemList.itemId})}" class="btn btn-success p-1 view-item" data-toggle="modal" data-target="#viewItem">View</a>
+                                        <a th:href="@{/get/item/(id=${itemList.itemId})}" class="btn btn-info p-1 mx-2 edit-item" data-toggle="modal" data-target="#editItem">Edit</a>
+                                        <a th:href="@{/master/item/delete(itemId=${itemList.itemId})}" class="btn btn-danger p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="alert alert-warning text-center my-2 py-1" role="alert" th:if="${emptyList != null}">[[${emptyList}]]</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="viewItem" tabindex="-1" role="dialog" aria-labelledby="viewItem" aria-hidden="true">
+                <div class="modal-dialog" role="document" style="max-width: 60%; margin-top: 90px;">
+                    <div class="modal-content">
+                        <div class="modal-header p-2">
+                            <h5 class="modal-title" id="exampleModalLabel-2">Supplier Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="is-readonly">
+                                <div class="row">
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Supplier:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vssupplierNameCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Recipt No:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsreciptNoCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">GST Type:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsgstTypeCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">GSTIN/UIN:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsgstinCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Email:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsemailCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Telephone:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vstelephoneCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Mobile:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsmobileCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Fax No:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsfaxNoCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Address:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsaddressCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">State:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsstateCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">City:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vscityCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Pincode:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vspinCodeCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsbankNameCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Acc No:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsaccountNumberCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">IFSC Code:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsifscCodeCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Total:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vstotalPurchasedAmountCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Paid:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vspaidAmountCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 px-3">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Balance:</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="vsbalanceAmountCopy" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="editItem" tabindex="-1" role="dialog" aria-labelledby="editItem" aria-hidden="true">
+                <div class="modal-dialog" role="document" style="max-width: 65%; margin-top: 80px;">
+                    <div class="modal-content">
+                        <form data-toggle="validator" th:action="@{/master/item/update}" th:object="${item}" role="form" method="post">
+                            <div class="modal-header pt-2 pb-1">
+                                <h5 class="modal-title" id="editModal">Edit Supplier</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body py-0">
+                                <div class="row mt-3">
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="supplierName">Supplier Name<strong class="text-danger">*</strong></label>
+                                            <input type="hidden" id="supplierIdCopy" name="supplierId" />
+                                            <input type="text" class="form-control" id="ssupplierNameCopy" name="supplierName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter supplier name" required />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="email">Email ID<strong class="text-danger">*</strong></label>
+                                            <input type="email" class="form-control" id="semailCopy" name="email" data-error="Provide a valid email !" placeholder="Enter Email" required />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="telephone">Telephone</label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                name="telephone"
+                                                pattern="[7-9]{1}[0-9]{9}"
+                                                maxlength="10"
+                                                id="stelephoneCopy"
+                                                data-error="Provide a valid phone number !"
+                                                placeholder="Enter telephone no"
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="mobile">Mobile No<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="text"
+                                                pattern="[7-9]{1}[0-9]{9}"
+                                                class="form-control"
+                                                name="mobile"
+                                                id="smobileCopy"
+                                                maxlength="10"
+                                                data-error="Provide a valid mobile number"
+                                                placeholder="Enter mobile no"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="bankName">Bank Name<strong class="text-danger">*</strong></label>
+                                            <select class="form-control" id="sbankNameCopy" name="bankName" data-error="Select Bank Name !" required>
+                                                <option value="" selected>select</option>
+                                                <option th:each="banks : ${bankList}" th:value="${banks.name}" th:utext="${banks.name}" />
+                                            </select>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="saccountNumberCopy">Account Number<strong class="text-danger">*</strong></label>
+                                            <input type="number" class="form-control form-control-sm" id="saccountNumberCopy" data-minlength="8" data-error="Provide a account number !" required />
+
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="saccountNumberCopy">Confirm Account Number<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="password"
+                                                class="form-control form-control-sm"
+                                                id="scaccountNumberCopy"
+                                                name="accountNumber"
+                                                data-minlength="8"
+                                                data-match="#saccountNumberCopy"
+                                                data-match-error="Whoops, these don't match"
+                                                placeholder="Enter confirm account no"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="ifscCode">IFSC Code<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="sifscCodeCopy"
+                                                name="ifscCode"
+                                                oninput="this.value = this.value.toUpperCase()"
+                                                data-error="Provide IFSC Code !"
+                                                placeholder="Enter ifsc code"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="gstin">GSTIN</label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                oninput="this.value = this.value.toUpperCase()"
+                                                id="sgstinCopy"
+                                                name="gstin"
+                                                data-minlength="15"
+                                                maxlength="15"
+                                                data-error="Provide a GSTIN/UIN !"
+                                                disabled
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="address">Address<strong class="text-danger">*</strong></label>
+                                            <textarea type="text" class="form-control" rows="2" name="address" id="saddressCopy" data-error="Provide a address !" placeholder="Enter address" required></textarea>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="state">State<strong class="text-danger">*</strong></label>
+                                            <select class="form-control" id="sstateCopy" name="state" data-error="Select state !" required>
+                                                <option value="" selected>Select</option>
+                                                <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
+                                            </select>
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="city">City<strong class="text-danger">*</strong></label>
+                                            <input type="text" class="form-control" name="city" id="scityCopy" data-error="Provide a city !" placeholder="Enter city" required />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-3">
+                                        <div class="form-group mb-2">
+                                            <label for="pinCode">Pincode<strong class="text-danger">*</strong></label>
+                                            <input type="text" class="form-control" name="pinCode" id="spinCodeCopy" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group mb-3">
+                                            <label for="totalPurchasedAmount">Total Purchased Amount<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="number"
+                                                class="form-control"
+                                                name="totalPurchasedAmount"
+                                                oninput="this.value = this.value.toUpperCase()"
+                                                id="stotalPurchasedAmountCopy"
+                                                data-error="Provide Purchase amount !"
+                                                placeholder="Enter Purchase amount"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group mb-3">
+                                            <label for="paidAmount">Paid Amount<strong class="text-danger">*</strong></label>
+                                            <input
+                                                type="number"
+                                                class="form-control"
+                                                name="paidAmount"
+                                                oninput="this.value = this.value.toUpperCase()"
+                                                id="spaidAmountCopy"
+                                                data-error="Provide Paid amount !"
+                                                placeholder="Enter Paid amount"
+                                                required
+                                            />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group mb-3">
+                                            <label for="balanceAmount">Balance Amount</label>
+                                            <input type="hidden" name="balanceAmount" id="sbalanceAmountCopy" />
+                                            <input type="number" class="form-control" id="csbalanceAmountCopy" data-error="Provide Purchase amount !" disabled />
+                                            <div class="help-block with-errors text-danger"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-center py-2">
+                                <button type="submit" class="btn btn-sm btn-success">Update</button>
+                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+                <div class="modal-dialog" role="document" style="margin-top: 180px;">
+                    <div class="modal-content">
+                        <div class="modal-header p-2">
+                            <h5 class="modal-title" id="exampleModalLabel-2">Delete Supplier</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure, you want to delete this Supplier?
+                        </div>
+                        <div class="modal-footer p-2">
+                            <a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Delete</a>
+                            <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

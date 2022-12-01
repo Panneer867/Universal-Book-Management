@@ -7,8 +7,8 @@ import com.ingroinfo.ubm.entity.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-	Category findByCategoryName(String categoryName);
-
 	Category findByCategoryId(Long categoryId);
+
+	Category findByCategoryName(String categoryName);
 
 }

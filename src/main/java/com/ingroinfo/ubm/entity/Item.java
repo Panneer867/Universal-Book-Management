@@ -32,19 +32,25 @@ public class Item {
 
 	private String itemName;
 
+	private String itemImage;
+
 	private String itemStatus;
+
+	private String unitOfMeasure;
+
+	private String remarks;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id")
-	private Category categoryId;
+	private Category category;
 
 	@ManyToOne
 	@JoinColumn(name = "supplier_id")
-	private Supplier supplierId;
+	private Supplier supplier;
 
 	@ManyToOne
 	@JoinColumn(name = "brand_id")
-	private Brand brandId;
+	private Brand brand;
 
 	@ManyToOne
 	@JoinColumn(name = "hsn_id")

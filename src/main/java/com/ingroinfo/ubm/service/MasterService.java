@@ -7,6 +7,7 @@ import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
+import com.ingroinfo.ubm.entity.Item;
 import com.ingroinfo.ubm.entity.Supplier;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 
@@ -16,7 +17,7 @@ public interface MasterService {
 
 	List<UnitOfMeasures> getAllUnits();
 
-	void saveUnitOfMeasure(String unitOfMeasure);
+	void saveUnitOfMeasure(String unitOfMeasure, String remarks);
 
 	boolean unitOfMeasureCheck(Long brandId, String brandName);
 
@@ -42,7 +43,7 @@ public interface MasterService {
 
 	boolean brandNameCheck(Long brandId, String brandName);
 
-	boolean categoryExists(String categoryName);
+	boolean categoryExists(String category);
 
 	void saveCategory(Category category);
 
@@ -60,13 +61,13 @@ public interface MasterService {
 
 	void saveHsnCode(HsnCode hsnCode);
 
-	boolean categoryNameExists(String categoryName);
-
 	List<HsnCode> getAllHsnCode();
 
 	HsnCode findByHsnId(Long hsnId);
 
 	boolean hsnCodeCheck(Long hsnId, Long hsnCode);
+
+	boolean categoryExistsOnHsn(Category category);
 
 	void updateHsnCode(HsnCode hsn);
 
@@ -101,5 +102,13 @@ public interface MasterService {
 	void updateBrandPublisher(BrandPublisher brandPublisher);
 
 	void deleteByPublisherId(Long publisherId);
+
+	void saveItem(Item item);
+
+	Category findByCategoryName(String categoryName);
+
+	HsnCode findByHsn(Category category);
+
+	List<Item> getAllItems();
 
 }

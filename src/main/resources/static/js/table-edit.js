@@ -82,6 +82,7 @@ $(document).ready(function() {
 		$.get(href, function(unit) {
 			$('#unitIdCopy').val(unit.unitId);
 			$('#unitOfMeasureCopy').val(unit.unitOfMeasure);
+			$('#remarksCopy').val(unit.remarks);
 		});
 		$('editUnit').modal();
 	});

@@ -10,6 +10,7 @@ import com.ingroinfo.ubm.dao.BrandPublisherRepository;
 import com.ingroinfo.ubm.dao.BrandRepository;
 import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.HsnCodeRepository;
+import com.ingroinfo.ubm.dao.ItemRepository;
 import com.ingroinfo.ubm.dao.SupplierRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
 import com.ingroinfo.ubm.dto.SupplierDto;
@@ -17,6 +18,7 @@ import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
+import com.ingroinfo.ubm.entity.Item;
 import com.ingroinfo.ubm.entity.Supplier;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.service.MasterService;
@@ -42,6 +44,9 @@ public class MasterServiceImpl implements MasterService {
 	@Autowired
 	private BrandPublisherRepository brandPublisherRepository;
 
+	@Autowired
+	private ItemRepository itemRepository;
+
 	@Override
 	public List<UnitOfMeasures> getAllUnits() {
 
@@ -55,10 +60,11 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
-	public void saveUnitOfMeasure(String unitOfMeasure) {
+	public void saveUnitOfMeasure(String unitOfMeasure, String remarks) {
 
 		UnitOfMeasures unit = new UnitOfMeasures();
 		unit.setUnitOfMeasure(unitOfMeasure);
+		unit.setRemarks(remarks);
 
 		unitsRepository.save(unit);
 	}
@@ -193,6 +199,12 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
+	public Category findByCategoryName(String categoryName) {
+
+		return categoryRepository.findByCategoryName(categoryName);
+	}
+
+	@Override
 	public void updateCategory(Category category) {
 
 		categoryRepository.save(category);
@@ -217,9 +229,9 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
-	public boolean categoryNameExists(String categoryName) {
+	public boolean categoryExistsOnHsn(Category category) {
 
-		return hsnCodeRepository.findByCategoryName(categoryName) != null;
+		return hsnCodeRepository.findByCategory(category) != null;
 	}
 
 	@Override
@@ -244,6 +256,12 @@ public class MasterServiceImpl implements MasterService {
 
 		boolean isExists = filteredList.stream().filter(o -> o.getHsnCode().equals(hsnCode)).findFirst().isPresent();
 		return isExists;
+	}
+
+	@Override
+	public HsnCode findByHsn(Category category) {
+
+		return hsnCodeRepository.findByCategory(category);
 	}
 
 	@Override
@@ -362,6 +380,18 @@ public class MasterServiceImpl implements MasterService {
 	public void deleteByPublisherId(Long publisherId) {
 
 		brandPublisherRepository.deleteById(publisherId);
+	}
+
+	@Override
+	public void saveItem(Item item) {
+
+		itemRepository.save(item);
+	}
+
+	@Override
+	public List<Item> getAllItems() {
+
+		return itemRepository.findAll();
 	}
 
 }

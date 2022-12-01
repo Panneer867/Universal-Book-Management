@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.ubm.configuration.ModelMapperConfig;
 import com.ingroinfo.ubm.dto.BrandPublisherDto;
+import com.ingroinfo.ubm.dto.HsnDto;
 import com.ingroinfo.ubm.dto.ItemDto;
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Branch;
@@ -24,6 +28,7 @@ import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.HsnCode;
+import com.ingroinfo.ubm.entity.Item;
 import com.ingroinfo.ubm.entity.Supplier;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.entity.User;
@@ -118,6 +123,7 @@ public class MasterController {
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
 
 		if (masterService.brandExists(brandName)) {
 			return "redirect:/master/brand?brandAlreadyExists";
@@ -132,8 +138,18 @@ public class MasterController {
 			brand.setBrandLogo(fileName);
 			brand.setBrandName(brandName);
 			companyService.saveFile(uploadDir, fileName, file);
-			masterService.saveBrand(brand);
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			String fileName = brandName + ".png";
+			String uploadDir = "C:/Company/" + cmpy.getCompanyName() + "/Brands";
+			brand.setBrandLogo(fileName);
+			brand.setBrandName(brandName);
+			companyService.saveFile(uploadDir, fileName, file);
 		}
+
+		masterService.saveBrand(brand);
 
 		return "redirect:/master/brand?brandAdded";
 	}
@@ -342,18 +358,20 @@ public class MasterController {
 	}
 
 	@PostMapping("/measures/add")
-	public String unitOfMeasuresAdd(@RequestParam String unitOfMeasure, Principal principal) {
+	public String unitOfMeasuresAdd(@RequestParam String unitOfMeasure, @RequestParam String remarks,
+			Principal principal) {
 
 		if (masterService.unitExists(unitOfMeasure)) {
 			return "redirect:/master/measures?unitAlreadyExists";
 		}
-		masterService.saveUnitOfMeasure(unitOfMeasure);
+		masterService.saveUnitOfMeasure(unitOfMeasure, remarks);
 
 		return "redirect:/master/measures?unitAdded";
 	}
 
 	@PostMapping("/measures/update")
-	public String unitUpdate(@RequestParam String unitId, @RequestParam String unitOfMeasure) {
+	public String unitUpdate(@RequestParam String unitId, @RequestParam String unitOfMeasure,
+			@RequestParam String remarks) {
 
 		UnitOfMeasures unit = masterService.findByUnitId(Long.parseLong(unitId));
 
@@ -362,6 +380,7 @@ public class MasterController {
 		}
 
 		unit.setUnitOfMeasure(unitOfMeasure);
+		unit.setRemarks(remarks);
 		masterService.updateUnitOfMeasure(unit);
 
 		return "redirect:/master/measures/list?unitUpdated";
@@ -403,8 +422,8 @@ public class MasterController {
 
 	@GetMapping("/hsn/list")
 	public String hsnList(Model model, Principal principal) {
-		model.addAttribute("title", "HSN Code Lists");
 
+		model.addAttribute("title", "HSN Code Lists");
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
@@ -429,7 +448,17 @@ public class MasterController {
 			model.addAttribute("emptyList", "No Records");
 		}
 
-		model.addAttribute("hsnLists", hsnList);
+		List<HsnDto> hsnLists = hsnList.stream().map(temp -> {
+			HsnDto obj = new HsnDto();
+			obj.setHsnId(temp.getHsnId());
+			obj.setCategoryName(temp.getCategory().getCategoryName());
+			obj.setHsnCode(temp.getHsnCode());
+			obj.setDateCreated(temp.getDateCreated());
+			obj.setLastUpdated(temp.getLastUpdated());
+			return obj;
+		}).collect(Collectors.toList());
+
+		model.addAttribute("hsnLists", hsnLists);
 		model.addAttribute("categories", masterService.getAllCategories());
 
 		return "/masters/hsn_list";
@@ -442,12 +471,12 @@ public class MasterController {
 			return "redirect:/master/hsn?hsnAlreadyExists";
 		}
 
-		if (masterService.categoryNameExists(categoryName)) {
+		if (masterService.categoryExistsOnHsn(masterService.findByCategoryName(categoryName))) {
 			return "redirect:/master/hsn?categoryAlreadyExists";
 		}
 
 		HsnCode hsn = new HsnCode();
-		hsn.setCategoryName(categoryName);
+		hsn.setCategory(masterService.findByCategoryName(categoryName));
 		hsn.setHsnCode(hsnCode);
 
 		masterService.saveHsnCode(hsn);
@@ -630,7 +659,7 @@ public class MasterController {
 	@GetMapping("/brand/publisher/list")
 	public String brandPublisherList(Model model, Principal principal) {
 
-		model.addAttribute("title", "Brnad Publishers Lists");
+		model.addAttribute("title", "Brand Publishers Lists");
 		model.addAttribute("publisher", new BrandPublisherDto());
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
@@ -708,9 +737,106 @@ public class MasterController {
 			model.addAttribute("details", cmpy);
 		}
 
-		model.addAttribute("stateList", userService.getAllStates());
-		model.addAttribute("bankList", userService.getAllBanks());
+		model.addAttribute("brands", masterService.getAllBrands());
+		model.addAttribute("categories", masterService.getAllCategories());
+		model.addAttribute("suppliers", masterService.getAllSuppliers());
+		model.addAttribute("publishers", masterService.getAllBrandPublishers());
+		model.addAttribute("unitOfMeasureList", masterService.getAllUnits());
+
 		return "/masters/item";
+	}
+
+	@PostMapping("/item/add")
+	public String itemAdd(@RequestParam("itemImage") MultipartFile file, @ModelAttribute("item") ItemDto itemDto,
+			BindingResult bindingResult, Principal principal) throws IOException {
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+		Item item = new Item();
+
+		if (company != null) {
+
+			String fileName = itemDto.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + ".jpg";
+			String uploadDir = "C:/Company/" + company.getCompanyName() + "/Items";
+			item.setItemImage(fileName);
+			companyService.saveFile(uploadDir, fileName, file);
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			String fileName = itemDto.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + ".jpg";
+			String uploadDir = "C:/Company/" + cmpy.getCompanyName() + "/Items";
+			item.setItemImage(fileName);
+			companyService.saveFile(uploadDir, fileName, file);
+		}
+
+		item.setItemName(itemDto.getItemName());
+		item.setItemStatus(itemDto.getItemStatus());
+		item.setCategory(masterService.findByCategoryId(itemDto.getCategory()));
+		item.setHsnCode(masterService.findByHsn(item.getCategory()));
+		item.setSupplier(masterService.findBySupplierId(itemDto.getSupplier()));
+		item.setBrand(masterService.findByBrandId(itemDto.getBrand()));
+		item.setRemarks(itemDto.getRemarks());
+		item.setUnitOfMeasure(itemDto.getUnitOfMeasure());
+		masterService.saveItem(item);
+
+		return "redirect:/master/item?itemAdded";
+	}
+
+	@GetMapping("/item/list")
+	public String itemList(Model model, Principal principal) {
+
+		model.addAttribute("title", "Item Lists");
+		model.addAttribute("item", new ItemDto());
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		List<Item> itemList = masterService.getAllItems();
+		if (itemList.size() == 0) {
+			model.addAttribute("emptyList", "No Records");
+		}
+
+		List<ItemDto> itemLists = itemList.stream().map(temp -> {
+
+			ItemDto obj = new ItemDto();
+			obj.setBrandName(temp.getBrand().getBrandName());
+			obj.setCategoryName(temp.getCategory().getCategoryName());
+			obj.setDateCreated(temp.getDateCreated());
+			obj.setHsnCode(temp.getHsnCode().getHsnCode());
+			obj.setItemId(temp.getItemId());
+			obj.setItemImage(temp.getItemImage());
+			obj.setItemName(temp.getItemName());
+			obj.setItemStatus(temp.getItemStatus());
+			obj.setLastUpdated(temp.getLastUpdated());
+			obj.setRemarks(temp.getRemarks());
+			obj.setSupplierName(temp.getSupplier().getSupplierName());
+			obj.setUnitOfMeasure(temp.getUnitOfMeasure());
+			return obj;
+		}).collect(Collectors.toList());
+
+		model.addAttribute("itemLists", itemLists);
+		model.addAttribute("brands", masterService.getAllBrands());
+		model.addAttribute("categories", masterService.getAllCategories());
+		model.addAttribute("suppliers", masterService.getAllSuppliers());
+
+		return "/masters/item_list";
 	}
 
 }

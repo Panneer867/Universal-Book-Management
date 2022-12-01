@@ -10,33 +10,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemDto {
+public class HsnDto {
 
-	private Long itemId;
-
-	private String itemName;
-
-	private String itemImage;
-
-	private String itemStatus;
-
-	private Long category;
+	private Long hsnId;
 
 	private String categoryName;
 
-	private Long supplier;
-
-	private String supplierName;
-
-	private Long brand;
-
-	private String brandName;
-
 	private Long hsnCode;
-
-	private String unitOfMeasure;
-
-	private String remarks;
 
 	private Date dateCreated;
 

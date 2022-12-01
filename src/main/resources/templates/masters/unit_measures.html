@@ -14,23 +14,24 @@
                         </nav>
                     </div>
                     <div class="mt-5"></div>
-                    <div class="alert alert-success text-center p-2 col-5 mx-auto" role="alert" th:if="${param.unitAdded}">
+                    <div class="alert alert-success text-center p-2 col-8 mx-auto" role="alert" th:if="${param.unitAdded}">
                         Unit of Measures has been added successfully!
                     </div>
-                    <div class="alert alert-danger text-center p-2 col-5 mx-auto font-weight-bold" role="alert" th:if="${param.unitAlreadyExists}">
+                    <div class="alert alert-danger text-center p-2 col-8 mx-auto font-weight-bold" role="alert" th:if="${param.unitAlreadyExists}">
                         Unit of Measure already Exists!
                     </div>
 
-                    <div class="col-5 mx-auto">
+                    <div class="col-8 mx-auto">
                         <div class="card">
                             <div class="card-body p-0">
                                 <h5 class="p-2 mb-0 text-center">Unit of Measures</h5>
                                 <hr class="mb-4 mt-0" />
                                 <form class="forms-sample" data-toggle="validator" th:action="@{/master/measures/add}" role="form" method="post">
-                                    <div class="row justify-content-center">
-                                        <div class="col-5">
+                                    <div class="row px-3">
+                                        <div class="col-4">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" list="unit" id="unitOfMeasure" name="unitOfMeasure" data-error="Provide units!" maxlength="5" placeholder="Enter units" required />
+                                                <label for="categoryName">Unit<strong class="text-danger">*</strong></label>
+                                                <input type="text" class="form-control" list="unit" id="unitOfMeasure" name="unitOfMeasure" data-error="Provide unit!" maxlength="5" placeholder="Enter unit" required />
                                                 <datalist id="unit">
                                                     <option value="kg" />
                                                     <option value="nos" />
@@ -45,12 +46,18 @@
                                                     <option value="litre" />
                                                     <option value="ream" />
                                                 </datalist>
-                                                <small class="text-info">Example: kg</small>
+                                                <small class="text-info">Example: Kg</small>
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="remarks">Remarks</label>
+                                                <input type="text" class="form-control" id="remarks" name="remarks" placeholder="Enter Remarks" />
+                                            </div>
+                                        </div>
                                         <div class="col-2">
-                                            <div class="text-center">
+                                            <div class="text-center" style="padding-top: 21px;">
                                                 <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
                                             </div>
                                         </div>
