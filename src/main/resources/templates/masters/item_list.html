@@ -92,7 +92,7 @@
             </div>
 
             <div class="modal fade" id="viewItem" tabindex="-1" role="dialog" aria-labelledby="viewItem" aria-hidden="true">
-                <div class="modal-dialog" role="document" style="max-width: 50%; margin-top: 140px;">
+                <div class="modal-dialog" role="document" style="max-width: 60%; margin-top: 140px;">
                     <div class="modal-content">
                         <div class="modal-header p-2">
                             <h5 class="modal-title" id="exampleModalLabel-2">Item Details</h5>
@@ -103,69 +103,84 @@
                         <div class="modal-body p-3">
                             <form class="is-readonly">
                                 <div class="row">
-                                    <div class="col-5 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Item Name</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="iItemNameCopy" disabled />
+                                    <div class="col-9">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group row mb-1">
+                                                    <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Item Name</label>
+                                                    <div class="col-sm-8 pl-0">
+                                                        <input type="text" class="form-control is-disabled" id="iItemNameCopy" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group row mb-1">
+                                                    <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Category</label>
+                                                    <div class="col-sm-8 pl-0">
+                                                        <input type="text" class="form-control is-disabled" id="iCategoryCopy" disabled />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Category</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="iCategoryCopy" disabled />
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group row mb-1">
+                                                    <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Brand</label>
+                                                    <div class="col-sm-8 pl-0">
+                                                        <input type="text" class="form-control is-disabled" id="iBrandCopy" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group row mb-1">
+                                                    <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Supplier</label>
+                                                    <div class="col-sm-8 pl-0">
+                                                        <input type="text" class="form-control is-disabled" id="iSupplierCopy" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group row mb-1">
+                                                    <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Unit</label>
+                                                    <div class="col-sm-8 pl-0">
+                                                        <input type="text" class="form-control is-disabled" id="iUnitOfMeasureCopy" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group row mb-1">
+                                                    <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">HSN Code</label>
+                                                    <div class="col-sm-8 pl-0">
+                                                        <input type="text" class="form-control is-disabled" id="iHsnCodeCopy" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group row mb-1">
+                                                    <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Status</label>
+                                                    <div class="col-sm-8 pl-0">
+                                                        <input type="text" class="form-control is-disabled" id="iStatusCopy" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group row mb-1">
+                                                    <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Remarks</label>
+                                                    <div class="col-sm-8 pl-0">
+                                                        <input type="text" class="form-control is-disabled" id="iRemarksCopy" disabled />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Brand</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="iBrand" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Supplier</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="iSupplier" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 px-3">
-                                        <div class="form-group row mb-1">
-                                            <div class="col-sm-8 pl-0">
-                                                <img id="itemImg" alt="image" style="width: 100px; height: 100px; border: 2px solid rgb(0, 128, 192);" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-5 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Unit</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="iUnitOfMeasure" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">HSN Code</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="iHsnCode" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-5 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Item Status</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="iStatus" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Remarks</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="iRemarks" disabled />
-                                            </div>
+                                    <div class="col-3 px-1">
+                                        <div class="form-group">
+                                            <label class="text-warning font-weight-bold pl-5">Item Image</label><br />
+                                            <img id="itemImg" alt="image" style="width: 170px; height: 180px; border: 2px solid rgb(0, 128, 192);" />
                                         </div>
                                     </div>
                                 </div>
@@ -176,208 +191,94 @@
             </div>
 
             <div class="modal fade" id="editItem" tabindex="-1" role="dialog" aria-labelledby="editItem" aria-hidden="true">
-                <div class="modal-dialog" role="document" style="max-width: 65%; margin-top: 80px;">
+                <div class="modal-dialog" role="document" style="max-width: 60%; margin-top: 80px;">
                     <div class="modal-content">
-                        <form data-toggle="validator" th:action="@{/master/item/update}" th:object="${item}" role="form" method="post">
+                        <form data-toggle="validator" th:action="@{/master/item/update}" th:object="${item}" role="form" method="post" enctype="multipart/form-data">
                             <div class="modal-header pt-2 pb-1">
-                                <h5 class="modal-title" id="editModal">Edit Supplier</h5>
+                                <h5 class="modal-title" id="editModal">Edit Item</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body py-0">
-                                <div class="row mt-3">
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="supplierName">Supplier Name<strong class="text-danger">*</strong></label>
-                                            <input type="hidden" id="supplierIdCopy" name="supplierId" />
-                                            <input type="text" class="form-control" id="ssupplierNameCopy" name="supplierName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter supplier name" required />
-                                            <div class="help-block with-errors text-danger"></div>
+                                <div class="row mt-4 mb-2">
+                                    <div class="col-9">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group mb-2">
+                                                    <label for="eItemNameCopy" class="font-weight-bold">Item Name<strong class="text-danger">*</strong></label>
+                                                    <input type="hidden" id="eItemIdCopy" name="itemId" />
+                                                    <input type="text" class="form-control" id="eItemNameCopy" name="itemName" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter supplier name" required />
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group mb-2">
+                                                    <label for="eCategoryCopy" class="font-weight-bold">Category<strong class="text-danger">*</strong></label>
+                                                    <select class="form-control" id="eCategoryCopy" name="categoryName" data-error="Select a Category !" required>
+                                                        <option value="" selected>select</option>
+                                                        <option th:each="category : ${categories}" th:value="${category.categoryName}" th:utext="${category.categoryName}" />
+                                                    </select>
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mt-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="eBrandCopy" class="font-weight-bold">Brand<strong class="text-danger">*</strong></label>
+                                                    <select class="form-control" id="eBrandCopy" name="brandName" data-error="Select a brand !" required>
+                                                        <option value="" selected>select</option>
+                                                        <option th:each="brand : ${brands}" th:value="${brand.brandName}" th:utext="${brand.brandName}" />
+                                                    </select>
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mt-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="eSupplierCopy" class="font-weight-bold">Supplier<strong class="text-danger">*</strong></label>
+                                                    <select class="form-control" id="eSupplierCopy" name="supplierName" data-error="Select a Supplier !" required>
+                                                        <option value="" selected>select</option>
+                                                        <option th:each="supplier : ${suppliers}" th:value="${supplier.supplierName}" th:utext="${supplier.supplierName}" />
+                                                    </select>
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 mt-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="eUnitOfMeasureCopy" class="font-weight-bold">Unit of Measure<strong class="text-danger">*</strong></label>
+                                                    <select class="form-control" id="eUnitOfMeasureCopy" name="unitOfMeasure" data-error="Select Unit of measure !" required>
+                                                        <option value="" selected>select</option>
+                                                        <option th:each="unitOfMeasures : ${unitOfMeasureList}" th:value="${unitOfMeasures.unitOfMeasure}" th:utext="${unitOfMeasures.unitOfMeasure}" />
+                                                    </select>
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mt-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="eStatusCopy" class="font-weight-bold">Item Status<strong class="text-danger">*</strong></label>
+                                                    <select class="form-control" id="eStatusCopy" name="itemStatus" data-error="Select a item status !" required>
+                                                        <option value="" selected>select</option>
+                                                        <option value="Available">Available</option>
+                                                        <option value="Not Available">Not Available</option>
+                                                    </select>
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="eRemarksCopy" class="font-weight-bold">Remarks<strong class="text-danger">*</strong></label>
+                                                    <input type="text" class="form-control" id="eRemarksCopy" name="remarks" data-minlength="3" placeholder="Enter Remarks" />
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="email">Email ID<strong class="text-danger">*</strong></label>
-                                            <input type="email" class="form-control" id="semailCopy" name="email" data-error="Provide a valid email !" placeholder="Enter Email" required />
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="telephone">Telephone</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                name="telephone"
-                                                pattern="[7-9]{1}[0-9]{9}"
-                                                maxlength="10"
-                                                id="stelephoneCopy"
-                                                data-error="Provide a valid phone number !"
-                                                placeholder="Enter telephone no"
-                                            />
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="mobile">Mobile No<strong class="text-danger">*</strong></label>
-                                            <input
-                                                type="text"
-                                                pattern="[7-9]{1}[0-9]{9}"
-                                                class="form-control"
-                                                name="mobile"
-                                                id="smobileCopy"
-                                                maxlength="10"
-                                                data-error="Provide a valid mobile number"
-                                                placeholder="Enter mobile no"
-                                                required
-                                            />
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="bankName">Bank Name<strong class="text-danger">*</strong></label>
-                                            <select class="form-control" id="sbankNameCopy" name="bankName" data-error="Select Bank Name !" required>
-                                                <option value="" selected>select</option>
-                                                <option th:each="banks : ${bankList}" th:value="${banks.name}" th:utext="${banks.name}" />
-                                            </select>
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="saccountNumberCopy">Account Number<strong class="text-danger">*</strong></label>
-                                            <input type="number" class="form-control form-control-sm" id="saccountNumberCopy" data-minlength="8" data-error="Provide a account number !" required />
-
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="saccountNumberCopy">Confirm Account Number<strong class="text-danger">*</strong></label>
-                                            <input
-                                                type="password"
-                                                class="form-control form-control-sm"
-                                                id="scaccountNumberCopy"
-                                                name="accountNumber"
-                                                data-minlength="8"
-                                                data-match="#saccountNumberCopy"
-                                                data-match-error="Whoops, these don't match"
-                                                placeholder="Enter confirm account no"
-                                                required
-                                            />
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="ifscCode">IFSC Code<strong class="text-danger">*</strong></label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="sifscCodeCopy"
-                                                name="ifscCode"
-                                                oninput="this.value = this.value.toUpperCase()"
-                                                data-error="Provide IFSC Code !"
-                                                placeholder="Enter ifsc code"
-                                                required
-                                            />
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="gstin">GSTIN</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                oninput="this.value = this.value.toUpperCase()"
-                                                id="sgstinCopy"
-                                                name="gstin"
-                                                data-minlength="15"
-                                                maxlength="15"
-                                                data-error="Provide a GSTIN/UIN !"
-                                                disabled
-                                            />
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="address">Address<strong class="text-danger">*</strong></label>
-                                            <textarea type="text" class="form-control" rows="2" name="address" id="saddressCopy" data-error="Provide a address !" placeholder="Enter address" required></textarea>
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="state">State<strong class="text-danger">*</strong></label>
-                                            <select class="form-control" id="sstateCopy" name="state" data-error="Select state !" required>
-                                                <option value="" selected>Select</option>
-                                                <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
-                                            </select>
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="city">City<strong class="text-danger">*</strong></label>
-                                            <input type="text" class="form-control" name="city" id="scityCopy" data-error="Provide a city !" placeholder="Enter city" required />
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-3">
-                                        <div class="form-group mb-2">
-                                            <label for="pinCode">Pincode<strong class="text-danger">*</strong></label>
-                                            <input type="text" class="form-control" name="pinCode" id="spinCodeCopy" pattern="[0-9]{6}" maxlength="6" data-error="Provide a pincode !" placeholder="Enter pincode" required />
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group mb-3">
-                                            <label for="totalPurchasedAmount">Total Purchased Amount<strong class="text-danger">*</strong></label>
-                                            <input
-                                                type="number"
-                                                class="form-control"
-                                                name="totalPurchasedAmount"
-                                                oninput="this.value = this.value.toUpperCase()"
-                                                id="stotalPurchasedAmountCopy"
-                                                data-error="Provide Purchase amount !"
-                                                placeholder="Enter Purchase amount"
-                                                required
-                                            />
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group mb-3">
-                                            <label for="paidAmount">Paid Amount<strong class="text-danger">*</strong></label>
-                                            <input
-                                                type="number"
-                                                class="form-control"
-                                                name="paidAmount"
-                                                oninput="this.value = this.value.toUpperCase()"
-                                                id="spaidAmountCopy"
-                                                data-error="Provide Paid amount !"
-                                                placeholder="Enter Paid amount"
-                                                required
-                                            />
-                                            <div class="help-block with-errors text-danger"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group mb-3">
-                                            <label for="balanceAmount">Balance Amount</label>
-                                            <input type="hidden" name="balanceAmount" id="sbalanceAmountCopy" />
-                                            <input type="number" class="form-control" id="csbalanceAmountCopy" data-error="Provide Purchase amount !" disabled />
+                                        <div class="form-group text-center">
+                                            <label for="itemImage" class="font-weight-bold">Item Image</label>
+                                            <input type="file" name="itemImage" id="itemImage" accept="image/*" data-height="150" data-max-file-size="2M" class="dropify" />
+                                            <small class="text-info">[File: 2MB MAX]</small>
                                             <div class="help-block with-errors text-danger"></div>
                                         </div>
                                     </div>
@@ -395,13 +296,13 @@
                 <div class="modal-dialog" role="document" style="margin-top: 180px;">
                     <div class="modal-content">
                         <div class="modal-header p-2">
-                            <h5 class="modal-title" id="exampleModalLabel-2">Delete Supplier</h5>
+                            <h5 class="modal-title" id="exampleModalLabel-2">Delete Item</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            Are you sure, you want to delete this Supplier?
+                            Are you sure, you want to delete this Item?
                         </div>
                         <div class="modal-footer p-2">
                             <a href="" class="btn btn-sm btn-danger" id="delRef">Yes, Delete</a>

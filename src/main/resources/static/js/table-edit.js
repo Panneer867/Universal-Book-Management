@@ -209,20 +209,41 @@ $(document).ready(function() {
 		$('.table .view-item').on('click', function(event) {
 			event.preventDefault();
 			var href = $(this).attr('href');
-			$.get(href, function(publisher) {
-				$('#itemIdCopy').val(publisher.itemId);
-				$('#iItemNameCopy').val(publisher.itemName);
-				$('#iCategoryCopy').val(publisher.categoryName);
-				$('#iItemImageCopy').val(publisher.itemImage);
-				$('#iBrand').val(publisher.brandName);
-				$('#iSupplier').val(publisher.supplierName);
-				$('#iUnitOfMeasure').val(publisher.unitOfMeasure);
-				$('#iStatus').val(publisher.itemStatus);
-				$('#iHsnCode').val(publisher.hsnCode);
-				$('#iRemarks').val(publisher.remarks);
-				$("#itemImg").attr("src", "/Company/" + publisher.companyName + "/Items/" + publisher.itemImage);
+			$.get(href, function(item) {
+				$('#itemIdCopy').val(item.itemId);
+				$('#iItemNameCopy').val(item.itemName);
+				$('#iCategoryCopy').val(item.categoryName);
+				$('#iItemImageCopy').val(item.itemImage);
+				$('#iBrandCopy').val(item.brandName);
+				$('#iSupplierCopy').val(item.supplierName);
+				$('#iUnitOfMeasureCopy').val(item.unitOfMeasure);
+				$('#iStatusCopy').val(item.itemStatus);
+				$('#iHsnCodeCopy').val(item.hsnCode);
+				$('#iRemarksCopy').val(item.remarks);
+				$("#itemImg").attr("src", "/Company/" + item.companyName + "/Items/" + item.itemImage);
 			});
 			$('viewItem').modal();
+
+		});
+
+	});
+	
+	$(document).ready(function() {
+		$('.table .edit-item').on('click', function(event) {
+			event.preventDefault();
+			var href = $(this).attr('href');
+			$.get(href, function(item) {
+				$('#eItemIdCopy').val(item.itemId);
+				$('#eItemNameCopy').val(item.itemName);
+				$('#eCategoryCopy').val(item.categoryName);
+				$('#eBrandCopy').val(item.brandName);
+				$('#eSupplierCopy').val(item.supplierName);
+				$('#eUnitOfMeasureCopy').val(item.unitOfMeasure);
+				$('#eStatusCopy').val(item.itemStatus);
+				$('#eHsnCodeCopy').val(item.hsnCode);
+				$('#eRemarksCopy').val(item.remarks);
+			});
+			$('editItem').modal();
 
 		});
 

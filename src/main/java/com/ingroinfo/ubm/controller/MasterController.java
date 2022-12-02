@@ -816,6 +816,7 @@ public class MasterController {
 		List<ItemDto> itemLists = itemList.stream().map(temp -> {
 
 			ItemDto obj = new ItemDto();
+
 			obj.setBrandName(temp.getBrand().getBrandName());
 			obj.setCategoryName(temp.getCategory().getCategoryName());
 			obj.setDateCreated(temp.getDateCreated());
@@ -835,8 +836,50 @@ public class MasterController {
 		model.addAttribute("brands", masterService.getAllBrands());
 		model.addAttribute("categories", masterService.getAllCategories());
 		model.addAttribute("suppliers", masterService.getAllSuppliers());
+		model.addAttribute("publishers", masterService.getAllBrandPublishers());
+		model.addAttribute("unitOfMeasureList", masterService.getAllUnits());
 
 		return "/masters/item_list";
 	}
 
+	@PostMapping("/item/update")
+	public String ItemUpdate(@ModelAttribute("item") ItemDto itemDto, @RequestParam("itemImage") MultipartFile file,
+			Principal principal, BindingResult bindingResult) throws IOException {
+
+		Item item = masterService.findByItemId(itemDto.getItemId());
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		String companyName = company.getCompanyName();
+		String itemName = itemDto.getItemName();
+
+		if (file.getOriginalFilename().equals("")) {
+
+			masterService.itemRename(itemDto.getItemName(), companyName, item);
+
+			String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + ".jpg";
+			item.setItemImage(fileName);
+			item.setItemName(itemName);
+
+		} else {
+
+			File folder = new File("C:\\Company\\" + companyName + "\\Items\\" + item.getItemImage());
+
+			if (folder.delete()) {
+
+				String fileName = itemDto.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + ".jpg";
+				String uploadDir = "C:/Company/" + companyName + "/Items";
+				item.setItemImage(fileName);
+				item.setItemName(itemName);
+				companyService.saveFile(uploadDir, fileName, file);
+			}
+		}
+
+		mapper.modelMapper().map(itemDto, item);
+		item.setBrand(masterService.findByBrandName(itemDto.getBrandName()));
+		item.setCategory(masterService.findByCategoryName(itemDto.getCategoryName()));
+		item.setSupplier(masterService.findBySupplierName(itemDto.getSupplierName()));
+
+		masterService.updateItem(item);
+		return "redirect:/master/item/list?itemUpdated";
+	}
 }

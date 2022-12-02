@@ -313,9 +313,21 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
+	public Supplier findBySupplierName(String supplierName) {
+
+		return supplierRepository.findBySupplierName(supplierName);
+	}
+
+	@Override
 	public void updateSupplier(Supplier supplier) {
 
 		supplierRepository.save(supplier);
+	}
+
+	@Override
+	public void deleteBySupplierId(Long supplierId) {
+
+		supplierRepository.deleteById(supplierId);
 	}
 
 	@Override
@@ -344,12 +356,6 @@ public class MasterServiceImpl implements MasterService {
 				.isPresent();
 
 		return isExists;
-	}
-
-	@Override
-	public void deleteBySupplierId(Long supplierId) {
-
-		supplierRepository.deleteById(supplierId);
 	}
 
 	@Override
@@ -392,6 +398,30 @@ public class MasterServiceImpl implements MasterService {
 	public List<Item> getAllItems() {
 
 		return itemRepository.findAll();
+	}
+
+	@Override
+	public Item findByItemId(Long itemId) {
+
+		return itemRepository.findByItemId(itemId);
+	}
+
+	@Override
+	public void itemRename(String itemName, String companyName, Item item) {
+
+		boolean isThere = itemName + ".jpg" == item.getItemImage();
+
+		if (!isThere) {
+			File folder = new File("C:\\Company\\" + companyName + "\\Items\\" + item.getItemImage());
+			folder.renameTo(new File("C:\\Company\\" + companyName + "\\Items\\" + itemName + ".jpg"));
+		}
+	}
+
+	@Override
+	public void updateItem(Item item) {
+
+		itemRepository.save(item);
+
 	}
 
 }

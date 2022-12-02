@@ -111,4 +111,12 @@ public interface MasterService {
 
 	List<Item> getAllItems();
 
+	Item findByItemId(Long itemId);
+
+	void itemRename(String itemName, String companyName, Item item);
+
+	void updateItem(Item item);
+
+	Supplier findBySupplierName(String supplierName);
+
 }
