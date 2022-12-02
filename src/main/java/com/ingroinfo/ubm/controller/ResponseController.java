@@ -1,10 +1,12 @@
 package com.ingroinfo.ubm.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,22 +18,28 @@ import com.ingroinfo.ubm.dao.BrandRepository;
 import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.EmployeeRepository;
 import com.ingroinfo.ubm.dao.HsnCodeRepository;
+import com.ingroinfo.ubm.dao.ItemRepository;
 import com.ingroinfo.ubm.dao.SupplierRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
 import com.ingroinfo.ubm.dao.UserRepository;
 import com.ingroinfo.ubm.dto.BranchDto;
+import com.ingroinfo.ubm.dto.ItemDto;
 import com.ingroinfo.ubm.dto.UserDto;
 import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Category;
+import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.Employee;
 import com.ingroinfo.ubm.entity.HsnCode;
+import com.ingroinfo.ubm.entity.Item;
 import com.ingroinfo.ubm.entity.State;
 import com.ingroinfo.ubm.entity.Supplier;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.entity.User;
 import com.ingroinfo.ubm.service.BranchService;
+import com.ingroinfo.ubm.service.CompanyService;
+import com.ingroinfo.ubm.service.MasterService;
 import com.ingroinfo.ubm.service.UserService;
 
 @Controller
@@ -45,6 +53,12 @@ public class ResponseController {
 
 	@Autowired
 	public BranchService branchService;
+
+	@Autowired
+	public CompanyService companyService;
+
+	@Autowired
+	public MasterService masterService;
 
 	@Autowired
 	public UserRepository userRepository;
@@ -69,6 +83,9 @@ public class ResponseController {
 
 	@Autowired
 	private BrandPublisherRepository brandPublisherRepository;
+
+	@Autowired
+	private ItemRepository itemRepository;
 
 	@GetMapping("/city")
 	public @ResponseBody String getCities(@RequestParam String stateName) {
@@ -163,6 +180,42 @@ public class ResponseController {
 	public BrandPublisher getPublisher(@RequestParam Long id) {
 
 		return brandPublisherRepository.findByPublisherId(id);
+	}
+
+	@ResponseBody
+	@RequestMapping("/item")
+	public ItemDto getItem(@RequestParam Long id, Principal principal, Model model) {
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		String companyName = null;
+		if (company != null) {
+			companyName = company.getCompanyName();
+		} else if (branch != null) {
+			Company cmpy = branch.getCompany();
+			companyName = cmpy.getCompanyName();
+		}
+
+		Item item = itemRepository.findByItemId(id);
+		ItemDto itemDto = new ItemDto();
+
+		itemDto.setBrandName(item.getBrand().getBrandName());
+		itemDto.setCategoryName(item.getCategory().getCategoryName());
+		itemDto.setDateCreated(item.getDateCreated());
+		itemDto.setHsnCode(item.getHsnCode().getHsnCode());
+		itemDto.setItemId(item.getItemId());
+		itemDto.setItemImage(item.getItemImage());
+		itemDto.setItemName(item.getItemName());
+		itemDto.setItemStatus(item.getItemStatus());
+		itemDto.setLastUpdated(item.getLastUpdated());
+		itemDto.setRemarks(item.getRemarks());
+		itemDto.setSupplierName(item.getSupplier().getSupplierName());
+		itemDto.setUnitOfMeasure(item.getUnitOfMeasure());
+		itemDto.setCompanyName(companyName);
+
+		return itemDto;
 	}
 
 }

@@ -7,4 +7,6 @@ import com.ingroinfo.ubm.entity.Item;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
+	Item findByItemId(Long id);
+
 }

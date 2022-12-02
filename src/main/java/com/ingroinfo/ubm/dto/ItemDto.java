@@ -38,6 +38,8 @@ public class ItemDto {
 
 	private String remarks;
 
+	private String companyName;
+
 	private Date dateCreated;
 
 	private Date lastUpdated;

@@ -205,4 +205,28 @@ $(document).ready(function() {
 
 	});
 
+	$(document).ready(function() {
+		$('.table .view-item').on('click', function(event) {
+			event.preventDefault();
+			var href = $(this).attr('href');
+			$.get(href, function(publisher) {
+				$('#itemIdCopy').val(publisher.itemId);
+				$('#iItemNameCopy').val(publisher.itemName);
+				$('#iCategoryCopy').val(publisher.categoryName);
+				$('#iItemImageCopy').val(publisher.itemImage);
+				$('#iBrand').val(publisher.brandName);
+				$('#iSupplier').val(publisher.supplierName);
+				$('#iUnitOfMeasure').val(publisher.unitOfMeasure);
+				$('#iStatus').val(publisher.itemStatus);
+				$('#iHsnCode').val(publisher.hsnCode);
+				$('#iRemarks').val(publisher.remarks);
+				$("#itemImg").attr("src", "/Company/" + publisher.companyName + "/Items/" + publisher.itemImage);
+			});
+			$('viewItem').modal();
+
+		});
+
+	});
+
+
 });

@@ -92,170 +92,79 @@
             </div>
 
             <div class="modal fade" id="viewItem" tabindex="-1" role="dialog" aria-labelledby="viewItem" aria-hidden="true">
-                <div class="modal-dialog" role="document" style="max-width: 60%; margin-top: 90px;">
+                <div class="modal-dialog" role="document" style="max-width: 50%; margin-top: 140px;">
                     <div class="modal-content">
                         <div class="modal-header p-2">
-                            <h5 class="modal-title" id="exampleModalLabel-2">Supplier Details</h5>
+                            <h5 class="modal-title" id="exampleModalLabel-2">Item Details</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body p-3">
                             <form class="is-readonly">
                                 <div class="row">
-                                    <div class="col-4 px-3">
+                                    <div class="col-5 px-3">
                                         <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Supplier:</label>
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Item Name</label>
                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vssupplierNameCopy" disabled />
+                                                <input type="text" class="form-control is-disabled" id="iItemNameCopy" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Category</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="iCategoryCopy" disabled />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-4 px-3">
                                         <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Recipt No:</label>
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Brand</label>
                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsreciptNoCopy" disabled />
+                                                <input type="text" class="form-control is-disabled" id="iBrand" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Supplier</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="iSupplier" disabled />
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4 px-3">
+                                    <div class="col-3 px-3">
                                         <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">GST Type:</label>
                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsgstTypeCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">GSTIN/UIN:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsgstinCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Email:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsemailCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Telephone:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vstelephoneCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Mobile:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsmobileCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Fax No:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsfaxNoCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Address:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsaddressCopy" disabled />
+                                                <img id="itemImg" alt="image" style="width: 100px; height: 100px; border: 2px solid rgb(0, 128, 192);" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4 px-3">
+                                    <div class="col-5 px-3">
                                         <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">State:</label>
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Unit</label>
                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsstateCopy" disabled />
+                                                <input type="text" class="form-control is-disabled" id="iUnitOfMeasure" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">HSN Code</label>
+                                            <div class="col-sm-8 pl-0">
+                                                <input type="text" class="form-control is-disabled" id="iHsnCode" disabled />
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4 px-3">
+                                    <div class="col-5 px-3">
                                         <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">City:</label>
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Item Status</label>
                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vscityCopy" disabled />
+                                                <input type="text" class="form-control is-disabled" id="iStatus" disabled />
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-4 px-3">
                                         <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Pincode:</label>
+                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Remarks</label>
                                             <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vspinCodeCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Bank:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsbankNameCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Acc No:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsaccountNumberCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">IFSC Code:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsifscCodeCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Total:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vstotalPurchasedAmountCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Paid:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vspaidAmountCopy" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 px-3">
-                                        <div class="form-group row mb-1">
-                                            <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Balance:</label>
-                                            <div class="col-sm-8 pl-0">
-                                                <input type="text" class="form-control is-disabled" id="vsbalanceAmountCopy" disabled />
+                                                <input type="text" class="form-control is-disabled" id="iRemarks" disabled />
                                             </div>
                                         </div>
                                     </div>
