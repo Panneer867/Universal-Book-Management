@@ -407,13 +407,13 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
-	public void itemRename(String itemName, String companyName, Item item) {
+	public void itemRename(String itemName, String companyName, Item item, String fileName) {
 
-		boolean isThere = itemName + ".jpg" == item.getItemImage();
+		boolean isThere = fileName.equals(item.getItemImage());
 
 		if (!isThere) {
 			File folder = new File("C:\\Company\\" + companyName + "\\Items\\" + item.getItemImage());
-			folder.renameTo(new File("C:\\Company\\" + companyName + "\\Items\\" + itemName + ".jpg"));
+			folder.renameTo(new File("C:\\Company\\" + companyName + "\\Items\\" + fileName));
 		}
 	}
 

@@ -13,19 +13,12 @@ import lombok.Setter;
 public class BrandPublisherDto {
 
 	private Long publisherId;
-
 	private String brand;
-
 	private String category;
-
 	private String supplier;
-
 	private String publisherName;
-
 	private String remarks;
-
 	private Date dateCreated;
-
 	private Date lastUpdated;
 
 }

@@ -24,22 +24,22 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "master_brand_publisher")
 public class BrandPublisher {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "publisher_id")
 	private Long publisherId;
-	
+
 	private String brand;
-	
+
 	private String category;
-	
+
 	private String supplier;
-	
+
 	private String publisherName;
-	
+
 	private String remarks;
-	
+
 	@CreationTimestamp
 	private Date dateCreated;
 

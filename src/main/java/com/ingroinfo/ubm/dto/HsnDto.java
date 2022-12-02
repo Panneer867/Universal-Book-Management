@@ -13,13 +13,9 @@ import lombok.Setter;
 public class HsnDto {
 
 	private Long hsnId;
-
 	private String categoryName;
-
 	private Long hsnCode;
-
 	private Date dateCreated;
-
 	private Date lastUpdated;
 
 }

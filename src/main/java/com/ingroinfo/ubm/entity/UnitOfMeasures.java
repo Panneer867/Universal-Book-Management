@@ -29,7 +29,7 @@ public class UnitOfMeasures {
 	private Long unitId;
 
 	private String unitOfMeasure;
-	
+
 	private String remarks;
 
 	@CreationTimestamp

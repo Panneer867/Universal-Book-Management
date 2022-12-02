@@ -14,7 +14,7 @@ public class CompanyDto {
 	private Long companyId;
 	private String companyName;
 	private String businessType;
-	private String dateOfEstablished;
+	private String dateOfEstaFblished;
 	private String serviceType;
 	private String yearsPreviouslyRegistered;
 	private String telephone;

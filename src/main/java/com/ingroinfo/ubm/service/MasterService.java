@@ -113,7 +113,7 @@ public interface MasterService {
 
 	Item findByItemId(Long itemId);
 
-	void itemRename(String itemName, String companyName, Item item);
+	void itemRename(String itemName, String companyName, Item item, String fileName);
 
 	void updateItem(Item item);
 

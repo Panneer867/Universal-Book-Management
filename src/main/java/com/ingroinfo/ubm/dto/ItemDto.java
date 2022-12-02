@@ -13,35 +13,20 @@ import lombok.Setter;
 public class ItemDto {
 
 	private Long itemId;
-
 	private String itemName;
-
 	private String itemImage;
-
 	private String itemStatus;
-
 	private Long category;
-
 	private String categoryName;
-
 	private Long supplier;
-
 	private String supplierName;
-
 	private Long brand;
-
 	private String brandName;
-
 	private Long hsnCode;
-
 	private String unitOfMeasure;
-
 	private String remarks;
-
 	private String companyName;
-
 	private Date dateCreated;
-
 	private Date lastUpdated;
 
 }

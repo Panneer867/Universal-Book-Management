@@ -843,7 +843,7 @@ public class MasterController {
 	}
 
 	@PostMapping("/item/update")
-	public String ItemUpdate(@ModelAttribute("item") ItemDto itemDto, @RequestParam("itemImage") MultipartFile file,
+	public String ItemUpdate(@ModelAttribute("item") ItemDto itemDto, @RequestParam("itemPic") MultipartFile file,
 			Principal principal, BindingResult bindingResult) throws IOException {
 
 		Item item = masterService.findByItemId(itemDto.getItemId());
@@ -854,9 +854,9 @@ public class MasterController {
 
 		if (file.getOriginalFilename().equals("")) {
 
-			masterService.itemRename(itemDto.getItemName(), companyName, item);
-
 			String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + ".jpg";
+			masterService.itemRename(itemDto.getItemName(), companyName, item, fileName);
+
 			item.setItemImage(fileName);
 			item.setItemName(itemName);
 

@@ -30,7 +30,7 @@ public class HsnCode {
 	private Long hsnId;
 
 	@OneToOne
-	@JoinColumn(name= "category_id")
+	@JoinColumn(name = "category_id")
 	private Category category;
 
 	private Long hsnCode;
