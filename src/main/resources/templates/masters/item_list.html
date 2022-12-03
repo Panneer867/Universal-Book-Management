@@ -158,7 +158,16 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group row mb-1">
+                                                    <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Publisher</label>
+                                                    <div class="col-sm-8 pl-0">
+                                                        <input type="text" class="form-control is-disabled" id="iPublisherCopy" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-6">
                                                 <div class="form-group row mb-1">
                                                     <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Status</label>
@@ -167,7 +176,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-6">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
                                                 <div class="form-group row mb-1">
                                                     <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Remarks</label>
                                                     <div class="col-sm-8 pl-0">
@@ -175,6 +186,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                           
                                         </div>
                                     </div>
                                     <div class="col-3 px-1">
@@ -249,12 +261,25 @@
                                                     <label for="eUnitOfMeasureCopy" class="font-weight-bold">Unit of Measure<strong class="text-danger">*</strong></label>
                                                     <select class="form-control" id="eUnitOfMeasureCopy" name="unitOfMeasure" data-error="Select Unit of measure !" required>
                                                         <option value="" selected>select</option>
-                                                        <option th:each="unitOfMeasures : ${unitOfMeasureList}" th:value="${unitOfMeasures.unitOfMeasure}" th:utext="${unitOfMeasures.unitOfMeasure}" />
+                                                        <option th:each="unit : ${units}" th:value="${unit.unitOfMeasure}" th:utext="${unit.unitOfMeasure}" />
                                                     </select>
                                                     <div class="help-block with-errors text-danger"></div>
                                                 </div>
                                             </div>
                                             <div class="col-6 mt-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="ePublisherCopy" class="font-weight-bold">Publisher<strong class="text-danger">*</strong></label>
+                                                    <select class="form-control" id="ePublisherCopy" name="publisherName" data-error="Select Publisher !" required>
+                                                    <option value="" selected>select</option>
+                                                    <option th:each="publisher : ${publishers}" th:value="${publisher.publisherName}" th:utext="${publisher.publisherName}" />
+                                                </select>
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="row"> 
+                                         <div class="col-6 mt-3">
                                                 <div class="form-group mb-2">
                                                     <label for="eStatusCopy" class="font-weight-bold">Item Status<strong class="text-danger">*</strong></label>
                                                     <select class="form-control" id="eStatusCopy" name="itemStatus" data-error="Select a item status !" required>
@@ -265,7 +290,7 @@
                                                     <div class="help-block with-errors text-danger"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 mt-3">
+                                            <div class="col-6 mt-3">
                                                 <div class="form-group mb-2">
                                                     <label for="eRemarksCopy" class="font-weight-bold">Remarks<strong class="text-danger">*</strong></label>
                                                     <input type="text" class="form-control" id="eRemarksCopy" name="remarks" data-minlength="3" placeholder="Enter Remarks" />

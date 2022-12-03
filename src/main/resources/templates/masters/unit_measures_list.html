@@ -36,7 +36,7 @@
                                     Unit Abbreviation
                                 </th>
                                 <th class="text-center">
-                                    Remarks
+                                    Description
                                 </th>
                                 <th class="text-center">
                                     Date Created
@@ -53,7 +53,7 @@
                             <tr th:each="unit: ${units}">
                                 <td class="text-center p-1" th:text="${unit.unitId}"></td>
                                 <td class="text-center p-1" th:text="${unit.unitOfMeasure}"></td>
-                                <td class="text-center p-1" th:text="${unit.remarks}"></td>
+                                <td class="text-center p-1" th:text="${unit.description}"></td>
                                 <td class="text-center" th:text="${#dates.format(unit.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
                                 <td class="text-center" th:text="${#dates.format(unit.lastUpdated, 'dd/MM/yyyy hh:mm a')}"></td>
                                 <td class="text-center p-1">
@@ -103,8 +103,8 @@
                                     <div class="help-block with-errors text-danger"></div>
                                 </div>
                                 <div class="form-group mt-3">
-                                    <label for="remarksCopy">Remarks</label>
-                                    <input type="text" class="form-control" id="remarksCopy" name="remarks" placeholder="Enter Remarks" />
+                                    <label for="descriptionCopy">Description</label>
+                                    <input type="text" class="form-control" id="descriptionCopy" name="description" placeholder="Enter Description" />
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-center py-2">

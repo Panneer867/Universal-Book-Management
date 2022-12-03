@@ -11,14 +11,17 @@ import com.ingroinfo.ubm.dao.BrandRepository;
 import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.HsnCodeRepository;
 import com.ingroinfo.ubm.dao.ItemRepository;
+import com.ingroinfo.ubm.dao.SchoolRepository;
 import com.ingroinfo.ubm.dao.SupplierRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
+import com.ingroinfo.ubm.dto.SchoolDto;
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.Item;
+import com.ingroinfo.ubm.entity.School;
 import com.ingroinfo.ubm.entity.Supplier;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.service.MasterService;
@@ -47,6 +50,9 @@ public class MasterServiceImpl implements MasterService {
 	@Autowired
 	private ItemRepository itemRepository;
 
+	@Autowired
+	private SchoolRepository schoolRepository;
+
 	@Override
 	public List<UnitOfMeasures> getAllUnits() {
 
@@ -60,11 +66,11 @@ public class MasterServiceImpl implements MasterService {
 	}
 
 	@Override
-	public void saveUnitOfMeasure(String unitOfMeasure, String remarks) {
+	public void saveUnitOfMeasure(String unitOfMeasure, String description) {
 
 		UnitOfMeasures unit = new UnitOfMeasures();
-		unit.setUnitOfMeasure(unitOfMeasure);
-		unit.setRemarks(remarks);
+		unit.setUnitOfMeasure(description);
+		unit.setDescription(description);
 
 		unitsRepository.save(unit);
 	}
@@ -421,7 +427,88 @@ public class MasterServiceImpl implements MasterService {
 	public void updateItem(Item item) {
 
 		itemRepository.save(item);
+	}
 
+	@Override
+	public void deleteByItemId(Long itemId) {
+
+		itemRepository.deleteById(itemId);
+	}
+
+	@Override
+	public BrandPublisher findByPublisherName(String publisherName) {
+
+		return brandPublisherRepository.findByPublisherName(publisherName);
+	}
+
+	@Override
+	public boolean schoolNameExists(String schoolName) {
+
+		return schoolRepository.findBySchoolName(schoolName) != null;
+	}
+
+	@Override
+	public boolean schoolEmailExists(String email) {
+
+		return schoolRepository.findByEmail(email) != null;
+	}
+
+	@Override
+	public void saveSchool(School school) {
+
+		schoolRepository.save(school);
+	}
+
+	@Override
+	public List<School> getAllSchools() {
+
+		return schoolRepository.findAll();
+	}
+
+	@Override
+	public boolean schoolNameCheck(SchoolDto schoolDto) {
+
+		List<School> schoolList = schoolRepository.findAll();
+
+		List<School> filteredList = schoolList.stream().filter(x -> !schoolDto.getSchoolId().equals(x.getSchoolId()))
+				.collect(Collectors.toList());
+
+		boolean isExists = filteredList.stream().filter(o -> o.getSchoolName().equals(schoolDto.getSchoolName()))
+				.findFirst().isPresent();
+
+		return isExists;
+	}
+
+	@Override
+	public boolean schoolEmailCheck(SchoolDto schoolDto) {
+
+		List<School> schoolList = schoolRepository.findAll();
+
+		List<School> filteredList = schoolList.stream().filter(x -> !schoolDto.getSchoolId().equals(x.getSchoolId()))
+				.collect(Collectors.toList());
+
+		boolean isExists = filteredList.stream().filter(o -> o.getEmail().equals(schoolDto.getEmail())).findFirst()
+				.isPresent();
+
+		return isExists;
+	}
+
+	@Override
+	public School findBySchoolId(Long schoolId) {
+
+		return schoolRepository.findBySchoolId(schoolId);
+	}
+
+	@Override
+	public void updateSchool(School school) {
+
+		schoolRepository.save(school);
+	}
+
+	@Override
+	public void deleteBySchoolId(Long schoolId) {
+
+		schoolRepository.deleteById(schoolId);
 	}
 
 }

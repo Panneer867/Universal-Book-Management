@@ -16,12 +16,14 @@ public class ItemDto {
 	private String itemName;
 	private String itemImage;
 	private String itemStatus;
-	private Long category;
 	private String categoryName;
-	private Long supplier;
 	private String supplierName;
-	private Long brand;
+	private String publisherName;
 	private String brandName;
+	private Long category;
+	private Long supplier;
+	private Long brand;
+	private Long publisher;
 	private Long hsnCode;
 	private String unitOfMeasure;
 	private String remarks;

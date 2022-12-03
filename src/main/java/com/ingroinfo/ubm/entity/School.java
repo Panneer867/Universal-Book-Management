@@ -1,7 +1,6 @@
 package com.ingroinfo.ubm.entity;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,20 +20,37 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "master_unit")
-public class UnitOfMeasures {
+@Table(name = "master_school")
+public class School {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long unitId;
+	private Long schoolId;
 
-	private String unitOfMeasure;
+	private String schoolName;
 
-	private String description;
+	private String board;
+
+	private String stage;
+
+	private String email;
+
+	private String phone;
+
+	private String address;
+
+	private String state;
+
+	private String city;
+
+	private String pinCode;
+
+	private String remarks;
 
 	@CreationTimestamp
 	private Date dateCreated;
 
 	@UpdateTimestamp
 	private Date lastUpdated;
+
 }

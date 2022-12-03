@@ -15,18 +15,18 @@
                 </button>
             </div>
             <div class="mt-4"></div>
-            <div class="alert alert-danger text-center p-2 mx-auto font-weight-bold" role="alert" th:if="${param.supplierDeleted}">
+            <div class="alert alert-danger text-center p-2 font-weight-bold" role="alert" th:if="${param.supplierDeleted}">
                 Supplier has been deleted !
             </div>
-            <div class="alert alert-success text-center p-2 mx-auto font-weight-bold" role="alert" th:if="${param.supplierUpdated}">
+            <div class="alert alert-success text-center p-2 font-weight-bold" role="alert" th:if="${param.supplierUpdated}">
                 Supplier has been updated successfully!
             </div>
 
-            <div class="alert alert-danger text-center p-2 mx-auto font-weight-bold" role="alert" th:if="${param.emailAlreadyExists}">
+            <div class="alert alert-danger text-center p-2 font-weight-bold" role="alert" th:if="${param.emailAlreadyExists}">
                 Supplier Email already Exists!
             </div>
 
-            <div class="alert alert-danger text-center p-2 mx-auto font-weight-bold" role="alert" th:if="${param.contactNoAlreadyExists}">
+            <div class="alert alert-danger text-center p-2 font-weight-bold" role="alert" th:if="${param.contactNoAlreadyExists}">
                 Supplier Contact already Exists!
             </div>
 
@@ -403,7 +403,7 @@
                                     <div class="col-3">
                                         <div class="form-group mb-2">
                                             <label for="state">State<strong class="text-danger">*</strong></label>
-                                            <select class="form-control" id="sstateCopy" name="state" data-error="Select state !" required>
+                                            <select class="form-control" name="state" id="sstateCopy" data-error="Select state !" required>
                                                 <option value="" selected>Select</option>
                                                 <option th:each="ob:${stateList}" th:value="${ob[1]}" th:text="${ob[1]}"></option>
                                             </select>

@@ -33,7 +33,7 @@
                                                 <label for="categoryName">Unit<strong class="text-danger">*</strong></label>
                                                 <input type="text" class="form-control" list="unit" id="unitOfMeasure" name="unitOfMeasure" data-error="Provide unit!" maxlength="5" placeholder="Enter unit" required />
                                                 <datalist id="unit">
-                                                	<option value="g" />
+                                                    <option value="g" />
                                                     <option value="kg" />
                                                     <option value="nos" />
                                                     <option value="bag" />
@@ -53,8 +53,8 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="remarks">Remarks</label>
-                                                <input type="text" class="form-control" id="remarks" name="remarks" placeholder="Enter Remarks" />
+                                                <label for="description">Description</label>
+                                                <input type="text" class="form-control" id="description" name="description" placeholder="Enter Description" />
                                             </div>
                                         </div>
                                         <div class="col-2">
@@ -74,38 +74,40 @@
                             <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">
                                 <span class="text">Brand Master</span>
                             </div>
-                            <div class="icon" onclick="window.location='/master/brand/publisher'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand/publisher' ? 'active':''}">
-                                <span class="text">Brand Publisher</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/cash-counter'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/cash-counter' ? 'active':''}">
-                                <span class="text">Cash Counter</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/catalogue'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/catalogue' ? 'active':''}">
-                                <span class="text">Catalogue Master</span>
-                            </div>
                             <div class="icon" onclick="window.location='/master/category'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/category' ? 'active':''}">
                                 <span class="text">Category Master</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/bundle'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/bundle' ? 'active':''}">
-                                <span class="text">Bundle Master</span>
                             </div>
                             <div class="icon" onclick="window.location='/master/hsn'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/hsn' ? 'active':''}">
                                 <span class="text">HSN Code</span>
                             </div>
-                            <div class="icon" onclick="window.location='/master/item'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/item' ? 'active':''}">
-                                <span class="text">Item Master</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/school'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/school' ? 'active':''}">
-                                <span class="text">School Master</span>
+                            <div class="icon" onclick="window.location='/master/measures'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/measures' ? 'active':''}">
+                                <span class="text">Unit of Measures</span>
                             </div>
                             <div class="icon" onclick="window.location='/master/supplier'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/supplier' ? 'active':''}">
                                 <span class="text">Supplier Master</span>
                             </div>
+                            <div class="icon" onclick="window.location='/master/brand/publisher'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand/publisher' ? 'active':''}">
+                                <span class="text">Brand Publisher</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/item'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/item' ? 'active':''}">
+                                <span class="text">Item Master</span>
+                            </div>
                             <div class="icon" onclick="window.location='/master/tax'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/tax' ? 'active':''}">
                                 <span class="text">Tax Master</span>
                             </div>
-                            <div class="icon" onclick="window.location='/master/measures'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/measures' ? 'active':''}">
-                                <span class="text">Unit of Measures</span>
+                            <div class="icon" onclick="window.location='/master/school'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/school' ? 'active':''}">
+                                <span class="text">School Master</span>
+                            </div>
+
+                            <div class="icon" onclick="window.location='/master/catalogue'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/catalogue' ? 'active':''}">
+                                <span class="text">Catalogue Master</span>
+                            </div>
+
+                            <div class="icon" onclick="window.location='/master/bundle'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/bundle' ? 'active':''}">
+                                <span class="text">Bundle Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/cash-counter'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/cash-counter' ? 'active':''}">
+                                <span class="text">Cash Counter</span>
                             </div>
                         </div>
                     </div>

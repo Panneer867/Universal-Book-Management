@@ -82,7 +82,7 @@ $(document).ready(function() {
 		$.get(href, function(unit) {
 			$('#unitIdCopy').val(unit.unitId);
 			$('#unitOfMeasureCopy').val(unit.unitOfMeasure);
-			$('#remarksCopy').val(unit.remarks);
+			$('#descriptionCopy').val(unit.description);
 		});
 		$('editUnit').modal();
 	});
@@ -216,6 +216,7 @@ $(document).ready(function() {
 				$('#iItemImageCopy').val(item.itemImage);
 				$('#iBrandCopy').val(item.brandName);
 				$('#iSupplierCopy').val(item.supplierName);
+				$('#iPublisherCopy').val(item.publisherName);
 				$('#iUnitOfMeasureCopy').val(item.unitOfMeasure);
 				$('#iStatusCopy').val(item.itemStatus);
 				$('#iHsnCodeCopy').val(item.hsnCode);
@@ -236,8 +237,9 @@ $(document).ready(function() {
 				$('#eItemIdCopy').val(item.itemId);
 				$('#eItemNameCopy').val(item.itemName);
 				$('#eCategoryCopy').val(item.categoryName);
-				$('#eBrandCopy').val(item.brandName);
+				$('#eBrandCopy').val(item.brandName);				
 				$('#eSupplierCopy').val(item.supplierName);
+				$('#ePublisherCopy').val(item.publisherName);
 				$('#eUnitOfMeasureCopy').val(item.unitOfMeasure);
 				$('#eStatusCopy').val(item.itemStatus);
 				$('#eHsnCodeCopy').val(item.hsnCode);
@@ -248,6 +250,51 @@ $(document).ready(function() {
 		});
 
 	});
+	
+	$(document).ready(function() {
+		$('.table .edit-school').on('click', function(event) {
+			event.preventDefault();
+			var href = $(this).attr('href');
+			$.get(href, function(school) {
+				$('#lSchoolIdCopy').val(school.schoolId);
+				$('#lSchoolNameCopy').val(school.schoolName);
+				$('#lBoardCopy').val(school.board);
+				$('#lStageCopy').val(school.stage);				
+				$('#lEmailCopy').val(school.email);
+				$('#lPhoneCopy').val(school.phone);
+				$('#lAddressCopy').val(school.address);
+				$('#lStateCopy').val(school.state);
+				$('#lCityCopy').val(school.city);
+				$('#lPincodeCopy').val(school.pinCode);
+				$('#lRemarksCopy').val(school.remarks);
+			});
+			$('editSchool').modal();
 
+		});
+
+	});
+	
+	$(document).ready(function() {
+		$('.table .view-school').on('click', function(event) {
+			event.preventDefault();
+			var href = $(this).attr('href');
+			$.get(href, function(school) {
+				$('#lsSchoolIdCopy').val(school.schoolId);
+				$('#lsSchoolNameCopy').val(school.schoolName);
+				$('#lsBoardCopy').val(school.board);
+				$('#lsStageCopy').val(school.stage);				
+				$('#lsEmailCopy').val(school.email);
+				$('#lsPhoneCopy').val(school.phone);
+				$('#lsAddressCopy').val(school.address);
+				$('#lsStateCopy').val(school.state);
+				$('#lsCityCopy').val(school.city);
+				$('#lsPincodeCopy').val(school.pinCode);
+				$('#lsRemarksCopy').val(school.remarks);
+			});
+			$('viewSchool').modal();
+
+		});
+
+	});
 
 });

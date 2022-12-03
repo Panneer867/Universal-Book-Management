@@ -53,6 +53,10 @@ public class Item {
 	private Brand brand;
 
 	@ManyToOne
+	@JoinColumn(name = "publisher_id")
+	private BrandPublisher publisher;
+
+	@ManyToOne
 	@JoinColumn(name = "hsn_id")
 	private HsnCode hsnCode;
 

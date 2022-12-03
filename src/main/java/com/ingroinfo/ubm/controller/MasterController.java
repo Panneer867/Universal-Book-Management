@@ -21,6 +21,7 @@ import com.ingroinfo.ubm.configuration.ModelMapperConfig;
 import com.ingroinfo.ubm.dto.BrandPublisherDto;
 import com.ingroinfo.ubm.dto.HsnDto;
 import com.ingroinfo.ubm.dto.ItemDto;
+import com.ingroinfo.ubm.dto.SchoolDto;
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
@@ -29,6 +30,7 @@ import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.Item;
+import com.ingroinfo.ubm.entity.School;
 import com.ingroinfo.ubm.entity.Supplier;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.entity.User;
@@ -358,20 +360,20 @@ public class MasterController {
 	}
 
 	@PostMapping("/measures/add")
-	public String unitOfMeasuresAdd(@RequestParam String unitOfMeasure, @RequestParam String remarks,
+	public String unitOfMeasuresAdd(@RequestParam String unitOfMeasure, @RequestParam String description,
 			Principal principal) {
 
 		if (masterService.unitExists(unitOfMeasure)) {
 			return "redirect:/master/measures?unitAlreadyExists";
 		}
-		masterService.saveUnitOfMeasure(unitOfMeasure, remarks);
+		masterService.saveUnitOfMeasure(unitOfMeasure, description);
 
 		return "redirect:/master/measures?unitAdded";
 	}
 
 	@PostMapping("/measures/update")
 	public String unitUpdate(@RequestParam String unitId, @RequestParam String unitOfMeasure,
-			@RequestParam String remarks) {
+			@RequestParam String description) {
 
 		UnitOfMeasures unit = masterService.findByUnitId(Long.parseLong(unitId));
 
@@ -380,7 +382,7 @@ public class MasterController {
 		}
 
 		unit.setUnitOfMeasure(unitOfMeasure);
-		unit.setRemarks(remarks);
+		unit.setDescription(description);
 		masterService.updateUnitOfMeasure(unit);
 
 		return "redirect:/master/measures/list?unitUpdated";
@@ -705,9 +707,9 @@ public class MasterController {
 	}
 
 	@GetMapping("/brand/publisher/delete")
-	public String deleteBrandPublisher(@RequestParam Long PublisherId) {
+	public String deleteBrandPublisher(@RequestParam Long publisherId) {
 
-		masterService.deleteByPublisherId(PublisherId);
+		masterService.deleteByPublisherId(publisherId);
 		return "redirect:/master/brand/publisher/list?brandPublisherDeleted";
 	}
 
@@ -741,7 +743,7 @@ public class MasterController {
 		model.addAttribute("categories", masterService.getAllCategories());
 		model.addAttribute("suppliers", masterService.getAllSuppliers());
 		model.addAttribute("publishers", masterService.getAllBrandPublishers());
-		model.addAttribute("unitOfMeasureList", masterService.getAllUnits());
+		model.addAttribute("units", masterService.getAllUnits());
 
 		return "/masters/item";
 	}
@@ -777,6 +779,7 @@ public class MasterController {
 		item.setHsnCode(masterService.findByHsn(item.getCategory()));
 		item.setSupplier(masterService.findBySupplierId(itemDto.getSupplier()));
 		item.setBrand(masterService.findByBrandId(itemDto.getBrand()));
+		item.setPublisher(masterService.findByPublisherId(itemDto.getPublisher()));
 		item.setRemarks(itemDto.getRemarks());
 		item.setUnitOfMeasure(itemDto.getUnitOfMeasure());
 		masterService.saveItem(item);
@@ -837,7 +840,7 @@ public class MasterController {
 		model.addAttribute("categories", masterService.getAllCategories());
 		model.addAttribute("suppliers", masterService.getAllSuppliers());
 		model.addAttribute("publishers", masterService.getAllBrandPublishers());
-		model.addAttribute("unitOfMeasureList", masterService.getAllUnits());
+		model.addAttribute("units", masterService.getAllUnits());
 
 		return "/masters/item_list";
 	}
@@ -878,8 +881,124 @@ public class MasterController {
 		item.setBrand(masterService.findByBrandName(itemDto.getBrandName()));
 		item.setCategory(masterService.findByCategoryName(itemDto.getCategoryName()));
 		item.setSupplier(masterService.findBySupplierName(itemDto.getSupplierName()));
+		item.setPublisher(masterService.findByPublisherName(itemDto.getPublisherName()));
 
 		masterService.updateItem(item);
 		return "redirect:/master/item/list?itemUpdated";
 	}
+
+	@GetMapping("/item/delete")
+	public String deleteItem(@RequestParam Long itemId) {
+
+		masterService.deleteByItemId(itemId);
+		return "redirect:/master/item/list?itemDeleted";
+	}
+
+	@GetMapping("/school")
+	public String school(Model model, Principal principal) {
+
+		model.addAttribute("title", "School Master");
+		model.addAttribute("school", new SchoolDto());
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		model.addAttribute("stateList", userService.getAllStates());
+
+		return "/masters/school";
+	}
+
+	@PostMapping("/school/add")
+	public String schoolAdd(@ModelAttribute("school") SchoolDto schoolDto, Principal principal) {
+
+		if (masterService.schoolNameExists(schoolDto.getSchoolName())) {
+			return "redirect:/master/school?schoolNameAlreadyExists";
+		}
+
+		if (masterService.schoolEmailExists(schoolDto.getEmail())) {
+			return "redirect:/master/school?schoolEmailAlreadyExists";
+		}
+
+		School school = modelMapper.map(schoolDto, School.class);
+
+		masterService.saveSchool(school);
+		return "redirect:/master/school?schoolAdded";
+	}
+
+	@GetMapping("/school/list")
+	public String schoolList(Model model, Principal principal) {
+
+		model.addAttribute("title", "School Lists");
+		model.addAttribute("school", new SchoolDto());
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		List<School> schoolList = masterService.getAllSchools();
+		if (schoolList.size() == 0) {
+			model.addAttribute("emptyList", "No Records");
+		}
+
+		model.addAttribute("schoolLists", schoolList);
+		model.addAttribute("stateList", userService.getAllStates());
+
+		return "/masters/school_list";
+	}
+
+	@PostMapping("/school/update")
+	public String schoolUpdate(@ModelAttribute("school") SchoolDto schoolDto) {
+
+		if (masterService.schoolNameCheck(schoolDto)) {
+			return "redirect:/master/school/list?schoolNameAlreadyExists";
+		}
+
+		if (masterService.schoolEmailCheck(schoolDto)) {
+			return "redirect:/master/school/list?schoolEmailAlreadyExists";
+		}
+
+		School school = masterService.findBySchoolId(schoolDto.getSchoolId());
+
+		mapper.modelMapper().map(schoolDto, school);
+
+		masterService.updateSchool(school);
+		return "redirect:/master/school/list?schoolUpdated";
+	}
+
+	@GetMapping("/school/delete")
+	public String deleteSchool(@RequestParam Long schoolId) {
+
+		masterService.deleteBySchoolId(schoolId);
+		return "redirect:/master/school/list?schoolDeleted";
+	}
+
 }

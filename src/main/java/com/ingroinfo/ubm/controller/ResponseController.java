@@ -19,6 +19,7 @@ import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.EmployeeRepository;
 import com.ingroinfo.ubm.dao.HsnCodeRepository;
 import com.ingroinfo.ubm.dao.ItemRepository;
+import com.ingroinfo.ubm.dao.SchoolRepository;
 import com.ingroinfo.ubm.dao.SupplierRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
 import com.ingroinfo.ubm.dao.UserRepository;
@@ -33,6 +34,7 @@ import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.Employee;
 import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.Item;
+import com.ingroinfo.ubm.entity.School;
 import com.ingroinfo.ubm.entity.State;
 import com.ingroinfo.ubm.entity.Supplier;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
@@ -86,6 +88,9 @@ public class ResponseController {
 
 	@Autowired
 	private ItemRepository itemRepository;
+
+	@Autowired
+	private SchoolRepository schoolRepository;
 
 	@GetMapping("/city")
 	public @ResponseBody String getCities(@RequestParam String stateName) {
@@ -214,8 +219,16 @@ public class ResponseController {
 		itemDto.setSupplierName(item.getSupplier().getSupplierName());
 		itemDto.setUnitOfMeasure(item.getUnitOfMeasure());
 		itemDto.setCompanyName(companyName);
+		itemDto.setPublisherName(item.getPublisher().getPublisherName());
 
 		return itemDto;
+	}
+
+	@ResponseBody
+	@RequestMapping("/school")
+	public School getSchool(@RequestParam Long id) {
+
+		return schoolRepository.findBySchoolId(id);
 	}
 
 }

@@ -2,12 +2,14 @@ package com.ingroinfo.ubm.service;
 
 import java.util.List;
 
+import com.ingroinfo.ubm.dto.SchoolDto;
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.Item;
+import com.ingroinfo.ubm.entity.School;
 import com.ingroinfo.ubm.entity.Supplier;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 
@@ -34,6 +36,8 @@ public interface MasterService {
 	List<Brand> getAllBrands();
 
 	Brand findByBrandId(Long id);
+
+	BrandPublisher findByPublisherName(String publisherName);
 
 	void updateBrand(Brand brand);
 
@@ -118,5 +122,25 @@ public interface MasterService {
 	void updateItem(Item item);
 
 	Supplier findBySupplierName(String supplierName);
+
+	void deleteByItemId(Long itemId);
+
+	boolean schoolNameExists(String schoolName);
+
+	boolean schoolEmailExists(String email);
+
+	void saveSchool(School school);
+
+	List<School> getAllSchools();
+
+	boolean schoolNameCheck(SchoolDto schoolDto);
+
+	boolean schoolEmailCheck(SchoolDto schoolDto);
+
+	School findBySchoolId(Long schoolId);
+
+	void updateSchool(School school);
+
+	void deleteBySchoolId(Long schoolId);
 
 }

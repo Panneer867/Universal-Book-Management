@@ -9,4 +9,6 @@ public interface BrandPublisherRepository extends JpaRepository<BrandPublisher, 
 
 	BrandPublisher findByPublisherId(Long publisherId);
 
+	BrandPublisher findByPublisherName(String publisherName);
+
 }
