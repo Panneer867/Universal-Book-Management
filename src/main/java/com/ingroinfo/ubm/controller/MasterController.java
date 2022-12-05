@@ -999,5 +999,33 @@ public class MasterController {
 		masterService.deleteBySchoolId(schoolId);
 		return "redirect:/master/school/list?schoolDeleted";
 	}
+	
+	@GetMapping("/bundle")
+	public String bundle(Model model, Principal principal) {
+
+		model.addAttribute("title", "Bundle Master");
+		
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		return "/masters/bundle";
+	}
+
 
 }

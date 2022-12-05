@@ -1,179 +1,96 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
-   <body>
-      <section>
-         <div class="page-header">
-            <h3 class="page-title">
-               Bundle Creation
-            </h3>
-            <nav aria-label="breadcrumb  ">
-               <ol class="breadcrumb border border-dark p-0">
-                  <div class="btn-group" >
-                     <a href="#"  class="btn btn-inverse-primary btn-sm rounded-0">
-                     <i class="glyphicon glyphicon-plus fa-2x"></i>
-                     </a>
-                  </div>
-                  <div class="btn-group">
-                     <a href="#"  class="btn btn-inverse-dark btn-sm rounded-0" >
-                     <i class="glyphicon glyphicon-edit fa-2x"></i>
-                     </a>
-                  </div>
-                  <div class="btn-group">
-                     <a href="#"  class="btn btn-inverse-danger btn-sm rounded-0" disabled="disabled">
-                     <i class="glyphicon glyphicon-trash fa-2x"></i>
-                     </a>
-                  </div>
-                  <div class="btn-group">
-                     <a href="#" class="btn btn-inverse-dark btn-sm rounded-0" disabled="disabled">
-                     <i class="glyphicon glyphicon-floppy-saved fa-2x"></i>
-                     </a>
-                  </div>
-                  <div class="btn-group">
-                     <div class="btn-group"> 
-                        <a href="#" class="btn btn-inverse-success btn-sm rounded-0">
-                        <i class="glyphicon glyphicon-search fa-2x"></i>
-                        </a>
-                     </div>
-                  </div>
-                  <div class="btn-group">
-                     <a href="#" class="btn btn-inverse-info btn-sm rounded-0">
-                     <i class="fa fa-undo fa-2x"></i>
-                     </a>
-                  </div>
-                  <div class="btn-group" >
-                     <a href="#" class="btn btn-inverse-dark btn-sm rounded-0" disabled="disabled">
-                     <i class="fa fa-print fa-2x"></i>
-                     </a>
-                  </div>
-                  <div class="btn-group">
-                     <a href="#" class="btn btn-inverse-warning btn-sm rounded-0" >
-                     <i class="fa fa-times fa-2x"></i>
-                     </a>
-                  </div>
-               </ol>
-            </nav>
-         </div>
-         <div class="row d-flex justify-content-center pt-2">
-            <div class="col-12 ">
-               <div class="card">
-                  <div class="card-body p-0">
-                     <h4 class="text-center header-title pt-2">Bundle Creation</h4>
-                     <hr>
-                     
-                     <form class="forms-sample px-4 pt-2 pb-0" th:action="@{/master/createBundleMaster}" method="post" data-toggle="validator">
-                        <div class="row">
-                           <div class="col-2">
-                              <div class="form-group">
-                                 <label for="exampleInputEmail3">Bundle ID</label>
-                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter Bundle Id" name="createBundleId" data-error="Min 2 digits required !" required> 
-                               <div class="help-block with-errors text-danger"></div>
-                              </div>
-                           </div>
-                           <div class="col-6">
-                              <div class="form-group">
-                                 <label for="exampleInputEmail3">Bundle Name</label>
-                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Enter Bundle Name" name="bundleName" data-error="Min 2 digits required !" required> 
-                               <div class="help-block with-errors text-danger"></div>
-                              </div>
-                           </div>
-                           <div class="col-4">
-                              <div class="form-group">
-                                 <label for="exampleSelectGender">Board</label>
-                                 
-                                   <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Board" name="bundleBoard" data-error="Min 2 digits required !" required> 
-                               <div class="help-block with-errors text-danger"></div>
-                             	
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                         
-                          <div class="col-8">
-                              <div class="form-group mb-0">
-                                 <label for="exampleInputEmail3">School / Department Name</label>
-                                <select class="form-control" id="exampleSelectGender" name="bundleSchoolName">
-                                   <option>Select</option>
-                                    <option>State</option>
-                                    <option>CBSE</option>
-                                    
-                                 </select>
-                              </div>
-                           </div>
-                        
-                           <div class="col-4">
-                              <div class="form-group mb-0">
-                                 <label for="exampleSelectGender">Standard</label>
-                                 <select class="form-control" id="exampleSelectGender" name="bundleStanded" data-error="Select Catagory !" required>
-                                    <option>Select</option>
-                                    <option>1st Std</option>
-                                    <option>2nd Std</option>
-                                    <option>3rd Std</option>
-                                    <option>4th Std</option>
-                                    <option>5th Std</option>
-                                    <option>6th Std</option>
-                                     <div class="help-block with-errors text-danger"></div>
-                                 </select>
-                              </div>
-                           </div>
-                        </div>
-                        
-                        <div class="row">
-                           
-                           <div class="col-8">
-                              <div class="form-group mb-0">
-                                 <label for="exampleInputEmail3">Address</label>
-                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Address" name="bundleAddress" data-error="Min 2 digits required !" required> 
-                               <div class="help-block with-errors text-danger"></div>
-                              </div>
-                           </div>
-                           
-                            <div class="col-4">
-                              <div class="form-group mb-0">
-                                 <label for="exampleInputEmail3">Language</label>
-                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Language" name="bundleLanguage" data-error="Min 2 digits required !" required> 
-                               <div class="help-block with-errors text-danger"></div>
-                              </div>
-                           </div>
-                     
-                        </div>
-                 
-                     
-                     <div class ="forms-sample px-4 pt-2 pb-0">
-                      <div class="form-group row">
-					        <label for="exampleInputEmail3" style="margin-top: 12px;">BookName</label>
-					    <div class="col-4">
-					      <input type="text" class="form-control" id="bundleBookName" placeholder="Subject Tittle" name="bundleBookName" 
-					      data-error="Min 2 digits required !" required> 
-                               <div class="help-block with-errors text-danger"></div>
-					    </div>
-					    <div class="col-2">
-					      <input type="number" class="form-control" id="bundleQty" placeholder="Qty" name="bundleQty" data-error="Min 2 digits required !" required> 
-                               <div class="help-block with-errors text-danger"></div>
-					    </div>
-					     <div class="col-2">
-					      <input type="number" class="form-control" id="bundlePrice" placeholder="Price" 
-					      name="bundlePrice"    data-error="Min 2 digits required !" required> 
-                               <div class="help-block with-errors text-danger"></div>
-					    </div>
-					 
-					     <button type="submit" th:href="@{/master/createBundleMaster}" class="btn btn-sm btn-primary">Add</button>
-						 <a  type="button" th:href="@{/master/showBundleMasterData}" class="btn btn-success">View</a>
-						 <button type="reset" class="btn btn-sm-2 btn-secondary">Reset</button>
-					  </div>
-                     
-                     </div>
-                    
-                    </form>     
-                     
-                     
-                   
-                  </div>
-               </div>
-            </div>
-         </div>
-            
- 
+    <body>
+        <section>
+            <div class="row">
+                <div class="col-10 p-0">
+                    <div class="page-header">
+                        <ul class="breadcrumb px-0">
+                            <li><a th:href="@{/master/bundle}">Master</a></li>
+                            <li><a href="#" class="text-white">&nbsp;Bundle Master</a></li>
+                        </ul>
+                        <nav aria-label="breadcrumb">
+                            <a th:href="@{/master/bundle/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Bundle List</a>
+                        </nav>
+                    </div>
+                    <div class="mt-5"></div>
+                    <div class="alert alert-success text-center p-2 col-8 mx-auto" role="alert" th:if="${param.bundleAdded}">
+                        Bundle has been added successfully!
+                    </div>
 
-      </section>
-   </body>
+                    <div class="row">
+                        <div class="col-8 mx-auto">
+                            <div class="card">
+                                <div class="card-body p-0">
+                                    <h5 class="p-2 mb-0 text-center">Brand Master</h5>
+                                    <hr class="mb-4 mt-0" />
+                                    <form class="forms-sample" data-toggle="validator" th:action="@{/master/bundle/add}" role="form" method="post">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="form-group">
+                                                    <label for="brandName">Bundle Name<strong class="text-danger">*</strong></label>
+                                                    <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />                       
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                          
+                                        </div>
+
+                                        <div class="text-center mb-3">
+                                            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
+                                            <button type="reset" class="btn btn-sm btn-secondary mr-2"><i class="fa fa-refresh menu-icon pr-2"></i>Reset</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="container p-0 mx-0">
+                         <div class="bar opened dark">
+                            <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">
+                                <span class="text">Brand Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/category'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/category' ? 'active':''}">
+                                <span class="text">Category Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/hsn'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/hsn' ? 'active':''}">
+                                <span class="text">HSN Code</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/measures'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/measures' ? 'active':''}">
+                                <span class="text">Unit of Measures</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/supplier'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/supplier' ? 'active':''}">
+                                <span class="text">Supplier Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/brand/publisher'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand/publisher' ? 'active':''}">
+                                <span class="text">Brand Publisher</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/item'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/item' ? 'active':''}">
+                                <span class="text">Item Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/tax'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/tax' ? 'active':''}">
+                                <span class="text">Tax Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/school'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/school' ? 'active':''}">
+                                <span class="text">School Master</span>
+                            </div>
+
+                            <div class="icon" onclick="window.location='/master/catalogue'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/catalogue' ? 'active':''}">
+                                <span class="text">Catalogue Master</span>
+                            </div>
+
+                            <div class="icon" onclick="window.location='/master/bundle'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/bundle' ? 'active':''}">
+                                <span class="text">Bundle Master</span>
+                            </div>
+                            <div class="icon" onclick="window.location='/master/cash-counter'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/cash-counter' ? 'active':''}">
+                                <span class="text">Cash Counter</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
 </html>
