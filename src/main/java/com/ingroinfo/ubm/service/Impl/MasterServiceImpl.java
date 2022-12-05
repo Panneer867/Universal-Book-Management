@@ -69,7 +69,7 @@ public class MasterServiceImpl implements MasterService {
 	public void saveUnitOfMeasure(String unitOfMeasure, String description) {
 
 		UnitOfMeasures unit = new UnitOfMeasures();
-		unit.setUnitOfMeasure(description);
+		unit.setUnitOfMeasure(unitOfMeasure);
 		unit.setDescription(description);
 
 		unitsRepository.save(unit);

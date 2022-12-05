@@ -36,28 +36,26 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
-                                <table id="order-listing" class="table">
+                                <table id="order-listing" class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>
                                                 ID
                                             </th>
-                                            <th>
+                                            <th class="text-center">
                                                 Item Name
                                             </th>
                                             <th>
                                                 Item Image
                                             </th>
-                                            <th>
+                                            <th class="text-center">
                                                 Category
                                             </th>
-                                            <th>
-                                                Brand
-                                            </th>
-                                            <th>
+
+                                            <th class="text-center">
                                                 Status
                                             </th>
-                                            <th>
+                                            <th class="text-center">
                                                 Date Added
                                             </th>
                                             <th class="text-center">
@@ -69,14 +67,14 @@
                                         <tr th:each="itemList: ${itemLists}">
                                             <td th:text="${itemList.itemId}"></td>
                                             <td th:text="${itemList.itemName}"></td>
-                                            <td class="py-1">
+                                            <td class="py-1 text-center">
                                                 <img th:src="@{'/Company/'+ ${companyNameData} +'/Items/'+ ${itemList.itemImage}}" style="width: 70px; height: 70px; border: 1px solid rgb(0, 128, 192);" alt="image" />
                                             </td>
-                                            <td th:text="${itemList.categoryName}"></td>
-                                            <td th:text="${itemList.brandName}"></td>
-                                            <td th:text="${itemList.itemStatus}"></td>
-                                            <td th:text="${#dates.format(itemList.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
-                                            <td>
+                                            <td class="text-center" th:text="${itemList.categoryName}"></td>
+
+                                            <td class="text-center" th:text="${itemList.itemStatus}"></td>
+                                            <td class="text-center" th:text="${#dates.format(itemList.dateCreated, 'dd/MM/yyyy hh:mm a')}"></td>
+                                            <td class="text-center">
                                                 <a th:href="@{/get/item/(id=${itemList.itemId})}" class="btn btn-success p-1 view-item" data-toggle="modal" data-target="#viewItem">View</a>
                                                 <a th:href="@{/get/item/(id=${itemList.itemId})}" class="btn btn-info p-1 mx-2 edit-item" data-toggle="modal" data-target="#editItem">Edit</a>
                                                 <a th:href="@{/master/item/delete(itemId=${itemList.itemId})}" class="btn btn-danger p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</a>
@@ -84,7 +82,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div class="alert alert-warning text-center my-2 py-1" role="alert" th:if="${emptyList != null}">[[${emptyList}]]</div>
                             </div>
                         </div>
                     </div>
@@ -158,7 +155,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group row mb-1">
@@ -178,7 +175,15 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-12">
+                                            <div class="col-6">
+                                                <div class="form-group row mb-1">
+                                                    <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Units</label>
+                                                    <div class="col-sm-8 pl-0">
+                                                        <input type="text" class="form-control is-disabled" id="iUnitsCopy" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
                                                 <div class="form-group row mb-1">
                                                     <label class="col-sm-4 pr-0 text-warning col-form-label font-weight-bold">Remarks</label>
                                                     <div class="col-sm-8 pl-0">
@@ -186,7 +191,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                           
                                         </div>
                                     </div>
                                     <div class="col-3 px-1">
@@ -236,8 +240,8 @@
                                             </div>
                                             <div class="col-6 mt-3">
                                                 <div class="form-group mb-2">
-                                                    <label for="eBrandCopy" class="font-weight-bold">Brand<strong class="text-danger">*</strong></label>
-                                                    <select class="form-control" id="eBrandCopy" name="brandName" data-error="Select a brand !" required>
+                                                    <label for="eBrandCopy" class="font-weight-bold">Brand</label>
+                                                    <select class="form-control" id="eBrandCopy" name="brandName" data-error="Select a brand !">
                                                         <option value="" selected>select</option>
                                                         <option th:each="brand : ${brands}" th:value="${brand.brandName}" th:utext="${brand.brandName}" />
                                                     </select>
@@ -256,7 +260,14 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-6 mt-3">
+                                            <div class="col-3 mt-3">
+                                                <div class="form-group mb-2">
+                                                    <label for="eUnitsCopy" class="font-weight-bold">Units<strong class="text-danger">*</strong></label>
+                                                    <input type="number" class="form-control" id="eUnitsCopy" name="units" placeholder="Enter Units" />
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3">
                                                 <div class="form-group mb-2">
                                                     <label for="eUnitOfMeasureCopy" class="font-weight-bold">Unit of Measure<strong class="text-danger">*</strong></label>
                                                     <select class="form-control" id="eUnitOfMeasureCopy" name="unitOfMeasure" data-error="Select Unit of measure !" required>
@@ -270,16 +281,15 @@
                                                 <div class="form-group mb-2">
                                                     <label for="ePublisherCopy" class="font-weight-bold">Publisher<strong class="text-danger">*</strong></label>
                                                     <select class="form-control" id="ePublisherCopy" name="publisherName" data-error="Select Publisher !" required>
-                                                    <option value="" selected>select</option>
-                                                    <option th:each="publisher : ${publishers}" th:value="${publisher.publisherName}" th:utext="${publisher.publisherName}" />
-                                                </select>
+                                                        <option value="" selected>select</option>
+                                                        <option th:each="publisher : ${publishers}" th:value="${publisher.publisherName}" th:utext="${publisher.publisherName}" />
+                                                    </select>
                                                     <div class="help-block with-errors text-danger"></div>
                                                 </div>
                                             </div>
-                                            
                                         </div>
-                                        <div class="row"> 
-                                         <div class="col-6 mt-3">
+                                        <div class="row">
+                                            <div class="col-6 mt-3">
                                                 <div class="form-group mb-2">
                                                     <label for="eStatusCopy" class="font-weight-bold">Item Status<strong class="text-danger">*</strong></label>
                                                     <select class="form-control" id="eStatusCopy" name="itemStatus" data-error="Select a item status !" required>

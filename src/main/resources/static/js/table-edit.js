@@ -218,6 +218,7 @@ $(document).ready(function() {
 				$('#iSupplierCopy').val(item.supplierName);
 				$('#iPublisherCopy').val(item.publisherName);
 				$('#iUnitOfMeasureCopy').val(item.unitOfMeasure);
+				$('#iUnitsCopy').val(item.units);
 				$('#iStatusCopy').val(item.itemStatus);
 				$('#iHsnCodeCopy').val(item.hsnCode);
 				$('#iRemarksCopy').val(item.remarks);
@@ -228,7 +229,7 @@ $(document).ready(function() {
 		});
 
 	});
-	
+
 	$(document).ready(function() {
 		$('.table .edit-item').on('click', function(event) {
 			event.preventDefault();
@@ -237,10 +238,11 @@ $(document).ready(function() {
 				$('#eItemIdCopy').val(item.itemId);
 				$('#eItemNameCopy').val(item.itemName);
 				$('#eCategoryCopy').val(item.categoryName);
-				$('#eBrandCopy').val(item.brandName);				
+				$('#eBrandCopy').val(item.brandName);
 				$('#eSupplierCopy').val(item.supplierName);
 				$('#ePublisherCopy').val(item.publisherName);
 				$('#eUnitOfMeasureCopy').val(item.unitOfMeasure);
+				$('#eUnitsCopy').val(item.units);
 				$('#eStatusCopy').val(item.itemStatus);
 				$('#eHsnCodeCopy').val(item.hsnCode);
 				$('#eRemarksCopy').val(item.remarks);
@@ -250,7 +252,7 @@ $(document).ready(function() {
 		});
 
 	});
-	
+
 	$(document).ready(function() {
 		$('.table .edit-school').on('click', function(event) {
 			event.preventDefault();
@@ -259,7 +261,7 @@ $(document).ready(function() {
 				$('#lSchoolIdCopy').val(school.schoolId);
 				$('#lSchoolNameCopy').val(school.schoolName);
 				$('#lBoardCopy').val(school.board);
-				$('#lStageCopy').val(school.stage);				
+				$('#lStageCopy').val(school.stage);
 				$('#lEmailCopy').val(school.email);
 				$('#lPhoneCopy').val(school.phone);
 				$('#lAddressCopy').val(school.address);
@@ -273,7 +275,7 @@ $(document).ready(function() {
 		});
 
 	});
-	
+
 	$(document).ready(function() {
 		$('.table .view-school').on('click', function(event) {
 			event.preventDefault();
@@ -282,7 +284,7 @@ $(document).ready(function() {
 				$('#lsSchoolIdCopy').val(school.schoolId);
 				$('#lsSchoolNameCopy').val(school.schoolName);
 				$('#lsBoardCopy').val(school.board);
-				$('#lsStageCopy').val(school.stage);				
+				$('#lsStageCopy').val(school.stage);
 				$('#lsEmailCopy').val(school.email);
 				$('#lsPhoneCopy').val(school.phone);
 				$('#lsAddressCopy').val(school.address);

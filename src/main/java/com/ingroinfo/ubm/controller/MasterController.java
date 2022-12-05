@@ -812,27 +812,27 @@ public class MasterController {
 		}
 
 		List<Item> itemList = masterService.getAllItems();
-		if (itemList.size() == 0) {
-			model.addAttribute("emptyList", "No Records");
-		}
 
 		List<ItemDto> itemLists = itemList.stream().map(temp -> {
 
 			ItemDto obj = new ItemDto();
 
-			obj.setBrandName(temp.getBrand().getBrandName());
-			obj.setCategoryName(temp.getCategory().getCategoryName());
+			obj.setBrandName(temp.getBrand() != null ? temp.getBrand().getBrandName() : "NA");
+			obj.setCategoryName(temp.getCategory() != null ? temp.getCategory().getCategoryName() : "NA");
 			obj.setDateCreated(temp.getDateCreated());
-			obj.setHsnCode(temp.getHsnCode().getHsnCode());
+			obj.setHsnCode(temp.getHsnCode() != null ? temp.getHsnCode().getHsnCode() : 0);
 			obj.setItemId(temp.getItemId());
 			obj.setItemImage(temp.getItemImage());
 			obj.setItemName(temp.getItemName());
 			obj.setItemStatus(temp.getItemStatus());
 			obj.setLastUpdated(temp.getLastUpdated());
 			obj.setRemarks(temp.getRemarks());
-			obj.setSupplierName(temp.getSupplier().getSupplierName());
+			obj.setSupplierName(temp.getSupplier() != null ? temp.getSupplier().getSupplierName() : "NA");
+			obj.setPublisherName(temp.getPublisher() != null ? temp.getPublisher().getPublisherName() : "NA");
 			obj.setUnitOfMeasure(temp.getUnitOfMeasure());
+			obj.setUnits(temp.getUnits());
 			return obj;
+
 		}).collect(Collectors.toList());
 
 		model.addAttribute("itemLists", itemLists);
@@ -878,6 +878,7 @@ public class MasterController {
 		}
 
 		mapper.modelMapper().map(itemDto, item);
+
 		item.setBrand(masterService.findByBrandName(itemDto.getBrandName()));
 		item.setCategory(masterService.findByCategoryName(itemDto.getCategoryName()));
 		item.setSupplier(masterService.findBySupplierName(itemDto.getSupplierName()));
@@ -891,6 +892,7 @@ public class MasterController {
 	public String deleteItem(@RequestParam Long itemId) {
 
 		masterService.deleteByItemId(itemId);
+
 		return "redirect:/master/item/list?itemDeleted";
 	}
 
@@ -965,9 +967,6 @@ public class MasterController {
 		}
 
 		List<School> schoolList = masterService.getAllSchools();
-		if (schoolList.size() == 0) {
-			model.addAttribute("emptyList", "No Records");
-		}
 
 		model.addAttribute("schoolLists", schoolList);
 		model.addAttribute("stateList", userService.getAllStates());

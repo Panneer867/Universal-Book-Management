@@ -27,6 +27,7 @@ public class Supplier {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long supplierId;
+	
 	private String supplierName;
 	private String reciptNo;
 	private String gstType;

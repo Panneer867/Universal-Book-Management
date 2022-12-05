@@ -95,6 +95,7 @@
                                             <input type="hidden" id="publisherIdCopy" name="publisherId" />
                                             <select class="form-control" id="brandCopy" name="brand" data-error="Select a brand !" required>
                                                 <option value="" selected>select</option>
+                                                 <option value="No Brand" selected>No Brand</option>
                                                 <option th:each="brand : ${brands}" th:value="${brand.brandName}" th:utext="${brand.brandName}" />
                                             </select>
                                             <div class="help-block with-errors text-danger"></div>

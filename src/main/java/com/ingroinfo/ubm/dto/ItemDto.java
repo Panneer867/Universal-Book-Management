@@ -16,6 +16,7 @@ public class ItemDto {
 	private String itemName;
 	private String itemImage;
 	private String itemStatus;
+	private String units;
 	private String categoryName;
 	private String supplierName;
 	private String publisherName;

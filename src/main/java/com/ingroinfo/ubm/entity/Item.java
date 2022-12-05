@@ -39,6 +39,8 @@ public class Item {
 	private String unitOfMeasure;
 
 	private String remarks;
+	
+	private String units;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id")

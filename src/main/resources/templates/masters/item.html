@@ -17,13 +17,13 @@
                     <div class="alert alert-success text-center p-2 col-9 mx-auto font-weight-bold" role="alert" th:if="${param.itemAdded}">
                         Item has been added successfully!
                     </div>
-                   
+
                     <div class="col-9 grid-margin stretch-card mx-auto">
                         <div class="card">
                             <div class="card-body pt-2">
                                 <h5 class="text-center mb-2">Item Master</h5>
 
-                                <hr class="my-2 bg-secondary">
+                                <hr class="my-2 bg-secondary" />
                                 <form class="forms-sample" data-toggle="validator" th:action="@{/master/item/add}" th:object="${item}" role="form" method="post" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-7 mt-3">
@@ -33,13 +33,25 @@
                                                 <small class="text-white">Example: Pencil</small>
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
-                                            <div class="form-group mb-2">
-                                                <label for="category">Category<strong class="text-danger">*</strong></label>
-                                                <select class="form-control" id="category" th:field="*{category}" data-error="Select a Category !" required>
-                                                    <option value="" selected>select</option>
-                                                    <option th:each="category : ${categories}" th:value="${category.categoryId}" th:utext="${category.categoryName}" />
-                                                </select>
-                                                <div class="help-block with-errors text-danger"></div>
+                                            <div class="row">
+                                                <div class="col-6 pl-0">
+                                                    <div class="form-group mb-0">
+                                                        <label for="units">Units</label>
+                                                        <input type="number" class="form-control" id="units" th:field="*{units}" data-error="Units required !" placeholder="Enter unit" />
+                                                        <small class="text-white">Example: 100</small>
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 pr-0">
+                                                    <div class="form-group mb-0">
+                                                        <label for="unitOfMeasure">Unit of Measure<strong class="text-danger">*</strong></label>
+                                                        <select class="form-control" id="unitOfMeasure" th:field="*{unitOfMeasure}" data-error="Select Unit of measure !" required>
+                                                            <option value="" selected>select</option>
+                                                            <option th:each="unit : ${units}" th:value="${unit.unitOfMeasure}" th:utext="${unit.unitOfMeasure}" />
+                                                        </select>
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-5 mt-3">
@@ -54,8 +66,19 @@
                                     <div class="row">
                                         <div class="col-4 mt-3">
                                             <div class="form-group mb-2">
-                                                <label for="brand">Brand<strong class="text-danger">*</strong></label>
-                                                <select class="form-control" id="brand" th:field="*{brand}" data-error="Select a Brand !" required>
+                                                <label for="category">Category<strong class="text-danger">*</strong></label>
+                                                <select class="form-control" id="category" th:field="*{category}" data-error="Select a Category !" required>
+                                                    <option value="" selected>select</option>
+                                                    <option th:each="category : ${categories}" th:value="${category.categoryId}" th:utext="${category.categoryName}" />
+                                                </select>
+                                                <div class="help-block with-errors text-danger"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4 mt-3">
+                                            <div class="form-group mb-2">
+                                                <label for="brand">Brand</label>
+                                                <select class="form-control" id="brand" th:field="*{brand}" data-error="Select a Brand !">
                                                     <option value="" selected>select</option>
                                                     <option th:each="brand : ${brands}" th:value="${brand.brandId}" th:utext="${brand.brandName}" />
                                                 </select>
@@ -72,20 +95,9 @@
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
-                                        <div class="col-4 mt-3">
-                                           <div class="form-group mb-2">
-                                                <label for="unitOfMeasure">Unit of Measure<strong class="text-danger">*</strong></label>
-                                                 <select class="form-control" id="unitOfMeasure" th:field="*{unitOfMeasure}" data-error="Select Unit of measure !" required>
-                                                    <option value="" selected>select</option>
-                                                    <option th:each="unit : ${units}" th:value="${unit.unitOfMeasure}" th:utext="${unit.unitOfMeasure}"/>
-                                                </select>
-                                                <div class="help-block with-errors text-danger"></div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="row mt-3">
-                                       
-                                         <div class="col-4">
+                                        <div class="col-4">
                                             <div class="form-group mb-2">
                                                 <label for="publisher">Publisher<strong class="text-danger">*</strong></label>
                                                 <select class="form-control" id="publisher" th:field="*{publisher}" data-error="Select Publisher !" required>
@@ -125,7 +137,7 @@
                 </div>
                 <div class="col-2">
                     <div class="container p-0 mx-0">
-                         <div class="bar opened dark">
+                        <div class="bar opened dark">
                             <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">
                                 <span class="text">Brand Master</span>
                             </div>

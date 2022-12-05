@@ -206,20 +206,21 @@ public class ResponseController {
 		Item item = itemRepository.findByItemId(id);
 		ItemDto itemDto = new ItemDto();
 
-		itemDto.setBrandName(item.getBrand().getBrandName());
-		itemDto.setCategoryName(item.getCategory().getCategoryName());
+		itemDto.setBrandName(item.getBrand() != null ? item.getBrand().getBrandName() : "NA");
+		itemDto.setCategoryName(item.getCategory() != null ? item.getCategory().getCategoryName() : "NA");
 		itemDto.setDateCreated(item.getDateCreated());
-		itemDto.setHsnCode(item.getHsnCode().getHsnCode());
+		itemDto.setHsnCode(item.getHsnCode() != null ? item.getHsnCode().getHsnCode() : 0);
 		itemDto.setItemId(item.getItemId());
 		itemDto.setItemImage(item.getItemImage());
 		itemDto.setItemName(item.getItemName());
 		itemDto.setItemStatus(item.getItemStatus());
 		itemDto.setLastUpdated(item.getLastUpdated());
 		itemDto.setRemarks(item.getRemarks());
-		itemDto.setSupplierName(item.getSupplier().getSupplierName());
+		itemDto.setSupplierName(item.getSupplier() != null ? item.getSupplier().getSupplierName() : "NA");
 		itemDto.setUnitOfMeasure(item.getUnitOfMeasure());
+		itemDto.setUnits(item.getUnits());
 		itemDto.setCompanyName(companyName);
-		itemDto.setPublisherName(item.getPublisher().getPublisherName());
+		itemDto.setPublisherName(item.getPublisher() != null ? item.getPublisher().getPublisherName() : "NA");
 
 		return itemDto;
 	}
