@@ -4,7 +4,8 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title th:text="${title}" />
-        <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" />
+     	
+     	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" />
         <link rel="stylesheet" th:href="@{/vendors/glyphicons/css/glyphicons.css}" />
         <link rel="stylesheet" th:href="@{/vendors/iconfonts/font-awesome/css/all.min.css}" />
         <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}" />
@@ -14,9 +15,11 @@
         <link rel="stylesheet" th:href="@{/css/edit.css}" />
         <link rel="stylesheet" th:href="@{/css/custom.css}" />
         <link rel="stylesheet" th:href="@{/css/dropdown-list.css}" />
+       
         <script th:src="@{https://www.gstatic.com/charts/loader.js}"></script>
         <script th:src="@{https://unpkg.com/sweetalert/dist/sweetalert.min.js}"></script>
-    </head>
+        
+   </head>
     <body class="sidebar-dark">
         <div class="container-scroller">
             <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar navbar-dark">
@@ -293,6 +296,7 @@
         <script th:src="@{/js/number-match.js}"></script>
         <script th:src="@{/js/select-disable.js}"></script>
         <script th:src="@{/js/calculate.js}"></script>
-        <script th:src="@{/js/data-table.js}"></script>
-    </body>
+        <script th:src="@{/js/data-table.js}"></script>    
+        <script th:src="@{/js/select2/js/select2.min.js}"></script>       
+    </body>   
 </html>

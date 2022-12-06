@@ -5080,6 +5080,7 @@ a.editable-click.editable-disabled:hover {
 .select2-container .select2-selection--single .select2-selection__rendered {
   display: block;
   padding-left: 8px;
+  padding-top: 2px;
   padding-right: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -8571,10 +8572,10 @@ span.CodeMirror-selectedtext {
   content: "3";
 }
 .editor-toolbar a.fa-header-bigger:after {
-  content: "▲";
+  content: "â–²";
 }
 .editor-toolbar a.fa-header-smaller:after {
-  content: "▼";
+  content: "â–¼";
 }
 .editor-toolbar.disabled-for-preview a:not(.no-disable) {
   pointer-events: none;
@@ -9099,7 +9100,7 @@ div.table-responsive
   padding: 0.5em;
 }
 .jsgrid-header-cell,
-.jsgrid-сell {
+.jsgrid-Ñ�ell {
   box-sizing: border-box;
 }
 .jsgrid-align-left {
@@ -9670,7 +9671,7 @@ div.table-responsive
  *
  * Version: v2.6.3
  *
- * Authors: Björn Brala (SWIS.nl), Rodney Rehm, Addy Osmani (patches for FF)
+ * Authors: BjÃ¶rn Brala (SWIS.nl), Rodney Rehm, Addy Osmani (patches for FF)
  * Web: http://swisnl.github.io/jQuery-contextMenu/
  *
  * Copyright (c) 2011-2017 SWIS BV and contributors
@@ -10288,7 +10289,7 @@ div.table-responsive
 }
 /* Ion.RangeSlider
 // css version 2.0.3
-// © 2013-2014 Denis Ineshin | IonDen.com
+// Â© 2013-2014 Denis Ineshin | IonDen.com
 // ===================================================================================================================*/
 
 /* =====================================================================================================================
@@ -10466,7 +10467,7 @@ div.table-responsive
 
 /* Ion.RangeSlider, Flat UI Skin
 // css version 2.0.3
-// © Denis Ineshin, 2014    https://github.com/IonDen
+// Â© Denis Ineshin, 2014    https://github.com/IonDen
 // ===================================================================================================================*/
 
 /* =====================================================================================================================

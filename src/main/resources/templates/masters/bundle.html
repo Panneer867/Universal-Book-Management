@@ -13,29 +13,72 @@
                             <a th:href="@{/master/bundle/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Bundle List</a>
                         </nav>
                     </div>
-                    <div class="mt-5"></div>
+                    <div class="mt-3"></div>
                     <div class="alert alert-success text-center p-2 col-8 mx-auto" role="alert" th:if="${param.bundleAdded}">
                         Bundle has been added successfully!
                     </div>
 
                     <div class="row">
-                        <div class="col-8 mx-auto">
+                        <div class="col-11 mx-auto">
                             <div class="card">
                                 <div class="card-body p-0">
                                     <h5 class="p-2 mb-0 text-center">Brand Master</h5>
-                                    <hr class="mb-4 mt-0" />
+                                    <hr class="mb-3 mt-0" />
                                     <form class="forms-sample" data-toggle="validator" th:action="@{/master/bundle/add}" role="form" method="post">
-                                        <div class="row">
-                                            <div class="col-5">
+                                        <div class="row px-2">
+                                            <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="brandName">Bundle Name<strong class="text-danger">*</strong></label>
                                                     <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />                       
                                                     <div class="help-block with-errors text-danger"></div>
                                                 </div>
                                             </div>
+                                             <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="schoolOrDepartment">School / Department Name<strong class="text-danger">*</strong></label>
+                                                   <select class="js-example-basic-single w-100">
+								                      <option value="AL">Alabama</option>
+								                      <option value="WY">Wyoming</option>
+								                      <option value="AM">America</option>
+								                      <option value="CA">Canada</option>
+								                      <option value="RU">Russia</option>
+								                    </select>
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                             <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="brandName">Board<strong class="text-danger">*</strong></label>
+                                                    <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />                       
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
                                           
                                         </div>
-
+										<div class="row px-2">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="brandName">Standard<strong class="text-danger">*</strong></label>
+                                                    <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />                       
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                             <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="brandName">Language<strong class="text-danger">*</strong></label>
+                                                    <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />                       
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                             <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="brandName">Books<strong class="text-danger">*</strong></label>
+                                                    <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />                       
+                                                    <div class="help-block with-errors text-danger"></div>
+                                                </div>
+                                            </div>
+                                          
+                                        </div>
                                         <div class="text-center mb-3">
                                             <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
                                             <button type="reset" class="btn btn-sm btn-secondary mr-2"><i class="fa fa-refresh menu-icon pr-2"></i>Reset</button>

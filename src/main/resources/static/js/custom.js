@@ -42,9 +42,8 @@ function display(source, destination) {
 
 input.onkeyup = function() { display(this.value, match); };
 
-$('[href="#finish"]').click(function() {	
+$('[href="#finish"]').click(function() {
 	$('#example-form').submit();
 	$(this).html('<div class="loader"></div> Loading...');
 })
 
-  
