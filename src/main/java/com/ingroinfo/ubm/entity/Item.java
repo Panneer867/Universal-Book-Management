@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
@@ -39,28 +37,18 @@ public class Item {
 	private String unitOfMeasure;
 
 	private String remarks;
-	
+
 	private String units;
 
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
+	private Long categoryId;
 
-	@ManyToOne
-	@JoinColumn(name = "supplier_id")
-	private Supplier supplier;
+	private Long supplierId;
 
-	@ManyToOne
-	@JoinColumn(name = "brand_id")
-	private Brand brand;
+	private Long brandId;
 
-	@ManyToOne
-	@JoinColumn(name = "publisher_id")
-	private BrandPublisher publisher;
+	private Long publisherId;
 
-	@ManyToOne
-	@JoinColumn(name = "hsn_id")
-	private HsnCode hsnCode;
+	private Long hsnCodeId;
 
 	@Column(name = "date_created")
 	@CreationTimestamp

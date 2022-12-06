@@ -14,6 +14,7 @@ import com.ingroinfo.ubm.dao.ItemRepository;
 import com.ingroinfo.ubm.dao.SchoolRepository;
 import com.ingroinfo.ubm.dao.SupplierRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
+import com.ingroinfo.ubm.dto.ItemDto;
 import com.ingroinfo.ubm.dto.SchoolDto;
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Brand;
@@ -509,6 +510,173 @@ public class MasterServiceImpl implements MasterService {
 	public void deleteBySchoolId(Long schoolId) {
 
 		schoolRepository.deleteById(schoolId);
+	}
+
+	@Override
+	public Long findByCategoryIdOfHsnCodeId(Long categoryId) {
+
+		Category category = findByCategoryId(categoryId);
+
+		HsnCode hsnCode = hsnCodeRepository.findByCategory(category);
+
+		return hsnCode.getHsnId();
+	}
+
+	@Override
+	public String getByBrandId(Long brandId) {
+
+		String brandName = "NA";
+		Brand brand = brandRepository.findByBrandId(brandId);
+
+		if (brand != null) {
+
+			brandName = brand.getBrandName();
+		}
+		return brandName;
+	}
+
+	@Override
+	public String getByCategoryId(Long categoryId) {
+
+		String categoryName = "NA";
+
+		Category category = categoryRepository.findByCategoryId(categoryId);
+
+		if (category != null) {
+
+			categoryName = category.getCategoryName();
+		}
+		return categoryName;
+	}
+
+	@Override
+	public Long getByHsnCodeId(Long hsnCodeId) {
+
+		Long hsnCode = null;
+		HsnCode hsn = hsnCodeRepository.findByHsnId(hsnCodeId);
+
+		if (hsn != null) {
+
+			hsnCode = hsn.getHsnCode();
+		}
+
+		return hsnCode;
+	}
+
+	@Override
+	public String getBySupplierId(Long supplierId) {
+
+		String supplierName = "NA";
+		Supplier supplier = supplierRepository.findBySupplierId(supplierId);
+
+		if (supplier != null) {
+
+			supplierName = supplier.getSupplierName();
+		}
+
+		return supplierName;
+	}
+
+	@Override
+	public String getByPublisherId(Long publisherId) {
+
+		String publisherName = "NA";
+		BrandPublisher publisher = brandPublisherRepository.findByPublisherId(publisherId);
+
+		if (publisher != null) {
+
+			publisherName = publisher.getPublisherName();
+		}
+
+		return publisherName;
+	}
+
+	@Override
+	public Long getByBrandName(String brandName) {
+
+		Brand brand = brandRepository.findByBrandName(brandName);
+
+		return brand.getBrandId();
+	}
+
+	@Override
+	public Long getByCategoryName(String categoryName) {
+
+		Category category = categoryRepository.findByCategoryName(categoryName);
+
+		return category.getCategoryId();
+	}
+
+	@Override
+	public Long getBySupplierName(String supplierName) {
+
+		Supplier supplier = supplierRepository.findBySupplierName(supplierName);
+
+		return supplier.getSupplierId();
+	}
+
+	@Override
+	public Long getByPublisherName(String publisherName) {
+
+		BrandPublisher publisher = brandPublisherRepository.findByPublisherName(publisherName);
+
+		return publisher.getPublisherId();
+	}
+
+	@Override
+	public void deleteSupplierIdOnItem(Long supplierId) {
+
+		itemRepository.deleteSupplierId(null, supplierId);
+
+	}
+
+	@Override
+	public void deleteBrandIdOnItem(Long brandId) {
+
+		itemRepository.deleteBrandId(null, brandId);
+	}
+
+	@Override
+	public void deleteCategoryIdOnItem(Long categoryId) {
+
+		itemRepository.deleteCategoryId(null, categoryId);
+	}
+
+	@Override
+	public void deleteHsnCodeIdOnItem(Long hsnId) {
+
+		itemRepository.deleteHsnCodeId(null, hsnId);
+	}
+
+	@Override
+	public void deleteBrandPublisherIdOnItem(Long publisherId) {
+
+		itemRepository.deletePublisherId(null, publisherId);
+	}
+
+	@Override
+	public List<ItemDto> getItemList() {
+
+		List<ItemDto> itemLists = getAllItems().stream().map(temp -> {
+			ItemDto obj = new ItemDto();
+			obj.setBrandName(getByBrandId(temp.getBrandId()));
+			obj.setCategoryName(getByCategoryId(temp.getCategoryId()));
+			obj.setDateCreated(temp.getDateCreated());
+			obj.setHsnCode(getByHsnCodeId(temp.getHsnCodeId()));
+			obj.setItemId(temp.getItemId());
+			obj.setItemImage(temp.getItemImage());
+			obj.setItemName(temp.getItemName());
+			obj.setItemStatus(temp.getItemStatus());
+			obj.setLastUpdated(temp.getLastUpdated());
+			obj.setRemarks(temp.getRemarks());
+			obj.setSupplierName(getBySupplierId(temp.getSupplierId()));
+			obj.setPublisherName(getByPublisherId(temp.getPublisherId()));
+			obj.setUnitOfMeasure(temp.getUnitOfMeasure());
+			obj.setUnits(temp.getUnits());
+			return obj;
+		}).collect(Collectors.toList());
+
+		return itemLists;
 	}
 
 }

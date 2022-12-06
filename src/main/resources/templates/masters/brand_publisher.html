@@ -13,8 +13,8 @@
                             <a th:href="@{/master/brand/publisher/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Brand Publisher List</a>
                         </nav>
                     </div>
-                    <div class="mt-5"></div>
-                    <div class="alert alert-success text-center p-2 col-9 mx-auto font-weight-bold" role="alert" th:if="${param.brandPublisherAdded}">
+                    <div class="mt-4"></div>
+                    <div class="alert alert-success text-center p-2 col-7 mx-auto font-weight-bold" role="alert" th:if="${param.brandPublisherAdded}">
                         Brand Publisher has been added successfully!
                     </div>
                     <div class="row">
@@ -29,7 +29,7 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="brand" th:field="*{brand}" data-error="Select a brand !" required>
                                                     <option value="" selected>select</option>
-                                                     <option value="No Brand" selected>No Brand</option>
+                                                    <option value="No Brand" selected>No Brand</option>
                                                     <option th:each="brand : ${brands}" th:value="${brand.brandName}" th:utext="${brand.brandName}" />
                                                 </select>
                                                 <div class="help-block with-errors text-danger"></div>

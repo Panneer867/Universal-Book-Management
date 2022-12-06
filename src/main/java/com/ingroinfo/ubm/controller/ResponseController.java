@@ -206,21 +206,21 @@ public class ResponseController {
 		Item item = itemRepository.findByItemId(id);
 		ItemDto itemDto = new ItemDto();
 
-		itemDto.setBrandName(item.getBrand() != null ? item.getBrand().getBrandName() : "NA");
-		itemDto.setCategoryName(item.getCategory() != null ? item.getCategory().getCategoryName() : "NA");
+		itemDto.setBrandName(masterService.getByBrandId(item.getBrandId()));
+		itemDto.setCategoryName(masterService.getByCategoryId(item.getCategoryId()));
 		itemDto.setDateCreated(item.getDateCreated());
-		itemDto.setHsnCode(item.getHsnCode() != null ? item.getHsnCode().getHsnCode() : 0);
+		itemDto.setHsnCode(masterService.getByHsnCodeId(item.getHsnCodeId()));
 		itemDto.setItemId(item.getItemId());
 		itemDto.setItemImage(item.getItemImage());
 		itemDto.setItemName(item.getItemName());
 		itemDto.setItemStatus(item.getItemStatus());
 		itemDto.setLastUpdated(item.getLastUpdated());
 		itemDto.setRemarks(item.getRemarks());
-		itemDto.setSupplierName(item.getSupplier() != null ? item.getSupplier().getSupplierName() : "NA");
+		itemDto.setSupplierName(masterService.getBySupplierId(item.getSupplierId()));
 		itemDto.setUnitOfMeasure(item.getUnitOfMeasure());
 		itemDto.setUnits(item.getUnits());
 		itemDto.setCompanyName(companyName);
-		itemDto.setPublisherName(item.getPublisher() != null ? item.getPublisher().getPublisherName() : "NA");
+		itemDto.setPublisherName(masterService.getByPublisherId(item.getPublisherId()));
 
 		return itemDto;
 	}

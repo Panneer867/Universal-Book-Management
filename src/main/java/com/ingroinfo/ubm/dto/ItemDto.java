@@ -21,11 +21,12 @@ public class ItemDto {
 	private String supplierName;
 	private String publisherName;
 	private String brandName;
-	private Long category;
-	private Long supplier;
-	private Long brand;
-	private Long publisher;
 	private Long hsnCode;
+	private Long categoryId;
+	private Long supplierId;
+	private Long brandId;
+	private Long publisherId;
+	private Long hsnCodeId;
 	private String unitOfMeasure;
 	private String remarks;
 	private String companyName;

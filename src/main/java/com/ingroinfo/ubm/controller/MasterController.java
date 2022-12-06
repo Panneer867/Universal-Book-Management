@@ -198,6 +198,7 @@ public class MasterController {
 	@GetMapping("/brand/delete")
 	public String deleteBrand(@RequestParam Long brandId) {
 
+		masterService.deleteBrandIdOnItem(brandId);
 		masterService.deleteByBrandId(brandId);
 		return "redirect:/master/brand/list?brandDeleted";
 	}
@@ -297,6 +298,7 @@ public class MasterController {
 	@GetMapping("/category/delete")
 	public String deleteCategory(@RequestParam Long categoryId) {
 
+		masterService.deleteCategoryIdOnItem(categoryId);
 		masterService.deleteByCategoryId(categoryId);
 		return "redirect:/master/category/list?categoryDeleted";
 	}
@@ -502,6 +504,7 @@ public class MasterController {
 	@GetMapping("/hsn/delete")
 	public String deleteHsnCode(@RequestParam Long hsnId) {
 
+		masterService.deleteHsnCodeIdOnItem(hsnId);
 		masterService.deleteByHsnId(hsnId);
 		return "redirect:/master/hsn/list?hsnDeleted";
 	}
@@ -612,6 +615,7 @@ public class MasterController {
 	@GetMapping("/supplier/delete")
 	public String deleteSupplier(@RequestParam Long supplierId) {
 
+		masterService.deleteSupplierIdOnItem(supplierId);
 		masterService.deleteBySupplierId(supplierId);
 		return "redirect:/master/supplier/list?supplierDeleted";
 	}
@@ -709,6 +713,7 @@ public class MasterController {
 	@GetMapping("/brand/publisher/delete")
 	public String deleteBrandPublisher(@RequestParam Long publisherId) {
 
+		masterService.deleteBrandPublisherIdOnItem(publisherId);
 		masterService.deleteByPublisherId(publisherId);
 		return "redirect:/master/brand/publisher/list?brandPublisherDeleted";
 	}
@@ -755,7 +760,9 @@ public class MasterController {
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
-		Item item = new Item();
+
+		Item item = modelMapper.map(itemDto, Item.class);
+		item.setHsnCodeId(masterService.findByCategoryIdOfHsnCodeId(itemDto.getCategoryId()));
 
 		if (company != null) {
 
@@ -773,15 +780,6 @@ public class MasterController {
 			companyService.saveFile(uploadDir, fileName, file);
 		}
 
-		item.setItemName(itemDto.getItemName());
-		item.setItemStatus(itemDto.getItemStatus());
-		item.setCategory(masterService.findByCategoryId(itemDto.getCategory()));
-		item.setHsnCode(masterService.findByHsn(item.getCategory()));
-		item.setSupplier(masterService.findBySupplierId(itemDto.getSupplier()));
-		item.setBrand(masterService.findByBrandId(itemDto.getBrand()));
-		item.setPublisher(masterService.findByPublisherId(itemDto.getPublisher()));
-		item.setRemarks(itemDto.getRemarks());
-		item.setUnitOfMeasure(itemDto.getUnitOfMeasure());
 		masterService.saveItem(item);
 
 		return "redirect:/master/item?itemAdded";
@@ -811,31 +809,7 @@ public class MasterController {
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
-		List<Item> itemList = masterService.getAllItems();
-
-		List<ItemDto> itemLists = itemList.stream().map(temp -> {
-
-			ItemDto obj = new ItemDto();
-
-			obj.setBrandName(temp.getBrand() != null ? temp.getBrand().getBrandName() : "NA");
-			obj.setCategoryName(temp.getCategory() != null ? temp.getCategory().getCategoryName() : "NA");
-			obj.setDateCreated(temp.getDateCreated());
-			obj.setHsnCode(temp.getHsnCode() != null ? temp.getHsnCode().getHsnCode() : 0);
-			obj.setItemId(temp.getItemId());
-			obj.setItemImage(temp.getItemImage());
-			obj.setItemName(temp.getItemName());
-			obj.setItemStatus(temp.getItemStatus());
-			obj.setLastUpdated(temp.getLastUpdated());
-			obj.setRemarks(temp.getRemarks());
-			obj.setSupplierName(temp.getSupplier() != null ? temp.getSupplier().getSupplierName() : "NA");
-			obj.setPublisherName(temp.getPublisher() != null ? temp.getPublisher().getPublisherName() : "NA");
-			obj.setUnitOfMeasure(temp.getUnitOfMeasure());
-			obj.setUnits(temp.getUnits());
-			return obj;
-
-		}).collect(Collectors.toList());
-
-		model.addAttribute("itemLists", itemLists);
+		model.addAttribute("itemLists", masterService.getItemList());
 		model.addAttribute("brands", masterService.getAllBrands());
 		model.addAttribute("categories", masterService.getAllCategories());
 		model.addAttribute("suppliers", masterService.getAllSuppliers());
@@ -879,10 +853,10 @@ public class MasterController {
 
 		mapper.modelMapper().map(itemDto, item);
 
-		item.setBrand(masterService.findByBrandName(itemDto.getBrandName()));
-		item.setCategory(masterService.findByCategoryName(itemDto.getCategoryName()));
-		item.setSupplier(masterService.findBySupplierName(itemDto.getSupplierName()));
-		item.setPublisher(masterService.findByPublisherName(itemDto.getPublisherName()));
+		item.setBrandId(masterService.getByBrandName(itemDto.getBrandName()));
+		item.setCategoryId(masterService.getByCategoryName(itemDto.getCategoryName()));
+		item.setSupplierId(masterService.getBySupplierName(itemDto.getSupplierName()));
+		item.setPublisherId(masterService.getByPublisherName(itemDto.getPublisherName()));
 
 		masterService.updateItem(item);
 		return "redirect:/master/item/list?itemUpdated";
@@ -999,12 +973,12 @@ public class MasterController {
 		masterService.deleteBySchoolId(schoolId);
 		return "redirect:/master/school/list?schoolDeleted";
 	}
-	
+
 	@GetMapping("/bundle")
 	public String bundle(Model model, Principal principal) {
 
 		model.addAttribute("title", "Bundle Master");
-		
+
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
@@ -1026,6 +1000,5 @@ public class MasterController {
 
 		return "/masters/bundle";
 	}
-
 
 }

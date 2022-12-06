@@ -250,8 +250,8 @@
                                             </div>
                                             <div class="col-6 mt-3">
                                                 <div class="form-group mb-2">
-                                                    <label for="eSupplierCopy" class="font-weight-bold">Supplier<strong class="text-danger">*</strong></label>
-                                                    <select class="form-control" id="eSupplierCopy" name="supplierName" data-error="Select a Supplier !" required>
+                                                    <label for="eSupplierCopy" class="font-weight-bold">Supplier</label>
+                                                    <select class="form-control" id="eSupplierCopy" name="supplierName" data-error="Select a Supplier !">
                                                         <option value="" selected>select</option>
                                                         <option th:each="supplier : ${suppliers}" th:value="${supplier.supplierName}" th:utext="${supplier.supplierName}" />
                                                     </select>
@@ -262,7 +262,7 @@
                                         <div class="row">
                                             <div class="col-3 mt-3">
                                                 <div class="form-group mb-2">
-                                                    <label for="eUnitsCopy" class="font-weight-bold">Units (optional)<strong class="text-danger">*</strong></label>
+                                                    <label for="eUnitsCopy" class="font-weight-bold">Units</label>
                                                     <input type="number" class="form-control" id="eUnitsCopy" name="units" placeholder="Enter Units" />
                                                     <div class="help-block with-errors text-danger"></div>
                                                 </div>
@@ -279,8 +279,8 @@
                                             </div>
                                             <div class="col-6 mt-3">
                                                 <div class="form-group mb-2">
-                                                    <label for="ePublisherCopy" class="font-weight-bold">Publisher<strong class="text-danger">*</strong></label>
-                                                    <select class="form-control" id="ePublisherCopy" name="publisherName" data-error="Select Publisher !" required>
+                                                    <label for="ePublisherCopy" class="font-weight-bold">Publisher</label>
+                                                    <select class="form-control" id="ePublisherCopy" name="publisherName" data-error="Select Publisher !">
                                                         <option value="" selected>select</option>
                                                         <option th:each="publisher : ${publishers}" th:value="${publisher.publisherName}" th:utext="${publisher.publisherName}" />
                                                     </select>
@@ -302,7 +302,7 @@
                                             </div>
                                             <div class="col-6 mt-3">
                                                 <div class="form-group mb-2">
-                                                    <label for="eRemarksCopy" class="font-weight-bold">Remarks<strong class="text-danger">*</strong></label>
+                                                    <label for="eRemarksCopy" class="font-weight-bold">Remarks</label>
                                                     <input type="text" class="form-control" id="eRemarksCopy" name="remarks" data-minlength="3" placeholder="Enter Remarks" />
                                                     <div class="help-block with-errors text-danger"></div>
                                                 </div>

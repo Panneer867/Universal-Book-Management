@@ -2,6 +2,7 @@ package com.ingroinfo.ubm.service;
 
 import java.util.List;
 
+import com.ingroinfo.ubm.dto.ItemDto;
 import com.ingroinfo.ubm.dto.SchoolDto;
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Brand;
@@ -142,5 +143,37 @@ public interface MasterService {
 	void updateSchool(School school);
 
 	void deleteBySchoolId(Long schoolId);
+
+	Long findByCategoryIdOfHsnCodeId(Long categoryId);
+
+	String getByBrandId(Long brandId);
+
+	String getByCategoryId(Long categoryId);
+
+	Long getByHsnCodeId(Long hsnCodeId);
+
+	String getBySupplierId(Long supplierId);
+
+	String getByPublisherId(Long publisherId);
+
+	Long getByBrandName(String brandName);
+
+	Long getByCategoryName(String categoryName);
+
+	Long getBySupplierName(String supplierName);
+
+	Long getByPublisherName(String publisherName);
+
+	void deleteSupplierIdOnItem(Long supplierId);
+
+	void deleteBrandIdOnItem(Long brandId);
+
+	void deleteCategoryIdOnItem(Long categoryId);
+
+	void deleteHsnCodeIdOnItem(Long hsnId);
+
+	void deleteBrandPublisherIdOnItem(Long publisherId);
+
+	List<ItemDto> getItemList();
 
 }
