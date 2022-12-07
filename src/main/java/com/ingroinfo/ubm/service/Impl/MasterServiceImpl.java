@@ -668,7 +668,7 @@ public class MasterServiceImpl implements MasterService {
 			obj.setItemName(temp.getItemName());
 			obj.setItemStatus(temp.getItemStatus());
 			obj.setLastUpdated(temp.getLastUpdated());
-			obj.setRemarks(temp.getRemarks());
+			obj.setDescription(temp.getDescription());
 			obj.setSupplierName(getBySupplierId(temp.getSupplierId()));
 			obj.setPublisherName(getByPublisherId(temp.getPublisherId()));
 			obj.setUnitOfMeasure(temp.getUnitOfMeasure());

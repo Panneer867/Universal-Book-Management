@@ -34,7 +34,7 @@
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-6 pl-0">
+                                                <div class="col-6">
                                                     <div class="form-group mb-0">
                                                         <label for="units">Units</label>
                                                         <input type="number" class="form-control" id="units" th:field="*{units}" data-error="Units required !" placeholder="Enter unit" />
@@ -42,7 +42,7 @@
                                                         <div class="help-block with-errors text-danger"></div>
                                                     </div>
                                                 </div>
-                                                <div class="col-6 pr-0">
+                                                <div class="col-6">
                                                     <div class="form-group mb-0">
                                                         <label for="unitOfMeasure">Unit of Measure<strong class="text-danger">*</strong></label>
                                                         <select class="form-control" id="unitOfMeasure" th:field="*{unitOfMeasure}" data-error="Select Unit of measure !" required>
@@ -120,8 +120,8 @@
                                         </div>
                                         <div class="col-5">
                                             <div class="form-group mb-2">
-                                                <label for="remarks">Remarks</label>
-                                                <input type="text" class="form-control" id="remarks" th:field="*{remarks}" data-minlength="3" placeholder="Enter Remarks" />
+                                                <label for="description">Description</label>
+                                                <textarea type="text" class="form-control" id="description" th:field="*{description}" data-minlength="3" placeholder="Enter description" />
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>

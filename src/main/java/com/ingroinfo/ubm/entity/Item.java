@@ -36,7 +36,7 @@ public class Item {
 
 	private String unitOfMeasure;
 
-	private String remarks;
+	private String description;
 
 	private String units;
 

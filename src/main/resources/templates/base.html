@@ -5,6 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title th:text="${title}" />
      	
+     	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css}" />
+     	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css}" />
+     
      	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" />
         <link rel="stylesheet" th:href="@{/vendors/glyphicons/css/glyphicons.css}" />
         <link rel="stylesheet" th:href="@{/vendors/iconfonts/font-awesome/css/all.min.css}" />
@@ -14,10 +17,11 @@
         <link rel="stylesheet" th:href="@{/css/dropdown.css}" />
         <link rel="stylesheet" th:href="@{/css/edit.css}" />
         <link rel="stylesheet" th:href="@{/css/custom.css}" />
-        <link rel="stylesheet" th:href="@{/css/dropdown-list.css}" />
-       
+        <link rel="stylesheet" th:href="@{/css/dropdown-list.css}" />      
         <script th:src="@{https://www.gstatic.com/charts/loader.js}"></script>
         <script th:src="@{https://unpkg.com/sweetalert/dist/sweetalert.min.js}"></script>
+        
+        <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
         
    </head>
     <body class="sidebar-dark">
@@ -297,6 +301,8 @@
         <script th:src="@{/js/select-disable.js}"></script>
         <script th:src="@{/js/calculate.js}"></script>
         <script th:src="@{/js/data-table.js}"></script>    
-        <script th:src="@{/js/select2/js/select2.min.js}"></script>       
+        <script th:src="@{/js/select2/js/select2.min.js}"></script>  
+        <script th:src="@{/js/bundle.js}"></script>  
+        <script th:src="@{/js/counter-increment.js}"></script>       
     </body>   
 </html>

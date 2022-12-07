@@ -221,7 +221,7 @@ $(document).ready(function() {
 				$('#iUnitsCopy').val(item.units);
 				$('#iStatusCopy').val(item.itemStatus);
 				$('#iHsnCodeCopy').val(item.hsnCode);
-				$('#iRemarksCopy').val(item.remarks);
+				$('#iDescriptionCopy').val(item.description);
 				$("#itemImg").attr("src", "/Company/" + item.companyName + "/Items/" + item.itemImage);
 			});
 			$('viewItem').modal();
@@ -245,7 +245,7 @@ $(document).ready(function() {
 				$('#eUnitsCopy').val(item.units);
 				$('#eStatusCopy').val(item.itemStatus);
 				$('#eHsnCodeCopy').val(item.hsnCode);
-				$('#eRemarksCopy').val(item.remarks);
+				$('#eDescriptionCopy').val(item.description);
 			});
 			$('editItem').modal();
 

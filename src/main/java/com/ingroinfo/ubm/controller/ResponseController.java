@@ -215,7 +215,7 @@ public class ResponseController {
 		itemDto.setItemName(item.getItemName());
 		itemDto.setItemStatus(item.getItemStatus());
 		itemDto.setLastUpdated(item.getLastUpdated());
-		itemDto.setRemarks(item.getRemarks());
+		itemDto.setDescription(item.getDescription());
 		itemDto.setSupplierName(masterService.getBySupplierId(item.getSupplierId()));
 		itemDto.setUnitOfMeasure(item.getUnitOfMeasure());
 		itemDto.setUnits(item.getUnits());

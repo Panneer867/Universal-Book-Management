@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.ubm.configuration.ModelMapperConfig;
 import com.ingroinfo.ubm.dto.BrandPublisherDto;
+import com.ingroinfo.ubm.dto.BundleDto;
 import com.ingroinfo.ubm.dto.HsnDto;
 import com.ingroinfo.ubm.dto.ItemDto;
 import com.ingroinfo.ubm.dto.SchoolDto;
@@ -982,6 +983,7 @@ public class MasterController {
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
+		model.addAttribute("bundle", new BundleDto());
 
 		if (company != null) {
 
@@ -997,6 +999,11 @@ public class MasterController {
 			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
+
+		List<ItemDto> bookList = masterService.getItemList().stream().filter(x -> x.getCategoryName().equals("Books"))
+				.collect(Collectors.toList());
+
+		model.addAttribute("booksLists", bookList);
 
 		return "/masters/bundle";
 	}

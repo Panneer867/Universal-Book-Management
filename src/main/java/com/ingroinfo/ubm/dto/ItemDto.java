@@ -28,7 +28,7 @@ public class ItemDto {
 	private Long publisherId;
 	private Long hsnCodeId;
 	private String unitOfMeasure;
-	private String remarks;
+	private String description;
 	private String companyName;
 	private Date dateCreated;
 	private Date lastUpdated;

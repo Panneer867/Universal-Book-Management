@@ -1,139 +1,158 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
     <body>
         <section>
-            <div class="row">
-                <div class="col-10 p-0">
-                    <div class="page-header">
-                        <ul class="breadcrumb px-0">
-                            <li><a th:href="@{/master/bundle}">Master</a></li>
-                            <li><a href="#" class="text-white">&nbsp;Bundle Master</a></li>
-                        </ul>
-                        <nav aria-label="breadcrumb">
-                            <a th:href="@{/master/bundle/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Bundle List</a>
-                        </nav>
-                    </div>
-                    <div class="mt-3"></div>
-                    <div class="alert alert-success text-center p-2 col-8 mx-auto" role="alert" th:if="${param.bundleAdded}">
-                        Bundle has been added successfully!
-                    </div>
+            <div class="page-header">
+                <ul class="breadcrumb px-0">
+                    <li><a th:href="@{/master/brand}">Master</a></li>
+                    <li><a href="#" class="text-white">&nbsp;Bundle Master</a></li>
+                </ul>
+                <nav aria-label="breadcrumb">
+                    <a th:href="@{/master/bundle/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Bundle List</a>
+                </nav>
+            </div>
+            <div class="mt-3"></div>
+            <div class="alert alert-success text-center p-2 col-8 mx-auto" role="alert" th:if="${param.bundleAdded}">
+                Bundle has been added successfully!
+            </div>
+            <form class="forms-sample needs-validation" th:action="@{/master/bundle/add}" th:object="${bundle}" role="form" method="post" novalidate>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="card">
+                            <div class="card-body px-4 py-0" style="background-color: #a4dbdb !important;">
+                                <h5 class="p-2 mb-0 text-center">Bundle Master</h5>
+                                <hr class="mb-3 mt-0" />
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="bundleName">Bundle Name<strong class="text-danger">*</strong></label>
+                                            <input type="text" class="form-control" id="bundleName" th:field="*{bundleName}" placeholder="Enter name" required />
+                                            <div class="invalid-feedback">Provide Bundle name!</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label for="school">Select School<strong class="text-danger">*</strong></label>
+                                            <select class="js-example-basic-single w-100" id="school" th:field="*{school}" required>
+                                                <option value="">select</option>
+                                                <option value="">sdf</option>
+                                            </select>
+                                            <div class="invalid-feedback">Select a school!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="medium">Language/Medium<strong class="text-danger">*</strong></label>
+                                            <select class="form-control" id="medium" th:field="*{medium}" required>
+                                                <option value="">select</option>
+                                                <option value="English">English</option>
+                                                <option value="Kannada">Kannada</option>
+                                                <option value="Hindi">Hindi</option>
+                                                <option value="Tamil">Tamil</option>
+                                                <option value="Telugu">Telugu</option>
+                                                <option value="Malayalam">Malayalam</option>
+                                            </select>
+                                            <div class="invalid-feedback">Select a medium!</div>
+                                        </div>
+                                    </div>
 
-                    <div class="row">
-                        <div class="col-11 mx-auto">
-                            <div class="card">
-                                <div class="card-body p-0">
-                                    <h5 class="p-2 mb-0 text-center">Brand Master</h5>
-                                    <hr class="mb-3 mt-0" />
-                                    <form class="forms-sample" data-toggle="validator" th:action="@{/master/bundle/add}" role="form" method="post">
-                                        <div class="row px-2">
-                                            <div class="col-4">
-                                                <div class="form-group">
-                                                    <label for="brandName">Bundle Name<strong class="text-danger">*</strong></label>
-                                                    <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />                       
-                                                    <div class="help-block with-errors text-danger"></div>
-                                                </div>
-                                            </div>
-                                             <div class="col-4">
-                                                <div class="form-group">
-                                                    <label for="schoolOrDepartment">School / Department Name<strong class="text-danger">*</strong></label>
-                                                   <select class="js-example-basic-single w-100">
-								                      <option value="AL">Alabama</option>
-								                      <option value="WY">Wyoming</option>
-								                      <option value="AM">America</option>
-								                      <option value="CA">Canada</option>
-								                      <option value="RU">Russia</option>
-								                    </select>
-                                                    <div class="help-block with-errors text-danger"></div>
-                                                </div>
-                                            </div>
-                                             <div class="col-4">
-                                                <div class="form-group">
-                                                    <label for="brandName">Board<strong class="text-danger">*</strong></label>
-                                                    <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />                       
-                                                    <div class="help-block with-errors text-danger"></div>
-                                                </div>
-                                            </div>
-                                          
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="standard">Standard<strong class="text-danger">*</strong></label>
+                                            <select class="form-control" id="standard" th:field="*{standard}" required>
+                                                <option value="">select</option>
+                                                <option value="LKG">LKG</option>
+                                                <option value="UKG">UKG</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="PUC1">PUC 1st yr</option>
+                                                <option value="PUC2">PUC 2nd yr</option>
+                                            </select>
+                                            <div class="invalid-feedback">Select Standard!</div>
                                         </div>
-										<div class="row px-2">
-                                            <div class="col-4">
-                                                <div class="form-group">
-                                                    <label for="brandName">Standard<strong class="text-danger">*</strong></label>
-                                                    <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />                       
-                                                    <div class="help-block with-errors text-danger"></div>
-                                                </div>
-                                            </div>
-                                             <div class="col-4">
-                                                <div class="form-group">
-                                                    <label for="brandName">Language<strong class="text-danger">*</strong></label>
-                                                    <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />                       
-                                                    <div class="help-block with-errors text-danger"></div>
-                                                </div>
-                                            </div>
-                                             <div class="col-4">
-                                                <div class="form-group">
-                                                    <label for="brandName">Books<strong class="text-danger">*</strong></label>
-                                                    <input type="text" class="form-control" id="brandName" name="brandName" data-error="Provide brand name!" placeholder="Enter brand name" required />                       
-                                                    <div class="help-block with-errors text-danger"></div>
-                                                </div>
-                                            </div>
-                                          
+                                    </div>
+                                </div>
+
+                                <h5 class="text-center bg-dark py-1 text-white">Create Bundle</h5>
+                                <div class="row pt-2">
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label for="books" class="pt-2 font-weight-bold">Select Book to Add in the List<strong class="text-danger">*</strong></label>
+                                            <select class="js-example-basic-single w-100 companyname" id="new_row" th:field="*{books}" required>
+                                                <option value="">select</option>
+                                                <option th:each="booksList : ${booksLists}" th:value="${booksList.ItemName}" th:utext="${booksList.ItemName}" />
+                                            </select>
+                                            <div class="invalid-feedback">Select Items/books!</div>
                                         </div>
-                                        <div class="text-center mb-3">
-                                            <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
-                                            <button type="reset" class="btn btn-sm btn-secondary mr-2"><i class="fa fa-refresh menu-icon pr-2"></i>Reset</button>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="books" class="pt-2 font-weight-bold">Quantity<strong class="text-danger">*</strong></label>
+                                            <div class="wrap">
+                                                <div class="counter" style="height: 38px;">
+                                                    <input class="counter__input" type="text" value="1" name="counter" size="5" id="qty" readonly="readonly" />
+                                                    <a class="counter__increment pt-1 bg-info" href="#">+</a>
+                                                    <a class="counter__decrement pt-1 bg-danger" href="#">&ndash;</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </form>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="books" class="font-weight-bold">Price</label>
+                                            <input type="text" class="form-control" id="itemPrice" />
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="books" class="font-weight-bold">GST %</label>
+                                            <input type="text" class="form-control" id="gst" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4 text-center" style="padding-top: 20px;">
+                                        <a class="btn btn-sm btn-success mr-2 add-row"><i class="fa fa-plus menu-icon pr-2"></i>Add</a>
+                                    </div>
+                                </div>
+                                <div class="text-center mb-2">
+                                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                                    <a th:href="@{/master/bundle}" class="btn btn-sm btn-secondary">Reset</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-2">
-                    <div class="container p-0 mx-0">
-                         <div class="bar opened dark">
-                            <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">
-                                <span class="text">Brand Master</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/category'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/category' ? 'active':''}">
-                                <span class="text">Category Master</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/hsn'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/hsn' ? 'active':''}">
-                                <span class="text">HSN Code</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/measures'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/measures' ? 'active':''}">
-                                <span class="text">Unit of Measures</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/supplier'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/supplier' ? 'active':''}">
-                                <span class="text">Supplier Master</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/brand/publisher'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand/publisher' ? 'active':''}">
-                                <span class="text">Brand Publisher</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/item'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/item' ? 'active':''}">
-                                <span class="text">Item Master</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/tax'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/tax' ? 'active':''}">
-                                <span class="text">Tax Master</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/school'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/school' ? 'active':''}">
-                                <span class="text">School Master</span>
-                            </div>
-
-                            <div class="icon" onclick="window.location='/master/catalogue'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/catalogue' ? 'active':''}">
-                                <span class="text">Catalogue Master</span>
-                            </div>
-
-                            <div class="icon" onclick="window.location='/master/bundle'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/bundle' ? 'active':''}">
-                                <span class="text">Bundle Master</span>
-                            </div>
-                            <div class="icon" onclick="window.location='/master/cash-counter'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/cash-counter' ? 'active':''}">
-                                <span class="text">Cash Counter</span>
-                            </div>
-                        </div>
+                    <div class="col-7">
+                        <table class="table table-dark table-striped table-bordered table-hover orderTable actionBtn">
+                            <thead>
+                                <tr>
+                                    <th>Sl</th>
+                                    <th>Book Name</th>
+                                    <th style="width: 70px;">Qty</th>
+                                    <th style="width: 70px;">Price<i class="fa fa-inr" aria-hidden="true"></i></th>
+                                    <th style="width: 70px;">GST %</th>
+                                    <th style="width: 60px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <div class="alert alert-info text-center my-2 py-1 msg-show" role="alert">Select Books to bundle it !</div>
                     </div>
                 </div>
-            </div>
+            </form>
         </section>
     </body>
 </html>
