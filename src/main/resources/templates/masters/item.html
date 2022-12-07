@@ -18,7 +18,7 @@
                         Item has been added successfully!
                     </div>
 
-                    <div class="col-9 grid-margin stretch-card mx-auto">
+                    <div class="col-10 grid-margin stretch-card mx-auto">
                         <div class="card">
                             <div class="card-body pt-2">
                                 <h5 class="text-center mb-2">Item Master</h5>
@@ -26,25 +26,60 @@
                                 <hr class="my-2 bg-secondary" />
                                 <form class="forms-sample" data-toggle="validator" th:action="@{/master/item/add}" th:object="${item}" role="form" method="post" enctype="multipart/form-data">
                                     <div class="row">
-                                        <div class="col-7 mt-3">
-                                            <div class="form-group mb-2">
-                                                <label for="itemName">Item Name<strong class="text-danger">*</strong></label>
-                                                <input type="text" class="form-control" id="itemName" th:field="*{itemName}" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter item name" required />
-                                                <small class="text-white">Example: Pencil</small>
-                                                <div class="help-block with-errors text-danger"></div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <div class="form-group mb-0">
-                                                        <label for="units">Units</label>
-                                                        <input type="number" class="form-control" id="units" th:field="*{units}" data-error="Units required !" placeholder="Enter unit" />
-                                                        <small class="text-info">Example: 100</small>
+                                        <div class="col-8 px-4">
+                                            <div class="row mt-2">
+                                                <div class="col-8">
+                                                    <div class="form-group mb-2">
+                                                        <label for="itemName">Item Name<strong class="text-danger">*</strong></label>
+                                                        <input type="text" class="form-control" id="itemName" th:field="*{itemName}" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter item name" required />
+                                                        <small class="text-white">Example: Pencil</small>
                                                         <div class="help-block with-errors text-danger"></div>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
-                                                    <div class="form-group mb-0">
-                                                        <label for="unitOfMeasure">Unit of Measure<strong class="text-danger">*</strong></label>
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="itemName">Cost Price<strong class="text-danger">*</strong></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text py-0"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                                                            </div>
+
+                                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" />
+                                                        </div>
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="itemName">Selling Price<strong class="text-danger">*</strong></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text py-0"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                                                            </div>
+
+                                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" />
+                                                        </div>
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="itemName">MRP Price<strong class="text-danger">*</strong></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text py-0"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                                                            </div>
+
+                                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" />
+                                                        </div>
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="unitOfMeasure">Unit Of Measure<strong class="text-danger">*</strong></label>
                                                         <select class="form-control" id="unitOfMeasure" th:field="*{unitOfMeasure}" data-error="Select Unit of measure !" required>
                                                             <option value="" selected>select</option>
                                                             <option th:each="unit : ${units}" th:value="${unit.unitOfMeasure}" th:utext="${unit.unitOfMeasure}" />
@@ -53,75 +88,76 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="categoryId">Category<strong class="text-danger">*</strong></label>
+                                                        <select class="form-control" id="categoryId" th:field="*{categoryId}" data-error="Select a Category !" required>
+                                                            <option value="" selected>select</option>
+                                                            <option th:each="category : ${categories}" th:value="${category.categoryId}" th:utext="${category.categoryName}" />
+                                                        </select>
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="brandId">Brand</label>
+                                                        <select class="form-control" id="brandId" th:field="*{brandId}" data-error="Select a Brand !">
+                                                            <option value="" selected>select</option>
+                                                            <option th:each="brand : ${brands}" th:value="${brand.brandId}" th:utext="${brand.brandName}" />
+                                                        </select>
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="supplierId">Supplier</label>
+                                                        <select class="form-control" id="supplierId" th:field="*{supplierId}" data-error="Select a Supplier !">
+                                                            <option value="" selected>select</option>
+                                                            <option th:each="supplier : ${suppliers}" th:value="${supplier.supplierId}" th:utext="${supplier.supplierName}" />
+                                                        </select>
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="publisherId">Publisher</label>
+                                                        <select class="form-control" id="publisherId" th:field="*{publisherId}" data-error="Select Publisher !">
+                                                            <option value="" selected>select</option>
+                                                            <option th:each="publisher : ${publishers}" th:value="${publisher.publisherId}" th:utext="${publisher.publisherName}" />
+                                                        </select>
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="itemStatus">Item Status<strong class="text-danger">*</strong></label>
+                                                        <select class="form-control" id="itemStatus" th:field="*{itemStatus}" data-error="Select a item status !" required>
+                                                            <option value="" selected>select</option>
+                                                            <option value="Available">Available</option>
+                                                            <option value="Not Available">Not Available</option>
+                                                        </select>
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="description">Description</label>
+                                                        <textarea type="text" class="form-control" id="description" th:field="*{description}" data-minlength="3" placeholder="Enter description" />
+                                                        <div class="help-block with-errors text-danger"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-5 mt-3">
-                                            <div class="form-group mb-2">
+                                        <div class="col-4 border-left mt-3">
+                                            <div class="form-group">
                                                 <label for="itemImage" class="font-weight-bold">Item Image<strong class="text-danger">*</strong></label>
-                                                <input type="file" name="itemImage" id="itemImage" accept="image/*" data-height="100" data-max-file-size="2M" class="dropify" data-error="Item Image required !" required />
+                                                <input type="file" name="itemImage" id="itemImage" accept="image/*" data-height="200" data-max-file-size="2M" class="dropify" data-error="Item Image required !" required />
                                                 <small class="text-info">[File: 2MB MAX]</small>
-                                                <div class="help-block with-errors text-danger"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-4 mt-3">
-                                            <div class="form-group mb-2">
-                                                <label for="categoryId">Category<strong class="text-danger">*</strong></label>
-                                                <select class="form-control" id="categoryId" th:field="*{categoryId}" data-error="Select a Category !" required>
-                                                    <option value="" selected>select</option>
-                                                    <option th:each="category : ${categories}" th:value="${category.categoryId}" th:utext="${category.categoryName}" />
-                                                </select>
-                                                <div class="help-block with-errors text-danger"></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-4 mt-3">
-                                            <div class="form-group mb-2">
-                                                <label for="brandId">Brand</label>
-                                                <select class="form-control" id="brandId" th:field="*{brandId}" data-error="Select a Brand !">
-                                                    <option value="" selected>select</option>
-                                                    <option th:each="brand : ${brands}" th:value="${brand.brandId}" th:utext="${brand.brandName}" />
-                                                </select>
-                                                <div class="help-block with-errors text-danger"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4 mt-3">
-                                            <div class="form-group mb-2">
-                                                <label for="supplierId">Supplier</label>
-                                                <select class="form-control" id="supplierId" th:field="*{supplierId}" data-error="Select a Supplier !">
-                                                    <option value="" selected>select</option>
-                                                    <option th:each="supplier : ${suppliers}" th:value="${supplier.supplierId}" th:utext="${supplier.supplierName}" />
-                                                </select>
-                                                <div class="help-block with-errors text-danger"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col-4">
-                                            <div class="form-group mb-2">
-                                                <label for="publisherId">Publisher</label>
-                                                <select class="form-control" id="publisherId" th:field="*{publisherId}" data-error="Select Publisher !">
-                                                    <option value="" selected>select</option>
-                                                    <option th:each="publisher : ${publishers}" th:value="${publisher.publisherId}" th:utext="${publisher.publisherName}" />
-                                                </select>
-                                                <div class="help-block with-errors text-danger"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="form-group mb-2">
-                                                <label for="itemStatus">Item Status<strong class="text-danger">*</strong></label>
-                                                <select class="form-control" id="itemStatus" th:field="*{itemStatus}" data-error="Select a item status !" required>
-                                                    <option value="" selected>select</option>
-                                                    <option value="Available">Available</option>
-                                                    <option value="Not Available">Not Available</option>
-                                                </select>
-                                                <div class="help-block with-errors text-danger"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-5">
-                                            <div class="form-group mb-2">
-                                                <label for="description">Description</label>
-                                                <textarea type="text" class="form-control" id="description" th:field="*{description}" data-minlength="3" placeholder="Enter description" />
                                                 <div class="help-block with-errors text-danger"></div>
                                             </div>
                                         </div>
