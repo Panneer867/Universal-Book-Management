@@ -218,7 +218,9 @@ $(document).ready(function() {
 				$('#iSupplierCopy').val(item.supplierName);
 				$('#iPublisherCopy').val(item.publisherName);
 				$('#iUnitOfMeasureCopy').val(item.unitOfMeasure);
-				$('#iUnitsCopy').val(item.units);
+				$('#iCostPriceCopy').val(item.costPrice);
+				$('#iSellingPriceCopy').val(item.sellingPrice);
+				$('#iMrpPriceCopy').val(item.mrpPrice);
 				$('#iStatusCopy').val(item.itemStatus);
 				$('#iHsnCodeCopy').val(item.hsnCode);
 				$('#iDescriptionCopy').val(item.description);
@@ -237,12 +239,14 @@ $(document).ready(function() {
 			$.get(href, function(item) {
 				$('#eItemIdCopy').val(item.itemId);
 				$('#eItemNameCopy').val(item.itemName);
+				$('#eCostPriceCopy').val(item.costPrice);
+				$('#eSellingPriceCopy').val(item.sellingPrice);
+				$('#eMrpPriceCopy').val(item.mrpPrice);
 				$('#eCategoryCopy').val(item.categoryName);
 				$('#eBrandCopy').val(item.brandName);
 				$('#eSupplierCopy').val(item.supplierName);
 				$('#ePublisherCopy').val(item.publisherName);
 				$('#eUnitOfMeasureCopy').val(item.unitOfMeasure);
-				$('#eUnitsCopy').val(item.units);
 				$('#eStatusCopy').val(item.itemStatus);
 				$('#eHsnCodeCopy').val(item.hsnCode);
 				$('#eDescriptionCopy').val(item.description);

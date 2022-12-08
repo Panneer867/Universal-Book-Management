@@ -36,9 +36,13 @@ public class Item {
 
 	private String unitOfMeasure;
 
-	private String description;
+	private String costPrice;
 
-	private String units;
+	private String sellingPrice;
+
+	private String mrpPrice;
+
+	private String description;
 
 	private Long categoryId;
 

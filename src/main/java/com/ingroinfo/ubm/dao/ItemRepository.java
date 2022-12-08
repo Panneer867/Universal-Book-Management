@@ -33,4 +33,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 	@Modifying
 	@Query("UPDATE Item i SET i.publisherId= :val WHERE i.publisherId = :publisherId")
 	void deletePublisherId(@Param("val") String val, @Param("publisherId") Long publisherId);
+
+	Item findByItemName(String itemName);
 }

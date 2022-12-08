@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -189,7 +188,7 @@ public class ResponseController {
 
 	@ResponseBody
 	@RequestMapping("/item")
-	public ItemDto getItem(@RequestParam Long id, Principal principal, Model model) {
+	public ItemDto getItem(@RequestParam Long id, Principal principal) {
 
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
@@ -218,9 +217,11 @@ public class ResponseController {
 		itemDto.setDescription(item.getDescription());
 		itemDto.setSupplierName(masterService.getBySupplierId(item.getSupplierId()));
 		itemDto.setUnitOfMeasure(item.getUnitOfMeasure());
-		itemDto.setUnits(item.getUnits());
 		itemDto.setCompanyName(companyName);
 		itemDto.setPublisherName(masterService.getByPublisherId(item.getPublisherId()));
+		itemDto.setCostPrice(item.getCostPrice());
+		itemDto.setSellingPrice(item.getSellingPrice());
+		itemDto.setMrpPrice(item.getMrpPrice());
 
 		return itemDto;
 	}
@@ -230,6 +231,33 @@ public class ResponseController {
 	public School getSchool(@RequestParam Long id) {
 
 		return schoolRepository.findBySchoolId(id);
+	}
+
+	@ResponseBody
+	@RequestMapping("/bundle/item")
+	public ItemDto getItemForBundle(@RequestParam String itemName) {
+
+		Item item = itemRepository.findByItemName(itemName);
+		ItemDto itemDto = new ItemDto();
+
+		itemDto.setBrandName(masterService.getByBrandId(item.getBrandId()));
+		itemDto.setCategoryName(masterService.getByCategoryId(item.getCategoryId()));
+		itemDto.setDateCreated(item.getDateCreated());
+		itemDto.setHsnCode(masterService.getByHsnCodeId(item.getHsnCodeId()));
+		itemDto.setItemId(item.getItemId());
+		itemDto.setItemImage(item.getItemImage());
+		itemDto.setItemName(item.getItemName());
+		itemDto.setItemStatus(item.getItemStatus());
+		itemDto.setLastUpdated(item.getLastUpdated());
+		itemDto.setDescription(item.getDescription());
+		itemDto.setSupplierName(masterService.getBySupplierId(item.getSupplierId()));
+		itemDto.setUnitOfMeasure(item.getUnitOfMeasure());
+		itemDto.setPublisherName(masterService.getByPublisherId(item.getPublisherId()));
+		itemDto.setCostPrice(item.getCostPrice());
+		itemDto.setSellingPrice(item.getSellingPrice());
+		itemDto.setMrpPrice(item.getMrpPrice());
+
+		return itemDto;
 	}
 
 }

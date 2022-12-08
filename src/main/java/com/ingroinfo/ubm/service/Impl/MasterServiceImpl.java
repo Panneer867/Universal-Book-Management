@@ -666,13 +666,16 @@ public class MasterServiceImpl implements MasterService {
 			obj.setItemId(temp.getItemId());
 			obj.setItemImage(temp.getItemImage());
 			obj.setItemName(temp.getItemName());
+			obj.setMrpPrice(temp.getMrpPrice());
+			obj.setCostPrice(temp.getCostPrice());
+			obj.setSellingPrice(temp.getSellingPrice());
 			obj.setItemStatus(temp.getItemStatus());
 			obj.setLastUpdated(temp.getLastUpdated());
 			obj.setDescription(temp.getDescription());
 			obj.setSupplierName(getBySupplierId(temp.getSupplierId()));
 			obj.setPublisherName(getByPublisherId(temp.getPublisherId()));
 			obj.setUnitOfMeasure(temp.getUnitOfMeasure());
-			obj.setUnits(temp.getUnits());
+
 			return obj;
 		}).collect(Collectors.toList());
 

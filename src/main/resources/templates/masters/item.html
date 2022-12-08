@@ -32,19 +32,20 @@
                                                     <div class="form-group mb-2">
                                                         <label for="itemName">Item Name<strong class="text-danger">*</strong></label>
                                                         <input type="text" class="form-control" id="itemName" th:field="*{itemName}" data-minlength="3" data-error="Minimum 3 characters required !" placeholder="Enter item name" required />
-                                                        <small class="text-white">Example: Pencil</small>
+
                                                         <div class="help-block with-errors text-danger"></div>
+                                                        <small class="text-info">Example: Pencil</small>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
                                                     <div class="form-group">
-                                                        <label for="itemName">Cost Price<strong class="text-danger">*</strong></label>
+                                                        <label for="costPrice">Cost Price<strong class="text-danger">*</strong></label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text py-0"><i class="fa fa-inr" aria-hidden="true"></i></span>
                                                             </div>
 
-                                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" />
+                                                            <input type="number" class="form-control" id="costPrice" th:field="*{costPrice}" data-error="Cost price is required !" required />
                                                         </div>
                                                         <div class="help-block with-errors text-danger"></div>
                                                     </div>
@@ -53,26 +54,26 @@
                                             <div class="row">
                                                 <div class="col-4">
                                                     <div class="form-group">
-                                                        <label for="itemName">Selling Price<strong class="text-danger">*</strong></label>
+                                                        <label for="sellingPrice">Selling Price<strong class="text-danger">*</strong></label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text py-0"><i class="fa fa-inr" aria-hidden="true"></i></span>
                                                             </div>
 
-                                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" />
+                                                            <input type="number" class="form-control" id="sellingPrice" th:field="*{sellingPrice}" data-error="Selling price is required" required />
                                                         </div>
                                                         <div class="help-block with-errors text-danger"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
                                                     <div class="form-group">
-                                                        <label for="itemName">MRP Price<strong class="text-danger">*</strong></label>
+                                                        <label for="mrpPrice">MRP Price<strong class="text-danger">*</strong></label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text py-0"><i class="fa fa-inr" aria-hidden="true"></i></span>
                                                             </div>
 
-                                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" />
+                                                            <input type="number" class="form-control" id="mrpPrice" th:field="*{mrpPrice}" data-error="MRP price is required" required />
                                                         </div>
                                                         <div class="help-block with-errors text-danger"></div>
                                                     </div>
@@ -80,7 +81,7 @@
                                                 <div class="col-4">
                                                     <div class="form-group">
                                                         <label for="unitOfMeasure">Unit Of Measure<strong class="text-danger">*</strong></label>
-                                                        <select class="form-control" id="unitOfMeasure" th:field="*{unitOfMeasure}" data-error="Select Unit of measure !" required>
+                                                        <select class="form-control" id="unitOfMeasure" th:field="*{unitOfMeasure}" data-error="Select Unit of measure" required>
                                                             <option value="" selected>select</option>
                                                             <option th:each="unit : ${units}" th:value="${unit.unitOfMeasure}" th:utext="${unit.unitOfMeasure}" />
                                                         </select>
@@ -162,7 +163,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-center mt-3">
+                                    <div class="text-center">
                                         <button type="submit" class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus menu-icon pr-2"></i>Add</button>
                                         <button type="reset" class="btn btn-sm btn-secondary mr-2"><i class="fa fa-refresh menu-icon pr-2"></i>Reset</button>
                                     </div>
@@ -171,7 +172,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-2 side-menu-size">
                     <div class="container p-0 mx-0">
                         <div class="bar opened dark">
                             <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">

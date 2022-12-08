@@ -382,3 +382,13 @@ li.shift-btn {
 }
 
 /* ------------------------------ COUNTER END ------------------------------ */
+
+
+
+.table-font-size .table td, .table th {
+    font-family: "Goudy Bookletter 1911", sans-serif;
+    font-size: 11px;
+}
+ .side-menu-size{
+     font-family: "Goudy Bookletter 1911", sans-serif; 
+ }
