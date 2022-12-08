@@ -36,6 +36,41 @@ INSERT INTO `bank` VALUES (31, 'UCO Bank');
 INSERT INTO `bank` VALUES (32, 'Union Bank of India');
 INSERT INTO `bank` VALUES (33, 'YES Bank Ltd');
 
+INSERT INTO `state` VALUES (1, 'ANDAMAN & NICOBAR ISLANDS');
+INSERT INTO `state` VALUES (2, 'ANDHRA PRADESH');
+INSERT INTO `state` VALUES (3, 'ASSAM');
+INSERT INTO `state` VALUES (4, 'BIHAR');
+INSERT INTO `state` VALUES (5, 'CHHATTISGARH');
+INSERT INTO `state` VALUES (6, 'DELHI');
+INSERT INTO `state` VALUES (7, 'GOA');
+INSERT INTO `state` VALUES (8, 'GUJARAT');
+INSERT INTO `state` VALUES (9, 'HARYANA');
+INSERT INTO `state` VALUES (10, 'HIMACHAL PRADESH');
+INSERT INTO `state` VALUES (11, 'JAMMU & KASHMIR');
+INSERT INTO `state` VALUES (12, 'JHARKHAND');
+INSERT INTO `state` VALUES (13, 'KARNATAKA');
+INSERT INTO `state` VALUES (14, 'KERALA');
+INSERT INTO `state` VALUES (15, 'MADHYA PRADESH');
+INSERT INTO `state` VALUES (16, 'MAHARASHTRA');
+INSERT INTO `state` VALUES (17, 'MANIPUR');
+INSERT INTO `state` VALUES (18, 'MEGHALAYA');
+INSERT INTO `state` VALUES (19, 'MIZORAM');
+INSERT INTO `state` VALUES (20, 'NCR');
+INSERT INTO `state` VALUES (21, 'NEPAL');
+INSERT INTO `state` VALUES (22, 'NEW DELHI');
+INSERT INTO `state` VALUES (23, 'ODISHA');
+INSERT INTO `state` VALUES (24, 'PUNJAB');
+INSERT INTO `state` VALUES (25, 'RAJASTHAN');
+INSERT INTO `state` VALUES (26, 'SIKKIM');
+INSERT INTO `state` VALUES (27, 'TAMIL NADU');
+INSERT INTO `state` VALUES (28, 'TRIPURA');
+INSERT INTO `state` VALUES (29, 'UNION TERRITORY of DADRA & NAGAR HAVELI');
+INSERT INTO `state` VALUES (30, 'UNION TERRITORY OF LAKSHADWEEP');
+INSERT INTO `state` VALUES (31, 'UTTAR PRADESH');
+INSERT INTO `state` VALUES (32, 'UTTARAKHAND');
+INSERT INTO `state` VALUES (33, 'UTTARANCHAL');
+INSERT INTO `state` VALUES (34, 'WEST BENGAL');
+
 INSERT INTO `city` VALUES (1, 'AGARTALA', 28);
 INSERT INTO `city` VALUES (2, 'AGRA', 31);
 INSERT INTO `city` VALUES (3, 'AHMEDABAD', 8);
@@ -376,40 +411,44 @@ INSERT INTO `city` VALUES (337, 'YAMUNOTRI', 33);
 INSERT INTO `city` VALUES (338, 'YERCAUD', 27);
 INSERT INTO `city` VALUES (339, 'YUKSOM', 26);
 
-INSERT INTO `state` VALUES (1, 'ANDAMAN & NICOBAR ISLANDS');
-INSERT INTO `state` VALUES (2, 'ANDHRA PRADESH');
-INSERT INTO `state` VALUES (3, 'ASSAM');
-INSERT INTO `state` VALUES (4, 'BIHAR');
-INSERT INTO `state` VALUES (5, 'CHHATTISGARH');
-INSERT INTO `state` VALUES (6, 'DELHI');
-INSERT INTO `state` VALUES (7, 'GOA');
-INSERT INTO `state` VALUES (8, 'GUJARAT');
-INSERT INTO `state` VALUES (9, 'HARYANA');
-INSERT INTO `state` VALUES (10, 'HIMACHAL PRADESH');
-INSERT INTO `state` VALUES (11, 'JAMMU & KASHMIR');
-INSERT INTO `state` VALUES (12, 'JHARKHAND');
-INSERT INTO `state` VALUES (13, 'KARNATAKA');
-INSERT INTO `state` VALUES (14, 'KERALA');
-INSERT INTO `state` VALUES (15, 'MADHYA PRADESH');
-INSERT INTO `state` VALUES (16, 'MAHARASHTRA');
-INSERT INTO `state` VALUES (17, 'MANIPUR');
-INSERT INTO `state` VALUES (18, 'MEGHALAYA');
-INSERT INTO `state` VALUES (19, 'MIZORAM');
-INSERT INTO `state` VALUES (20, 'NCR');
-INSERT INTO `state` VALUES (21, 'NEPAL');
-INSERT INTO `state` VALUES (22, 'NEW DELHI');
-INSERT INTO `state` VALUES (23, 'ODISHA');
-INSERT INTO `state` VALUES (24, 'PUNJAB');
-INSERT INTO `state` VALUES (25, 'RAJASTHAN');
-INSERT INTO `state` VALUES (26, 'SIKKIM');
-INSERT INTO `state` VALUES (27, 'TAMIL NADU');
-INSERT INTO `state` VALUES (28, 'TRIPURA');
-INSERT INTO `state` VALUES (29, 'UNION TERRITORY of DADRA & NAGAR HAVELI');
-INSERT INTO `state` VALUES (30, 'UNION TERRITORY OF LAKSHADWEEP');
-INSERT INTO `state` VALUES (31, 'UTTAR PRADESH');
-INSERT INTO `state` VALUES (32, 'UTTARAKHAND');
-INSERT INTO `state` VALUES (33, 'UTTARANCHAL');
-INSERT INTO `state` VALUES (34, 'WEST BENGAL');
+INSERT INTO `master_brand` VALUES (1, 'National Read.png', 'National Read', '2022-12-07 16:06:58.141000', '2022-12-07 16:06:58.141000');
+
+INSERT INTO `master_brand_publisher` VALUES (1, 'National Read', 'Books', '2022-12-07 16:13:35.038000', '2022-12-07 16:13:35.038000', 'Ingroinfo', 'Latest Books', 'Panneer');
+
+INSERT INTO `master_category` VALUES (1, 'Books', 'Available', '2022-12-07 16:07:16.308000', '2022-12-07 16:07:16.308000');
+
+INSERT INTO `master_hsn` VALUES (1, '2022-12-07 16:07:40.226000', 49011010, '2022-12-07 16:07:40.226000', 1);
+
+INSERT INTO `master_school` VALUES (1, 'Bangalore', 'STATE BOARD', 'LEH', '2022-12-07 16:29:28.131000', 'Michael@gmail.com', '2022-12-07 16:31:17.372000', '9234929323', '604530', 'New School', 'St. Michael\'s Higher Secondary Matriculation School', 'Higher Secondary', 'JAMMU & KASHMIR');
+
+INSERT INTO `master_school` VALUES (2, 'Bangalore', 'STATE BOARD', 'AMBALA', '2022-12-07 16:30:14.427000', 'marry@gmail.com', '2022-12-07 16:30:14.427000', '8975464656', '675464', 'New School', 'St. Marry\'s Higher Secondary School', 'Higher Secondary', 'HARYANA');
+
+INSERT INTO `master_school` VALUES (3, 'Bangalore', 'CBSE', 'JAMSHEDPUR', '2022-12-07 16:30:58.913000', 'jeeva@gmail.com', '2022-12-07 16:30:58.913000', '856566564', '956564', 'New School', 'Jeeva Velu International School', 'Higher Secondary', 'JHARKHAND');
+
+INSERT INTO `master_supplier` VALUES (1, '955674444799922', 'Bangalore', '0', 'HDFC Bank Ltd', 'BANGALORE', '2022-12-07 16:12:58.750000', 'Panneer867@gmail.com', '', 'Taxable', '22AAAAA0000A1Z5', 'HFDC233T33', '2022-12-07 16:12:58.750000', '9503248348', '56000', '560092', '1092', 'KARNATAKA', 'Panneer', '9347894343', '56000');
+
+INSERT INTO `master_unit` VALUES (1, '2022-12-07 16:07:47.243000', 'Pieces', '2022-12-07 16:07:47.243000', 'pcs');
+
+INSERT INTO `master_item` VALUES (101, 1, 1, '400', '2022-12-07 16:15:25.559000', 'Latest Books', 1, 'Appetite for Self-Destruction_46240.jpg', 'Appetite for Self-Destruction', 'Available', '2022-12-07 18:21:57.054000', '500', 1, '500', 1, 'pcs');
+INSERT INTO `master_item` VALUES (102, 1, 1, '599', '2022-12-07 16:19:35.508000', 'Latest Books', 1, 'Big Tech\'s Battle to Erase the Trump Movement and Steal the Election_75084.jpg', 'Big Tech\'s Battle to Erase the Trump Movement and Steal the Election', 'Available', '2022-12-07 16:19:35.508000', '600', 1, '600', 1, 'pcs');
+INSERT INTO `master_item` VALUES (103, 1, 1, '899', '2022-12-07 16:19:54.563000', 'Latest Books', 1, 'ComSec_93180.jpg', 'ComSec', 'Available', '2022-12-07 16:19:54.563000', '950', 1, '950', 1, 'pcs');
+INSERT INTO `master_item` VALUES (104, 1, 1, '659', '2022-12-07 16:20:11.867000', 'Latest Books', 1, 'How We Got to Now_51831.jpg', 'How We Got to Now', 'Available', '2022-12-07 16:20:11.867000', '700', 1, '700', 1, 'pcs');
+INSERT INTO `master_item` VALUES (105, 1, 1, '279', '2022-12-07 16:20:48.514000', 'Latest Books', 1, 'Java New Edition_7412.jpg', 'Java New Edition', 'Available', '2022-12-07 16:20:48.514000', '300', 1, '300', 1, 'pcs');
+INSERT INTO `master_item` VALUES (106, 1, 1, '399', '2022-12-07 16:21:05.079000', 'Latest Books', 1, 'Life 3.0_25477.jpg', 'Life 3.0', 'Available', '2022-12-07 16:21:05.079000', '500', 1, '500', 1, 'pcs');
+INSERT INTO `master_item` VALUES (107, 1, 1, '567', '2022-12-07 16:21:48.273000', 'Latest Books', 1, 'Online Film Production in China Using Blockchain and Smart Contracts_15350.jpg', 'Online Film Production in China Using Blockchain and Smart Contracts', 'Available', '2022-12-07 16:21:48.273000', '600', 1, '600', 1, 'pcs');
+INSERT INTO `master_item` VALUES (108, 1, 1, '834', '2022-12-07 16:22:08.098000', 'Latest Books', 1, 'Paradigm Shift in Technologies and Innovation Systems_77491.jpg', 'Paradigm Shift in Technologies and Innovation Systems', 'Available', '2022-12-07 16:22:08.098000', '900', 1, '900', 1, 'pcs');
+INSERT INTO `master_item` VALUES (109, 1, 1, '700', '2022-12-07 16:22:27.245000', 'Latest Books', 1, 'Race After Technology_28632.jpg', 'Race After Technology', 'Available', '2022-12-07 16:22:27.245000', '900', 1, '900', 1, 'pcs');
+INSERT INTO `master_item` VALUES (110, 1, 1, '149', '2022-12-07 16:22:51.163000', 'Latest Books', 1, 'Rage Inside the Machine_43981.jpg', 'Rage Inside the Machine', 'Available', '2022-12-07 16:22:51.163000', '300', 1, '300', 1, 'pcs');
+INSERT INTO `master_item` VALUES (111, 1, 1, '1080', '2022-12-07 16:23:08.099000', 'Latest Books', 1, 'Stand out of our Light_59753.jpg', 'Stand out of our Light', 'Available', '2022-12-07 16:23:08.099000', '1500', 1, '1500', 1, 'pcs');
+INSERT INTO `master_item` VALUES (112, 1, 1, '406', '2022-12-07 16:23:26.634000', 'Latest Books', 1, 'Steve Jobs_3134.jpg', 'Steve Jobs', 'Available', '2022-12-07 16:23:26.634000', '600', 1, '600', 1, 'pcs');
+INSERT INTO `master_item` VALUES (113, 1, 1, '386', '2022-12-07 16:23:42.205000', 'Latest Books', 1, 'The Box_29211.jpg', 'The Box', 'Available', '2022-12-07 16:23:42.205000', '800', 1, '800', 1, 'pcs');
+INSERT INTO `master_item` VALUES (114, 1, 1, '275', '2022-12-07 16:23:58.363000', 'Latest Books', 1, 'The Exponential Age_53751.jpg', 'The Exponential Age', 'Available', '2022-12-07 16:23:58.363000', '400', 1, '400', 1, 'pcs');
+INSERT INTO `master_item` VALUES (115, 1, 1, '935', '2022-12-07 16:24:12.860000', 'Latest Books', 1, 'The History of the Future_69203.jpg', 'The History of the Future', 'Available', '2022-12-07 16:24:12.860000', '1000', 1, '1000', 1, 'pcs');
+INSERT INTO `master_item` VALUES (116, 1, 1, '926', '2022-12-07 16:27:19.537000', 'Latest Books', 1, 'The Hype Machine_6033.jpg', 'The Hype Machine', 'Available', '2022-12-07 16:27:19.537000', '1200', 1, '1200', 1, 'pcs');
+INSERT INTO `master_item` VALUES (117, 1, 1, '748', '2022-12-07 16:27:35.405000', 'Latest Books', 1, 'The Science of Storytelling_58408.jpg', 'The Science of Storytelling', 'Available', '2022-12-07 16:27:35.405000', '800', 1, '800', 1, 'pcs');
+INSERT INTO `master_item` VALUES (118, 1, 1, '357', '2022-12-07 16:27:51.702000', 'Latest Books', 1, 'The Technology Fallacy_18887.jpg', 'The Technology Fallacy', 'Available', '2022-12-07 16:27:51.702000', '478', 1, '478', 1, 'pcs');
+INSERT INTO `master_item` VALUES (119, 1, 1, '875', '2022-12-07 16:28:08.491000', 'Latest Books', 1, 'Tools and Weapons_53187.jpg', 'Tools and Weapons', 'Available', '2022-12-07 16:28:08.491000', '899', 1, '899', 1, 'pcs');
+INSERT INTO `master_item` VALUES (120, 1, 1, '934', '2022-12-07 16:35:14.233000', 'Latest Books', 1, 'Digital Forensics_81178.jpg', 'Digital Forensics', 'Available', '2022-12-07 16:35:14.233000', '999', 1, '999', 1, 'pcs');
 
 INSERT INTO `company` VALUES (1001, '875465498526', '9895654624612546546', 'Savings account', '9554845645', 'Amruthnagar', 'BANGALORE', 'Bandhan Bank Ltd', '565656', 'KARNATAKA', 'Panneer', '(B+)', 'Sole Proprietorships', 'Amruthnagar', 'BANGALORE', 'logo.png', 'Ingroinfo', 'C:/Company/Ingroinfo/', '560092', 'KARNATAKA', '2022-11-24 16:06:01.855000', '1999-08-24', '2022-11-24', 'KHH86786', 'panneer.ingroinfo@gmail.com', 'on', 'on', '2022-11-24', 'Kuppan', 'HJGJ67857', 'Panneer', 'Male', 'UIHU767HHJG7866', 'IBHNU67575', 'Selvam', '2022-11-24 16:06:01.855000', '9500931156', '2', 'Amruthnagar', 'BANGALORE', 'panneer867@gmail.com', '569987', 'KARNATAKA', 'VGYHVG76722', 'bangalore', 'Panneer.jpg', 'UG', 'Stationery', 'Panneer', '9544587888', 'http://ingroinfo.com', '2022-11-24', 1);
 

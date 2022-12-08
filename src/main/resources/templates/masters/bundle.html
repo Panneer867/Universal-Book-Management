@@ -111,7 +111,6 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="books" class="font-weight-bold">Cost Price</label>
@@ -124,7 +123,7 @@
                                             />
                                         </div>
                                     </div>
-									<div class="col-4">
+                                    <div class="col-4">
                                         <div class="form-group">
                                             <label for="books" class="font-weight-bold">MRP Price</label>
                                             <input
@@ -162,22 +161,33 @@
                         </table>
                         <div class="alert alert-info text-center my-2 py-1 msg-show" role="alert">Select Books to bundle it !</div>
                         <div class="grand-total">
-                        <div class="row m-0 pt-1">
-                            <div class="col-6"></div>
-                            <div class="col-2 bg-secondary py-2 font-weight-bold"><p class="mb-0">Sub Total</p></div>
-                            <div class="col-1 bg-secondary py-1 "><input type="text" class="mb-0 font-weight-bold" id="totalQty" style="border: none; color:black; background:transparent; outline: 0; font-size:14px"/></div>
-                            <div class="col-3 bg-secondary py-2 font-weight-bold row mx-0" style="padding-left: 28px;"><i class="fa fa-inr pr-1 pt-1" aria-hidden="true" style="font-size: 13px;"></i><p class="mb-0"></p></div>
-                        </div>
-                        <div class="row m-0">
-                            <div class="col-6"></div>
-                            <div class="col-3 bg-secondary py-2 font-weight-bold"><p class="mb-0">GST (18%)</p></div>
-                            <div class="col-3 bg-secondary py-2 font-weight-bold" style="padding-left: 28px;"><p class="mb-0"><i class="fa fa-inr pr-1 pt-1" aria-hidden="true" style="font-size: 13px;"></i>12</p></div>
-                        </div>
-                        <div class="row m-0">
-                            <div class="col-6"></div>
-                            <div class="col-3 text-white bg-primary py-2 font-weight-bold"><p class="mb-0">Grand Total</p></div>
-                            <div class="col-3 text-white bg-primary py-2 font-weight-bold" style="padding-left: 28px;"><p class="mb-0"><i class="fa fa-inr pr-1 pt-1" aria-hidden="true" style="font-size: 13px;"></i>12</p></div>
-                        </div>
+                            <div class="row m-0 pt-1">
+                                <div class="col-6"></div>
+                                <div class="col-2 bg-secondary py-2 font-weight-bold"><p class="mb-0">Sub Total</p></div>
+                                <div class="col-1 bg-secondary py-1 pl-2">
+                                	<input type="number" class="mb-0 font-weight-bold" style="border: none; color: black; background: transparent; outline: 0; font-size: 14px;" />
+                                </div>
+                                <div class="col-3 bg-secondary py-2 pl-5 font-weight-bold mx-0 row">
+                                    <i class="fa fa-inr pr-1 pt-1" aria-hidden="true" style="font-size: 13px;"></i>
+                                    <input type="number" class="mb-0 font-weight-bold totalQty" id="totalQty" style="border: none; color: black; background: transparent; outline: 0; font-size: 14px; width:20px" />
+                                 </div>
+                                    
+                            </div>
+                            <div class="row m-0">
+                                <div class="col-6"></div>
+                                <div class="col-3 bg-secondary py-2 font-weight-bold"><p class="mb-0">GST (18%)</p></div>
+                                <div class="col-3 bg-secondary py-2 pl-5 font-weight-bold row mx-0">
+                                    <i class="fa fa-inr pr-1 pt-1" aria-hidden="true" style="font-size: 13px;"></i>
+                                    <p class="mb-0"></p>
+                                </div>
+                            </div>
+                            <div class="row m-0">
+                                <div class="col-6"></div>
+                                <div class="col-3 text-white bg-primary py-2 font-weight-bold"><p class="mb-0">Grand Total</p></div>
+                                <div class="col-3 text-white bg-primary py-2 pl-5 font-weight-bold">
+                                    <p class="mb-0"><i class="fa fa-inr pr-1 pt-1" aria-hidden="true" style="font-size: 13px;"></i>12</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
