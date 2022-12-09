@@ -86,27 +86,15 @@
                                 </div>
 
                                 <h5 class="text-center bg-dark py-1 text-white">Create Bundle</h5>
-                                <div class="row pt-2">
-                                    <div class="col-8">
+                                <div class="row">
+                                    <div class="col-12">
                                         <div class="form-group">
                                             <label for="books" class="pt-2 font-weight-bold">Select Book to Add in the List<strong class="text-danger">*</strong></label>
-                                            <select class="js-example-basic-single w-100 companyname" id="books" th:field="*{books}" required>
+                                            <select class="js-example-basic-single w-100" id="books" th:field="*{books}" required>
                                                 <option value="">select</option>
                                                 <option th:each="booksList : ${booksLists}" th:value="${booksList.itemName}" th:utext="${booksList.itemName}" />
                                             </select>
                                             <div class="invalid-feedback">Select Items/books!</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="books" class="pt-2 font-weight-bold">Quantity<strong class="text-danger">*</strong></label>
-                                            <div class="wrap">
-                                                <div class="counter" style="height: 38px;">
-                                                    <input class="counter__input" type="text" value="1" name="counter" size="5" id="qty" readonly="readonly" />
-                                                    <a class="counter__increment pt-1 bg-info" href="#">+</a>
-                                                    <a class="counter__decrement pt-1 bg-danger" href="#">&ndash;</a>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +124,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4 text-center" style="padding-top: 20px;">
-                                        <a class="btn btn-sm btn-success mr-2 add-row total-sum"><i class="fa fa-plus menu-icon pr-2"></i>Add</a>
+                                        <a class="btn btn-sm btn-success mr-2 add-row"><i class="fa fa-plus menu-icon pr-2"></i>Add</a>
                                     </div>
                                 </div>
                                 <div class="text-center mb-2">
@@ -147,48 +135,92 @@
                         </div>
                     </div>
                     <div class="col-7">
-                        <table class="table table-dark table-striped table-bordered table-hover orderTable actionBtn">
-                            <thead>
+                        <form id="subtotal-form" name="subtotal-form" method="post" action="">
+                            <table class="basket-tbl m-0">
+                                <thead class="bg-dark text-white">
+                                    <tr>
+                                        <th>SI</th>
+                                        <th>Book Name</th>
+                                        <th style="width: 15%;">Price</th>
+                                        <th style="width: 15%;">Qty</th>
+                                        <th style="width: 15%;">Cost</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 <tr>
-                                    <th>Sl</th>
-                                    <th>Book Name</th>
-                                    <th style="width: 70px;">Qty</th>
-                                    <th style="width: 70px;">MRP<i class="fa fa-inr" aria-hidden="true" style="font-size: 13px;"></i></th>
-                                    <th style="width: 60px;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                        <div class="alert alert-info text-center my-2 py-1 msg-show" role="alert">Select Books to bundle it !</div>
-                        <div class="grand-total">
-                            <div class="row m-0 pt-1">
-                                <div class="col-6"></div>
-                                <div class="col-2 bg-secondary py-2 font-weight-bold"><p class="mb-0">Sub Total</p></div>
-                                <div class="col-1 bg-secondary py-1 pl-2">
-                                	<input type="number" class="mb-0 font-weight-bold" style="border: none; color: black; background: transparent; outline: 0; font-size: 14px;" />
+                                 <td >
+                                            <label class="mb-0">1</label>
+                                        </td>
+                                        <td class="product">
+                                            <label class="mb-0">Cotton T-Shirt, Medium</label>
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <i class="fa fa-inr pr-1" aria-hidden="true" style="font-size: 13px; padding-top: 6px;"></i>
+                                                <input type="text" name="price" id="price" class="price" value="1.99" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="outer-button">
+                                                    <div class="dec button mt-2"><i class="fa fa-minus bg-danger" style="font-size: 0.6em; color: #fff; padding: 5px;"></i></div>
+                                                </div>
+                                                <input type="number" name="qty" id="qty" class="qty text-center" value="1" style="border: none; color: black; background: transparent; outline: 0;width: 40%" disabled />
+                                                <div class="outer-button">
+                                                    <div class="inc button mt-2"><i class="fa fa-plus bg-success" style="font-size: 0.6em; color: #fff; padding: 5px;"></i></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <i class="fa fa-inr pr-1" aria-hidden="true" style="font-size: 13px; padding-top: 6px;"></i>
+                                                <input type="text" name="cost" id="cost" class="cost" value="" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <i class="glyphicon glyphicon-trash text-danger"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col pt-3" style="margin-left: 5%;">
+                                <div class="row">
+                                    <div class="col-6"></div>
+                                    <div class="col-3 bg-secondary pt-1"><label class="font-weight-bold">Sub Total</label></div>
+                                    <div class="col-2 bg-secondary pt-1">
+                                        <div class="row">
+                                            <i class="fa fa-inr pr-1" aria-hidden="true" style="font-size: 13px; padding-top: 6px;"></i>
+                                            <input type="text" name="subtotal" class="subtotal" id="subtotal" style="border: none; color: black; background: transparent; outline: 0; width: 80%;" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-1"></div>
                                 </div>
-                                <div class="col-3 bg-secondary py-2 pl-5 font-weight-bold mx-0 row">
-                                    <i class="fa fa-inr pr-1 pt-1" aria-hidden="true" style="font-size: 13px;"></i>
-                                    <input type="number" class="mb-0 font-weight-bold totalQty" id="totalQty" style="border: none; color: black; background: transparent; outline: 0; font-size: 14px; width:20px" />
-                                 </div>
-                                    
-                            </div>
-                            <div class="row m-0">
-                                <div class="col-6"></div>
-                                <div class="col-3 bg-secondary py-2 font-weight-bold"><p class="mb-0">GST (18%)</p></div>
-                                <div class="col-3 bg-secondary py-2 pl-5 font-weight-bold row mx-0">
-                                    <i class="fa fa-inr pr-1 pt-1" aria-hidden="true" style="font-size: 13px;"></i>
-                                    <p class="mb-0"></p>
+                                <div class="row">
+                                    <div class="col-6"></div>
+                                    <div class="col-3 bg-secondary pt-1"><label class="font-weight-bold">GST @ (18%)</label></div>
+                                    <div class="col-2 bg-secondary pt-1">
+                                        <td class="row">
+                                            <i class="fa fa-inr" aria-hidden="true" style="font-size: 13px; padding-top: 6px;"></i>
+                                            <input type="text" name="vat" class="vat" id="vat" style="border: none; color: black; background: transparent; outline: 0; width: 80%;" disabled />
+                                        </td>
+                                    </div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row text-white">
+                                    <div class="col-6"></div>
+                                    <div class="col-3 bg-primary pt-1"><label class="font-weight-bold">Grand Total</label></div>
+                                    <div class="col-2 bg-primary pt-1">
+                                        <div class="row">
+                                            <i class="fa fa-inr pr-1" aria-hidden="true" style="font-size: 13px; padding-top: 6px;"></i>
+                                            <input type="text" name="total" class="total text-white" id="total" style="border: none; color: black; background: transparent; outline: 0; width: 80%;" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-1"></div>
                                 </div>
                             </div>
-                            <div class="row m-0">
-                                <div class="col-6"></div>
-                                <div class="col-3 text-white bg-primary py-2 font-weight-bold"><p class="mb-0">Grand Total</p></div>
-                                <div class="col-3 text-white bg-primary py-2 pl-5 font-weight-bold">
-                                    <p class="mb-0"><i class="fa fa-inr pr-1 pt-1" aria-hidden="true" style="font-size: 13px;"></i>12</p>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
+                        <!-- <div class="alert alert-info text-center my-2 py-1 msg-show" role="alert">Select Books to bundle it !</div> -->
                     </div>
                 </div>
             </form>

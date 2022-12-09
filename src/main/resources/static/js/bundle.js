@@ -1,3 +1,4 @@
+
 $(".add-row").click(function() {
 	// $(".demorow").remove();
 	const $this = $("table tbody");
@@ -11,7 +12,7 @@ $(".add-row").click(function() {
 
 	if (rowname.length > 0) {
 		$('.msg-show').hide();
-		$(".grand-total").show();
+		
 		let markup = "<tr><td class='sl_no bg-secondary py-1 text-dark'>" + incremented + "</td><td class='bg-info py-1'>" + rowname;
 		markup += '</td><td class="bg-success py-1 pick-quantity">' + quantity
 		markup += '</td><td class="bg-warning py-1"><i class="fa fa-inr pr-1" aria-hidden="true" style="font-size:13px"></i>' + itemPrice
@@ -22,34 +23,67 @@ $(".add-row").click(function() {
 	}
 });
 
+
 $("table tbody").on("click", ".deleterow", function() {
+
 	$(this).parent().parent().remove();
 	$("tr .sl_no").each(function(i) {
 		// Table tr seriaal  number update.
-		$(this).text(i + 1);	
-		
+		$(this).text(i + 1);
 	});
-	var totalQuantity = $("td .pick-quantity").text();
-		
-		alert(totalQuantity);
-		var rowQuantity = Number($this.find("td .pick-quantity").val());
-		tQ =  totalQuantity - rowQuantity;
-		$("#totalQty").val(totalQuantity);
-	
+
 });
 
 
-$(document).ready(function() {
-	$('.grand-total').hide();
-});
+$(function() {
 
-$(".total-sum").click(function() {
+	calculate();
 
-	const rowname = $("#books").val();
-	if (rowname.length > 0) {
-		var tQ = $("#totalQty").val();
-		var totalQuantity = $("#qty").val();
-		tQ = +tQ + +totalQuantity;
-		$("#totalQty").val(tQ);
+	$(".button").on("click", function() {
+
+		var $button = $(this);
+		var oldQty = $button.parent().parent().find("input").val();
+
+		if ($button.html() == '<i class="fa fa-plus bg-success" style="font-size: 0.6em; color: #fff; padding: 5px;"></i>') {
+			var newQty = parseFloat(oldQty) + 1;
+		} else {
+			if (oldQty > 0) {
+				var newQty = parseFloat(oldQty) - 1;
+			} else {
+				newQty = 0;
+			}
+		}
+
+		$button.parent().parent().find("input").val(newQty);
+		calculate();
+	});
+
+	function calculate() {
+		$(".basket-tbl tr").each(function() {
+			var priceVal = $(this).find('input.price').val();
+			var qtyVal = $(this).find("input.qty").val();
+			var costVal = (priceVal * qtyVal);
+			$(this).find('input.cost').val((costVal).toFixed(2));
+		});
+
+		var subtotalVal = 0;
+		$('.cost').each(function() {
+			subtotalVal += parseFloat($(this).val());
+		});
+		$('.subtotal').val((subtotalVal).toFixed(2));
+
+		$(".vat").val(((subtotalVal / 100) * 20).toFixed(2));
+
+		var vatVal = ((subtotalVal / 100) * 20).toFixed(2);
+		var total = parseFloat(subtotalVal) + parseFloat(vatVal);
+		$(".total").val((total).toFixed(2));
 	}
+
+
+	$(".glyphicon-trash").click(function() {
+		$(this).parent().parent().remove();
+		calculate();
+	});
+
 });
+
