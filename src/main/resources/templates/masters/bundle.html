@@ -135,15 +135,16 @@
                         </div>
                     </div>
                     <div class="col-7">
-                        <table class="basket-tbl m-0">
+                        <table>
                             <thead class="bg-dark text-white">
                                 <tr>
-                                    <th>SI</th>
+                                    <th>Sl</th>
                                     <th>Book Name</th>
-                                    <th style="width: 15%;">Price</th>
-                                    <th style="width: 15%;">Qty</th>
-                                    <th style="width: 15%;">Cost</th>
-                                    <th>&nbsp;</th>
+                                    <th style="width: 70px;">Qty</th>
+                                    <th style="width: 70px;">Price<i class="fa fa-inr" aria-hidden="true"></i></th>
+                                    <th style="width: 70px;">GST %</th>
+                                    <th style="width: 70px;">MRP<i class="fa fa-inr" aria-hidden="true" style="font-size: 13px;"></i></th>
+                                    <th style="width: 60px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -151,41 +152,7 @@
                             </tbody>
                         </table>
                         <div class="alert alert-info text-center my-2 py-1 msg-show" role="alert">Select Books to bundle it !</div>
-                        <div class="col pt-3 grand" style="margin-left: 5%;">
-                            <div class="row">
-                                <div class="col-6"></div>
-                                <div class="col-3 bg-secondary pt-1"><label class="font-weight-bold">Sub Total</label></div>
-                                <div class="col-2 bg-secondary pt-1">
-                                    <div class="row">
-                                        <i class="fa fa-inr pr-1" aria-hidden="true" style="font-size: 13px; padding-top: 6px;"></i>
-                                        <input type="text" name="subtotal" class="subtotal" id="subtotal" style="border: none; color: black; background: transparent; outline: 0; width: 80%;" disabled />
-                                    </div>
-                                </div>
-                                <div class="col-1"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6"></div>
-                                <div class="col-3 bg-secondary pt-1"><label class="font-weight-bold">GST @ (18%)</label></div>
-                                <div class="col-2 bg-secondary pt-1">
-                                    <td class="row">
-                                        <i class="fa fa-inr" aria-hidden="true" style="font-size: 13px; padding-top: 6px;"></i>
-                                        <input type="text" name="vat" class="vat" id="vat" style="border: none; color: black; background: transparent; outline: 0; width: 80%;" disabled />
-                                    </td>
-                                </div>
-                                <div class="col-1"></div>
-                            </div>
-                            <div class="row text-white">
-                                <div class="col-6"></div>
-                                <div class="col-3 bg-primary pt-1"><label class="font-weight-bold">Grand Total</label></div>
-                                <div class="col-2 bg-primary pt-1">
-                                    <div class="row">
-                                        <i class="fa fa-inr pr-1" aria-hidden="true" style="font-size: 13px; padding-top: 6px;"></i>
-                                        <input type="text" name="total" class="total text-white" id="total" style="border: none; color: black; background: transparent; outline: 0; width: 80%;" disabled />
-                                    </div>
-                                </div>
-                                <div class="col-1"></div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </form>

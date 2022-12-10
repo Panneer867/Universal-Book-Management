@@ -7,71 +7,22 @@ $(".add-row").click(function() {
 	const rowname = $("#books").val();
 	const itemPrice = $("#itemPrice").val();
 
-	$('.bookName').text(rowname);
-	$('.price').val(itemPrice);
-
 	if (rowname.length > 0) {
 		$('.msg-show').hide();
-		$('.grand').show();
 
-		let markup = "<tr><td class='sl_no'><label class='mb-0'>" + incremented + "</label></td></tr>";
+		let markup = "<tr><td class='sl_no bg-secondary py-1 text-dark'>" + incremented + "</td><td class='bg-info py-1'>" + rowname;
+		markup += '</td><td class="bg-success py-1">' + quantity;
+		markup += '</td><td class="bg-warning py-1">' + itemPrice;
+		markup += '</td><td class="bg-danger py-1">' + gst;
+		markup += '</td><td class="bg-dark py-1 text-center">';
+		markup += '<button class="p-0 btn btn-sm bg-transparent deleterow" type="submit"><i class="glyphicon glyphicon-trash text-danger"></i>';
+		markup += '</td><td class="bg-warning py-1"><i class="fa fa-inr pr-1" aria-hidden="true" style="font-size:13px"></i>' + itemPrice;
+		markup += '</td><td class="bg-danger py-1 text-center">';
+		markup += '<button class="p-0 btn btn-sm bg-transparent deleterow" type="submit"><i class="glyphicon glyphicon-trash text-white"></i>';
+		markup += '</button></td></tr>';
 
 		$("table tbody").append(markup);
 	}
 
 });
 
-$(function() {
-
-	calculate();
-
-	$(".button").on("click", function() {
-
-		var $button = $(this);
-		var oldQty = $button.parent().parent().find("input").val();
-
-		if ($button.html() == '<i class="fa fa-plus bg-success" style="font-size: 0.6em; color: #fff; padding: 5px;"></i>') {
-			var newQty = parseFloat(oldQty) + 1;
-		} else {
-			if (oldQty > 0) {
-				var newQty = parseFloat(oldQty) - 1;
-			} else {
-				newQty = 0;
-			}
-		}
-
-		$button.parent().parent().find("input").val(newQty);
-		calculate();
-	});
-
-	function calculate() {
-		$(".basket-tbl tr").each(function() {
-			var priceVal = $(this).find('input.price').val();
-			var qtyVal = $(this).find("input.qty").val();
-			var costVal = (priceVal * qtyVal);
-			$(this).find('input.cost').val((costVal).toFixed(2));
-		});
-
-		var subtotalVal = 0;
-		$('.cost').each(function() {
-			subtotalVal += parseFloat($(this).val());
-		});
-		$('.subtotal').val((subtotalVal).toFixed(2));
-
-		$(".vat").val(((subtotalVal / 100) * 18).toFixed(2));
-
-		var vatVal = ((subtotalVal / 100) * 18).toFixed(2);
-		var total = parseFloat(subtotalVal) + parseFloat(vatVal);
-		$(".total").val((total).toFixed(2));
-	}
-
-	$(".glyphicon-trash").click(function() {
-		$(this).parent().parent().remove();
-		calculate();
-	});
-
-});
-
-$(document).ready(function() {
-	$('.grand').hide();
-});
