@@ -96,7 +96,6 @@ public class ResponseController {
 
 		State state = userService.findById(stateName);
 		Integer stateId = state.getId();
-
 		String json = null;
 		List<Object[]> list = userService.getCitiesByState(stateId);
 		try {
@@ -112,11 +111,8 @@ public class ResponseController {
 	public BranchDto getBranch(@RequestParam Long id) {
 
 		Optional<Branch> branch = branchService.getBranchById(id);
-
 		BranchDto branchDto = modelMapper.map(branch, BranchDto.class);
-
 		branchDto.setUsername(branch.get().getUser().getUsername());
-
 		return branchDto;
 	}
 
@@ -125,64 +121,54 @@ public class ResponseController {
 	public UserDto getUser(@RequestParam Long id) {
 
 		User user = userRepository.findByUserId(id);
-
 		String type = user.getUserType();
-
 		if (type.equalsIgnoreCase("NORMAL USER")) {
 			user.setUserType("ROLE_USER");
 		} else if (type.equalsIgnoreCase("BRANCH USER")) {
 			user.setUserType("ROLE_BRANCH");
 		}
-
 		return modelMapper.map(user, UserDto.class);
 	}
 
 	@ResponseBody
 	@RequestMapping("/employee")
 	public Employee getEmployee(@RequestParam Long id) {
-
 		return employeeRepository.findByEmployeeId(id);
 	}
 
 	@ResponseBody
 	@RequestMapping("/unit")
 	public UnitOfMeasures getUnit(@RequestParam Long id) {
-
 		return unitsRepository.findByUnitId(id);
 	}
 
 	@ResponseBody
 	@RequestMapping("/brand")
 	public Brand getBrand(@RequestParam Long id) {
-
 		return brandRepository.findByBrandId(id);
 	}
 
 	@ResponseBody
 	@RequestMapping("/category")
 	public Category getCategory(@RequestParam Long id) {
-
 		return categoryRepository.findByCategoryId(id);
 	}
 
 	@ResponseBody
 	@RequestMapping("/hsn")
 	public HsnCode getHsnCode(@RequestParam Long id) {
-
 		return hsnCodeRepository.findByHsnId(id);
 	}
 
 	@ResponseBody
 	@RequestMapping("/supplier")
 	public Supplier getSupplier(@RequestParam Long id) {
-
 		return supplierRepository.findBySupplierId(id);
 	}
 
 	@ResponseBody
 	@RequestMapping("/publisher")
 	public BrandPublisher getPublisher(@RequestParam Long id) {
-
 		return brandPublisherRepository.findByPublisherId(id);
 	}
 
@@ -222,14 +208,12 @@ public class ResponseController {
 		itemDto.setCostPrice(item.getCostPrice());
 		itemDto.setSellingPrice(item.getSellingPrice());
 		itemDto.setMrpPrice(item.getMrpPrice());
-
 		return itemDto;
 	}
 
 	@ResponseBody
 	@RequestMapping("/school")
 	public School getSchool(@RequestParam Long id) {
-
 		return schoolRepository.findBySchoolId(id);
 	}
 
@@ -256,8 +240,6 @@ public class ResponseController {
 		itemDto.setCostPrice(item.getCostPrice());
 		itemDto.setSellingPrice(item.getSellingPrice());
 		itemDto.setMrpPrice(item.getMrpPrice());
-
 		return itemDto;
 	}
-
 }

@@ -16,6 +16,8 @@ public class BundleDto {
 	private String school;
 	private String standard;
 	private String medium;
-	private String books;
-	private String quantity;
+	private Long itemId;
+	private String itemName;
+	private String itemMrp;
+	private String itemExists;
 }
