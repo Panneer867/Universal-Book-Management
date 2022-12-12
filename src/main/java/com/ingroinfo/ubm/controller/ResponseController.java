@@ -20,6 +20,7 @@ import com.ingroinfo.ubm.dao.HsnCodeRepository;
 import com.ingroinfo.ubm.dao.ItemRepository;
 import com.ingroinfo.ubm.dao.SchoolRepository;
 import com.ingroinfo.ubm.dao.SupplierRepository;
+import com.ingroinfo.ubm.dao.TempBundleRepository;
 import com.ingroinfo.ubm.dao.UnitsRepository;
 import com.ingroinfo.ubm.dao.UserRepository;
 import com.ingroinfo.ubm.dto.BranchDto;
@@ -36,6 +37,7 @@ import com.ingroinfo.ubm.entity.Item;
 import com.ingroinfo.ubm.entity.School;
 import com.ingroinfo.ubm.entity.State;
 import com.ingroinfo.ubm.entity.Supplier;
+import com.ingroinfo.ubm.entity.TempBundle;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.entity.User;
 import com.ingroinfo.ubm.service.BranchService;
@@ -90,6 +92,9 @@ public class ResponseController {
 
 	@Autowired
 	private SchoolRepository schoolRepository;
+	
+	@Autowired
+	private TempBundleRepository bundledItemRepository;
 
 	@GetMapping("/city")
 	public @ResponseBody String getCities(@RequestParam String stateName) {
@@ -242,4 +247,11 @@ public class ResponseController {
 		itemDto.setMrpPrice(item.getMrpPrice());
 		return itemDto;
 	}
+		
+	@ResponseBody
+	@RequestMapping("/temp/item")
+	public List<TempBundle> getTempItem() {
+		return bundledItemRepository.findAll();
+	}
+
 }

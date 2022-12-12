@@ -7,8 +7,8 @@
                     <li><a th:href="@{/master/brand}">Master</a></li>
                     <li><a href="#" class="text-white">&nbsp;Bundle Master</a></li>
                 </ul>
+                <a th:href="@{/master/bundle/clear}" class="btn btn-outline-danger btn-icon-text btn-sm btn-icon-text"> <i class="fa fa-remove pr-2" aria-hidden="true"></i>Clear</a>
                 <nav aria-label="breadcrumb">               
-                <a th:href="@{/master/bundle/clear}" class="btn btn-outline-danger btn-icon-text btn-sm btn-icon-text" style="margin-right: 415px;"> <i class="fa fa-remove pr-2" aria-hidden="true"></i>Clear</a>
                     <a th:href="@{/master/bundle/list}" class="btn btn-primary btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Bundle List</a>
                 </nav>
             </div>
@@ -140,7 +140,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center mb-2">
-                                    <button type="submit" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#bundledItems">Submit</button>
+                                    <button type="submit" class="btn btn-sm btn-primary bundle-it" data-toggle="modal" data-target="#bundledItems">Submit</button>
                                     <a th:href="@{/master/bundle}" class="btn btn-sm btn-secondary">Reset</a>
                                 </div>
                             </form>
@@ -245,7 +245,7 @@
                                 </div>
 
                                 <form id="subtotal-form" name="subtotal-form" method="post" action="">
-                                    <table class="basket-tbl table table-striped table-bordered table-hover orderTable actionBtn">
+                                    <table class="shopping-cart is-fullwidth basket-tbl table table-striped table-bordered table-hover orderTable actionBtn">
                                         <thead class="bg-dark text-white">
                                             <tr>
                                                 <th>SI No</th>
