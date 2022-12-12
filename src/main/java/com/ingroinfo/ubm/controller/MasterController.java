@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ingroinfo.ubm.configuration.ModelMapperConfig;
+import com.ingroinfo.ubm.dao.TempBundleRepository;
 import com.ingroinfo.ubm.dto.BrandPublisherDto;
 import com.ingroinfo.ubm.dto.BundleDto;
 import com.ingroinfo.ubm.dto.HsnDto;
@@ -27,6 +28,7 @@ import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
+import com.ingroinfo.ubm.entity.TempBundle;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.HsnCode;
@@ -60,6 +62,9 @@ public class MasterController {
 
 	@Autowired
 	public MasterService masterService;
+
+	@Autowired
+	private TempBundleRepository bundledItemRepository;
 
 	@GetMapping("/brand")
 	public String brand(Model model, Principal principal) {
@@ -896,7 +901,6 @@ public class MasterController {
 		}
 
 		model.addAttribute("stateList", userService.getAllStates());
-
 		return "/masters/school";
 	}
 
@@ -906,13 +910,10 @@ public class MasterController {
 		if (masterService.schoolNameExists(schoolDto.getSchoolName())) {
 			return "redirect:/master/school?schoolNameAlreadyExists";
 		}
-
 		if (masterService.schoolEmailExists(schoolDto.getEmail())) {
 			return "redirect:/master/school?schoolEmailAlreadyExists";
 		}
-
 		School school = modelMapper.map(schoolDto, School.class);
-
 		masterService.saveSchool(school);
 		return "redirect:/master/school?schoolAdded";
 	}
@@ -927,25 +928,19 @@ public class MasterController {
 		Branch branch = branchService.findByUserId(user);
 
 		if (company != null) {
-
 			model.addAttribute("profileData", company.getProfile());
 			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
-
 		} else if (branch != null) {
-
 			Company cmpy = branch.getCompany();
 			model.addAttribute("profileData", cmpy.getProfile());
 			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("usernameofbranch", branch.getFirstName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
-
 		List<School> schoolList = masterService.getAllSchools();
-
 		model.addAttribute("schoolLists", schoolList);
 		model.addAttribute("stateList", userService.getAllStates());
-
 		return "/masters/school_list";
 	}
 
@@ -963,14 +958,12 @@ public class MasterController {
 		School school = masterService.findBySchoolId(schoolDto.getSchoolId());
 
 		mapper.modelMapper().map(schoolDto, school);
-
 		masterService.updateSchool(school);
 		return "redirect:/master/school/list?schoolUpdated";
 	}
 
 	@GetMapping("/school/delete")
 	public String deleteSchool(@RequestParam Long schoolId) {
-
 		masterService.deleteBySchoolId(schoolId);
 		return "redirect:/master/school/list?schoolDeleted";
 	}
@@ -979,7 +972,6 @@ public class MasterController {
 	public String bundle(Model model, Principal principal) {
 
 		model.addAttribute("title", "Bundle Master");
-
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
@@ -1000,12 +992,22 @@ public class MasterController {
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
-		List<ItemDto> bookList = masterService.getItemList().stream().filter(x -> x.getCategoryName().equals("Books"))
-				.collect(Collectors.toList());
+		List<ItemDto> bookList = masterService.getItemList().stream()
+				.filter(x -> x.getCategoryName().equalsIgnoreCase("Books")).collect(Collectors.toList());
 
+		List<TempBundle> bundledItem = masterService.getAllBundledItems();
+		if (bundledItem.size() == 0) {
+			model.addAttribute("emptyList", "No Records");
+		}
+		model.addAttribute("schoolLists", masterService.getAllSchools());
 		model.addAttribute("booksLists", bookList);
-
+		model.addAttribute("bundledItems", bundledItem);
 		return "/masters/bundle";
 	}
 
+	@GetMapping("/bundle/clear")
+	public String clearBundle() {
+		bundledItemRepository.deleteAll();
+		return "redirect:/master/bundle";
+	}
 }

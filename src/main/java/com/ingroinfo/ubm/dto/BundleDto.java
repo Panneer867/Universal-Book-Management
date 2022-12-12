@@ -17,6 +17,7 @@ public class BundleDto {
 	private String standard;
 	private String medium;
 	private Long itemId;
+	private Long slNo;
 	private String itemName;
 	private String itemMrp;
 	private String itemExists;

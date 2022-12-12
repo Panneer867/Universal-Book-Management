@@ -7,6 +7,7 @@ import com.ingroinfo.ubm.dto.SchoolDto;
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
+import com.ingroinfo.ubm.entity.TempBundle;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.Item;
@@ -175,5 +176,7 @@ public interface MasterService {
 	void deleteBrandPublisherIdOnItem(Long publisherId);
 
 	List<ItemDto> getItemList();
+
+	List<TempBundle> getAllBundledItems();
 
 }

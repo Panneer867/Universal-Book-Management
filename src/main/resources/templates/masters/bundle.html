@@ -7,35 +7,37 @@
                     <li><a th:href="@{/master/brand}">Master</a></li>
                     <li><a href="#" class="text-white">&nbsp;Bundle Master</a></li>
                 </ul>
-                <nav aria-label="breadcrumb">
-                    <a th:href="@{/master/bundle/list}" class="btn btn-success btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Bundle List</a>
+                <nav aria-label="breadcrumb">               
+                <a th:href="@{/master/bundle/clear}" class="btn btn-outline-danger btn-icon-text btn-sm btn-icon-text" style="margin-right: 415px;"> <i class="fa fa-remove pr-2" aria-hidden="true"></i>Clear</a>
+                    <a th:href="@{/master/bundle/list}" class="btn btn-primary btn-sm btn-icon-text"> <i class="fa fa-list-alt pr-2" aria-hidden="true"></i>Bundle List</a>
                 </nav>
             </div>
             <div class="mt-3"></div>
             <div class="alert alert-success text-center p-2 col-8 mx-auto" role="alert" th:if="${param.bundleAdded}">
                 Bundle has been added successfully!
             </div>
-            <form class="forms-sample needs-validation" th:action="@{/master/bundle/add}" th:object="${bundle}" role="form" method="post" novalidate>
-                <div class="row">
-                    <div class="col-5">
-                        <div class="card">
-                            <div class="card-body px-4 py-0" style="background-color: #a4dbdb !important;">
-                                <h5 class="p-2 mb-0 text-center">Bundle Master</h5>
-                                <hr class="mb-3 mt-0" />
+            <div class="row">
+                <div class="col-5">
+                    <div class="card">
+                        <div class="card-body px-4 py-0" style="background-color: #a4dbdb !important;">
+                            <h5 class="p-2 mb-0 text-center">Bundle Master</h5>
+                            <hr class="mb-3 mt-0" />
+                            <form class="forms-sample needs-validation" th:action="@{/master/bundle/add}" th:object="${bundle}" role="form" method="post" novalidate>
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="bundleName">Bundle Name<strong class="text-danger">*</strong></label>
-                                            <input type="text" class="form-control" id="bundleName" th:field="*{bundleName}" placeholder="Enter name" required />
-                                            <div class="invalid-feedback">Provide Bundle name!</div>
+                                            <input type="text" class="form-control" id="bundleName" th:field="*{bundleName}" placeholder="Enter" required />
+                                            <div class="invalid-feedback">Name required!</div>
                                         </div>
                                     </div>
                                     <div class="col-8">
                                         <div class="form-group">
                                             <label for="school">Select School<strong class="text-danger">*</strong></label>
+                                            
                                             <select class="js-example-basic-single w-100" id="school" th:field="*{school}" required>
-                                                <option value="">select</option>
-                                                <option value="">sdf</option>
+                                               <option value="">select</option>
+                                                <option th:each="schoolList : ${schoolLists}" th:value="${schoolList.schoolName}" th:utext="${schoolList.schoolName}" /> 
                                             </select>
                                             <div class="invalid-feedback">Select a school!</div>
                                         </div>
@@ -77,8 +79,8 @@
                                                 <option value="10">10</option>
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
-                                                <option value="PUC1">PUC 1st yr</option>
-                                                <option value="PUC2">PUC 2nd yr</option>
+                                                <option value="PUC1">PUC 1st YR</option>
+                                                <option value="PUC2">PUC 2nd YR</option>
                                             </select>
                                             <div class="invalid-feedback">Select Standard!</div>
                                         </div>
@@ -89,7 +91,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label for="books" class="pt-2 font-weight-bold">Select Book to Add in the List<strong class="text-danger">*</strong></label>
+                                            <label for="itemName" class="pt-2 font-weight-bold">Select Book to Add in the List<strong class="text-danger">*</strong></label>
                                             <select class="js-example-basic-single w-100" id="itemName" required>
                                                 <option value="">select</option>
                                                 <option th:each="booksList : ${booksLists}" th:value="${booksList.itemName}" th:utext="${booksList.itemName}" />
@@ -101,26 +103,36 @@
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="books" class="font-weight-bold">Cost Price</label>
-                                            <input
-                                                type="text"
-                                                class="form-control font-weight-bold"
-                                                id="itemCost"
-                                                style="border: none; color: #ffff; background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%); outline: 0;"
-                                                disabled
-                                            />
+                                            <label for="itemCost">Cost Price<strong class="text-danger">*</strong></label>
+                                            <div class="input-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-control font-weight-bold px-0 text-center"
+                                                    id="itemCost"
+                                                    style="border: none; color: #ffff; background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%); outline: 0;"
+                                                    disabled
+                                                />
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text py-0"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="books" class="font-weight-bold">MRP Price</label>
-                                            <input
-                                                type="text"
-                                                class="form-control font-weight-bold"
-                                                id="itemMrp"
-                                                style="border: none; color: #ffff; background-image: linear-gradient(-60deg, #16a085 0%, #f4d03f 100%); outline: 0;"
-                                                disabled
-                                            />
+                                            <label for="itemMrp">MRP Price<strong class="text-danger">*</strong></label>
+                                            <div class="input-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-control font-weight-bold px-0 text-center"
+                                                    id="itemMrp"
+                                                    style="border: none; color: #ffff; background-image: linear-gradient(-60deg, #16a085 0%, #f4d03f 100%); outline: 0;"
+                                                    disabled
+                                                />
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text py-0"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-4 text-center" style="padding-top: 20px;">
@@ -128,28 +140,225 @@
                                     </div>
                                 </div>
                                 <div class="text-center mb-2">
-                                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#bundledItems">Submit</button>
                                     <a th:href="@{/master/bundle}" class="btn btn-sm btn-secondary">Reset</a>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="col-7">
-                        <table class="table table-dark table-striped table-bordered table-hover orderTable actionBtn">
-                            <thead class="bg-dark text-white">
-                                <tr>
-                                    <th style="width: 60px;">Sl</th>
-                                    <th>Book Name</th>
-                                    <th style="width: 100px;">MRP<i class="fa fa-inr" aria-hidden="true" style="font-size: 13px;"></i></th>
-                                    <th style="width: 100px;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                        <div class="alert alert-info text-center my-2 py-1 msg-show" role="alert">Select Books to bundle it !</div>
+                </div>
+                <div class="col-7">
+                    <table class="table table-dark table-striped table-bordered table-hover orderTable actionBtn">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <th style="width: 60px;">Sl</th>
+                                <th>Book Name</th>
+                                <th style="width: 100px;">MRP<i class="fa fa-inr" aria-hidden="true" style="font-size: 13px;"></i></th>
+                                <th style="width: 100px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="add-item">
+                            <tr th:each="bundledItem: ${bundledItems}">
+                                <td class="sl_no bg-secondary py-1 text-dark" th:text="${bundledItem.slNo}"></td>
+                                <td class="bg-info py-1 item_name" th:text="${bundledItem.itemName}"></td>
+                                <td class="bg-warning py-1" th:text="${bundledItem.itemMrp}"><i class="fa fa-inr pr-1" aria-hidden="true" style="font-size: 13px;"></i></td>
+                                <td class="bg-danger py-1 text-center">
+                                    <button class="p-0 btn btn-sm bg-transparent delete-row"><i class="glyphicon glyphicon-trash text-white"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="alert alert-info text-center my-2 py-1 no-records" role="alert" th:if="${emptyList != null}">Select Books to bundle it !</div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="bundledItems" tabindex="-1" role="dialog" aria-labelledby="bundledItems" aria-hidden="true">
+                <div class="modal-dialog" role="document" style="max-width: 60%; margin-top: 60px;">
+                    <div class="modal-content">
+                        <form data-toggle="validator" th:action="@{/master/category/update}" role="form" method="post">
+                            <div class="modal-header pt-2 pb-1">
+                             
+                                <h5 class="modal-title pr-2" id="editModal">Bundle ID :</h5>
+                                <input type="text" class="form-control font-weight-bold px-0 text-center" id="bundleNameFinal" style="width: 70px; height: 30px; border: none; color: #ffff; outline: 0;" disabled required/>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body pb-0 pt-3">
+                                <div class="row">
+                                    <div class="col-3 pl-0">
+                                        <div class="form-group mb-3">
+                                            <label for="itemCost">Bundle Name</label>
+                                            <div class="input-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-control font-weight-bold px-0 text-center"
+                                                    id="bundleNameFinal"
+                                                    style="border: none; color: #ffff; background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%); outline: 0;"
+                                                    disabled required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group mb-3">
+                                            <label for="itemCost">School Name</label>
+                                            <div class="input-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-control font-weight-bold px-0 text-center"
+                                                    id="bundleNameFinal"
+                                                    style="border: none; color: #ffff; background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%); outline: 0;"
+                                                    disabled required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group mb-3">
+                                            <label for="itemCost">Language</label>
+                                            <div class="input-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-control font-weight-bold px-0 text-center"
+                                                    id="bundleNameFinal"
+                                                    style="border: none; color: #ffff; background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%); outline: 0;"
+                                                    disabled required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 pr-0">
+                                        <div class="form-group mb-3">
+                                            <label for="itemCost">Medium</label>
+                                            <div class="input-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-control font-weight-bold px-0 text-center"
+                                                    id="bundleNameFinal"
+                                                    style="border: none; color: #ffff; background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%); outline: 0;"
+                                                    disabled required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form id="subtotal-form" name="subtotal-form" method="post" action="">
+                                    <table class="basket-tbl table table-striped table-bordered table-hover orderTable actionBtn">
+                                        <thead class="bg-dark text-white">
+                                            <tr>
+                                                <th>SI No</th>
+                                                <th style="width: 40%;">Book Name</th>
+                                                <th style="width: 15%;">Price</th>
+                                                <th style="width: 14%;">Qty</th>
+                                                <th style="width: 15%;">Cost</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label class="mb-0">1</label>
+                                                </td>
+                                                <td class="product">
+                                                    <label class="mb-0">Cotton T-Shirt, Medium</label>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <i class="fa fa-inr pr-1" aria-hidden="true" style="font-size: 13px; padding-top: 4px;"></i>
+                                                        <input type="text" name="price" id="price" class="price" value="1.99" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="outer-button">
+                                                            <div class="dec button"><i class="fa fa-minus bg-danger" style="font-size: 0.6em; color: #fff; padding: 5px;"></i></div>
+                                                        </div>
+                                                        <input type="number" name="qty" id="qty" class="qty text-center" value="1" style="border: none; color: black; background: transparent; outline: 0; width: 45%;" disabled />
+                                                        <div class="outer-button">
+                                                            <div class="inc button"><i class="fa fa-plus bg-success" style="font-size: 0.6em; color: #fff; padding: 5px;"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <i class="fa fa-inr pr-1" aria-hidden="true" style="font-size: 13px; padding-top: 4px;"></i>
+                                                        <input type="text" name="cost" id="cost" class="cost" value="" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <i class="glyphicon glyphicon-trash text-danger"></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="my-3">
+                                        <div class="row">
+                                            <div class="col-8"></div>
+                                            <div class="col-2 bg-secondary">
+                                                <label class="font-weight-bold">Subtotal</label>
+                                            </div>
+                                            <div class="col-2 bg-secondary row">
+                                                <i class="fa fa-inr pr-2" aria-hidden="true" style="font-size: 13px; padding-top: 8px;"></i>
+                                                <input
+                                                    type="text"
+                                                    name="subtotal"
+                                                    class="subtotal font-weight-bold text-black"
+                                                    id="subtotal"
+                                                    value=""
+                                                    style="width: 80%; border: none; background-color: transparent; resize: none; outline: none;"
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-8"></div>
+                                            <div class="col-2 bg-secondary row">
+                                                <label class="font-weight-bold">GST @ 18%</label>
+                                            </div>
+                                            <div class="col-2 bg-secondary">
+                                                <i class="fa fa-inr pr-1" aria-hidden="true" style="font-size: 13px; padding-top: 8px;"></i>
+                                                <input
+                                                    type="text"
+                                                    name="vat"
+                                                    class="vat font-weight-bold text-black"
+                                                    id="vat"
+                                                    value=""
+                                                    style="width: 80%; border: none; background-color: transparent; resize: none; outline: none;"
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-8"></div>
+                                            <div class="col-2 bg-primary row">
+                                                <label class="font-weight-bold text-white">Grand Total</label>
+                                            </div>
+                                            <div class="col-2 bg-primary text-white">
+                                                <i class="fa fa-inr pr-1" aria-hidden="true" style="font-size: 13px; padding-top: 8px;"></i>
+                                                <input
+                                                    type="text"
+                                                    name="total"
+                                                    class="total font-weight-bold text-black text-white"
+                                                    id="total"
+                                                    value=""
+                                                    style="width: 80%; border: none; background-color: transparent; resize: none; outline: none;"
+                                                    disabled
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer justify-content-center py-2">
+                                <button type="submit" class="btn btn-sm btn-success">Bundle it</button>
+                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>
         </section>
     </body>
 </html>

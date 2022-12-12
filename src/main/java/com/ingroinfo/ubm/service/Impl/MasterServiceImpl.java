@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ingroinfo.ubm.dao.BrandPublisherRepository;
 import com.ingroinfo.ubm.dao.BrandRepository;
+import com.ingroinfo.ubm.dao.TempBundleRepository;
 import com.ingroinfo.ubm.dao.CategoryRepository;
 import com.ingroinfo.ubm.dao.HsnCodeRepository;
 import com.ingroinfo.ubm.dao.ItemRepository;
@@ -19,6 +20,7 @@ import com.ingroinfo.ubm.dto.SchoolDto;
 import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
+import com.ingroinfo.ubm.entity.TempBundle;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.Item;
@@ -53,6 +55,9 @@ public class MasterServiceImpl implements MasterService {
 
 	@Autowired
 	private SchoolRepository schoolRepository;
+
+	@Autowired
+	private TempBundleRepository bundledItemRepository;
 
 	@Override
 	public List<UnitOfMeasures> getAllUnits() {
@@ -680,6 +685,11 @@ public class MasterServiceImpl implements MasterService {
 		}).collect(Collectors.toList());
 
 		return itemLists;
+	}
+
+	@Override
+	public List<TempBundle> getAllBundledItems() {
+		return bundledItemRepository.findAll();
 	}
 
 }

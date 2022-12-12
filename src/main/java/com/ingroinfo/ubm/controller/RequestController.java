@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.ingroinfo.ubm.dao.BundledItemRepository;
+import com.ingroinfo.ubm.dao.TempBundleRepository;
 import com.ingroinfo.ubm.dao.ItemRepository;
 import com.ingroinfo.ubm.dto.BundleDto;
-import com.ingroinfo.ubm.entity.BundledItem;
+import com.ingroinfo.ubm.entity.TempBundle;
 import com.ingroinfo.ubm.entity.Item;
 
 @RestController
@@ -20,7 +20,7 @@ public class RequestController {
 	private static final ModelMapper modelMapper = new ModelMapper();
 
 	@Autowired
-	private BundledItemRepository bundledItemRepository;
+	private TempBundleRepository bundledItemRepository;
 
 	@Autowired
 	private ItemRepository itemRepository;
@@ -31,7 +31,7 @@ public class RequestController {
 		if (bundleDto != null) {
 			Item item = itemRepository.findByItemName(bundleDto.getItemName());
 			if (bundledItemRepository.findByItemId(item.getItemId()) == null) {
-				BundledItem bundledItem = modelMapper.map(bundleDto, BundledItem.class);
+				TempBundle bundledItem = modelMapper.map(bundleDto, TempBundle.class);
 				bundledItem.setItemId(item.getItemId());
 				bundledItemRepository.save(bundledItem);
 				bundleDto.setItemExists("True");
@@ -45,9 +45,9 @@ public class RequestController {
 	@PostMapping("/bundle/item/id")
 	public @ResponseBody void delItem(@RequestBody BundleDto bundleDto) {
 
-		if (bundleDto != null) {
-			BundledItem tempBundle = bundledItemRepository.findByItemName(bundleDto.getItemName());
-			bundledItemRepository.deleteById(tempBundle.getBundledItemId());
+		if (bundleDto.getItemName() != null) {
+			TempBundle tempBundle = bundledItemRepository.findByItemName(bundleDto.getItemName());
+			bundledItemRepository.deleteById(tempBundle.getTempBundleId());
 		}
 	}
 }
