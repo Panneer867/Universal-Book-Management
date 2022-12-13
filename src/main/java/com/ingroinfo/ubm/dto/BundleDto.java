@@ -21,4 +21,5 @@ public class BundleDto {
 	private String itemName;
 	private String itemMrp;
 	private String itemExists;
+	private Long quantity;
 }

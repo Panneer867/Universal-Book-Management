@@ -27,5 +27,4 @@ public class TempBundle {
 	private String itemName;
 	private String itemMrp;
 	private Long quantity;
-
 }

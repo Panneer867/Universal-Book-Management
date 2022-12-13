@@ -31,12 +31,13 @@ public class RequestController {
 		if (bundleDto != null) {
 			Item item = itemRepository.findByItemName(bundleDto.getItemName());
 			if (bundledItemRepository.findByItemId(item.getItemId()) == null) {
-				TempBundle bundledItem = modelMapper.map(bundleDto, TempBundle.class);
-				bundledItem.setItemId(item.getItemId());
-				bundledItemRepository.save(bundledItem);
-				bundleDto.setItemExists("True");
+				TempBundle tempBundle = modelMapper.map(bundleDto, TempBundle.class);
+				tempBundle.setItemId(item.getItemId());
+				tempBundle.setQuantity((long) 1);
+				bundledItemRepository.save(tempBundle);
+				bundleDto.setItemExists("NO");
 			} else {
-				bundleDto.setItemExists("False");
+				bundleDto.setItemExists("YES");
 			}
 		}
 		return bundleDto;
@@ -44,7 +45,6 @@ public class RequestController {
 
 	@PostMapping("/bundle/item/id")
 	public @ResponseBody void delItem(@RequestBody BundleDto bundleDto) {
-
 		if (bundleDto.getItemName() != null) {
 			TempBundle tempBundle = bundledItemRepository.findByItemName(bundleDto.getItemName());
 			bundledItemRepository.deleteById(tempBundle.getTempBundleId());
