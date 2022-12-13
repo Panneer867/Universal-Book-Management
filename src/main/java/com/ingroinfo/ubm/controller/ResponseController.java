@@ -92,7 +92,7 @@ public class ResponseController {
 
 	@Autowired
 	private SchoolRepository schoolRepository;
-	
+
 	@Autowired
 	private TempBundleRepository bundledItemRepository;
 
@@ -224,30 +224,33 @@ public class ResponseController {
 
 	@ResponseBody
 	@RequestMapping("/bundle/item")
-	public ItemDto getItemForBundle(@RequestParam String itemName) {
+	public ItemDto getItemForBundle(@RequestParam Long itemId) {
 
-		Item item = itemRepository.findByItemName(itemName);
-		ItemDto itemDto = new ItemDto();
+		if (itemId != null) {
+			ItemDto itemDto = new ItemDto();
+			Item item = itemRepository.findByItemId(itemId);
+			itemDto.setBrandName(masterService.getByBrandId(item.getBrandId()));
+			itemDto.setCategoryName(masterService.getByCategoryId(item.getCategoryId()));
+			itemDto.setDateCreated(item.getDateCreated());
+			itemDto.setHsnCode(masterService.getByHsnCodeId(item.getHsnCodeId()));
+			itemDto.setItemId(item.getItemId());
+			itemDto.setItemImage(item.getItemImage());
+			itemDto.setItemName(item.getItemName());
+			itemDto.setItemStatus(item.getItemStatus());
+			itemDto.setLastUpdated(item.getLastUpdated());
+			itemDto.setDescription(item.getDescription());
+			itemDto.setSupplierName(masterService.getBySupplierId(item.getSupplierId()));
+			itemDto.setUnitOfMeasure(item.getUnitOfMeasure());
+			itemDto.setPublisherName(masterService.getByPublisherId(item.getPublisherId()));
+			itemDto.setCostPrice(item.getCostPrice());
+			itemDto.setSellingPrice(item.getSellingPrice());
+			itemDto.setMrpPrice(item.getMrpPrice());
 
-		itemDto.setBrandName(masterService.getByBrandId(item.getBrandId()));
-		itemDto.setCategoryName(masterService.getByCategoryId(item.getCategoryId()));
-		itemDto.setDateCreated(item.getDateCreated());
-		itemDto.setHsnCode(masterService.getByHsnCodeId(item.getHsnCodeId()));
-		itemDto.setItemId(item.getItemId());
-		itemDto.setItemImage(item.getItemImage());
-		itemDto.setItemName(item.getItemName());
-		itemDto.setItemStatus(item.getItemStatus());
-		itemDto.setLastUpdated(item.getLastUpdated());
-		itemDto.setDescription(item.getDescription());
-		itemDto.setSupplierName(masterService.getBySupplierId(item.getSupplierId()));
-		itemDto.setUnitOfMeasure(item.getUnitOfMeasure());
-		itemDto.setPublisherName(masterService.getByPublisherId(item.getPublisherId()));
-		itemDto.setCostPrice(item.getCostPrice());
-		itemDto.setSellingPrice(item.getSellingPrice());
-		itemDto.setMrpPrice(item.getMrpPrice());
-		return itemDto;
+			return itemDto;
+		}
+		return null;
 	}
-		
+
 	@ResponseBody
 	@RequestMapping("/temp/item")
 	public List<TempBundle> getTempItem() {

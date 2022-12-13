@@ -992,7 +992,7 @@ public class MasterController {
 			model.addAttribute("branchProfile", "enableBranch");
 		}
 
-		List<ItemDto> bookList = masterService.getItemList().stream()
+		List<ItemDto> itemList = masterService.getItemList().stream()
 				.filter(x -> x.getCategoryName().equalsIgnoreCase("Books")).collect(Collectors.toList());
 
 		List<TempBundle> bundledItem = masterService.getAllBundledItems();
@@ -1000,7 +1000,7 @@ public class MasterController {
 			model.addAttribute("emptyList", "No Records");
 		}
 		model.addAttribute("schoolLists", masterService.getAllSchools());
-		model.addAttribute("booksLists", bookList);
+		model.addAttribute("itemLists", itemList);
 		model.addAttribute("bundledItems", bundledItem);
 		return "/masters/bundle";
 	}

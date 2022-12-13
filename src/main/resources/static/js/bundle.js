@@ -1,15 +1,15 @@
 $(document).ready(function() {
-	$('#itemName').change(function(e) {
+	$('#itemId').change(function(e) {
 		if (e.target.value === "") {
-			$("#itemName").val('')
+			$("#itemId").val('')
 			alert('Select the Item');
 			return false;
 		}
-		var itemName = $(this).val();
+		var itemId = $(this).val();
 		$.ajax({
 			type: "get",
 			url: "/get/bundle/item",
-			data: { "itemName": itemName },
+			data: { "itemId": itemId },
 			success: function(data) {
 				var json = JSON.stringify(data);
 				var jsonobject = JSON.parse(json);
@@ -17,7 +17,7 @@ $(document).ready(function() {
 				$("#itemCost").val(jsonobject.costPrice);
 			},
 			error: function(e) {
-				console.log('error occured while fetching hsnCode');
+				alert('error occured while fetching hsnCode' + e);
 			}
 		});
 	});
@@ -27,29 +27,31 @@ $(".add-row").click(function() {
 	const $this = $(".add-item");
 	const lastIndex = Number($this.find("td.sl_no:last").text());
 	const incremented = lastIndex + 1;
-	const itemName = $("#itemName").val();
+	const itemId = $("#itemId").val();
 	const itemPrice = $("#itemMrp").val();
 	var book = {};
-	book.slNo = incremented;
-	book.itemName = itemName;
+	book.item = incremented;
+	book.itemId = itemId;
 	book.itemMrp = itemPrice;
-	var bookJSON = JSON.stringify(book);
-	if (itemName.length > 0) {
+	book.quantity = 1;
+	book.slNo = incremented;
+	var itemObject = JSON.stringify(book);
+	if (itemId > 0) {
 		$.ajax({
 			url: '/post/bundle/item',
 			method: 'POST',
-			data: bookJSON,
+			data: itemObject,
 			contentType: "application/json; charset=utf-8",
 			success: function(data) {
 				var json = JSON.stringify(data);
 				var jsonobject = JSON.parse(json);
 				console.log(jsonobject);
 				if (jsonobject.itemExists === "YES") {
-					window.location.reload();
-				} else { alert("This Item has been already added !"); }
+					alert("This Item has been already added !");
+				} else { window.location.reload(); }
 			},
 			error: function(e) {
-				console.log('error occured while posting data');
+				alert('error occured while posting data' + e);
 			}
 		});
 	}
@@ -60,13 +62,43 @@ $(function() {
 	$(".button").on("click", function() {
 		var $button = $(this);
 		var oldQty = $button.parent().parent().find("input").val();
+		var quantity = {};
+		var $row = $(this).closest("tr");
+		quantity.itemId = $row.find(".item-id").text();
 		if ($button.html() == '<i class="fa fa-plus bg-success" style="font-size: 0.6em; color: #fff; padding: 5px;"></i>') {
 			var newQty = parseFloat(oldQty) + 1;
+			quantity.quantity = newQty;
+			var json = JSON.stringify(quantity);
+			$.ajax({
+				url: '/post/bundle/item/quantity',
+				method: 'POST',
+				data: json,
+				contentType: "application/json; charset=utf-8",
+				success: function() {
+				},
+				error: function(e) {
+					alert('error occured while posting data' + e);
+				}
+			});
+
 		} else {
-			if (oldQty > 0) {
+			if (oldQty > 1) {
 				var newQty = parseFloat(oldQty) - 1;
+				quantity.quantity = newQty;
+				var json = JSON.stringify(quantity);
+				$.ajax({
+					url: '/post/bundle/item/quantity',
+					method: 'POST',
+					data: json,
+					contentType: "application/json; charset=utf-8",
+					success: function() {
+					},
+					error: function(e) {
+						alert('error occured while posting data' + e);
+					}
+				});
 			} else {
-				newQty = 0;
+				newQty = 1;
 			}
 		}
 		$button.parent().parent().find("input").val(newQty);
@@ -92,22 +124,21 @@ $(function() {
 	}
 	$(".glyphicon-trash").click(function() {
 		if (confirm("Do you really want to remove this item?")) {
-			var bookData = {};
+
 			var $row = $(this).closest("tr");
-			bookData.itemName = $row.find(".item_name").text();
-			var bookName = JSON.stringify(bookData);
+			var itemId = $row.find(".item-id").text();
+
 			$(this).parent().parent().remove();
 			calculate();
 			$.ajax({
 				url: '/post/bundle/item/id',
 				method: 'POST',
-				data: bookName,
+				data: { "itemId": itemId },
 				contentType: "application/json; charset=utf-8",
 				success: function() {
-
 				},
 				error: function(e) {
-					console.log('error occured while deleting data');
+					alert('error occured while deleting data' + e);
 				}
 			});
 		}

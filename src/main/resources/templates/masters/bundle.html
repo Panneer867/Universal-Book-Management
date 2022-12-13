@@ -26,9 +26,9 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="itemName" class="pt-2 font-weight-bold">Select Book to Add in the List<strong class="text-danger">*</strong></label>
-                                            <select class="js-example-basic-single w-100" id="itemName" required>
+                                            <select class="js-example-basic-single w-100" id="itemId" required>
                                                 <option value="">select</option>
-                                                <option th:each="booksList : ${booksLists}" th:value="${booksList.itemName}" th:utext="${booksList.itemName}" />
+                                                <option th:each="itemList : ${itemLists}" th:value="${itemList.itemId}" th:utext="${itemList.itemName}" />
                                             </select>
                                             <div class="invalid-feedback">Select Items/books!</div>
                                         </div>
@@ -129,8 +129,8 @@
                                                 <option value="10">10</option>
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
-                                                <option value="PUC1">PUC 1st YR</option>
-                                                <option value="PUC2">PUC 2nd YR</option>
+                                                <option value="PUC1">PUC 1ST YR</option>
+                                                <option value="PUC2">PUC 2ND YR</option>
                                             </select>
                                             <div class="invalid-feedback">Select Standard!</div>
                                         </div>
@@ -159,6 +159,7 @@
                         </thead>
                         <tbody class="add-item">
                             <tr th:each="bundledItem: ${bundledItems}">
+                            <td style="display: none;" class="item-id" th:text="${bundledItem.itemId}"></td>
                                 <td class="sl_no text-center"><label class="mb-0" th:text="${bundledItem.slNo}"></label></td>
                                 <td class="product"><label class="mb-0 item_name" th:text="${bundledItem.itemName}"></label></td>
                                 <td>
