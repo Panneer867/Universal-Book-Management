@@ -37,7 +37,7 @@ import com.ingroinfo.ubm.entity.Item;
 import com.ingroinfo.ubm.entity.School;
 import com.ingroinfo.ubm.entity.State;
 import com.ingroinfo.ubm.entity.Supplier;
-import com.ingroinfo.ubm.entity.TempBundle;
+import com.ingroinfo.ubm.entity.TempBundleItem;
 import com.ingroinfo.ubm.entity.UnitOfMeasures;
 import com.ingroinfo.ubm.entity.User;
 import com.ingroinfo.ubm.service.BranchService;
@@ -245,7 +245,6 @@ public class ResponseController {
 			itemDto.setCostPrice(item.getCostPrice());
 			itemDto.setSellingPrice(item.getSellingPrice());
 			itemDto.setMrpPrice(item.getMrpPrice());
-
 			return itemDto;
 		}
 		return null;
@@ -253,7 +252,7 @@ public class ResponseController {
 
 	@ResponseBody
 	@RequestMapping("/temp/item")
-	public List<TempBundle> getTempItem() {
+	public List<TempBundleItem> getTempItem() {
 		return bundledItemRepository.findAll();
 	}
 

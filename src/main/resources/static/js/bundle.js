@@ -33,6 +33,7 @@ $(".add-row").click(function() {
 	book.item = incremented;
 	book.itemId = itemId;
 	book.itemMrp = itemPrice;
+	book.totalCost = itemPrice;
 	book.quantity = 1;
 	book.slNo = incremented;
 	var itemObject = JSON.stringify(book);
@@ -65,6 +66,7 @@ $(function() {
 		var quantity = {};
 		var $row = $(this).closest("tr");
 		quantity.itemId = $row.find(".item-id").text();
+		quantity.itemMrp = $row.find('input.price').val();
 		if ($button.html() == '<i class="fa fa-plus bg-success" style="font-size: 0.6em; color: #fff; padding: 5px;"></i>') {
 			var newQty = parseFloat(oldQty) + 1;
 			quantity.quantity = newQty;
@@ -116,24 +118,27 @@ $(function() {
 		$('.cost').each(function() {
 			subtotalVal += parseFloat($(this).val());
 		});
-		$('.subtotal').val((subtotalVal).toFixed(2));
-		$(".vat").val(((subtotalVal / 100) * 18).toFixed(2));
+		$('.subtotal').text((subtotalVal).toFixed(2));
+		$('#sub-total').val((subtotalVal).toFixed(2));
+		$(".gstamt").text(((subtotalVal / 100) * 18).toFixed(2));
+		$("#gst-amt").val(((subtotalVal / 100) * 18).toFixed(2));
 		var vatVal = ((subtotalVal / 100) * 18).toFixed(2);
 		var total = parseFloat(subtotalVal) + parseFloat(vatVal);
-		$(".total").val((total).toFixed(2));
+		$(".grandtotal").text((total).toFixed(2));
+		$("#grand-total").val((total).toFixed(2));
 	}
-	$(".glyphicon-trash").click(function() {
+	$(".remove-item").click(function() {
 		if (confirm("Do you really want to remove this item?")) {
-
+			var item = {};
 			var $row = $(this).closest("tr");
-			var itemId = $row.find(".item-id").text();
-
+			item.itemId = $row.find(".item-id").text();
+			var json = JSON.stringify(item);
 			$(this).parent().parent().remove();
 			calculate();
 			$.ajax({
-				url: '/post/bundle/item/id',
+				url: '/post/bundle/item/delete',
 				method: 'POST',
-				data: { "itemId": itemId },
+				data: json,
 				contentType: "application/json; charset=utf-8",
 				success: function() {
 				},

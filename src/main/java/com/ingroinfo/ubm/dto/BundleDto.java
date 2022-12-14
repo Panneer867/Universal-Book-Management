@@ -13,13 +13,18 @@ public class BundleDto {
 
 	private Long bundleId;
 	private String bundleName;
-	private String school;
+	private Long schoolId;
 	private String standard;
 	private String medium;
 	private Long itemId;
 	private Long slNo;
 	private String itemName;
-	private String itemMrp;
+	private double itemMrp;
 	private String itemExists;
 	private Long quantity;
+	private double totalCost;
+	private double subTotal;
+	private double gstPercent;
+	private double gstAmt;
+	private double grandTotal;
 }

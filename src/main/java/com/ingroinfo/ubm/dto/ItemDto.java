@@ -16,9 +16,9 @@ public class ItemDto {
 	private String itemName;
 	private String itemImage;
 	private String itemStatus;
-	private String costPrice;
-	private String sellingPrice;
-	private String mrpPrice;
+	private double costPrice;
+	private double sellingPrice;
+	private double mrpPrice;
 	private String categoryName;
 	private String supplierName;
 	private String publisherName;

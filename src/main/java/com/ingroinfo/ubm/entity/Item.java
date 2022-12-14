@@ -25,7 +25,7 @@ import lombok.Setter;
 public class Item {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "branch_sequence")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_sequence")
 	private Long itemId;
 
 	private String itemName;
@@ -36,11 +36,11 @@ public class Item {
 
 	private String unitOfMeasure;
 
-	private String costPrice;
+	private double costPrice;
 
-	private String sellingPrice;
+	private double sellingPrice;
 
-	private String mrpPrice;
+	private double mrpPrice;
 
 	private String description;
 

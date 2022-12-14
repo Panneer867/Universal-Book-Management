@@ -1,17 +1,17 @@
 package com.ingroinfo.ubm.controller;
 
+import java.text.DecimalFormat;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.ingroinfo.ubm.dao.TempBundleRepository;
 import com.ingroinfo.ubm.dao.ItemRepository;
 import com.ingroinfo.ubm.dto.BundleDto;
-import com.ingroinfo.ubm.entity.TempBundle;
+import com.ingroinfo.ubm.entity.TempBundleItem;
 import com.ingroinfo.ubm.entity.Item;
 
 @RestController
@@ -28,13 +28,10 @@ public class RequestController {
 
 	@PostMapping("/bundle/item")
 	public @ResponseBody BundleDto postItem(@RequestBody BundleDto bundleDto) {
-
-		System.out.println("The id "+bundleDto.getItemId());
 		if (bundleDto.getItemId() != null) {
-			
 			Item item = itemRepository.findByItemId(bundleDto.getItemId());
 			if (bundledItemRepository.findByItemId(item.getItemId()) == null) {
-				TempBundle tempBundle = modelMapper.map(bundleDto, TempBundle.class);
+				TempBundleItem tempBundle = modelMapper.map(bundleDto, TempBundleItem.class);
 				tempBundle.setItemName(item.getItemName());
 				bundledItemRepository.save(tempBundle);
 				bundleDto.setItemExists("NO");
@@ -45,20 +42,22 @@ public class RequestController {
 		return bundleDto;
 	}
 
-	@PostMapping("/bundle/item/id")
-	public @ResponseBody void delItem(@RequestParam Long itemId) {
-		if (itemId != null) {
-			TempBundle tempBundle = bundledItemRepository.findByItemId(itemId);
-			bundledItemRepository.deleteById(tempBundle.getTempBundleId());
-		}
-	}	
-	
 	@PostMapping("/bundle/item/quantity")
-	public @ResponseBody void quantity(@RequestParam Long itemId, @RequestParam Long quantity) {
-		if (itemId != null) {
-			TempBundle tempBundle = bundledItemRepository.findByItemId(itemId);
-			tempBundle.setQuantity(quantity);
+	public @ResponseBody void quantity(@RequestBody BundleDto bundleDto) {
+		if (bundleDto.getItemId() != null) {
+			TempBundleItem tempBundle = bundledItemRepository.findByItemId(bundleDto.getItemId());
+			DecimalFormat df = new DecimalFormat("#.##");
+			tempBundle.setTotalCost(Double.parseDouble(df.format(bundleDto.getItemMrp() * bundleDto.getQuantity())));
+			tempBundle.setQuantity(bundleDto.getQuantity());
 			bundledItemRepository.save(tempBundle);
+		}
+	}
+
+	@PostMapping("/bundle/item/delete")
+	public @ResponseBody void delItem(@RequestBody BundleDto bundleDto) {
+		if (bundleDto.getItemId() != null) {
+			TempBundleItem tempBundle = bundledItemRepository.findByItemId(bundleDto.getItemId());
+			bundledItemRepository.deleteById(tempBundle.getRowId());
 		}
 	}
 }

@@ -15,16 +15,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "temp_bundle")
-public class TempBundle {
+@Table(name = "temp_bundle_items")
+public class TempBundleItem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long tempBundleId;
-	private Long bundleId;
+	private Long rowId;
 	private Long itemId;
 	private Long slNo;
 	private String itemName;
-	private String itemMrp;
+	private double itemMrp;
 	private Long quantity;
+	private double totalCost;
 }

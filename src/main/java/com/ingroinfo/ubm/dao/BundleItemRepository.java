@@ -2,11 +2,9 @@ package com.ingroinfo.ubm.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.ingroinfo.ubm.entity.Bundle;
+import com.ingroinfo.ubm.entity.BundleItem;
 
 @Repository
-public interface BundleRepository extends JpaRepository<Bundle, Long> {
-
-	Bundle findByBundleName(String bundleName);
+public interface BundleItemRepository extends JpaRepository<BundleItem, Long> {
 
 }

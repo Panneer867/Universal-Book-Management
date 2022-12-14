@@ -28,7 +28,8 @@ import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
-import com.ingroinfo.ubm.entity.TempBundle;
+import com.ingroinfo.ubm.entity.Bundle;
+import com.ingroinfo.ubm.entity.TempBundleItem;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.HsnCode;
@@ -64,7 +65,7 @@ public class MasterController {
 	public MasterService masterService;
 
 	@Autowired
-	private TempBundleRepository bundledItemRepository;
+	private TempBundleRepository tempBundleRepository;
 
 	@GetMapping("/brand")
 	public String brand(Model model, Principal principal) {
@@ -88,7 +89,6 @@ public class MasterController {
 			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
-
 		return "/masters/brand";
 	}
 
@@ -101,7 +101,6 @@ public class MasterController {
 		Branch branch = branchService.findByUserId(user);
 
 		if (company != null) {
-
 			model.addAttribute("profileData", company.getProfile());
 			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
@@ -114,14 +113,11 @@ public class MasterController {
 			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
-
 		List<Brand> brandList = masterService.getAllBrands();
 		if (brandList.size() == 0) {
 			model.addAttribute("emptyList", "No Records");
 		}
-
 		model.addAttribute("brands", brandList);
-
 		return "/masters/brand_list";
 	}
 
@@ -136,11 +132,9 @@ public class MasterController {
 		if (masterService.brandExists(brandName)) {
 			return "redirect:/master/brand?brandAlreadyExists";
 		}
-
 		Brand brand = new Brand();
 
 		if (company != null) {
-
 			String fileName = brandName + ".png";
 			String uploadDir = "C:/Company/" + company.getCompanyName() + "/Brands";
 			brand.setBrandLogo(fileName);
@@ -156,9 +150,7 @@ public class MasterController {
 			brand.setBrandName(brandName);
 			companyService.saveFile(uploadDir, fileName, file);
 		}
-
 		masterService.saveBrand(brand);
-
 		return "redirect:/master/brand?brandAdded";
 	}
 
@@ -174,21 +166,14 @@ public class MasterController {
 		if (masterService.brandNameCheck(Long.parseLong(brandId), brandName)) {
 			return "redirect:/master/brand/list?brandAlreadyExists";
 		}
-
 		if (file.getOriginalFilename().equals("")) {
-
 			masterService.fileRename(brandName, companyName, brand);
-
 			String fileName = brandName + ".png";
 			brand.setBrandLogo(fileName);
 			brand.setBrandName(brandName);
-
 		} else {
-
 			File folder = new File("C:\\Company\\" + companyName + "\\Brands\\" + brand.getBrandLogo());
-
 			if (folder.delete()) {
-
 				String fileName = brandName + ".png";
 				String uploadDir = "C:/Company/" + companyName + "/Brands";
 				brand.setBrandLogo(fileName);
@@ -196,14 +181,12 @@ public class MasterController {
 				companyService.saveFile(uploadDir, fileName, file);
 			}
 		}
-
 		masterService.updateBrand(brand);
 		return "redirect:/master/brand/list?brandUpdated";
 	}
 
 	@GetMapping("/brand/delete")
 	public String deleteBrand(@RequestParam Long brandId) {
-
 		masterService.deleteBrandIdOnItem(brandId);
 		masterService.deleteByBrandId(brandId);
 		return "redirect:/master/brand/list?brandDeleted";
@@ -211,8 +194,8 @@ public class MasterController {
 
 	@GetMapping("/category")
 	public String category(Model model, Principal principal) {
-		model.addAttribute("title", "Category Master");
 
+		model.addAttribute("title", "Category Master");
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		Branch branch = branchService.findByUserId(user);
@@ -222,7 +205,6 @@ public class MasterController {
 			model.addAttribute("profileData", company.getProfile());
 			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
-
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
@@ -231,7 +213,6 @@ public class MasterController {
 			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
-
 		return "/masters/category";
 	}
 
@@ -248,7 +229,6 @@ public class MasterController {
 			model.addAttribute("profileData", company.getProfile());
 			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
-
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
@@ -257,13 +237,10 @@ public class MasterController {
 			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
-
 		List<Category> categoryList = masterService.getAllCategories();
-
 		if (categoryList.size() == 0) {
 			model.addAttribute("emptyList", "No Records");
 		}
-
 		model.addAttribute("categories", categoryList);
 		return "/masters/category_list";
 	}
@@ -274,13 +251,10 @@ public class MasterController {
 		if (masterService.categoryExists(categoryName)) {
 			return "redirect:/master/category?categoryAlreadyExists";
 		}
-
 		Category category = new Category();
 		category.setCategoryName(categoryName);
 		category.setCategoryStatus(categoryStatus);
-
 		masterService.saveCategory(category);
-
 		return "redirect:/master/category?categoryAdded";
 	}
 
@@ -291,12 +265,11 @@ public class MasterController {
 		Category category = masterService.findByCategoryId(Long.parseLong(categoryId));
 
 		if (masterService.categoryNameCheck(Long.parseLong(categoryId), categoryName)) {
+
 			return "redirect:/master/category/list?categoryAlreadyExists";
 		}
-
 		category.setCategoryName(categoryName);
 		category.setCategoryStatus(categoryStatus);
-
 		masterService.updateCategory(category);
 		return "redirect:/master/category/list?categoryUpdated";
 	}
@@ -322,7 +295,6 @@ public class MasterController {
 			model.addAttribute("profileData", company.getProfile());
 			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
-
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
@@ -331,7 +303,6 @@ public class MasterController {
 			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
-
 		return "/masters/unit_measures";
 	}
 
@@ -344,11 +315,9 @@ public class MasterController {
 		Branch branch = branchService.findByUserId(user);
 
 		if (company != null) {
-
 			model.addAttribute("profileData", company.getProfile());
 			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
-
 		} else if (branch != null) {
 
 			Company cmpy = branch.getCompany();
@@ -357,12 +326,10 @@ public class MasterController {
 			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
-
 		List<UnitOfMeasures> unitList = masterService.getAllUnits();
 		if (unitList.size() == 0) {
 			model.addAttribute("emptyList", "No Records");
 		}
-
 		model.addAttribute("units", unitList);
 		return "/masters/unit_measures_list";
 	}
@@ -870,7 +837,6 @@ public class MasterController {
 
 	@GetMapping("/item/delete")
 	public String deleteItem(@RequestParam Long itemId) {
-
 		masterService.deleteByItemId(itemId);
 
 		return "redirect:/master/item/list?itemDeleted";
@@ -954,7 +920,6 @@ public class MasterController {
 		if (masterService.schoolEmailCheck(schoolDto)) {
 			return "redirect:/master/school/list?schoolEmailAlreadyExists";
 		}
-
 		School school = masterService.findBySchoolId(schoolDto.getSchoolId());
 
 		mapper.modelMapper().map(schoolDto, school);
@@ -978,24 +943,19 @@ public class MasterController {
 		model.addAttribute("bundle", new BundleDto());
 
 		if (company != null) {
-
 			model.addAttribute("profileData", company.getProfile());
 			model.addAttribute("companyNameData", company.getCompanyName());
 			model.addAttribute("companyProfile", "enableCompany");
-
 		} else if (branch != null) {
-
 			Company cmpy = branch.getCompany();
 			model.addAttribute("usernameofbranch", branch.getFirstName());
 			model.addAttribute("profileData", cmpy.getProfile());
 			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
-
 		List<ItemDto> itemList = masterService.getItemList().stream()
 				.filter(x -> x.getCategoryName().equalsIgnoreCase("Books")).collect(Collectors.toList());
-
-		List<TempBundle> bundledItem = masterService.getAllBundledItems();
+		List<TempBundleItem> bundledItem = masterService.getAllBundledItems();
 		if (bundledItem.size() == 0) {
 			model.addAttribute("emptyList", "No Records");
 		}
@@ -1005,9 +965,22 @@ public class MasterController {
 		return "/masters/bundle";
 	}
 
+	@PostMapping("/bundle/add")
+	public String addBundle(@ModelAttribute("bundle") BundleDto bundleDto, Principal principal) {
+
+		if (masterService.bundleNameExists(bundleDto.getBundleName())) {
+			return "redirect:/master/bundle?bundleNameAlreadyExists";
+		}
+		Bundle bundle = modelMapper.map(bundleDto, Bundle.class);
+		bundle.setGstPercent(18);
+		masterService.saveBundle(bundle);
+		return "redirect:/master/bundle?bundleCreated";
+	}
+
 	@GetMapping("/bundle/clear")
 	public String clearBundle() {
-		bundledItemRepository.deleteAll();
+
+		tempBundleRepository.deleteAll();
 		return "redirect:/master/bundle";
 	}
 }
