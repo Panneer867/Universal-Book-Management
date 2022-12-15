@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+    <body>
+        <section>
+            <div class="page-header">
+                <ul class="breadcrumb px-0">
+                    <li><a th:href="@{/master/item}">Master</a></li>
+                    <li><a th:href="@{/master/item}">&nbsp;Item Master</a></li>
+                    <li><a th:href="@{/master/item/list}">&nbsp;Item List</a></li>
+                    <li><a th:href="@{/master/item/view}">&nbsp;View Item</a></li>
+                </ul>
+            </div>
+            <div class="px-2">
+                <div class="row">
+                    <div class="col-1">
+                        <button type="button" class="btn btn-dark btn-rounded btn-icon" onclick="window.location.href='/master/item/list'" style="width: 30px; height: 30px;">
+                            <i class="fa fa-arrow-left"></i>
+                        </button>
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="col-3">
+                        <h4>View Item Details</h4>
+                    </div>
+                    <div class="col-5"></div>
+                </div>
+            </div>
+            
+        </section>
+    </body>
+</html>

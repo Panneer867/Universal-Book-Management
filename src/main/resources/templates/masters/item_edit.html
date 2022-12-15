@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<div class="page-header">
+			<ul class="breadcrumb px-0">
+				<li><a th:href="@{/master/item}">Master</a></li>
+				<li><a th:href="@{/master/item}">&nbsp;Item Master</a></li>
+				<li><a th:href="@{/master/item/list}">&nbsp;Item List</a></li>
+				<li><a th:href="@{/master/item/edit}">&nbsp;Edit Item</a></li>
+			</ul>
+		</div>
+		<div class="px-2">
+			<div class="row">
+				<div class="col-1">
+					<button type="button" class="btn btn-dark btn-rounded btn-icon"
+						onclick="window.location.href='/master/item/list'" style="width: 30px; height: 30px;">
+						<i class="fa fa-arrow-left"></i>
+					</button>
+				</div>
+				<div class="col-4"></div>
+				<div class="col-2">
+					<h4>Edit Item</h4>
+				</div>
+				<div class="col-6"></div>
+			</div>
+		</div>
+		<div class="alert alert-success text-center p-2 col-10 mx-auto font-weight-bold" role="alert"
+			th:if="${param.itemUpdated}">
+			Item Details has been updated successfully!
+		</div>
+		<div class="alert alert-success text-center p-2 col-10 mx-auto font-weight-bold" role="alert"
+			th:if="${param.itemImageUpdated}">
+			Item Image has been updated successfully!
+		</div>
+		<input type="hidden" id="iItemIdCopy" th:value="${itemDetails.itemId}" />
+		<input type="hidden" id="iItemNameCopy" th:value="${itemDetails.itemName}" />
+		<input type="hidden" id="iCategoryCopy" th:value="${itemDetails.categoryName}" />
+		<input type="hidden" id="iBrandCopy" th:value="${itemDetails.brandName}" />
+		<input type="hidden" id="iPublisherCopy" th:value="${itemDetails.publisherName}" />
+		<input type="hidden" id="iSupplierCopy" th:value="${itemDetails.supplierName}" />
+		<input type="hidden" id="iUnitOfMeasureCopy" th:value="${itemDetails.unitOfMeasure}" />
+		<input type="hidden" id="iCostPriceCopy" th:value="${itemDetails.costPrice}" />
+		<input type="hidden" id="iSellingPriceCopy" th:value="${itemDetails.sellingPrice}" />
+		<input type="hidden" id="iMrpPriceCopy" th:value="${itemDetails.mrpPrice}" />
+		<input type="hidden" id="iStatusCopy" th:value="${itemDetails.itemStatus}" />
+		<input type="hidden" id="iDescriptionCopy" th:value="${itemDetails.description}" />
+		<div class="col-10 mx-auto">
+			<div class="card">
+				<div class="card-body py-2">
+
+					<form data-toggle="validator" th:action="@{/master/item/update}" th:object="${item}" role="form"
+						method="post" enctype="multipart/form-data">
+						<div class="row">
+							<div class="col-8 pt-4">
+								<div class="form-group row">
+									<label for="eItemNameCopy" class="font-weight-bold col-sm-4 pt-2">Item Name<strong
+											class="text-danger">*</strong></label>
+									<div class="col-sm-8">
+										<input type="hidden" id="eItemIdCopy" name="itemId" />
+										<input type="text" class="form-control" id="eItemNameCopy" name="itemName"
+											data-minlength="3" data-error="Minimum 3 characters required !"
+											placeholder="Enter Item name" required />
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label for="eCategoryCopy" class="font-weight-bold col-sm-4 pt-2">Category<strong
+											class="text-danger">*</strong></label>
+									<div class="col-sm-6">
+										<select class="form-control" id="eCategoryCopy" name="categoryName"
+											data-error="Select a Category !" required>
+											<option value="" selected>select</option>
+											<option th:each="category : ${categories}"
+												th:value="${category.categoryName}"
+												th:utext="${category.categoryName}" />
+										</select>
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="eBrandCopy" class="font-weight-bold col-sm-4 pt-2">Brand</label>
+									<div class="col-sm-6">
+										<select class="form-control" id="eBrandCopy" name="brandName"
+											data-error="Select a brand !">
+											<option value="" selected>select</option>
+											<option th:each="brand : ${brands}" th:value="${brand.brandName}"
+												th:utext="${brand.brandName}" />
+										</select>
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="ePublisherCopy" class="font-weight-bold col-sm-4 pt-2">Publisher</label>
+									<div class="col-sm-6">
+										<select class="form-control" id="ePublisherCopy" name="publisherName"
+											data-error="Select Publisher !">
+											<option value="" selected>select</option>
+											<option th:each="publisher : ${publishers}"
+												th:value="${publisher.publisherName}"
+												th:utext="${publisher.publisherName}" />
+										</select>
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="eSupplierCopy" class="font-weight-bold col-sm-4 pt-2">Supplier</label>
+									<div class="col-sm-6">
+										<select class="form-control" id="eSupplierCopy" name="supplierName"
+											data-error="Select Supplier !">
+											<option value="" selected>select</option>
+                                                        <option th:each="supplier : ${suppliers}" th:value="${supplier.supplierName}" th:utext="${supplier.supplierName}" />
+                                                   </select>
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="eUnitOfMeasureCopy" class="font-weight-bold col-sm-4 pt-2">Unit Of
+										Measure<strong class="text-danger">*</strong></label>
+									<div class="col-sm-4">
+										<select class="form-control" id="eUnitOfMeasureCopy" name="unitOfMeasure"
+											data-error="Select Unit of measure !" required>
+											<option value="" selected>select</option>
+											<option th:each="unit : ${units}" th:value="${unit.unitOfMeasure}"
+												th:utext="${unit.unitOfMeasure}" />
+										</select>
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="form-group text-center mb-0">
+									<label class="font-weight-bold">Item Image</label>
+								
+									<br />
+
+									<img th:src="@{'/Company/'+ ${companyNameData} +'/Items/'+ ${itemImage}}"
+										alt="image" style="width: 190px; border: 1px solid blue;" /><br />
+										<a data-toggle="modal" data-target="#editItemImage" class="btn btn-sm btn-secondary mt-3 text-dark">Change Image</a>
+								</div>
+								
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-4">
+								<div class="form-group row">
+									<label for="eCostPriceCopy" class="font-weight-bold col-sm-5 pt-2">Cost Price<strong
+											class="text-danger">*</strong></label>
+									<div class="col-sm-7">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text py-0"><i class="fa fa-inr"
+														aria-hidden="true"></i></span>
+											</div>
+											<input type="number" class="form-control px-2" id="eCostPriceCopy"
+												name="costPrice" data-error="Cost price is required !" required />
+										</div>
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="form-group row">
+									<label for="eSellingPriceCopy" class="font-weight-bold col-sm-5 pt-2">Selling
+										Price<strong class="text-danger">*</strong></label>
+									<div class="col-sm-7">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text py-0"><i class="fa fa-inr"
+														aria-hidden="true"></i></span>
+											</div>
+
+											<input type="number" class="form-control px-2" id="eSellingPriceCopy"
+												name="sellingPrice" data-error="Field is required !" required />
+										</div>
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="form-group row">
+									<label for="eMrpPriceCopy" class="font-weight-bold col-sm-5 pt-2">MRP Price<strong
+											class="text-danger">*</strong></label>
+									<div class="col-sm-7">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text py-0"><i class="fa fa-inr"
+														aria-hidden="true"></i></span>
+											</div>
+
+											<input type="number" class="form-control px-2" id="eMrpPriceCopy"
+												name="mrpPrice" data-error="MRP price is required" required />
+										</div>
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-4">
+								<div class="form-group row mb-3">
+									<label for="eStatusCopy" class="font-weight-bold col-sm-5 pt-2">Item Status<strong
+											class="text-danger">*</strong></label>
+									<div class="col-sm-7">
+										<select class="form-control" id="eStatusCopy" name="itemStatus"
+											data-error="Select a item status !" required>
+											<option value="" selected>select</option>
+											<option value="Available">Available</option>
+											<option value="Not Available">Not Available</option>
+										</select>
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-8">
+								<div class="form-group row mb-3">
+									<label for="eDescriptionCopy"
+										class="font-weight-bold col-sm-3 pt-2">Description</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="eDescriptionCopy" name="description"
+											data-minlength="3" placeholder="Enter Description" />
+
+										<div class="help-block with-errors text-danger"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-sm btn-success">Save</button>
+							<a th:href="@{/master/item/list}" class="btn btn-sm btn-danger">Cancel</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		 <div class="modal fade" id="editItemImage" tabindex="-1" role="dialog" aria-labelledby="editItemImage" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form th:action="@{/master/item/image}" role="form" method="post" enctype="multipart/form-data">
+                                            <div class="modal-header py-2">
+                                                <h5 class="modal-title" id="editModal">Edit Profile</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body p-2">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-8">
+                                                        <div class="form-group text-center">
+                                                            <label for="itemPic" class="font-weight-bold">Item Image</label>
+                                                            <input type="text" id="eItemIdForImageCopy" name="itemIdForImage" th:value="${itemDetails.itemId}" />
+                                                          
+                                                             <input
+                                                                type="file"
+                                                                name="itemPic"
+                                                                id="itemPic"
+                                                                accept="image/*"
+                                                                data-max-file-size="2M"
+                                                               
+                                                                data-max-width="800"
+                                                                data-max-height="900"
+                                                                class="dropify"
+                                                               
+                                                            />
+                                                            
+                                                             <small class="text-info">[Size: 2MB MAX]</small>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer justify-content-center py-2">
+                                                <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                                                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+	</section>
+</body>
+
+</html>

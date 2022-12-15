@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title th:text="${title}" />
-        <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" />
+        <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}"/>
         <link rel="stylesheet" th:href="@{/vendors/glyphicons/css/glyphicons.css}" />
         <link rel="stylesheet" th:href="@{/vendors/iconfonts/font-awesome/css/all.min.css}" />
         <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}" />
@@ -16,7 +16,7 @@
         <link rel="stylesheet" th:href="@{/css/dropdown-list.css}" />
         <script th:src="@{https://www.gstatic.com/charts/loader.js}"></script>
         <script th:src="@{https://unpkg.com/sweetalert/dist/sweetalert.min.js}"></script>
-        <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
+        <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js}"></script>
     </head>
     <body class="sidebar-dark">
         <div class="container-scroller">
@@ -103,7 +103,7 @@
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"><a class="nav-link" th:href="@{/sales-order}">Sales Order</a></li>
                                     <li class="nav-item"><a class="nav-link" th:href="@{/purchase-order}">Purchase Order</a></li>
-                                    <li class="nav-item"><a class="nav-link" th:href="@{/order-view}">Order View</a></li>
+                                    <li class="nav-item"><a class="nav-link" th:href="@{/orders}">Order View</a></li>
                                     <li class="nav-item"><a class="nav-link" th:href="@{/reject-order}">Reject Order</a></li>
                                     <li class="nav-item"><a class="nav-link" th:href="@{/order-tracking}">Order Tracking</a></li>
                                 </ul>
@@ -298,5 +298,6 @@
         <script th:src="@{/js/select2/js/select2.min.js}"></script>
         <script th:src="@{/js/window-timeout.js}"></script>
         <script th:src="@{/js/bundle.js}"></script>
+        <script th:src="@{/js/item-details-copy.js}"></script>
     </body>
 </html>

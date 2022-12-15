@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$('#clickEditCompany').on('click', function(event) {
+	$('#clickEditCompany').on('click', function() {
 
 		document.getElementById('companyNameCopy').value = document.getElementById('companyName').value;
 		document.getElementById('emailCopy').value = document.getElementById('email').value;
@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 	});
 
-	$('#clickEditOwner').on('click', function(event) {
+	$('#clickEditOwner').on('click', function() {
 
 		document.getElementById('firstNameCopy').value = document.getElementById('firstName').value;
 		document.getElementById('lastNameCopy').value = document.getElementById('lastName').value;
@@ -33,7 +33,7 @@ $(document).ready(function() {
 	});
 
 
-	$('#clickEditBank').on('click', function(event) {
+	$('#clickEditBank').on('click', function() {
 
 		document.getElementById('bankNameCopy').value = document.getElementById('bankName').value;
 		document.getElementById('beneficiaryNameCopy').value = document.getElementById('beneficiaryName').value;
@@ -46,7 +46,7 @@ $(document).ready(function() {
 		document.getElementById('bankPinCodeCopy').value = document.getElementById('bankPinCode').value;
 	});
 
-	$('#clickEditBranch').on('click', function(event) {
+	$('#clickEditBranch').on('click', function() {
 
 		document.getElementById('bbranchNameCopy').value = document.getElementById('bbranchName').value;
 		document.getElementById('bfirstNameCopy').value = document.getElementById('bfirstName').value;

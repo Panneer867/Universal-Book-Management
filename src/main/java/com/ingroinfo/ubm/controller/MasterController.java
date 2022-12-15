@@ -21,6 +21,7 @@ import com.ingroinfo.ubm.configuration.ModelMapperConfig;
 import com.ingroinfo.ubm.dao.TempBundleRepository;
 import com.ingroinfo.ubm.dto.BrandPublisherDto;
 import com.ingroinfo.ubm.dto.BundleDto;
+import com.ingroinfo.ubm.dto.CompanyDto;
 import com.ingroinfo.ubm.dto.HsnDto;
 import com.ingroinfo.ubm.dto.ItemDto;
 import com.ingroinfo.ubm.dto.SchoolDto;
@@ -594,7 +595,7 @@ public class MasterController {
 	}
 
 	@GetMapping("/brand/publisher")
-	public String brandPublisher(Model model, Principal principal) {
+	public String Publisher(Model model, Principal principal) {
 
 		model.addAttribute("title", "Brand Publisher");
 		model.addAttribute("publisher", new BrandPublisherDto());
@@ -792,20 +793,101 @@ public class MasterController {
 		return "/masters/item_list";
 	}
 
+	@GetMapping("/item/view")
+	public String viewItem(@RequestParam Long id, Principal principal, Model model) {
+
+		return "/masters/item_view";
+	}
+
+	@GetMapping("/item/edit")
+	public String editItem(@RequestParam Long id, Principal principal, Model model) {
+
+		model.addAttribute("title", "Item Lists");
+		model.addAttribute("item", new ItemDto());
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		String companyName = null;
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+			companyName = company.getCompanyName();
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("branchProfile", "enableBranch");
+			companyName = cmpy.getCompanyName();
+		}
+
+		model.addAttribute("brands", masterService.getAllBrands());
+		model.addAttribute("categories", masterService.getAllCategories());
+		model.addAttribute("suppliers", masterService.getAllSuppliers());
+		model.addAttribute("publishers", masterService.getAllBrandPublishers());
+		model.addAttribute("units", masterService.getAllUnits());
+
+		Item item = masterService.findByItemId(id);
+		ItemDto itemDetails = new ItemDto();
+
+		itemDetails.setBrandName(masterService.getByBrandId(item.getBrandId()));
+		itemDetails.setCategoryName(masterService.getByCategoryId(item.getCategoryId()));
+		itemDetails.setDateCreated(item.getDateCreated());
+		itemDetails.setHsnCode(masterService.getByHsnCodeId(item.getHsnCodeId()));
+		itemDetails.setItemId(item.getItemId());
+		itemDetails.setItemImage(item.getItemImage());
+		itemDetails.setItemName(item.getItemName());
+		itemDetails.setItemStatus(item.getItemStatus());
+		itemDetails.setLastUpdated(item.getLastUpdated());
+		itemDetails.setDescription(item.getDescription());
+		itemDetails.setSupplierName(masterService.getBySupplierId(item.getSupplierId()));
+		itemDetails.setUnitOfMeasure(item.getUnitOfMeasure());
+		itemDetails.setCompanyName(companyName);
+		itemDetails.setPublisherName(masterService.getByPublisherId(item.getPublisherId()));
+		itemDetails.setCostPrice(item.getCostPrice());
+		itemDetails.setSellingPrice(item.getSellingPrice());
+		itemDetails.setMrpPrice(item.getMrpPrice());
+
+		model.addAttribute("itemImage", item.getItemImage());
+		model.addAttribute("itemDetails", itemDetails);
+
+		return "/masters/item_edit";
+	}
+
 	@PostMapping("/item/update")
-	public String ItemUpdate(@ModelAttribute("item") ItemDto itemDto, @RequestParam("itemPic") MultipartFile file,
-			Principal principal, BindingResult bindingResult) throws IOException {
+	public String ItemUpdate(@ModelAttribute("item") ItemDto itemDto, Principal principal) throws IOException {
 
 		Item item = masterService.findByItemId(itemDto.getItemId());
+		mapper.modelMapper().map(itemDto, item);
+
+		item.setBrandId(masterService.getByBrandName(itemDto.getBrandName()));
+		item.setCategoryId(masterService.getByCategoryName(itemDto.getCategoryName()));
+		item.setSupplierId(masterService.getBySupplierName(itemDto.getSupplierName()));
+		item.setPublisherId(masterService.getByPublisherName(itemDto.getPublisherName()));
+
+		masterService.updateItem(item);
+		return "redirect:/master/item/edit?id="+ itemDto.getItemId() + "&itemUpdated";
+	}
+	
+	@PostMapping("/item/image")
+	public String ItemImageUpdate(
+			@RequestParam("itemPic") MultipartFile file, @RequestParam Long itemIdForImage, BindingResult bindingResult,Principal principal) throws IOException {
+
+		Item item = masterService.findByItemId(itemIdForImage);
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		String companyName = company.getCompanyName();
-		String itemName = itemDto.getItemName();
+		String itemName = item.getItemName();
 
 		if (file.getOriginalFilename().equals("")) {
 
 			String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + ".jpg";
-			masterService.itemRename(itemDto.getItemName(), companyName, item, fileName);
+			masterService.itemRename(itemName, companyName, item, fileName);
 
 			item.setItemImage(fileName);
 			item.setItemName(itemName);
@@ -816,7 +898,7 @@ public class MasterController {
 
 			if (folder.delete()) {
 
-				String fileName = itemDto.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + ".jpg";
+				String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + ".jpg";
 				String uploadDir = "C:/Company/" + companyName + "/Items";
 				item.setItemImage(fileName);
 				item.setItemName(itemName);
@@ -824,15 +906,7 @@ public class MasterController {
 			}
 		}
 
-		mapper.modelMapper().map(itemDto, item);
-
-		item.setBrandId(masterService.getByBrandName(itemDto.getBrandName()));
-		item.setCategoryId(masterService.getByCategoryName(itemDto.getCategoryName()));
-		item.setSupplierId(masterService.getBySupplierName(itemDto.getSupplierName()));
-		item.setPublisherId(masterService.getByPublisherName(itemDto.getPublisherName()));
-
-		masterService.updateItem(item);
-		return "redirect:/master/item/list?itemUpdated";
+		return "redirect:/master/item/edit?id="+ item.getItemId() + "&itemImageUpdated";
 	}
 
 	@GetMapping("/item/delete")

@@ -170,50 +170,6 @@ $(document).ready(function() {
 		$('editPublisher').modal();
 	});
 
-	$('.table .view-item').on('click', function(event) {
-		event.preventDefault();
-		var href = $(this).attr('href');
-		$.get(href, function(item) {
-			$('#itemIdCopy').val(item.itemId);
-			$('#iItemNameCopy').val(item.itemName);
-			$('#iCategoryCopy').val(item.categoryName);
-			$('#iItemImageCopy').val(item.itemImage);
-			$('#iBrandCopy').val(item.brandName);
-			$('#iSupplierCopy').val(item.supplierName);
-			$('#iPublisherCopy').val(item.publisherName);
-			$('#iUnitOfMeasureCopy').val(item.unitOfMeasure);
-			$('#iCostPriceCopy').val(item.costPrice);
-			$('#iSellingPriceCopy').val(item.sellingPrice);
-			$('#iMrpPriceCopy').val(item.mrpPrice);
-			$('#iStatusCopy').val(item.itemStatus);
-			$('#iHsnCodeCopy').val(item.hsnCode);
-			$('#iDescriptionCopy').val(item.description);
-			$("#itemImg").attr("src", "/Company/" + item.companyName + "/Items/" + item.itemImage);
-		});
-		$('viewItem').modal();
-	});
-
-	$('.table .edit-item').on('click', function(event) {
-		event.preventDefault();
-		var href = $(this).attr('href');
-		$.get(href, function(item) {
-			$('#eItemIdCopy').val(item.itemId);
-			$('#eItemNameCopy').val(item.itemName);
-			$('#eCostPriceCopy').val(item.costPrice);
-			$('#eSellingPriceCopy').val(item.sellingPrice);
-			$('#eMrpPriceCopy').val(item.mrpPrice);
-			$('#eCategoryCopy').val(item.categoryName);
-			$('#eBrandCopy').val(item.brandName);
-			$('#eSupplierCopy').val(item.supplierName);
-			$('#ePublisherCopy').val(item.publisherName);
-			$('#eUnitOfMeasureCopy').val(item.unitOfMeasure);
-			$('#eStatusCopy').val(item.itemStatus);
-			$('#eHsnCodeCopy').val(item.hsnCode);
-			$('#eDescriptionCopy').val(item.description);
-		});
-		$('editItem').modal();
-	});
-
 	$('.table .edit-school').on('click', function(event) {
 		event.preventDefault();
 		var href = $(this).attr('href');

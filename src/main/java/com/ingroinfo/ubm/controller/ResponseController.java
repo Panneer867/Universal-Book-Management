@@ -1,6 +1,5 @@
 package com.ingroinfo.ubm.controller;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
@@ -30,7 +29,6 @@ import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Category;
-import com.ingroinfo.ubm.entity.Company;
 import com.ingroinfo.ubm.entity.Employee;
 import com.ingroinfo.ubm.entity.HsnCode;
 import com.ingroinfo.ubm.entity.Item;
@@ -175,45 +173,6 @@ public class ResponseController {
 	@RequestMapping("/publisher")
 	public BrandPublisher getPublisher(@RequestParam Long id) {
 		return brandPublisherRepository.findByPublisherId(id);
-	}
-
-	@ResponseBody
-	@RequestMapping("/item")
-	public ItemDto getItem(@RequestParam Long id, Principal principal) {
-
-		User user = userService.getUserId(principal.getName());
-		Company company = companyService.findByUser(user);
-		Branch branch = branchService.findByUserId(user);
-
-		String companyName = null;
-		if (company != null) {
-			companyName = company.getCompanyName();
-		} else if (branch != null) {
-			Company cmpy = branch.getCompany();
-			companyName = cmpy.getCompanyName();
-		}
-
-		Item item = itemRepository.findByItemId(id);
-		ItemDto itemDto = new ItemDto();
-
-		itemDto.setBrandName(masterService.getByBrandId(item.getBrandId()));
-		itemDto.setCategoryName(masterService.getByCategoryId(item.getCategoryId()));
-		itemDto.setDateCreated(item.getDateCreated());
-		itemDto.setHsnCode(masterService.getByHsnCodeId(item.getHsnCodeId()));
-		itemDto.setItemId(item.getItemId());
-		itemDto.setItemImage(item.getItemImage());
-		itemDto.setItemName(item.getItemName());
-		itemDto.setItemStatus(item.getItemStatus());
-		itemDto.setLastUpdated(item.getLastUpdated());
-		itemDto.setDescription(item.getDescription());
-		itemDto.setSupplierName(masterService.getBySupplierId(item.getSupplierId()));
-		itemDto.setUnitOfMeasure(item.getUnitOfMeasure());
-		itemDto.setCompanyName(companyName);
-		itemDto.setPublisherName(masterService.getByPublisherId(item.getPublisherId()));
-		itemDto.setCostPrice(item.getCostPrice());
-		itemDto.setSellingPrice(item.getSellingPrice());
-		itemDto.setMrpPrice(item.getMrpPrice());
-		return itemDto;
 	}
 
 	@ResponseBody

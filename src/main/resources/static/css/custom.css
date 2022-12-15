@@ -408,3 +408,17 @@ table.result-tbl tr:nth-child(3) {
 table.result-tbl tr td:first-child {
   width: 75%;
 }
+
+form.is-readonly .btn-save {
+  display: none;
+}
+form.is-readonly input[disabled], form.is-readonly textarea[disabled],form.is-readonly select[disabled] {
+  cursor: text;
+  background-color: #fff;
+  border-color: transparent;
+  outline-color: transparent;
+  box-shadow: none;
+}
+form.is-editing .btn-edit {
+  display: none;
+}
