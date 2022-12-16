@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
     <body>
         <section>
             <div class="page-header">
                 <ul class="breadcrumb px-0">
                     <li><a th:href="@{/master/measures}">Master</a></li>
                     <li><a th:href="@{/master/measures}">&nbsp;Unit of Measures</a></li>
-                    <li><a th:href="@{/master/measures/list}">&nbsp;Units List</a></li>
+                    <li><a  href="#" class="text-white">&nbsp;Units List</a></li>
                 </ul>
             </div>
             <div class="px-2">
@@ -85,7 +85,7 @@
                                     <input type="hidden" id="unitIdCopy" name="unitId" />
                                     <input type="text" class="form-control" list="unit" id="unitOfMeasureCopy" name="unitOfMeasure" data-error="Provide units!" maxlength="5" placeholder="Enter units" required />
                                     <datalist id="unit">
-                                    	<option value="g" />
+                                        <option value="g" />
                                         <option value="kg" />
                                         <option value="nos" />
                                         <option value="bag" />

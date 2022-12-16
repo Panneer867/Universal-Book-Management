@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
     <body>
         <section>
             <div class="page-header">
                 <ul class="breadcrumb px-0">
                     <li><a th:href="@{/master/brand/publisher}">Master</a></li>
                     <li><a th:href="@{/master/brand/publisher}">&nbsp;Brand Publisher</a></li>
-                    <li><a th:href="@{/master/brand/publisher/list}">&nbsp;Brand Publisher List</a></li>
+                    <li><a href="#" class="text-white">&nbsp;Brand Publisher List</a></li>
                 </ul>
             </div>
             <div class="px-2">
@@ -95,7 +95,7 @@
                                             <input type="hidden" id="publisherIdCopy" name="publisherId" />
                                             <select class="form-control" id="brandCopy" name="brand" data-error="Select a brand !" required>
                                                 <option value="" selected>select</option>
-                                                 <option value="No Brand" selected>No Brand</option>
+                                                <option value="No Brand" selected>No Brand</option>
                                                 <option th:each="brand : ${brands}" th:value="${brand.brandName}" th:utext="${brand.brandName}" />
                                             </select>
                                             <div class="help-block with-errors text-danger"></div>

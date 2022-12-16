@@ -9,4 +9,6 @@ public interface BundleRepository extends JpaRepository<Bundle, Long> {
 
 	Bundle findByBundleName(String bundleName);
 
+	Bundle findByBundleId(Long id);
+
 }

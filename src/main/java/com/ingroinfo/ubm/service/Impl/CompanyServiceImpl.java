@@ -54,17 +54,14 @@ public class CompanyServiceImpl implements CompanyService {
 	public void saveCompany(Company company) {
 
 		User user = userRepository.findByEmail(company.getEmail());
-
 		if (company.getEmail().equals(user.getEmail())) {
 			company.setUser(user);
 		}
-
 		companyRepository.save(company);
 	}
 
 	@Override
 	public Company findByUser(User user) {
-
 		return companyRepository.findByUser(user);
 	}
 
@@ -78,26 +75,22 @@ public class CompanyServiceImpl implements CompanyService {
 		user.setUsername(companyDto.getUsername());
 		user.setPassword(companyDto.getPassword());
 		user.setUserType("COMPANY OWNER");
-
 		userService.registerCompany(user);
 	}
 
 	@Override
 	public boolean companyExists() {
-
 		return companyRepository.findTopByOrderByCompanyIdDesc() != null;
 	}
 
 	@Override
 	public void editCompany(Company company) {
-
 		companyRepository.save(company);
 
 	}
 
 	@Override
 	public Company findByCompanyId(Long id) {
-
 		return companyRepository.findByCompanyId(id);
 	}
 
@@ -105,7 +98,6 @@ public class CompanyServiceImpl implements CompanyService {
 	public void saveOldData(Company company) {
 
 		CompanyModifiedData data = new CompanyModifiedData();
-
 		data.setAadhaar(company.getAadhaar());
 		data.setAccountNumber(company.getAccountNumber());
 		data.setAccountType(company.getAccountType());
@@ -158,7 +150,6 @@ public class CompanyServiceImpl implements CompanyService {
 		data.setOwnerAddress(company.getOwnerAddress());
 		data.setNoOfBranch(company.getNoOfBranch());
 		data.setMobile(company.getMobile());
-
 		companyOldRepository.save(data);
 	}
 

@@ -21,28 +21,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void saveEmployee(Employee employee) {
-
 		employeeRepository.save(employee);
 	}
 
 	@Override
 	public void deleteByEmployeeId(Long employeeId) {
-
 		employeeRepository.deleteById(employeeId);
 	}
 
 	@Override
 	public Employee findByCompanyId(Long id) {
-
 		return employeeRepository.findByCompanyId(id);
 	}
 
 	@Override
 	public List<EmployeeDto> getAllEmployees() {
 
-		List<Employee> employeeList = employeeRepository.findAll();
-
-		List<EmployeeDto> employeeDto = employeeList.stream().map((employee) -> {
+		List<EmployeeDto> employeeDto = employeeRepository.findAll().stream().map((employee) -> {
 			EmployeeDto newEmployee = new EmployeeDto();
 			newEmployee.setEmployeeId(employee.getEmployeeId());
 			newEmployee.setCompanyId(employee.getCompanyId());
@@ -54,16 +49,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 			newEmployee.setLastUpdated(userService.dateFormat(employee.getLastUpdated().toString()));
 			return newEmployee;
 		}).collect(Collectors.toList());
-
 		return employeeDto;
 	}
 
 	@Override
 	public boolean emailCheck(Employee employee) {
 
-		List<Employee> employeeList = employeeRepository.findAll();
-
-		List<Employee> filteredList = employeeList.stream()
+		List<Employee> filteredList = employeeRepository.findAll().stream()
 				.filter(x -> !employee.getEmployeeId().equals(x.getEmployeeId())).collect(Collectors.toList());
 
 		boolean isExists = filteredList.stream().filter(o -> o.getEmail().equals(employee.getEmail())).findFirst()
@@ -74,9 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public boolean mobileCheck(Employee employee) {
 
-		List<Employee> employeeList = employeeRepository.findAll();
-
-		List<Employee> filteredList = employeeList.stream()
+		List<Employee> filteredList = employeeRepository.findAll().stream()
 				.filter(x -> !employee.getEmployeeId().equals(x.getEmployeeId())).collect(Collectors.toList());
 
 		boolean isExists = filteredList.stream().filter(o -> o.getMobile().equals(employee.getMobile())).findFirst()
@@ -86,13 +76,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public boolean emailExists(EmployeeDto employeeDto) {
-
 		return employeeRepository.findByEmail(employeeDto.getEmail()) != null;
 	}
 
 	@Override
 	public boolean mobileExists(EmployeeDto employeeDto) {
-
 		return employeeRepository.findByMobile(employeeDto.getMobile()) != null;
 	}
 

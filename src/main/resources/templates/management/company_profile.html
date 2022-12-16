@@ -1,17 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
     <body>
         <section>
-            <div class="page-header">
+            <div class="page-header my-3 pb-2">
                 <h3 class="page-title">
                     Company Profile
-                </h3>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Profile</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Company</li>
-                    </ol>
-                </nav>
+                </h3>              
             </div>
             <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.emailAlreadyExists}">[[${emailExists}]]</div>
             <div class="alert alert-danger text-center mb-1 py-2" role="alert" th:if="${param.mobileAlreadyExists}">[[${mobileExists}]]</div>

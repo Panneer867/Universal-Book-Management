@@ -1,197 +1,197 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
-   <body>
-      <section>
-         <div class="page-header">
-            <h3 class="page-title">
-               Cash Counter
-            </h3>
-            <nav aria-label="breadcrumb">
-               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Cash Counter</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Masters</li>
-               </ol>
-            </nav>
-         </div>
-         <div class="row d-flex justify-content-center pt-3">
-            <div class="col-10">
-               <div class="card">
-                  <div class="card-body">
-                     <h4 class="card-title text-center">Cash Counter</h4>
-                     <hr class="pb-3">
-                     <form class="forms-sample">
-                        <div class="row">
-                           <div class="col-6">
-                              <div class="form-group row">
-                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Opening Balance</label>
-                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control col-sm-10" id="exampleInputMobile">
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-6">
-                              <button type="submit" class="btn btn-sm btn-primary mr-2">SET</button>
-                              <button class="btn btn-sm btn-warning">Petty Cash</button>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-6">
-                              <div class="form-group row">
-                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Cash</label>
-                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control col-sm-10" id="exampleInputMobile">
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-6">
-                              <div class="form-group row">
-                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">UPI</label>
-                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control col-sm-10" id="exampleInputMobile">
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-6">
-                              <div class="form-group row">
-                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Bank</label>
-                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control col-sm-10" id="exampleInputMobile">
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-6">
-                              <div class="form-group row">
-                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Closing Balance</label>
-                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control col-sm-10" id="exampleInputMobile">
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </form>
-                     <div class="table-responsive">
-                        <hr class="m-0 p-0">
-                        <table class="table table-bordered">
-                           <thead>
-                              <tr>
-                                 <th>
-                                    Date
-                                 </th>
-                                 <th>
-                                    Opening Balance
-                                 </th>
-                                 <th>
-                                    Cash
-                                 </th>
-                                 <th>
-                                    UPI
-                                 </th>
-                                 <th>
-                                    Bank
-                                 </th>
-                                 <th>
-                                    Closing Balance
-                                 </th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>
-                                    May 15, 2015
-                                 </td>
-                                 <td>
-                                    $ 7232.99
-                                 </td>
-                                 <td>
-                                    <div class="progress">
-                                       <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    Herman@upi
-                                 </td>
-                                 <td>
-                                    Herman Beck
-                                 </td>
-                                 <td>
-                                    $ 77.99
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>
-                                    May 15, 2015
-                                 </td>
-                                 <td>
-                                    $ 7232.99
-                                 </td>
-                                 <td>
-                                    <div class="progress">
-                                       <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    Herman@upi
-                                 </td>
-                                 <td>
-                                    Herman Beck
-                                 </td>
-                                 <td>
-                                    $ 77.99
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>
-                                    May 15, 2015
-                                 </td>
-                                 <td>
-                                    $ 7232.99
-                                 </td>
-                                 <td>
-                                    <div class="progress">
-                                       <div class="progress-bar bg-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    Herman@upi
-                                 </td>
-                                 <td>
-                                    Herman Beck
-                                 </td>
-                                 <td>
-                                    $ 77.99
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>
-                                    May 15, 2015
-                                 </td>
-                                 <td>
-                                    $ 7232.99
-                                 </td>
-                                 <td>
-                                    <div class="progress">
-                                       <div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    Herman@upi
-                                 </td>
-                                 <td>
-                                    Herman Beck
-                                 </td>
-                                 <td>
-                                    $ 77.99
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                  </div>
-               </div>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+    <body>
+        <section>
+            <div class="page-header">
+                <h3 class="page-title">
+                    Cash Counter
+                </h3>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Cash Counter</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Masters</li>
+                    </ol>
+                </nav>
             </div>
-         </div>
-      </section>
-   </body>
+            <div class="row d-flex justify-content-center pt-3">
+                <div class="col-10">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Cash Counter</h4>
+                            <hr class="pb-3" />
+                            <form class="forms-sample">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label for="exampleInputMobile" class="col-sm-4 col-form-label">Opening Balance</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control col-sm-10" id="exampleInputMobile" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-sm btn-primary mr-2">SET</button>
+                                        <button class="btn btn-sm btn-warning">Petty Cash</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label for="exampleInputMobile" class="col-sm-4 col-form-label">Cash</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control col-sm-10" id="exampleInputMobile" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label for="exampleInputMobile" class="col-sm-4 col-form-label">UPI</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control col-sm-10" id="exampleInputMobile" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label for="exampleInputMobile" class="col-sm-4 col-form-label">Bank</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control col-sm-10" id="exampleInputMobile" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label for="exampleInputMobile" class="col-sm-4 col-form-label">Closing Balance</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control col-sm-10" id="exampleInputMobile" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="table-responsive">
+                                <hr class="m-0 p-0" />
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Date
+                                            </th>
+                                            <th>
+                                                Opening Balance
+                                            </th>
+                                            <th>
+                                                Cash
+                                            </th>
+                                            <th>
+                                                UPI
+                                            </th>
+                                            <th>
+                                                Bank
+                                            </th>
+                                            <th>
+                                                Closing Balance
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                May 15, 2015
+                                            </td>
+                                            <td>
+                                                $ 7232.99
+                                            </td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                Herman@upi
+                                            </td>
+                                            <td>
+                                                Herman Beck
+                                            </td>
+                                            <td>
+                                                $ 77.99
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                May 15, 2015
+                                            </td>
+                                            <td>
+                                                $ 7232.99
+                                            </td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                Herman@upi
+                                            </td>
+                                            <td>
+                                                Herman Beck
+                                            </td>
+                                            <td>
+                                                $ 77.99
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                May 15, 2015
+                                            </td>
+                                            <td>
+                                                $ 7232.99
+                                            </td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                Herman@upi
+                                            </td>
+                                            <td>
+                                                Herman Beck
+                                            </td>
+                                            <td>
+                                                $ 77.99
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                May 15, 2015
+                                            </td>
+                                            <td>
+                                                $ 7232.99
+                                            </td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                Herman@upi
+                                            </td>
+                                            <td>
+                                                Herman Beck
+                                            </td>
+                                            <td>
+                                                $ 77.99
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
 </html>

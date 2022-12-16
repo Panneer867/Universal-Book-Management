@@ -29,6 +29,7 @@ import com.ingroinfo.ubm.entity.Branch;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Bundle;
+import com.ingroinfo.ubm.entity.BundleItem;
 import com.ingroinfo.ubm.entity.TempBundleItem;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.Company;
@@ -265,7 +266,6 @@ public class MasterController {
 		Category category = masterService.findByCategoryId(Long.parseLong(categoryId));
 
 		if (masterService.categoryNameCheck(Long.parseLong(categoryId), categoryName)) {
-
 			return "redirect:/master/category/list?categoryAlreadyExists";
 		}
 		category.setCategoryName(categoryName);
@@ -342,7 +342,6 @@ public class MasterController {
 			return "redirect:/master/measures?unitAlreadyExists";
 		}
 		masterService.saveUnitOfMeasure(unitOfMeasure, description);
-
 		return "redirect:/master/measures?unitAdded";
 	}
 
@@ -359,13 +358,11 @@ public class MasterController {
 		unit.setUnitOfMeasure(unitOfMeasure);
 		unit.setDescription(description);
 		masterService.updateUnitOfMeasure(unit);
-
 		return "redirect:/master/measures/list?unitUpdated";
 	}
 
 	@GetMapping("/measures/delete")
 	public String deleteUnit(@RequestParam Long unitId) {
-
 		masterService.deleteByUnitId(unitId);
 		return "redirect:/master/measures/list?unitDeleted";
 	}
@@ -392,7 +389,6 @@ public class MasterController {
 			model.addAttribute("companyNameData", cmpy.getCompanyName());
 			model.addAttribute("branchProfile", "enableBranch");
 		}
-
 		model.addAttribute("categories", masterService.getAllCategories());
 		return "/masters/hsn";
 	}
@@ -437,7 +433,6 @@ public class MasterController {
 
 		model.addAttribute("hsnLists", hsnLists);
 		model.addAttribute("categories", masterService.getAllCategories());
-
 		return "/masters/hsn_list";
 	}
 
@@ -455,7 +450,6 @@ public class MasterController {
 		HsnCode hsn = new HsnCode();
 		hsn.setCategory(masterService.findByCategoryName(categoryName));
 		hsn.setHsnCode(hsnCode);
-
 		masterService.saveHsnCode(hsn);
 		return "redirect:/master/hsn?hsnAdded";
 	}
@@ -525,7 +519,6 @@ public class MasterController {
 		}
 
 		Supplier supplier = modelMapper.map(supplierDto, Supplier.class);
-
 		masterService.saveSupplier(supplier);
 		return "redirect:/master/supplier?supplierAdded";
 	}
@@ -562,7 +555,6 @@ public class MasterController {
 		model.addAttribute("supplierLists", supplierList);
 		model.addAttribute("stateList", userService.getAllStates());
 		model.addAttribute("bankList", userService.getAllBanks());
-
 		return "/masters/supplier_list";
 	}
 
@@ -581,7 +573,6 @@ public class MasterController {
 
 		mapper.modelMapper().map(supplierDto, supplier);
 		masterService.updateSupplier(supplier);
-
 		return "redirect:/master/supplier/list?supplierUpdated";
 	}
 
@@ -622,7 +613,6 @@ public class MasterController {
 		model.addAttribute("brands", masterService.getAllBrands());
 		model.addAttribute("categories", masterService.getAllCategories());
 		model.addAttribute("suppliers", masterService.getAllSuppliers());
-
 		return "/masters/brand_publisher";
 	}
 
@@ -630,7 +620,6 @@ public class MasterController {
 	public String brandPublisherAdd(@ModelAttribute("publisher") BrandPublisherDto brandPublisherDto) {
 
 		BrandPublisher brandPublisher = modelMapper.map(brandPublisherDto, BrandPublisher.class);
-
 		masterService.saveBrandPublisher(brandPublisher);
 		return "redirect:/master/brand/publisher?brandPublisherAdded";
 	}
@@ -668,7 +657,6 @@ public class MasterController {
 		model.addAttribute("brands", masterService.getAllBrands());
 		model.addAttribute("categories", masterService.getAllCategories());
 		model.addAttribute("suppliers", masterService.getAllSuppliers());
-
 		return "/masters/brand_publisher_list";
 	}
 
@@ -679,7 +667,6 @@ public class MasterController {
 
 		mapper.modelMapper().map(brandPublisherDto, brandPublisher);
 		masterService.updateBrandPublisher(brandPublisher);
-
 		return "redirect:/master/brand/publisher/list?brandPublisherUpdated";
 	}
 
@@ -722,7 +709,6 @@ public class MasterController {
 		model.addAttribute("suppliers", masterService.getAllSuppliers());
 		model.addAttribute("publishers", masterService.getAllBrandPublishers());
 		model.addAttribute("units", masterService.getAllUnits());
-
 		return "/masters/item";
 	}
 
@@ -754,7 +740,6 @@ public class MasterController {
 		}
 
 		masterService.saveItem(item);
-
 		return "redirect:/master/item?itemAdded";
 	}
 
@@ -835,6 +820,7 @@ public class MasterController {
 		itemDetails.setMrpPrice(item.getMrpPrice());
 		model.addAttribute("itemDetails", itemDetails);
 		model.addAttribute("itemImage", item.getItemImage());
+
 		return "/masters/item_view";
 	}
 
@@ -891,7 +877,6 @@ public class MasterController {
 		itemDetails.setCostPrice(item.getCostPrice());
 		itemDetails.setSellingPrice(item.getSellingPrice());
 		itemDetails.setMrpPrice(item.getMrpPrice());
-
 		model.addAttribute("itemImage", item.getItemImage());
 		model.addAttribute("itemDetails", itemDetails);
 
@@ -908,7 +893,6 @@ public class MasterController {
 		item.setCategoryId(masterService.getByCategoryName(itemDto.getCategoryName()));
 		item.setSupplierId(masterService.getBySupplierName(itemDto.getSupplierName()));
 		item.setPublisherId(masterService.getByPublisherName(itemDto.getPublisherName()));
-
 		masterService.updateItem(item);
 		return "redirect:/master/item/edit?id=" + itemDto.getItemId() + "&itemUpdated";
 	}
@@ -939,7 +923,6 @@ public class MasterController {
 	@GetMapping("/item/delete")
 	public String deleteItem(@RequestParam Long itemId) {
 		masterService.deleteByItemId(itemId);
-
 		return "redirect:/master/item/list?itemDeleted";
 	}
 
@@ -1072,6 +1055,7 @@ public class MasterController {
 		if (masterService.bundleNameExists(bundleDto.getBundleName())) {
 			return "redirect:/master/bundle?bundleNameAlreadyExists";
 		}
+
 		Bundle bundle = modelMapper.map(bundleDto, Bundle.class);
 		bundle.setGstPercent(18);
 		masterService.saveBundle(bundle);
@@ -1083,5 +1067,71 @@ public class MasterController {
 
 		tempBundleRepository.deleteAll();
 		return "redirect:/master/bundle";
+	}
+
+	@GetMapping("/bundle/list")
+	public String listBundle(Model model, Principal principal) {
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+		model.addAttribute("bundles", masterService.getAllBundles());
+		return "/masters/bundle_list";
+	}
+
+	@GetMapping("/bundle/view")
+	public String viewBundle(@RequestParam Long id, Model model, Principal principal) {
+
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		List<BundleItem> bundleItem = masterService.getAllBundleItems().stream().filter(x -> id.equals(x.getBundleId()))
+				.collect(Collectors.toList());
+
+		model.addAttribute("bundleItems", bundleItem);
+		Bundle bundle = masterService.findByBundleId(id);
+		School school = masterService.findBySchoolId(bundle.getSchoolId());
+		model.addAttribute("bundleDetails", bundle);
+		model.addAttribute("schoolDetails", school);
+
+		return "/masters/bundle_view";
+	}
+
+	@GetMapping("/bundle/delete")
+	public String deleteBundle(@RequestParam Long bundleId) {
+
+		masterService.deleteByBundleId(bundleId);
+		return "redirect:/master/bundle/list?bundleDeleted";
 	}
 }

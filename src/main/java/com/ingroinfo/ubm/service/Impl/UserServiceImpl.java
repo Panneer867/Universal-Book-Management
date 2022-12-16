@@ -86,13 +86,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean userNameExists(String username) {
-
 		return userRepository.findByUsername(username) != null;
 	}
 
 	@Override
 	public User getUserId(String username) {
-
 		return userRepository.findByUsername(username);
 	}
 
@@ -114,14 +112,11 @@ public class UserServiceImpl implements UserService {
 	public State findById(String name) {
 
 		State state = stateRepository.findByName(name);
-
 		return state;
 	}
 
 	@Override
 	public void saveUser(UserDto userDto) {
-
-		userDto.getRole();
 
 		long branchId = Long.parseLong(userDto.getBranch());
 		Branch branch = branchRepository.findByBranchId(branchId);
@@ -150,19 +145,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean emailExists(UserDto userDto) {
-
 		return userRepository.findByEmail(userDto.getEmail()) != null;
 	}
 
 	@Override
 	public boolean mobileExists(UserDto userDto) {
-
 		return userRepository.findByMobile(userDto.getMobile()) != null;
 	}
 
 	@Override
 	public boolean usernameExists(UserDto userDto) {
-
 		return userRepository.findByUsername(userDto.getUsername()) != null;
 	}
 
@@ -194,7 +186,6 @@ public class UserServiceImpl implements UserService {
 
 		Optional<User> userDetails = userRepository.findById(user.getUserId());
 		User userDetail = userDetails.get();
-
 		boolean name = userDetail.getFirstName().equalsIgnoreCase(user.getFirstName());
 		boolean email = userDetail.getEmail().equalsIgnoreCase(user.getEmail());
 		boolean mobile = userDetail.getMobile().equalsIgnoreCase(user.getMobile());
@@ -209,16 +200,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteByUserId(Long id) {
-
 		userRepository.deleteById(id);
 	}
 
 	@Override
 	public List<UserDto> getAllUsers() {
 
-		List<User> users = userRepository.findAll();
-
-		List<UserDto> userDto = users.stream().map((user) -> {
+		List<UserDto> userDto = userRepository.findAll().stream().map((user) -> {
 			UserDto newUser = new UserDto();
 			newUser.setDateCreated(dateFormat(user.getDateCreated().toString()));
 			newUser.setEmail(user.getEmail());
@@ -242,10 +230,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean emailCheck(User user) {
-		List<User> userList = userRepository.findAll();
 
-		List<User> filteredList = userList.stream().filter(x -> !user.getUsername().equals(x.getUsername()))
-				.collect(Collectors.toList());
+		List<User> filteredList = userRepository.findAll().stream()
+				.filter(x -> !user.getUsername().equals(x.getUsername())).collect(Collectors.toList());
 
 		boolean isExists = filteredList.stream().filter(o -> o.getEmail().equals(user.getEmail())).findFirst()
 				.isPresent();
@@ -254,10 +241,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean mobileCheck(User user) {
-		List<User> userList = userRepository.findAll();
 
-		List<User> filteredList = userList.stream().filter(x -> !user.getUsername().equals(x.getUsername()))
-				.collect(Collectors.toList());
+		List<User> filteredList = userRepository.findAll().stream()
+				.filter(x -> !user.getUsername().equals(x.getUsername())).collect(Collectors.toList());
 
 		boolean isExists = filteredList.stream().filter(o -> o.getMobile().equals(user.getMobile())).findFirst()
 				.isPresent();
@@ -266,7 +252,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findUserByEmail(String userEmail) {
-
 		return userRepository.findByEmail(userEmail);
 	}
 
@@ -279,8 +264,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String validatePasswordResetToken(String token) {
-		final PasswordResetToken passToken = passwordTokenRepository.findByToken(token);
 
+		final PasswordResetToken passToken = passwordTokenRepository.findByToken(token);
 		return !isTokenFound(passToken) ? "invalidToken" : isTokenExpired(passToken) ? "expired" : null;
 	}
 
@@ -289,6 +274,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private boolean isTokenExpired(PasswordResetToken passToken) {
+
 		final Calendar cal = Calendar.getInstance();
 		return passToken.getExpiryDate().before(cal.getTime());
 	}
@@ -300,6 +286,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void changeUserPassword(User user, String password) {
+
 		user.setPassword(passwordEncoder.encode(password));
 		userRepository.save(user);
 	}

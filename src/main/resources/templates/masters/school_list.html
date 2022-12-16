@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
     <body>
         <section>
             <div class="page-header">
                 <ul class="breadcrumb px-0">
                     <li><a th:href="@{/master/school}">Master</a></li>
                     <li><a th:href="@{/master/school}">&nbsp;School Master</a></li>
-                    <li><a th:href="@{/master/school/list}">&nbsp;School List</a></li>
+                    <li><a href="#" class="text-white">&nbsp;School List</a></li>
                 </ul>
             </div>
             <div class="px-2">
@@ -82,7 +82,9 @@
                                             <td>
                                                 <a th:href="@{/get/school/(id=${schoolList.schoolId})}" class="btn btn-success p-1 view-school" data-toggle="modal" data-target="#viewSchool"><i class="glyphicon glyphicon-eye-open"></i></a>
                                                 <a th:href="@{/get/school/(id=${schoolList.schoolId})}" class="btn btn-info p-1 mx-2 edit-school" data-toggle="modal" data-target="#editSchool"><i class="glyphicon glyphicon-edit"></i></a>
-                                                <a th:href="@{/master/school/delete(schoolId=${schoolList.schoolId})}" class="btn btn-danger p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal"><i class="glyphicon glyphicon-trash"></i></a>
+                                                <a th:href="@{/master/school/delete(schoolId=${schoolList.schoolId})}" class="btn btn-danger p-1" id="deleteButton" data-toggle="modal" data-target="#deleteModal">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     </tbody>

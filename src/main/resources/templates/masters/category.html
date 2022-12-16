@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http:https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="base::layout(~{::section})">
     <body>
         <section>
             <div class="row">
@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-2 side-menu-size">
                     <div class="container p-0 mx-0">
-                         <div class="bar opened dark">
+                        <div class="bar opened dark">
                             <div class="icon" onclick="window.location='/master/brand'" th:classappend="${#httpServletRequest.getRequestURI() == '/master/brand' ? 'active':''}">
                                 <span class="text">Brand Master</span>
                             </div>

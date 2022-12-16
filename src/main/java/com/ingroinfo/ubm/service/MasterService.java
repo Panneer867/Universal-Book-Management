@@ -8,6 +8,7 @@ import com.ingroinfo.ubm.dto.SupplierDto;
 import com.ingroinfo.ubm.entity.Brand;
 import com.ingroinfo.ubm.entity.BrandPublisher;
 import com.ingroinfo.ubm.entity.Bundle;
+import com.ingroinfo.ubm.entity.BundleItem;
 import com.ingroinfo.ubm.entity.TempBundleItem;
 import com.ingroinfo.ubm.entity.Category;
 import com.ingroinfo.ubm.entity.HsnCode;
@@ -183,5 +184,13 @@ public interface MasterService {
 	void saveBundle(Bundle bundle);
 
 	boolean bundleNameExists(String bundleName);
+
+	List<Bundle> getAllBundles();
+
+	List<BundleItem> getAllBundleItems();
+
+	Bundle findByBundleId(Long id);
+
+	void deleteByBundleId(Long bundleId);
 
 }

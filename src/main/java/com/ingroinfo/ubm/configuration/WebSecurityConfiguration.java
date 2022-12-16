@@ -31,6 +31,7 @@ public class WebSecurityConfiguration {
 
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
+		
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setUserDetailsService(userDetailsService());
 		authProvider.setPasswordEncoder(passwordEncoder());
@@ -47,7 +48,7 @@ public class WebSecurityConfiguration {
 		http.csrf().disable().authorizeRequests()
 				// .antMatchers("/master/company/**","/master/branch","/master/branch/management","/master/employee/**").hasRole("ADMIN")
 				// .antMatchers("/master/user/**","/master/branch/profile","/master/branch/userDetails").hasAnyAuthority("BRANCH_PRIVILEGE")
-				.antMatchers("/login", "/company/register", "/get/**","/post/**", "/denied/", "/reset/**", "/error").permitAll()
+				.antMatchers("/login", "/company/register", "/get/**", "/post/**", "/denied/", "/reset/**", "/error").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
@@ -62,7 +63,6 @@ public class WebSecurityConfiguration {
 				.exceptionHandling()
 				.accessDeniedPage("/access-denied");
 		http.headers().frameOptions().sameOrigin();
-
 		return http.build();
 	}
 
@@ -73,6 +73,7 @@ public class WebSecurityConfiguration {
 
 	@Bean
 	public RoleHierarchy roleHierarchy() {
+		
 		RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
 		String hierarchy = "ROLE_ADMIN > ROLE_BRANCH \n ROLE_BRANCH > ROLE_USER";
 		roleHierarchy.setHierarchy(hierarchy);

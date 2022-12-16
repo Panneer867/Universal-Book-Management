@@ -113,10 +113,11 @@ public class BranchController {
 		if (branchService.branchAllowed(company)) {
 			branchService.saveBranch(branch);
 			branchService.userDetails(user);
+
 		} else {
+
 			return "redirect:/branch?notAllowed";
 		}
-
 		return "redirect:/branch?success";
 	}
 
@@ -285,14 +286,12 @@ public class BranchController {
 				user.setPassword(this.passwordEncoder.encode(branchDto.getNewPassword()));
 				userRepository.save(user);
 			}
-
 			return "redirect:?userDetailsChanged";
 
 		} else {
 
 			return "redirect:/branch/profile?wrongPassword";
 		}
-
 	}
 
 	@GetMapping("/delete")

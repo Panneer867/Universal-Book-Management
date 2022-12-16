@@ -8,5 +8,6 @@ import com.ingroinfo.ubm.entity.TempBundleItem;
 public interface TempBundleRepository extends JpaRepository<TempBundleItem, Long> {
 
 	TempBundleItem findByItemId(Long itemId);
+
 	TempBundleItem findByItemName(String itemName);
 }

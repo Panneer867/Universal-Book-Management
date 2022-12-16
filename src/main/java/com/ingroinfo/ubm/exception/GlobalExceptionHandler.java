@@ -16,7 +16,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 		redirectAttributes.addFlashAttribute("message", e.getCause().getMessage());
 		return "redirect:/master/company";
-
 	}
 
 	// CommonsMultipartResolver
@@ -25,7 +24,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 		redirectAttributes.addFlashAttribute("message", e.getCause().getMessage());
 		return "redirect:/master/company";
-
 	}
 
 }

@@ -14,7 +14,6 @@ public class MvcConfig implements WebMvcConfigurer {
 
 		Path uploadDir = Paths.get("C:/Company");
 		String uploadPath = uploadDir.toFile().getAbsolutePath();
-
 		registry.addResourceHandler("/Company/**").addResourceLocations("file:/" + uploadPath + "/");
 	}
 

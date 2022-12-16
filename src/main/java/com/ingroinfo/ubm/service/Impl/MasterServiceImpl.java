@@ -93,9 +93,10 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public boolean unitOfMeasureCheck(Long unitId, String unitOfMeasure) {
-		List<UnitOfMeasures> unitList = unitsRepository.findAll();
-		List<UnitOfMeasures> filteredList = unitList.stream().filter(x -> !unitId.equals(x.getUnitId()))
-				.collect(Collectors.toList());
+
+		List<UnitOfMeasures> filteredList = unitsRepository.findAll().stream()
+				.filter(x -> !unitId.equals(x.getUnitId())).collect(Collectors.toList());
+
 		boolean isExists = filteredList.stream().filter(o -> o.getUnitOfMeasure().equals(unitOfMeasure)).findFirst()
 				.isPresent();
 		return isExists;
@@ -147,9 +148,10 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public boolean brandNameCheck(Long brandId, String brandName) {
-		List<Brand> brandList = brandRepository.findAll();
-		List<Brand> filteredList = brandList.stream().filter(x -> !brandId.equals(x.getBrandId()))
+
+		List<Brand> filteredList = brandRepository.findAll().stream().filter(x -> !brandId.equals(x.getBrandId()))
 				.collect(Collectors.toList());
+
 		boolean isExists = filteredList.stream().filter(o -> o.getBrandName().equals(brandName)).findFirst()
 				.isPresent();
 		return isExists;
@@ -182,9 +184,10 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public boolean categoryNameCheck(Long categoryId, String categoryName) {
-		List<Category> categoryList = categoryRepository.findAll();
-		List<Category> filteredList = categoryList.stream().filter(x -> !categoryId.equals(x.getCategoryId()))
-				.collect(Collectors.toList());
+
+		List<Category> filteredList = categoryRepository.findAll().stream()
+				.filter(x -> !categoryId.equals(x.getCategoryId())).collect(Collectors.toList());
+
 		boolean isExists = filteredList.stream().filter(o -> o.getCategoryName().equals(categoryName)).findFirst()
 				.isPresent();
 		return isExists;
@@ -232,8 +235,8 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public boolean hsnCodeCheck(Long hsnId, Long hsnCode) {
-		List<HsnCode> hsnList = hsnCodeRepository.findAll();
-		List<HsnCode> filteredList = hsnList.stream().filter(x -> !hsnId.equals(x.getHsnId()))
+
+		List<HsnCode> filteredList = hsnCodeRepository.findAll().stream().filter(x -> !hsnId.equals(x.getHsnId()))
 				.collect(Collectors.toList());
 		boolean isExists = filteredList.stream().filter(o -> o.getHsnCode().equals(hsnCode)).findFirst().isPresent();
 		return isExists;
@@ -301,9 +304,10 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public boolean emailCheck(SupplierDto supplierDto) {
-		List<Supplier> supplierList = supplierRepository.findAll();
-		List<Supplier> filteredList = supplierList.stream()
+
+		List<Supplier> filteredList = supplierRepository.findAll().stream()
 				.filter(x -> !supplierDto.getSupplierId().equals(x.getSupplierId())).collect(Collectors.toList());
+
 		boolean isExists = filteredList.stream().filter(o -> o.getEmail().equals(supplierDto.getEmail())).findFirst()
 				.isPresent();
 		return isExists;
@@ -311,9 +315,10 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public boolean contactNoCheck(SupplierDto supplierDto) {
-		List<Supplier> supplierList = supplierRepository.findAll();
-		List<Supplier> filteredList = supplierList.stream()
+
+		List<Supplier> filteredList = supplierRepository.findAll().stream()
 				.filter(x -> !supplierDto.getSupplierId().equals(x.getSupplierId())).collect(Collectors.toList());
+
 		boolean isExists = filteredList.stream().filter(o -> o.getMobile().equals(supplierDto.getMobile())).findFirst()
 				.isPresent();
 		return isExists;
@@ -405,9 +410,10 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public boolean schoolNameCheck(SchoolDto schoolDto) {
-		List<School> schoolList = schoolRepository.findAll();
-		List<School> filteredList = schoolList.stream().filter(x -> !schoolDto.getSchoolId().equals(x.getSchoolId()))
-				.collect(Collectors.toList());
+
+		List<School> filteredList = schoolRepository.findAll().stream()
+				.filter(x -> !schoolDto.getSchoolId().equals(x.getSchoolId())).collect(Collectors.toList());
+
 		boolean isExists = filteredList.stream().filter(o -> o.getSchoolName().equals(schoolDto.getSchoolName()))
 				.findFirst().isPresent();
 		return isExists;
@@ -415,9 +421,10 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public boolean schoolEmailCheck(SchoolDto schoolDto) {
-		List<School> schoolList = schoolRepository.findAll();
-		List<School> filteredList = schoolList.stream().filter(x -> !schoolDto.getSchoolId().equals(x.getSchoolId()))
-				.collect(Collectors.toList());
+
+		List<School> filteredList = schoolRepository.findAll().stream()
+				.filter(x -> !schoolDto.getSchoolId().equals(x.getSchoolId())).collect(Collectors.toList());
+
 		boolean isExists = filteredList.stream().filter(o -> o.getEmail().equals(schoolDto.getEmail())).findFirst()
 				.isPresent();
 		return isExists;
@@ -440,6 +447,7 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public Long findByCategoryIdOfHsnCodeId(Long categoryId) {
+
 		Category category = findByCategoryId(categoryId);
 		HsnCode hsnCode = hsnCodeRepository.findByCategory(category);
 		return hsnCode.getHsnId();
@@ -447,6 +455,7 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public String getByBrandId(Long brandId) {
+
 		String brandName = "NA";
 		Brand brand = brandRepository.findByBrandId(brandId);
 		if (brand != null) {
@@ -457,6 +466,7 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public String getByCategoryId(Long categoryId) {
+
 		String categoryName = "NA";
 		Category category = categoryRepository.findByCategoryId(categoryId);
 		if (category != null) {
@@ -467,6 +477,7 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public Long getByHsnCodeId(Long hsnCodeId) {
+
 		Long hsnCode = null;
 		HsnCode hsn = hsnCodeRepository.findByHsnId(hsnCodeId);
 		if (hsn != null) {
@@ -477,6 +488,7 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public String getBySupplierId(Long supplierId) {
+
 		String supplierName = "NA";
 		Supplier supplier = supplierRepository.findBySupplierId(supplierId);
 		if (supplier != null) {
@@ -487,6 +499,7 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public String getByPublisherId(Long publisherId) {
+
 		String publisherName = "NA";
 		BrandPublisher publisher = brandPublisherRepository.findByPublisherId(publisherId);
 		if (publisher != null) {
@@ -547,6 +560,7 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public List<ItemDto> getItemList() {
+
 		List<ItemDto> itemLists = getAllItems().stream().map(temp -> {
 			ItemDto obj = new ItemDto();
 			obj.setBrandName(getByBrandId(temp.getBrandId()));
@@ -577,6 +591,7 @@ public class MasterServiceImpl implements MasterService {
 
 	@Override
 	public void saveBundle(Bundle bundle) {
+
 		bundleRepository.save(bundle);
 		Bundle bundleData = bundleRepository.findByBundleName(bundle.getBundleName());
 		List<TempBundleItem> allData = tempBundleRepository.findAll();
@@ -597,5 +612,27 @@ public class MasterServiceImpl implements MasterService {
 	@Override
 	public boolean bundleNameExists(String bundleName) {
 		return bundleRepository.findByBundleName(bundleName) != null;
+	}
+
+	@Override
+	public List<Bundle> getAllBundles() {
+		return bundleRepository.findAll();
+
+	}
+
+	@Override
+	public List<BundleItem> getAllBundleItems() {
+		return bundleItemRepository.findAll();
+	}
+
+	@Override
+	public Bundle findByBundleId(Long id) {
+		return bundleRepository.findByBundleId(id);
+	}
+
+	@Override
+	public void deleteByBundleId(Long bundleId) {
+		bundleItemRepository.deleteByBundleId(bundleId);
+		bundleRepository.deleteById(bundleId);
 	}
 }
