@@ -452,9 +452,8 @@ INSERT INTO `master_item` VALUES (120, 1, 1, '934', '2022-12-07 16:35:14.233000'
 
 INSERT INTO `company` VALUES (1001, '875465498526', '9895654624612546546', 'Savings account', '9554845645', 'Amruthnagar', 'BANGALORE', 'Bandhan Bank Ltd', '565656', 'KARNATAKA', 'Panneer', '(B+)', 'Sole Proprietorships', 'Amruthnagar', 'BANGALORE', 'logo.png', 'Ingroinfo', 'C:/Company/Ingroinfo/', '560092', 'KARNATAKA', '2022-11-24 16:06:01.855000', '1999-08-24', '2022-11-24', 'KHH86786', 'panneer.ingroinfo@gmail.com', 'on', 'on', '2022-11-24', 'Kuppan', 'HJGJ67857', 'Panneer', 'Male', 'UIHU767HHJG7866', 'IBHNU67575', 'Selvam', '2022-11-24 16:06:01.855000', '9500931156', '2', 'Amruthnagar', 'BANGALORE', 'panneer867@gmail.com', '569987', 'KARNATAKA', 'VGYHVG76722', 'bangalore', 'Panneer.jpg', 'UG', 'Stationery', 'Panneer', '9544587888', 'http://ingroinfo.com', '2022-11-24', 1);
 
-INSERT INTO `user_management` VALUES (1, NULL, '2022-11-24 16:06:01.624000', 'panneer.ingroinfo@gmail.com', 'Panneer', '2022-11-24 16:06:01.624000', '9500931156', '$2a$10$8wi5Rv1axmlEoqFj419NLufJSll7nuhsB.DoHzmPVF90MNZYRK2YS', 'COMPANY OWNER', 'Panneer867');
+INSERT INTO `user_management` VALUES (1, NULL, '2022-11-24 16:06:01.624000', 'panneer.ingroinfo@gmail.com', 'Admin', '2022-11-24 16:06:01.624000', '9500931156', '$2a$10$6QeWE0QlpomY6uQtvDN0SOd4ga65FGgINlkSeV0m4a1gRc8IuUTbS', 'COMPANY OWNER', 'Panneer867');
 
 INSERT INTO `users_roles` VALUES (1, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
-
