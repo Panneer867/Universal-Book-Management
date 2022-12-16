@@ -24,7 +24,125 @@
                     <div class="col-5"></div>
                 </div>
             </div>
-            
+            <div class="mt-4"></div>
+            <div class="col-8 mx-auto">
+                <div class="card">
+                    <div class="card-body py-2">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="row my-2">
+                                    <div class="col-4">
+                                        <label class="font-weight-bold">Item Name :</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <label th:text="${itemDetails.itemName}"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row my-2">
+                                    <div class="col-4">
+                                        <label class="font-weight-bold">Category :</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <label th:text="${itemDetails.categoryName}"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row my-2">
+                                    <div class="col-4">
+                                        <label class="font-weight-bold">Brand :</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <label th:text="${itemDetails.brandName}"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row my-2">
+                                    <div class="col-4">
+                                        <label class="font-weight-bold">Supplier :</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <label th:text="${itemDetails.supplierName}"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row my-2">
+                                    <div class="col-4">
+                                        <label class="font-weight-bold">Unit of Measure :</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <label th:text="${itemDetails.unitOfMeasure}"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row my-2">
+                                    <div class="col-4">
+                                        <label class="font-weight-bold">HSN Code :</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <label th:text="${itemDetails.hsnCode}"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row my-2">
+                                    <div class="col-4">
+                                        <label class="font-weight-bold">Status :</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <label th:text="${itemDetails.itemStatus}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 text-center">
+                                <label class="font-weight-bold">Item Image</label>
+                                <img th:src="@{'/Company/'+ ${companyNameData} +'/Items/'+ ${itemImage}}" alt="image" style="width: 170px; height: 180px; border: 2px solid rgb(0, 128, 192);" />
+                            </div>
+                        </div>
+                        <div class="row mx-2">
+                            <div class="col-4 row">
+                                <label class="font-weight-bold pr-3">Cost Price :</label>
+                                <i class="fa fa-inr pr-2 pt-1" aria-hidden="true"></i>
+                                <label th:text="${itemDetails.costPrice}"></label>
+                            </div>
+                            <div class="col-4 row">
+                                <label class="font-weight-bold pr-3">MRP Price :</label>
+                                <i class="fa fa-inr pr-2 pt-1" aria-hidden="true"></i>
+                                <label th:text="${itemDetails.mrpPrice}"></label>
+                            </div>
+                            <div class="col-4 row">
+                                <label class="font-weight-bold pr-3">Selling Price :</label>
+                                <i class="fa fa-inr pr-2 pt-1" aria-hidden="true"></i>
+                                <label th:text="${itemDetails.sellingPrice}"></label>
+                            </div>
+                        </div>
+
+                        <div class="row m-2">
+                            <div class="col-2">
+                                <label class="font-weight-bold">Date Added :</label>
+                            </div>
+                            <div class="col-10">
+                                <label th:text="${#dates.format(itemDetails.dateCreated, 'dd/MM/yyyy hh:mm a')}"></label>
+                            </div>
+                        </div>
+                        <div class="row m-2">
+                            <div class="col-2">
+                                <label class="font-weight-bold">Last Updated :</label>
+                            </div>
+                            <div class="col-10">
+                                <label th:text="${#dates.format(itemDetails.lastUpdated, 'dd/MM/yyyy hh:mm a')}"></label>
+                            </div>
+                        </div>
+                        <div class="row m-2">
+                            <div class="col-2">
+                                <label class="font-weight-bold">Description :</label>
+                            </div>
+                            <div class="col-10">
+                                <label th:text="${itemDetails.description}"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </body>
 </html>

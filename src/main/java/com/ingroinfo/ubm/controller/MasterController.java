@@ -21,7 +21,6 @@ import com.ingroinfo.ubm.configuration.ModelMapperConfig;
 import com.ingroinfo.ubm.dao.TempBundleRepository;
 import com.ingroinfo.ubm.dto.BrandPublisherDto;
 import com.ingroinfo.ubm.dto.BundleDto;
-import com.ingroinfo.ubm.dto.CompanyDto;
 import com.ingroinfo.ubm.dto.HsnDto;
 import com.ingroinfo.ubm.dto.ItemDto;
 import com.ingroinfo.ubm.dto.SchoolDto;
@@ -796,6 +795,46 @@ public class MasterController {
 	@GetMapping("/item/view")
 	public String viewItem(@RequestParam Long id, Principal principal, Model model) {
 
+		User user = userService.getUserId(principal.getName());
+		Company company = companyService.findByUser(user);
+		Branch branch = branchService.findByUserId(user);
+
+		if (company != null) {
+
+			model.addAttribute("profileData", company.getProfile());
+			model.addAttribute("companyNameData", company.getCompanyName());
+			model.addAttribute("companyProfile", "enableCompany");
+
+		} else if (branch != null) {
+
+			Company cmpy = branch.getCompany();
+			model.addAttribute("profileData", cmpy.getProfile());
+			model.addAttribute("companyNameData", cmpy.getCompanyName());
+			model.addAttribute("usernameofbranch", branch.getFirstName());
+			model.addAttribute("branchProfile", "enableBranch");
+		}
+
+		Item item = masterService.findByItemId(id);
+		ItemDto itemDetails = new ItemDto();
+
+		itemDetails.setBrandName(masterService.getByBrandId(item.getBrandId()));
+		itemDetails.setCategoryName(masterService.getByCategoryId(item.getCategoryId()));
+		itemDetails.setDateCreated(item.getDateCreated());
+		itemDetails.setHsnCode(masterService.getByHsnCodeId(item.getHsnCodeId()));
+		itemDetails.setItemId(item.getItemId());
+		itemDetails.setItemImage(item.getItemImage());
+		itemDetails.setItemName(item.getItemName());
+		itemDetails.setItemStatus(item.getItemStatus());
+		itemDetails.setLastUpdated(item.getLastUpdated());
+		itemDetails.setDescription(item.getDescription());
+		itemDetails.setSupplierName(masterService.getBySupplierId(item.getSupplierId()));
+		itemDetails.setUnitOfMeasure(item.getUnitOfMeasure());
+		itemDetails.setPublisherName(masterService.getByPublisherId(item.getPublisherId()));
+		itemDetails.setCostPrice(item.getCostPrice());
+		itemDetails.setSellingPrice(item.getSellingPrice());
+		itemDetails.setMrpPrice(item.getMrpPrice());
+		model.addAttribute("itemDetails", itemDetails);
+		model.addAttribute("itemImage", item.getItemImage());
 		return "/masters/item_view";
 	}
 
@@ -871,42 +910,30 @@ public class MasterController {
 		item.setPublisherId(masterService.getByPublisherName(itemDto.getPublisherName()));
 
 		masterService.updateItem(item);
-		return "redirect:/master/item/edit?id="+ itemDto.getItemId() + "&itemUpdated";
+		return "redirect:/master/item/edit?id=" + itemDto.getItemId() + "&itemUpdated";
 	}
-	
-	@PostMapping("/item/image")
-	public String ItemImageUpdate(
-			@RequestParam("itemPic") MultipartFile file, @RequestParam Long itemIdForImage, BindingResult bindingResult,Principal principal) throws IOException {
 
-		Item item = masterService.findByItemId(itemIdForImage);
+	@PostMapping("/item/image")
+	public String ItemImageUpdate(@RequestParam("itemPic") MultipartFile file, @RequestParam Long itemId,
+			Principal principal) throws IOException {
+
+		Item item = masterService.findByItemId(itemId);
 		User user = userService.getUserId(principal.getName());
 		Company company = companyService.findByUser(user);
 		String companyName = company.getCompanyName();
-		String itemName = item.getItemName();
 
-		if (file.getOriginalFilename().equals("")) {
+		File folder = new File("C:\\Company\\" + companyName + "\\Items\\" + item.getItemImage());
 
-			String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + ".jpg";
-			masterService.itemRename(itemName, companyName, item, fileName);
+		if (folder.delete()) {
 
+			String fileName = item.getItemName() + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + ".jpg";
+			String uploadDir = "C:/Company/" + companyName + "/Items";
 			item.setItemImage(fileName);
-			item.setItemName(itemName);
+			companyService.saveFile(uploadDir, fileName, file);
 
-		} else {
-
-			File folder = new File("C:\\Company\\" + companyName + "\\Items\\" + item.getItemImage());
-
-			if (folder.delete()) {
-
-				String fileName = itemName + "_" + ThreadLocalRandom.current().nextInt(1, 100000) + ".jpg";
-				String uploadDir = "C:/Company/" + companyName + "/Items";
-				item.setItemImage(fileName);
-				item.setItemName(itemName);
-				companyService.saveFile(uploadDir, fileName, file);
-			}
 		}
-
-		return "redirect:/master/item/edit?id="+ item.getItemId() + "&itemImageUpdated";
+		masterService.updateItem(item);
+		return "redirect:/master/item/edit?id=" + item.getItemId() + "&itemImageUpdated";
 	}
 
 	@GetMapping("/item/delete")
