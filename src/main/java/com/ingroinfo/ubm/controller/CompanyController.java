@@ -90,7 +90,7 @@ public class CompanyController {
 	@PostMapping("/profile")
 	public String companyUpdate(@ModelAttribute("company") CompanyDto companyDto, Principal principal, Model model)
 			throws IOException {
-
+		
 		User user = userRepository.findByUsername(principal.getName());
 		Company company = companyService.findByUser(user);
 
